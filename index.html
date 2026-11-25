@@ -2,114 +2,1735 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NFC 专属访问页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>我们的专属纪念 · DWLapp</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --accent: #ec4899;
+      --accent-grad: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%);
+      --meet-grad: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      --text-main: #1f2937;
+      --text-sub: #6b7280;
+      --pad-card: clamp(18px, 5vw, 26px) clamp(15px, 4.5vw, 22px);
+      --fs-title: clamp(19px, 5.2vw, 22px);
+      --fs-body: clamp(13px, 3.6vw, 14px);
+      --fs-timer-num: clamp(18px, 5.6vw, 24px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-      display: flex; justify-content: center; align-items: center;
-      min-height: 100vh; padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Display", "Segoe UI", sans-serif;
+      background: var(--bg-romantic);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      min-height: 100dvh;
+      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(84px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+      overflow-x: hidden;
+      position: relative;
     }
+
+    .bg-orb {
+      position: fixed; border-radius: 50%; filter: blur(60px); opacity: 0.45; z-index: 0; pointer-events: none;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 220px; height: 220px; background: #fbcfe8; top: -40px; left: -40px; }
+    .orb-2 { width: 260px; height: 260px; background: #ddd6fe; bottom: -60px; right: -40px; animation-delay: -4s; }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(20px, 25px) scale(1.1); }
+    }
+
     .card {
-      background: rgba(255, 255, 255, 0.96);
-      padding: 32px 24px; border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      max-width: 360px; width: 100%; text-align: center;
+      position: relative; z-index: 1;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      padding: var(--pad-card);
+      border-radius: clamp(22px, 6vw, 28px);
+      box-shadow: 0 16px 40px rgba(236, 72, 153, 0.12);
+      width: 100%; max-width: 420px;
+      text-align: center;
     }
+
     .badge {
-      display: inline-block; background: #eef4ff; color: #2b6cb0;
-      font-size: 12px; font-weight: 600; padding: 4px 12px;
-      border-radius: 99px; margin-bottom: 14px;
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fdf2f8; color: #db2777;
+      border: 1px solid #fbcfe8;
+      font-size: clamp(11px, 3vw, 12px); font-weight: 600;
+      padding: 4px 14px; border-radius: 99px; margin-bottom: 12px;
     }
-    h1 { font-size: 21px; color: #1a202c; margin-bottom: 10px; }
-    p { font-size: 14px; color: #4a5568; line-height: 1.6; margin-bottom: 20px; word-break: break-word; }
-    input {
-      width: 100%; padding: 12px 14px; margin-bottom: 12px;
-      border: 1px solid #cbd5e0; border-radius: 10px;
-      font-size: 15px; outline: none; transition: border-color 0.2s;
+    .badge-danger { background: #fff1f2; color: #e11d48; border-color: #fecdd3; }
+    .badge-dev { background: #fefce8; color: #a16207; border-color: #fef08a; }
+
+    h1 { font-size: var(--fs-title); color: var(--text-main); margin-bottom: 6px; line-height: 1.35; }
+    p { font-size: var(--fs-body); color: var(--text-sub); line-height: 1.6; margin-bottom: 12px; word-break: break-word; }
+
+    input, textarea {
+      width: 100%; padding: 11px 13px; margin-bottom: 10px;
+      border: 1px solid #f3e8ff; border-radius: 13px;
+      font-size: 14px; outline: none; background: rgba(255, 255, 255, 0.95);
+      font-family: inherit; transition: all 0.2s;
     }
-    input:focus { border-color: #2563eb; }
+    input:focus, textarea:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12); }
+
     .btn {
-      display: block; width: 100%; padding: 13px; border: none; cursor: pointer;
-      background: #2563eb; color: #fff; text-decoration: none;
-      border-radius: 12px; font-weight: 600; font-size: 15px;
-      margin-bottom: 10px; transition: opacity 0.2s;
+      display: block; width: 100%; padding: clamp(12px, 3.5vw, 14px);
+      border: none; cursor: pointer;
+      background: var(--accent-grad); color: #fff; text-decoration: none;
+      border-radius: 14px; font-weight: 600; font-size: clamp(14px, 3.8vw, 15px);
+      margin-bottom: 10px; box-shadow: 0 6px 18px rgba(236, 72, 153, 0.22);
+      transition: transform 0.15s ease, opacity 0.2s;
     }
-    .btn:active { opacity: 0.85; }
-    .btn-ghost { background: #edf2f7; color: #4a5568; font-size: 13px; padding: 10px; }
-    .err { color: #e53e3e; font-size: 13px; margin-bottom: 12px; display: none; }
-    .status { font-size: 12px; color: #a0aec0; margin-top: 14px; }
+    .btn:active { transform: scale(0.97); opacity: 0.92; }
+    .btn-green { background: #16a34a; box-shadow: none; }
+    .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
+    .err { color: #e11d48; font-size: 13px; margin-bottom: 12px; display: none; }
+
+    /* ========== 底部三栏悬浮导航栏 ========== */
+    .bottom-nav {
+      position: fixed;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+      left: 50%; transform: translateX(-50%);
+      width: calc(100% - 28px); max-width: 420px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(251, 207, 232, 0.9);
+      border-radius: 22px;
+      padding: 6px;
+      display: none; grid-template-columns: repeat(3, 1fr); gap: 6px;
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.16);
+      z-index: 90;
+    }
+    .nav-item {
+      border: none; background: transparent; cursor: pointer;
+      padding: 8px 4px; border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #6b7280; transition: all 0.2s ease; position: relative;
+    }
+    .nav-item.active {
+      background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
+      color: #db2777;
+      box-shadow: inset 0 0 0 1px #fbcfe8;
+    }
+    .nav-icon { font-size: 19px; line-height: 1.15; margin-bottom: 2px; }
+    .nav-label { font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
+    .nav-dot {
+      position: absolute; top: 6px; right: 22%;
+      width: 6px; height: 6px; border-radius: 50%; background: #f43f5e;
+      display: none;
+    }
+
+    /* ========== 顶部双城奔赴进度条（苏州 ↔ 武汉） ========== */
+    .city-tracker {
+      background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%);
+      border: 1px solid #f5d0fe;
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06);
+    }
+    .city-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px; gap: 4px;
+    }
+    .city-tag {
+      font-size: 13px; font-weight: 700; color: #374151;
+      display: flex; align-items: center; gap: 3px; white-space: nowrap;
+    }
+    .city-status {
+      font-size: 11px; font-weight: 600; color: #db2777;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 3px 10px; border-radius: 99px;
+      border: 1px solid #fbcfe8;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .track-bar-wrap { position: relative; height: 26px; display: flex; align-items: center; }
+    .track-line-bg {
+      width: 100%; height: 6px; background: #f3e8ff; border-radius: 99px;
+      position: relative; overflow: hidden;
+    }
+    .track-fill-left {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      background: linear-gradient(90deg, #ec4899, #f43f5e);
+      border-radius: 99px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .track-fill-right {
+      position: absolute; right: 0; top: 0; bottom: 0;
+      background: linear-gradient(270deg, #a855f7, #ec4899);
+      border-radius: 99px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .heart-runner {
+      position: absolute; top: 50%; transform: translate(-50%, -50%);
+      font-size: 16px; transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.35)); z-index: 2;
+    }
+    .heart-merged-center {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 22px; z-index: 3;
+      animation: heartBeat 1.2s ease-in-out infinite;
+    }
+
+    /* ========== 开场动画层 ========== */
+    #introOverlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: radial-gradient(circle at center, #3b0764 0%, #1e1b4b 55%, #0f172a 100%);
+      color: #fff;
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      padding: 24px; text-align: center;
+      animation: overlayFadeOut 0.7s ease 2.6s forwards;
+    }
+    .heart-pulse-wrap {
+      position: relative; width: 140px; height: 84px;
+      display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
+    }
+    .heart-ripple {
+      position: absolute; width: 84px; height: 84px; border-radius: 50%;
+      border: 2px solid rgba(244, 114, 182, 0.6);
+      animation: rippleOut 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    .heart-icon {
+      font-size: 40px;
+      filter: drop-shadow(0 0 16px rgba(244, 114, 182, 0.8));
+      animation: heartBeat 1.2s ease-in-out infinite;
+    }
+    .merge-heart-left, .merge-heart-right {
+      position: absolute; font-size: 38px;
+      filter: drop-shadow(0 0 14px rgba(244, 114, 182, 0.85));
+    }
+    .merge-heart-left { animation: mergeFromLeft 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .merge-heart-right { animation: mergeFromRight 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .merge-heart-final {
+      font-size: 50px; opacity: 0; transform: scale(0.3);
+      filter: drop-shadow(0 0 24px rgba(244, 63, 94, 0.95));
+      animation: finalHeartPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.15s forwards, heartBeat 1.1s ease-in-out 1.95s infinite;
+    }
+    @keyframes mergeFromLeft {
+      0% { transform: translateX(-75px) scale(0.85); opacity: 0; }
+      30% { opacity: 1; }
+      85% { transform: translateX(-6px) scale(1.05); opacity: 1; }
+      100% { transform: translateX(0) scale(0); opacity: 0; }
+    }
+    @keyframes mergeFromRight {
+      0% { transform: translateX(75px) scale(0.85); opacity: 0; }
+      30% { opacity: 1; }
+      85% { transform: translateX(6px) scale(1.05); opacity: 1; }
+      100% { transform: translateX(0) scale(0); opacity: 0; }
+    }
+    @keyframes finalHeartPop {
+      0% { opacity: 0; transform: scale(0.3); }
+      70% { opacity: 1; transform: scale(1.25); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .intro-title {
+      font-size: clamp(19px, 5.2vw, 23px); font-weight: 600; letter-spacing: 1.5px;
+      background: linear-gradient(to right, #fbcfe8, #ffffff, #e9d5ff);
+      -webkit-background-clip: text; color: transparent;
+      opacity: 0; transform: translateY(14px);
+      animation: slideUpFade 0.6s ease 0.5s forwards;
+    }
+    .intro-sub {
+      font-size: clamp(13px, 3.6vw, 14px); color: #f5d0fe; margin-top: 10px;
+      opacity: 0; transform: translateY(10px);
+      animation: slideUpFade 0.6s ease 0.9s forwards;
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.18); }
+      45% { transform: scale(0.96); }
+      65% { transform: scale(1.12); }
+    }
+    @keyframes rippleOut {
+      0% { transform: scale(0.7); opacity: 0.9; }
+      100% { transform: scale(1.65); opacity: 0; }
+    }
+    @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+    @keyframes overlayFadeOut { to { opacity: 0; visibility: hidden; } }
+
+    .reveal-main { animation: mainCardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes mainCardIn {
+      0% { opacity: 0; transform: translateY(14px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ========== 恋爱纪念日计时器看板 ========== */
+    .timer-box {
+      background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%);
+      border: 1px solid #fbcfe8;
+      border-radius: 18px;
+      padding: clamp(10px, 3vw, 14px);
+      margin: 10px 0 12px;
+    }
+    .timer-label {
+      font-size: clamp(11px, 3vw, 12px); color: #db2777;
+      font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .timer-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(6px, 2vw, 10px);
+    }
+    .time-unit {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px; padding: clamp(7px, 2.2vw, 10px) 4px;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07);
+    }
+    .time-num {
+      display: block; font-size: var(--fs-timer-num); font-weight: 700;
+      background: var(--accent-grad); -webkit-background-clip: text; color: transparent;
+      font-variant-numeric: tabular-nums; line-height: 1.15;
+    }
+    .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
+
+    /* ========== 浪漫恋爱日历模块 ========== */
+    .cal-box {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #f3e8ff;
+      border-radius: 18px;
+      padding: clamp(10px, 3vw, 14px);
+      margin-bottom: 10px;
+    }
+    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .cal-title { font-size: 15px; font-weight: 700; color: #374151; }
+    .cal-nav {
+      background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777;
+      width: 30px; height: 30px; border-radius: 10px; cursor: pointer;
+      font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center;
+    }
+    .cal-nav:active { transform: scale(0.92); }
+    .cal-weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      font-size: 11px; color: #9ca3af; margin-bottom: 6px; font-weight: 600;
+    }
+    .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-day {
+      aspect-ratio: 1 / 1; border-radius: 11px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 13px; color: #374151; cursor: pointer; position: relative;
+      background: rgba(255, 255, 255, 0.65); transition: all 0.15s;
+      padding-bottom: 4px;
+    }
+    .cal-day:active { transform: scale(0.92); background: #fce7f3; }
+    .cal-day.empty { background: transparent; cursor: default; pointer-events: none; }
+    .cal-day.today { border: 1.5px dashed #ec4899; font-weight: 700; color: #db2777; }
+    .cal-day.anniv {
+      background: var(--accent-grad); color: #fff; font-weight: 700;
+      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3);
+    }
+    .cal-day.meet-day {
+      background: var(--meet-grad); color: #fff; font-weight: 700;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.3);
+    }
+    .meet-plane { position: absolute; top: 1px; right: 2px; font-size: 9px; line-height: 1; }
+    .cal-dot-unread {
+      width: 6px; height: 6px; border-radius: 50%; background: #ec4899;
+      position: absolute; bottom: 4px;
+    }
+    .cal-day.anniv .cal-dot-unread, .cal-day.meet-day .cal-dot-unread { background: #fff; }
+    .cal-dot-read {
+      width: 6px; height: 6px; border-radius: 50%; background: transparent;
+      border: 1.5px solid #ec4899; position: absolute; bottom: 4px;
+    }
+    .cal-day.anniv .cal-dot-read, .cal-day.meet-day .cal-dot-read { border-color: #fff; }
+    .cal-legend {
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;
+      font-size: 11px; color: #9ca3af; margin-top: 8px;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 4px; }
+    .legend-solid { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ec4899; }
+    .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
+
+    /* ========== 导航第二项【信封】内部模块（情话盲盒 + 长信 + 时间胶囊） ========== */
+    .section-block {
+      margin-bottom: 16px; text-align: left;
+    }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 8px;
+    }
+    .blindbox-card {
+      background: linear-gradient(135deg, #fff1f2 0%, #fdf4ff 100%);
+      border: 1px solid #fbcfe8;
+      border-radius: 16px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .blindbox-card:active { transform: scale(0.98); }
+    .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .blindbox-tag { font-size: 11px; font-weight: 700; color: #db2777; }
+    .blindbox-refresh {
+      font-size: 11px; color: #9333ea; background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e9d5ff; padding: 2px 9px; border-radius: 99px; font-weight: 600;
+    }
+    .blindbox-quote {
+      font-size: 14px; color: #1f2937; line-height: 1.6; font-weight: 500;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .quote-flip { opacity: 0; transform: translateY(4px); }
+
+    .capsule-list { display: flex; flex-direction: column; gap: 10px; }
+    .capsule-card {
+      border-radius: 16px; padding: 14px 15px; border: 1px solid #fbcfe8;
+      background: #fff; cursor: pointer; transition: transform 0.15s ease;
+    }
+    .capsule-card:active { transform: scale(0.98); }
+    .capsule-card.locked {
+      background: linear-gradient(135deg, #f8fafc 0%, #f3e8ff 100%);
+      border-color: #ddd6fe;
+    }
+    .capsule-card.unlocked {
+      background: linear-gradient(135deg, #fffbeb 0%, #fdf2f8 100%);
+      border-color: #fcd34d;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.1);
+    }
+    .cap-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 5px; }
+    .cap-title { font-size: 13.5px; font-weight: 700; color: #1f2937; }
+    .cap-badge { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .cap-badge.lock { background: #ede9fe; color: #6d28d9; }
+    .cap-badge.open { background: #fef3c7; color: #b45309; }
+    .cap-meta { font-size: 11.5px; color: #6b7280; }
+    .cap-letter-body {
+      margin-top: 10px; padding-top: 10px; border-top: 1px dashed #fbcfe8;
+      font-size: 13.5px; color: #374151; line-height: 1.68; white-space: pre-wrap;
+      display: none;
+    }
+
+    /* ========== 导航第三项【约定】内部模块（恋爱券 + 专属事件） ========== */
+    .sub-tabs {
+      display: flex; background: #fdf2f8; border: 1px solid #fbcfe8;
+      border-radius: 14px; padding: 4px; margin-bottom: 14px; gap: 4px;
+    }
+    .sub-tab-btn {
+      flex: 1; border: none; background: transparent; padding: 8px 6px;
+      border-radius: 10px; font-size: 13px; font-weight: 700; color: #6b7280;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .sub-tab-btn.active {
+      background: #fff; color: #db2777; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.12);
+    }
+
+    .event-add-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .event-add-row input { margin-bottom: 0; flex: 1; }
+    .event-add-btn {
+      background: var(--accent-grad); color: #fff; border: none;
+      border-radius: 14px; padding: 0 15px; font-size: 13px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+    }
+
+    .coupon-list { max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .coupon-card {
+      display: flex; align-items: stretch;
+      background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%);
+      border: 1px solid #f9a8d4; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07);
+    }
+    .coupon-card.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; }
+    .coupon-left { flex: 1; padding: 12px 14px; border-right: 1.5px dashed #fbcfe8; }
+    .coupon-card.used .coupon-left { border-right-color: #e5e7eb; }
+    .coupon-name { font-size: 14px; font-weight: 700; color: #be185d; margin-bottom: 4px; }
+    .coupon-card.used .coupon-name { color: #6b7280; text-decoration: line-through; }
+    .coupon-desc { font-size: 12px; color: #6b7280; line-height: 1.4; }
+    .coupon-right {
+      width: 82px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 8px; background: rgba(255, 255, 255, 0.65); flex-shrink: 0;
+    }
+    .coupon-use-btn {
+      background: var(--accent-grad); color: #fff; border: none;
+      border-radius: 10px; padding: 6px 10px; font-size: 11px; font-weight: 700; cursor: pointer;
+    }
+    .coupon-stamp {
+      border: 1.5px solid #9ca3af; color: #9ca3af; font-size: 11px; font-weight: 700;
+      padding: 3px 6px; border-radius: 6px; transform: rotate(-10deg);
+    }
+
+    .event-progress-bar {
+      background: #fdf2f8; border-radius: 99px; height: 8px;
+      overflow: hidden; margin-bottom: 12px; border: 1px solid #fbcfe8;
+    }
+    .event-progress-fill { height: 100%; background: var(--accent-grad); width: 0%; transition: width 0.35s ease; }
+    .event-list { max-height: 320px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+    .event-item {
+      display: flex; align-items: center; gap: 10px;
+      background: #fff; border: 1px solid #fce7f3; border-radius: 14px; padding: 12px 14px;
+    }
+    .event-item.done { background: #faf5ff; border-color: #e9d5ff; opacity: 0.85; }
+    .event-checkbox { width: 20px; height: 20px; margin: 0; flex-shrink: 0; accent-color: #ec4899; cursor: pointer; }
+    .event-content { flex: 1; min-width: 0; cursor: pointer; }
+    .event-title { font-size: 14px; color: #1f2937; font-weight: 500; line-height: 1.45; word-break: break-word; }
+    .event-item.done .event-title { text-decoration: line-through; color: #9ca3af; }
+    .event-sub { font-size: 11px; color: #a855f7; margin-top: 3px; }
+
+    /* ========== 日历详情页（留言与见面行程） ========== */
+    .subpage-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
+      margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #fce7f3;
+    }
+    .back-btn {
+      background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777;
+      padding: 6px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .subpage-title { font-size: 15px; font-weight: 700; color: #1f2937; }
+    .meet-setup-box {
+      background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 100%);
+      border: 1px solid #e9d5ff; border-radius: 14px;
+      padding: 10px 12px; margin-bottom: 12px; text-align: left;
+    }
+    .meet-setup-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .meet-setup-label { font-size: 12px; font-weight: 700; color: #6d28d9; }
+    .meet-clear-btn { font-size: 11px; color: #9ca3af; background: none; border: none; cursor: pointer; text-decoration: underline; }
+    .duration-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dur-chip {
+      padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 600;
+      border: 1px solid #ddd6fe; background: #fff; color: #6d28d9; cursor: pointer;
+    }
+    .dur-chip.active { background: var(--meet-grad); color: #fff; border-color: transparent; }
+
+    .role-selector { display: flex; gap: 8px; margin-bottom: 10px; }
+    .role-chip {
+      flex: 1; padding: 7px 4px; border-radius: 10px; font-size: 12px; font-weight: 600;
+      border: 1px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer;
+    }
+    .role-chip.active { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
+
+    .note-list {
+      max-height: 220px; overflow-y: auto; text-align: left;
+      margin-top: 12px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .note-item {
+      background: #fff; border: 1px solid #fce7f3; border-radius: 14px;
+      padding: 12px 14px; position: relative;
+      box-shadow: 0 2px 8px rgba(236, 72, 153, 0.05);
+    }
+    .note-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: #9ca3af; margin-bottom: 6px;
+    }
+    .note-author { color: #db2777; font-weight: 600; }
+    .note-del { color: #d1d5db; cursor: pointer; padding: 0 4px; font-size: 13px; }
+    .note-del:hover { color: #e11d48; }
+    .note-text { font-size: 14px; color: #374151; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+    .empty-notes { font-size: 13px; color: #9ca3af; padding: 18px 0; text-align: center; }
+
+    /* 本地调试专用工具栏 */
+    .dev-panel {
+      margin-top: 14px; padding-top: 14px; border-top: 1px dashed #e5e7eb; text-align: left;
+    }
+    .dev-section {
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+      padding: 10px; margin-bottom: 10px;
+    }
+    .dev-sec-title { font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+    .dev-mini-list { max-height: 110px; overflow-y: auto; font-size: 11px; color: #475569; margin-top: 6px; }
+    .dev-mini-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
+    .dev-box {
+      background: #f9fafb; border: 1px solid #e5e7eb; padding: 10px;
+      border-radius: 8px; font-size: 12px; color: #374151;
+      word-break: break-all; margin-top: 10px; display: none;
+    }
+    .status { font-size: 11px; color: #9ca3af; margin-top: 8px; }
   </style>
 </head>
 <body>
 
-  <!-- 1. 首次登录验证界面 -->
-  <div class="card" id="loginView">
-    <div class="badge">🔒 身份验证</div>
-    <h1>请登录以继续</h1>
-    <p>首次通过 NFC 触碰需验证账号，本机验证通过后下次自动直达。</p>
-    <input type="text" id="username" placeholder="请输入账号" autocomplete="username">
-    <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
-    <div class="err" id="errMsg">账号或密码错误，请重试</div>
-    <button class="btn" onclick="checkLogin()">确认登录</button>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <!-- 登录成功开场动画 -->
+  <div id="introOverlay">
+    <div class="heart-pulse-wrap" id="introAnimStage">
+      <div class="heart-ripple"></div>
+      <span class="heart-icon">💖</span>
+    </div>
+    <div class="intro-title" id="introTitleText">欢迎来到我们的专属空间</div>
+    <div class="intro-sub" id="introSubText">自 2026.03.12 起，每一秒都值得被珍藏</div>
   </div>
 
-  <!-- 2. 登录成功后的专属内容页 -->
-  <div class="card" id="mainView" style="display:none;">
-    <div class="badge">NXP NT3H1101</div>
-    
-    <!-- ========== 在下方自定义你的专属页面内容 ========== -->
-    <h1>欢迎回来，Admin</h1>
-    <p>验证已通过！你可以在这里放置你的私密备忘、常用链接或一键启动指定 App。</p>
-    
-    <a class="btn" href="weixin://scanqrcode">打开微信扫一扫</a>
-    <!-- ================================================ -->
+  <!-- 状态 1：门禁拦截界面 -->
+  <div class="card" id="denyView" style="display:none;">
+    <div class="badge badge-danger">🔒 专属信物保护中</div>
+    <h1>需要触碰专属 NFC 信物</h1>
+    <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
+  </div>
 
-    <button class="btn btn-ghost" onclick="logout()">退出登录（重新锁定本机）</button>
+  <!-- 状态 2：首次登录验证界面 -->
+  <div class="card" id="loginView" style="display:none;">
+    <div class="badge">✨ 已感应到专属信物</div>
+    <h1>开启我们的纪念空间</h1>
+    <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
+    <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
+    <input type="password" id="loginPwd" placeholder="请输入密码" autocomplete="current-password">
+    <div class="err" id="errMsg">账号或密码不对哦，再试一次吧</div>
+    <button class="btn" onclick="verifyAdmin()">解锁进入</button>
+  </div>
+
+  <!-- ==================== 导航第一项：🏠 首页（进度条、时间、日历） ==================== -->
+  <div class="card" id="tabHomeView" style="display:none;">
+    <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
+
+    <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
+    <div class="city-tracker">
+      <div class="city-row">
+        <span class="city-tag">📍 苏州</span>
+        <span class="city-status" id="meetCountdownText">点击下方日历设定见面行程</span>
+        <span class="city-tag">武汉 📍</span>
+      </div>
+      <div class="track-bar-wrap">
+        <div class="track-line-bg">
+          <div class="track-fill-left" id="trackFillLeft" style="width: 6%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 6%;"></div>
+        </div>
+        <span class="heart-runner" id="heartLeft" style="left: 6%;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 94%;">💜</span>
+        <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
+      </div>
+    </div>
+    
+    <!-- 【自由编辑欢迎标题】 -->
+    <div id="customContent">
+      <h1>见字如面，欢迎回来</h1>
+      <p style="margin-bottom:8px;">跨越山海，苏州与武汉的距离，终将化作相拥的温度。</p>
+    </div>
+
+    <!-- 2026/03/12 实时纪念日计时看板 -->
+    <div class="timer-box">
+      <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
+      <div class="timer-grid">
+        <div class="time-unit">
+          <span class="time-num" id="tDays">0</span>
+          <span class="time-txt">天</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-num" id="tHours">00</span>
+          <span class="time-txt">时</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-num" id="tMins">00</span>
+          <span class="time-txt">分</span>
+        </div>
+        <div class="time-unit">
+          <span class="time-num" id="tSecs">00</span>
+          <span class="time-txt">秒</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 恋爱纪念日历模块 -->
+    <div class="cal-box">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
+        <button class="cal-nav" onclick="changeMonth(1)">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+      </div>
+      <div class="cal-days" id="calDaysGrid"></div>
+      <div class="cal-legend">
+        <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
+        <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
+        <span>· 点击日期留言或设见面行程</span>
+      </div>
+    </div>
+
+    <button class="btn btn-ghost" onclick="logout()">退出并重新锁定本机</button>
     <div class="status" id="netStatus"></div>
   </div>
 
+  <!-- ==================== 导航第二项：💌 信封（情话、长信、时间胶囊） ==================== -->
+  <div class="card reveal-main" id="tabEnvelopeView" style="display:none;">
+    <div class="badge">💌 见字如面 · 专属信箱</div>
+
+    <!-- 模块 1：一碰一语 · 随机情话盲盒 -->
+    <div class="section-block">
+      <div class="section-head">
+        <span>🎲 一碰一语 · 情话盲盒</span>
+        <span style="font-size:11px; color:#9ca3af;" id="quoteCountLabel">共 6 句</span>
+      </div>
+      <div class="blindbox-card" onclick="drawNextQuote()">
+        <div class="blindbox-top">
+          <span class="blindbox-tag">💕 点击卡片随机抽取</span>
+          <span class="blindbox-refresh">🔄 换一句</span>
+        </div>
+        <div class="blindbox-quote" id="blindboxQuoteText">跨越山海，苏州与武汉的距离，终将化作相拥的温度。</div>
+      </div>
+    </div>
+
+    <!-- 模块 2：长信 & 时光胶囊 -->
+    <div class="section-block" style="margin-bottom:0;">
+      <div class="section-head">
+        <span>⏳ 专属长信 & 时光胶囊</span>
+        <span style="font-size:11px; color:#db2777;" id="capsuleStatusLabel">点击信封阅读</span>
+      </div>
+      <div class="capsule-list" id="capsuleListContainer"></div>
+    </div>
+
+    <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动加密打包） -->
+    <div class="dev-panel" id="devPanel" style="display:none;">
+      <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
+        🛠️ <strong>本地礼物定制工坊</strong>：在此编辑情话盲盒、专属长信与未来时间胶囊，完成后导出上锁版上传 GitHub。
+      </p>
+
+      <div class="dev-section">
+        <div class="dev-sec-title">🎲 添加随机情话</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="devNewQuote" placeholder="输入一句新的情话或回忆..." style="margin-bottom:0; font-size:12px; padding:8px 10px;">
+          <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="devAddQuote()">添加</button>
+        </div>
+        <div class="dev-mini-list" id="devQuoteList"></div>
+      </div>
+
+      <div class="dev-section">
+        <div class="dev-sec-title">⏳ 封存长信 / 未来时间胶囊（开启日期选今天或之前即为即时可读长信）</div>
+        <input type="text" id="devCapTitle" placeholder="信件标题（如：写给一周年纪念日的你）" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
+        <input type="date" id="devCapDate" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
+        <textarea id="devCapBody" rows="3" placeholder="写下想对她说的话..." style="font-size:12px; padding:8px 10px; margin-bottom:6px;"></textarea>
+        <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入信箱</button>
+        <div class="dev-mini-list" id="devCapsuleList"></div>
+      </div>
+
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html】</button>
+      <div class="dev-box" id="nfcLinkBox"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 导航第三项：🎁 约定（恋爱券、专属事件） ==================== -->
+  <div class="card reveal-main" id="tabPromiseView" style="display:none;">
+    <div class="badge">🎁 我们的甜蜜约定</div>
+
+    <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">0</span>)
+      </button>
+      <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
+        ✨ 专属事件 (<span id="eventDoneRatio">0/0</span>)
+      </button>
+    </div>
+
+    <!-- 子面板 A：恋爱兑换券 -->
+    <div id="subPanelCoupon">
+      <p style="font-size:12px; margin-bottom:10px;">见面时出示已核销的券面即可随时兑现特权，也可自定义发新券 💕</p>
+      <div class="event-add-row">
+        <input type="text" id="newCouponInput" placeholder="新增特权券，如：周末专属按摩券...">
+        <button class="event-add-btn" onclick="addCustomCoupon()">+ 发券</button>
+      </div>
+      <div class="coupon-list" id="couponListContainer"></div>
+    </div>
+
+    <!-- 子面板 B：专属事件清单（多选框勾选完成） -->
+    <div id="subPanelEvent" style="display:none;">
+      <p style="font-size:12px; margin-bottom:10px;">写下想一起完成的约定或待办，完成后勾选前方多选框点亮印记 💕</p>
+      <div class="event-add-row">
+        <input type="text" id="newEventInput" placeholder="输入新事件，如：一起去武汉看樱花...">
+        <button class="event-add-btn" onclick="addCustomEvent()">+ 添加</button>
+      </div>
+      <div class="event-progress-bar">
+        <div class="event-progress-fill" id="eventProgressFill"></div>
+      </div>
+      <div class="event-list" id="eventListContainer"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 日历点击进入的【独立留言与见面行程设置页】 ==================== -->
+  <div class="card reveal-main" id="noteView" style="display:none;">
+    <div class="subpage-header">
+      <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
+      <div class="subpage-title" id="selectedDateLabel">2026-11-24</div>
+      <span style="width:60px;"></span>
+    </div>
+
+    <div class="meet-setup-box">
+      <div class="meet-setup-top">
+        <span class="meet-setup-label" id="meetSetupStatus">✈️ 从这天起见面几天？</span>
+        <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display:none;">取消行程</button>
+      </div>
+      <div class="duration-chips" id="durationChips">
+        <button class="dur-chip" onclick="setMeetDuration(1)">1天</button>
+        <button class="dur-chip" onclick="setMeetDuration(2)">2天</button>
+        <button class="dur-chip" onclick="setMeetDuration(3)">3天</button>
+        <button class="dur-chip" onclick="setMeetDuration(5)">5天</button>
+        <button class="dur-chip" onclick="setMeetDuration(7)">7天</button>
+        <button class="dur-chip" onclick="setCustomDuration()">自定义</button>
+      </div>
+    </div>
+
+    <div class="role-selector">
+      <div class="role-chip active" onclick="selectRole(this, '👦 他的悄悄话')">👦 他的悄悄话</div>
+      <div class="role-chip" onclick="selectRole(this, '👧 她的悄悄话')">👧 她的悄悄话</div>
+      <div class="role-chip" onclick="selectRole(this, '💑 共同印记')">💑 共同印记</div>
+    </div>
+
+    <textarea id="noteInput" rows="3" placeholder="写下这一天想对彼此说的话、车票信息或心情..."></textarea>
+    <button class="btn" onclick="saveNote()">💌 保存这一天的留言</button>
+
+    <div class="note-list" id="noteListContainer"></div>
+  </div>
+
+  <!-- ==================== 底部三栏悬浮导航栏 ==================== -->
+  <nav class="bottom-nav" id="bottomNavBar">
+    <button class="nav-item active" id="navBtnHome" onclick="switchMainTab('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">首页</span>
+    </button>
+    <button class="nav-item" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
+      <span class="nav-dot" id="envelopeNavDot"></span>
+      <span class="nav-icon">💌</span>
+      <span class="nav-label">信封</span>
+    </button>
+    <button class="nav-item" id="navBtnPromise" onclick="switchMainTab('promise')">
+      <span class="nav-icon">🎁</span>
+      <span class="nav-label">约定</span>
+    </button>
+  </nav>
+
   <script>
-    const STORAGE_KEY = 'nfc_auth_token_admin_v2';
+    const IS_LOCAL = window.location.protocol === 'file:';
 
-    function checkLogin() {
-      const u = document.getElementById('username').value.trim().toLowerCase();
-      const p = document.getElementById('password').value.trim();
-      const errEl = document.getElementById('errMsg');
+    const NFC_KEY = 'K9xP2mQ8vL4nR7wT5yJ3hF6dS1aG0cB';
+    const ADMIN_USER = 'admin';
+    const ADMIN_PWD = 'zxc6005';
 
-      // 直接比对 admin 与 zxc6005（atob 解码后即为 admin / zxc6005）
-      if (u === atob('YWRtaW4=') && p === atob('enhjNjAwNQ==')) {
-        errEl.style.display = 'none';
-        localStorage.setItem(STORAGE_KEY, 'verified');
-        showMain();
-      } else {
-        errEl.style.display = 'block';
+    const ENCRYPTED_BUNDLE = "__ENCRYPTED_BUNDLE_PLACEHOLDER__";
+    const EXPECTED_HASH = "__EXPECTED_HASH_PLACEHOLDER__";
+
+    const STORAGE_KEY = 'dwlapp_love_auth_v1';
+    const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
+    const READ_STATUS_KEY = 'dwlapp_love_read_v1';
+    const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
+    const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
+    const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v1';
+
+    // 预设情话盲盒库（导出上锁版时会自动加密打包）
+    let loveQuotes = [
+      "跨越山海，苏州与武汉的距离，终将化作相拥的温度。",
+      "自 2026 年 3 月 12 日起，我的日历里每一页都写着你的名字。",
+      "不管今天有多累，碰一下这枚小小的卡片，我就在你身边。",
+      "从苏州到武汉的高铁票，是我最期待的风景。",
+      "所爱隔山海，山海皆可平；等下次见面，一定要抱很久很久。",
+      "想和你一起吃遍武汉的过早，也想带你走遍苏州的晚风。"
+    ];
+
+    // 预设长信与未来时间胶囊（unlockDate <= 今天 为随时可拆的长信；unlockDate > 今天 为倒计时时间胶囊）
+    let timeCapsules = [
+      {
+        id: 100,
+        title: "📖 写给见字如面的你 · 初心长信",
+        unlockDate: "2026-03-12",
+        content: "当你触碰这枚芯片打开这封信的时候，也许我们正隔着苏州与武汉的距离各自忙碌。\n\n做这个小小的专属空间，是想把每一个思念的瞬间、每一张奔赴的车票、还有我们一起许下的约定都好好存下来。无论隔多远，只要碰一下它，你就知道有人一直把你放在心尖上。"
+      },
+      {
+        id: 101,
+        title: "⏳ 写给 2027.03.12 一周年纪念日的时光胶囊",
+        unlockDate: "2027-03-12",
+        content: "恭喜我们一起走过了整整 365 天！从苏州到武汉，谢谢你这一年来的每一次奔赴与包容。未来的每一个 365 天，我们继续一起写下去。"
+      }
+    ];
+
+    // 默认电子恋爱兑换券
+    const DEFAULT_COUPONS = [
+      { id: 1, name: "🥤 跨城奶茶投喂券", desc: "无论在苏州还是武汉，随时召唤一杯指定外卖奶茶", used: false, usedAt: "" },
+      { id: 2, name: "🤝 无条件和好券", desc: "发生小别扭时出示此券，立刻拥抱和好不许翻旧账", used: false, usedAt: "" },
+      { id: 3, name: "🎒 见面全程拎包券", desc: "见面相聚期间，所有包包与行李统统交给我来提", used: false, usedAt: "" },
+      { id: 4, name: "🍜 任意美食大餐券", desc: "指定任意一家想吃的餐厅，无条件安排打卡", used: false, usedAt: "" }
+    ];
+
+    // ========== 导航切换控制 ==========
+    let currentMainTab = 'home';
+
+    function switchMainTab(tabName) {
+      currentMainTab = tabName;
+      document.getElementById('tabHomeView').style.display = (tabName === 'home') ? 'block' : 'none';
+      document.getElementById('tabEnvelopeView').style.display = (tabName === 'envelope') ? 'block' : 'none';
+      document.getElementById('tabPromiseView').style.display = (tabName === 'promise') ? 'block' : 'none';
+      document.getElementById('noteView').style.display = 'none';
+
+      document.getElementById('navBtnHome').classList.toggle('active', tabName === 'home');
+      document.getElementById('navBtnEnvelope').classList.toggle('active', tabName === 'envelope');
+      document.getElementById('navBtnPromise').classList.toggle('active', tabName === 'promise');
+
+      if (tabName === 'home') {
+        renderCalendar();
+        updateCityProgress();
+      } else if (tabName === 'envelope') {
+        renderCapsulesList();
+        document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+      } else if (tabName === 'promise') {
+        renderCouponsList();
+        renderEventsList();
       }
     }
 
-    document.getElementById('password').addEventListener('keypress', e => {
-      if (e.key === 'Enter') checkLogin();
+    function switchPromiseSubTab(subName) {
+      document.getElementById('subPanelCoupon').style.display = (subName === 'coupon') ? 'block' : 'none';
+      document.getElementById('subPanelEvent').style.display = (subName === 'event') ? 'block' : 'none';
+      document.getElementById('subTabCouponBtn').classList.toggle('active', subName === 'coupon');
+      document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
+    }
+
+    // ========== 1. 🎲 随机情书盲盒逻辑 ==========
+    let currentQuoteIdx = -1;
+
+    function drawNextQuote() {
+      const el = document.getElementById('blindboxQuoteText');
+      if (!el || loveQuotes.length === 0) return;
+
+      let nextIdx = Math.floor(Math.random() * loveQuotes.length);
+      if (loveQuotes.length > 1 && nextIdx === currentQuoteIdx) {
+        nextIdx = (nextIdx + 1) % loveQuotes.length;
+      }
+      currentQuoteIdx = nextIdx;
+
+      el.classList.add('quote-flip');
+      setTimeout(() => {
+        el.textContent = loveQuotes[currentQuoteIdx];
+        el.classList.remove('quote-flip');
+      }, 180);
+    }
+
+    // ========== 2. ⏳ 长信 & 未来时间胶囊逻辑 ==========
+    function updateCapsuleBadge() {
+      const today = getTodayStr();
+      const readyCount = timeCapsules.filter(c => today >= c.unlockDate).length;
+      const dot = document.getElementById('envelopeNavDot');
+      if (dot) dot.style.display = readyCount > 0 ? 'block' : 'none';
+      const label = document.getElementById('capsuleStatusLabel');
+      if (label) label.textContent = `共 ${timeCapsules.length} 封 · 点击信封阅读`;
+    }
+
+    function renderCapsulesList() {
+      updateCapsuleBadge();
+      const container = document.getElementById('capsuleListContainer');
+      const today = getTodayStr();
+      const todayMs = new Date(`${today}T00:00:00`).getTime();
+
+      if (timeCapsules.length === 0) {
+        container.innerHTML = `<div class="empty-notes">信箱里暂时还没有信件哦 ✨</div>`;
+        return;
+      }
+
+      container.innerHTML = timeCapsules.map(cap => {
+        const unlockMs = new Date(`${cap.unlockDate}T00:00:00`).getTime();
+        const isUnlocked = todayMs >= unlockMs;
+        const remainDays = Math.ceil((unlockMs - todayMs) / 86400000);
+
+        return `
+          <div class="capsule-card ${isUnlocked ? 'unlocked' : 'locked'}" onclick="toggleCapsuleOpen(${cap.id}, ${isUnlocked}, ${remainDays})">
+            <div class="cap-top">
+              <span class="cap-title">${escapeHtml(cap.title)}</span>
+              <span class="cap-badge ${isUnlocked ? 'open' : 'lock'}">
+                ${isUnlocked ? '🔓 点击展开' : `🔒 还剩 ${remainDays} 天`}
+              </span>
+            </div>
+            <div class="cap-meta">${isUnlocked ? `启封日期：${cap.unlockDate} · 已解锁` : `约定开启日期：${cap.unlockDate}`}</div>
+            ${isUnlocked ? `<div class="cap-letter-body" id="capBody_${cap.id}">${escapeHtml(cap.content)}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleCapsuleOpen(capId, isUnlocked, remainDays) {
+      if (!isUnlocked) {
+        alert(`这封时间胶囊还在时光里酝酿哦，还差 ${remainDays} 天才能拆开呢 ⏳`);
+        return;
+      }
+      const bodyEl = document.getElementById(`capBody_${capId}`);
+      if (bodyEl) {
+        bodyEl.style.display = bodyEl.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    // ========== 3. 🎟️ 电子恋爱兑换券逻辑 ==========
+    function getAllCoupons() {
+      try {
+        const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(DEFAULT_COUPONS));
+          return [...DEFAULT_COUPONS];
+        }
+        return JSON.parse(raw);
+      } catch (e) {
+        return [...DEFAULT_COUPONS];
+      }
+    }
+
+    function saveAllCoupons(list) {
+      localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(list));
+      updatePromiseCounters();
+    }
+
+    function renderCouponsList() {
+      updatePromiseCounters();
+      const container = document.getElementById('couponListContainer');
+      const list = getAllCoupons();
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-notes">卡包空空如也，快发一张新特权券吧 🎟️</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(c => `
+        <div class="coupon-card ${c.used ? 'used' : ''}">
+          <div class="coupon-left">
+            <div class="coupon-name">${escapeHtml(c.name)}</div>
+            <div class="coupon-desc">${c.used ? `✅ 已于 ${c.usedAt} 核销兑现` : escapeHtml(c.desc)}</div>
+          </div>
+          <div class="coupon-right">
+            ${c.used
+              ? `<span class="coupon-stamp">已核销</span>`
+              : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">立即使用</button>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function useCoupon(id) {
+      if (!confirm('确认现在核销使用这张恋爱兑换券吗？（使用后将盖章记录日期）')) return;
+      const list = getAllCoupons();
+      const target = list.find(c => c.id === id);
+      if (target && !target.used) {
+        target.used = true;
+        target.usedAt = getTodayStr();
+        saveAllCoupons(list);
+        renderCouponsList();
+      }
+    }
+
+    function addCustomCoupon() {
+      const input = document.getElementById('newCouponInput');
+      const name = input.value.trim();
+      if (!name) return alert('先输入特权券名称吧~');
+      const list = getAllCoupons();
+      list.unshift({
+        id: Date.now(),
+        name: `🎁 ${name}`,
+        desc: '专属定制特权券，见面或随时出示即可兑现',
+        used: false,
+        usedAt: ''
+      });
+      saveAllCoupons(list);
+      input.value = '';
+      renderCouponsList();
+    }
+
+    document.getElementById('newCouponInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') addCustomCoupon();
     });
 
-    function showMain() {
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('mainView').style.display = 'block';
+    // ========== 4. ✨ 专属事件清单（多选框确认完成）逻辑 ==========
+    function getAllEvents() {
+      try {
+        return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
     }
+
+    function saveAllEvents(list) {
+      localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(list));
+      updatePromiseCounters();
+    }
+
+    function updatePromiseCounters() {
+      const availCoupons = getAllCoupons().filter(c => !c.used).length;
+      const cEl = document.getElementById('couponAvailCount');
+      if (cEl) cEl.textContent = availCoupons;
+
+      const evList = getAllEvents();
+      const doneCount = evList.filter(item => item.done).length;
+      const total = evList.length;
+
+      const rEl = document.getElementById('eventDoneRatio');
+      if (rEl) rEl.textContent = `${doneCount}/${total}`;
+
+      const fill = document.getElementById('eventProgressFill');
+      if (fill) {
+        const pct = total === 0 ? 0 : Math.round((doneCount / total) * 100);
+        fill.style.width = `${pct}%`;
+      }
+    }
+
+    function addCustomEvent() {
+      const input = document.getElementById('newEventInput');
+      const title = input.value.trim();
+      if (!title) return alert('先输入想一起完成的事件吧~');
+
+      const list = getAllEvents();
+      list.unshift({
+        id: Date.now(),
+        title: title,
+        done: false,
+        createdAt: getTodayStr(),
+        doneAt: ''
+      });
+      saveAllEvents(list);
+      input.value = '';
+      renderEventsList();
+    }
+
+    document.getElementById('newEventInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') addCustomEvent();
+    });
+
+    function toggleEventDone(eventId) {
+      const list = getAllEvents();
+      const target = list.find(item => item.id === eventId);
+      if (target) {
+        target.done = !target.done;
+        target.doneAt = target.done ? getTodayStr() : '';
+        saveAllEvents(list);
+        renderEventsList();
+      }
+    }
+
+    function deleteEvent(eventId) {
+      if (!confirm('确定要删除这条事件吗？')) return;
+      const list = getAllEvents().filter(item => item.id !== eventId);
+      saveAllEvents(list);
+      renderEventsList();
+    }
+
+    function renderEventsList() {
+      updatePromiseCounters();
+      const container = document.getElementById('eventListContainer');
+      const list = getAllEvents();
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-notes">还没有添加任何事件，写下你们的第一个约定吧 ✨</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="event-item ${item.done ? 'done' : ''}">
+          <input type="checkbox" class="event-checkbox" ${item.done ? 'checked' : ''} onchange="toggleEventDone(${item.id})">
+          <div class="event-content" onclick="toggleEventDone(${item.id})">
+            <div class="event-title">${escapeHtml(item.title)}</div>
+            <div class="event-sub">
+              ${item.done ? `✅ 已于 ${item.doneAt} 完成` : `⏳ 创建于 ${item.createdAt} · 待完成`}
+            </div>
+          </div>
+          <span class="note-del" onclick="deleteEvent(${item.id})" title="删除">✕</span>
+        </div>
+      `).join('');
+    }
+
+    // ========== 5. 双城进度条（苏州 ↔ 武汉）与多日见面行程逻辑 ==========
+    function getMeetConfig() {
+      try {
+        return JSON.parse(localStorage.getItem(MEET_CONFIG_KEY) || 'null');
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getTodayStr() {
+      const now = new Date();
+      return formatDateStr(now.getFullYear(), now.getMonth(), now.getDate());
+    }
+
+    function getMeetDayIndex(targetDateStr, cfg = getMeetConfig()) {
+      if (!cfg || !cfg.startDate) return 0;
+      const startMs = new Date(`${cfg.startDate}T00:00:00`).getTime();
+      const targetMs = new Date(`${targetDateStr}T00:00:00`).getTime();
+      const diffDays = Math.round((targetMs - startMs) / 86400000);
+      const totalDays = Math.max(1, Number(cfg.days) || 1);
+      if (diffDays >= 0 && diffDays < totalDays) return diffDays + 1;
+      return 0;
+    }
+
+    function updateCityProgress() {
+      const cfg = getMeetConfig();
+      const statusEl = document.getElementById('meetCountdownText');
+      const fillL = document.getElementById('trackFillLeft');
+      const fillR = document.getElementById('trackFillRight');
+      const heartL = document.getElementById('heartLeft');
+      const heartR = document.getElementById('heartRight');
+      const heartM = document.getElementById('heartMerged');
+
+      if (!cfg || !cfg.startDate) {
+        statusEl.textContent = '点击日历设定见面行程';
+        fillL.style.width = '6%';
+        fillR.style.width = '6%';
+        heartL.style.display = 'inline';
+        heartR.style.display = 'inline';
+        heartL.style.left = '6%';
+        heartR.style.left = '94%';
+        heartM.style.display = 'none';
+        return;
+      }
+
+      const todayStr = getTodayStr();
+      const totalDays = Math.max(1, Number(cfg.days) || 1);
+      const currentMeetDay = getMeetDayIndex(todayStr, cfg);
+
+      if (currentMeetDay > 0) {
+        statusEl.textContent = totalDays > 1
+          ? `💞 相聚第 ${currentMeetDay}/${totalDays} 天 · 苏州与武汉零距离`
+          : `💞 今日相见 · 苏州与武汉零距离`;
+        fillL.style.width = '50%';
+        fillR.style.width = '50%';
+        heartL.style.display = 'none';
+        heartR.style.display = 'none';
+        heartM.style.display = 'inline';
+        return;
+      }
+
+      const meetStartMs = new Date(`${cfg.startDate}T00:00:00`).getTime();
+      const meetEndMs = meetStartMs + totalDays * 86400000 - 1000;
+      const now = Date.now();
+
+      if (now > meetEndMs) {
+        statusEl.textContent = `✨ 上次相聚 (${cfg.startDate}) · 期待下次奔赴`;
+        fillL.style.width = '50%';
+        fillR.style.width = '50%';
+        heartL.style.display = 'none';
+        heartR.style.display = 'none';
+        heartM.style.display = 'inline';
+        return;
+      }
+
+      const diffMs = Math.max(0, meetStartMs - now);
+      const remainDays = diffMs / 86400000;
+      const totalSpanMs = Math.max(86400000, meetStartMs - (cfg.setAt || (meetStartMs - 14 * 86400000)));
+      const timeProgress = Math.min(1, Math.max(0, 1 - diffMs / totalSpanMs));
+      const proximityBoost = remainDays <= 7 ? (1 - remainDays / 7) * 0.35 : 0;
+      const combinedRatio = Math.min(1, timeProgress * 0.65 + proximityBoost + (remainDays < 1 ? 0.25 : 0));
+      const pct = (8 + combinedRatio * 39.5).toFixed(1);
+
+      const diffSec = Math.floor(diffMs / 1000);
+      const d = Math.floor(diffSec / 86400);
+      const h = Math.floor((diffSec % 86400) / 3600);
+      const m = Math.floor((diffSec % 3600) / 60);
+
+      statusEl.textContent = d > 0
+        ? `距见面(${totalDays}天) 还有 ${d}天${h}时`
+        : `距见面还有 ${h}时${m}分`;
+
+      fillL.style.width = `${pct}%`;
+      fillR.style.width = `${pct}%`;
+      heartL.style.display = 'inline';
+      heartR.style.display = 'inline';
+      heartL.style.left = `${pct}%`;
+      heartR.style.left = `${100 - parseFloat(pct)}%`;
+      heartM.style.display = 'none';
+    }
+
+    function setMeetDuration(daysCount) {
+      const d = Math.max(1, Math.min(365, parseInt(daysCount, 10) || 1));
+      localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify({
+        startDate: selectedDateStr,
+        days: d,
+        setAt: Date.now()
+      }));
+      refreshMeetSetupUI();
+      updateCityProgress();
+    }
+
+    function setCustomDuration() {
+      const val = prompt('请输入本次见面持续的天数（例如 4）：', '4');
+      if (val !== null && val.trim() !== '') {
+        const num = parseInt(val.trim(), 10);
+        if (num > 0) setMeetDuration(num);
+        else alert('请输入大于 0 的数字哦~');
+      }
+    }
+
+    function clearMeetConfig() {
+      localStorage.removeItem(MEET_CONFIG_KEY);
+      refreshMeetSetupUI();
+      updateCityProgress();
+    }
+
+    function refreshMeetSetupUI() {
+      const cfg = getMeetConfig();
+      const statusLabel = document.getElementById('meetSetupStatus');
+      const clearBtn = document.getElementById('meetClearBtn');
+      const chips = document.querySelectorAll('.dur-chip');
+      chips.forEach(c => c.classList.remove('active'));
+
+      if (cfg && cfg.startDate === selectedDateStr) {
+        statusLabel.textContent = `💖 已设行程：${cfg.startDate} 起共 ${cfg.days} 天`;
+        clearBtn.style.display = 'inline';
+        const presetMap = { 1: 0, 2: 1, 3: 2, 5: 3, 7: 4 };
+        if (presetMap[cfg.days] !== undefined) {
+          chips[presetMap[cfg.days]].classList.add('active');
+        } else {
+          chips[5].classList.add('active');
+        }
+      } else {
+        const dayIdx = getMeetDayIndex(selectedDateStr, cfg);
+        if (dayIdx > 0) {
+          statusLabel.textContent = `💞 属于 ${cfg.startDate} 行程的第 ${dayIdx}/${cfg.days} 天`;
+          clearBtn.style.display = 'inline';
+        } else {
+          statusLabel.textContent = '✈️ 从这天起见面几天？';
+          clearBtn.style.display = cfg ? 'inline' : 'none';
+        }
+      }
+    }
+
+    // ========== 6. 2026/03/12 实时计时器与开场动画 ==========
+    const START_TIMESTAMP = new Date('2026-03-12T00:00:00').getTime();
+    let timerInterval = null;
+
+    function updateElapsedTimer() {
+      const daysEl = document.getElementById('tDays');
+      if (!daysEl) return;
+      const now = Date.now();
+      let diff = Math.max(0, Math.floor((now - START_TIMESTAMP) / 1000));
+      const days = Math.floor(diff / 86400);
+      diff %= 86400;
+      const hours = Math.floor(diff / 3600);
+      diff %= 3600;
+      const mins = Math.floor(diff / 60);
+      const secs = diff % 60;
+
+      daysEl.textContent = days;
+      document.getElementById('tHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('tMins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('tSecs').textContent = String(secs).padStart(2, '0');
+      updateCityProgress();
+    }
+
+    function startTimerAndIntro(playIntro = true) {
+      updateElapsedTimer();
+      if (!timerInterval) timerInterval = setInterval(updateElapsedTimer, 1000);
+      renderCalendar();
+      drawNextQuote();
+      updateCapsuleBadge();
+      updatePromiseCounters();
+
+      const homeView = document.getElementById('tabHomeView');
+      const navBar = document.getElementById('bottomNavBar');
+
+      if (playIntro) {
+        const overlay = document.getElementById('introOverlay');
+        const stage = document.getElementById('introAnimStage');
+        const titleEl = document.getElementById('introTitleText');
+        const subEl = document.getElementById('introSubText');
+
+        const cfg = getMeetConfig();
+        const meetDayIdx = getMeetDayIndex(getTodayStr(), cfg);
+
+        if (meetDayIdx > 0) {
+          stage.innerHTML = `
+            <div class="heart-ripple"></div>
+            <span class="merge-heart-left">💗</span>
+            <span class="merge-heart-right">💜</span>
+            <span class="merge-heart-final">💞</span>
+          `;
+          titleEl.textContent = '苏州 · 武汉 · 终于相见';
+          subEl.textContent = cfg.days > 1
+            ? `相聚第 ${meetDayIdx} 天，两颗心在此刻紧紧合二为一`
+            : '跨越距离，两颗心在此刻紧紧合二为一';
+        }
+
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+          homeView.style.display = 'block';
+          homeView.classList.add('reveal-main');
+          navBar.style.display = 'grid';
+        }, 2200);
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 3200);
+      } else {
+        homeView.style.display = 'block';
+        navBar.style.display = 'grid';
+      }
+    }
+
+    // ========== 7. 恋爱日历与独立留言板逻辑 ==========
+    let currentCalDate = new Date();
+    let selectedDateStr = '';
+    let currentAuthor = '👦 他的悄悄话';
+
+    function getAllNotes() {
+      try {
+        return JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveAllNotes(data) {
+      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function getReadMap() {
+      try {
+        return JSON.parse(localStorage.getItem(READ_STATUS_KEY) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function setReadMap(map) {
+      localStorage.setItem(READ_STATUS_KEY, JSON.stringify(map));
+    }
+
+    function formatDateStr(y, m, d) {
+      return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    }
+
+    function changeMonth(offset) {
+      currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      document.getElementById('calMonthTitle').textContent = `${year}年 ${month + 1}月`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const grid = document.getElementById('calDaysGrid');
+      grid.innerHTML = '';
+
+      const todayStr = getTodayStr();
+      const notesData = getAllNotes();
+      const readMap = getReadMap();
+      const meetCfg = getMeetConfig();
+
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'cal-day empty';
+        grid.appendChild(emptyCell);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = formatDateStr(year, month, d);
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        cell.textContent = d;
+
+        const meetIdx = getMeetDayIndex(dateStr, meetCfg);
+        if (meetIdx > 0) {
+          cell.classList.add('meet-day');
+          if (meetIdx === 1) {
+            const plane = document.createElement('span');
+            plane.className = 'meet-plane';
+            plane.textContent = '✈️';
+            cell.appendChild(plane);
+          }
+        } else if (dateStr === '2026-03-12') {
+          cell.classList.add('anniv');
+        } else if (dateStr === todayStr) {
+          cell.classList.add('today');
+        }
+
+        const dayNotes = notesData[dateStr];
+        if (dayNotes && dayNotes.length > 0) {
+          const latestNoteId = dayNotes[0].id;
+          const isRead = (readMap[dateStr] && readMap[dateStr] >= latestNoteId);
+          const dot = document.createElement('span');
+          dot.className = isRead ? 'cal-dot-read' : 'cal-dot-unread';
+          cell.appendChild(dot);
+        }
+
+        cell.onclick = () => openNoteView(dateStr);
+        grid.appendChild(cell);
+      }
+    }
+
+    function openNoteView(dateStr) {
+      selectedDateStr = dateStr;
+      const label = dateStr === '2026-03-12' ? `${dateStr} · 💖纪念日` : dateStr;
+      document.getElementById('selectedDateLabel').textContent = label;
+      document.getElementById('noteInput').value = '';
+
+      refreshMeetSetupUI();
+
+      const dayNotes = getAllNotes()[dateStr];
+      if (dayNotes && dayNotes.length > 0) {
+        const readMap = getReadMap();
+        readMap[dateStr] = dayNotes[0].id;
+        setReadMap(readMap);
+      }
+
+      document.getElementById('tabHomeView').style.display = 'none';
+      document.getElementById('noteView').style.display = 'block';
+      renderNotesList();
+    }
+
+    function closeNoteView() {
+      document.getElementById('noteView').style.display = 'none';
+      switchMainTab('home');
+    }
+
+    function selectRole(el, roleName) {
+      document.querySelectorAll('.role-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      currentAuthor = roleName;
+    }
+
+    function saveNote() {
+      const text = document.getElementById('noteInput').value.trim();
+      if (!text) return alert('先写点什么再保存吧~');
+
+      const all = getAllNotes();
+      if (!all[selectedDateStr]) all[selectedDateStr] = [];
+
+      const now = new Date();
+      const noteId = Date.now();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      all[selectedDateStr].unshift({
+        id: noteId,
+        author: currentAuthor,
+        time: timeStr,
+        content: text
+      });
+
+      saveAllNotes(all);
+
+      const readMap = getReadMap();
+      readMap[selectedDateStr] = noteId;
+      setReadMap(readMap);
+
+      document.getElementById('noteInput').value = '';
+      renderNotesList();
+    }
+
+    function deleteNote(noteId) {
+      if (!confirm('确定要删除这条留言吗？')) return;
+      const all = getAllNotes();
+      if (all[selectedDateStr]) {
+        all[selectedDateStr] = all[selectedDateStr].filter(item => item.id !== noteId);
+        if (all[selectedDateStr].length === 0) {
+          delete all[selectedDateStr];
+          const readMap = getReadMap();
+          delete readMap[selectedDateStr];
+          setReadMap(readMap);
+        }
+        saveAllNotes(all);
+        renderNotesList();
+      }
+    }
+
+    function renderNotesList() {
+      const container = document.getElementById('noteListContainer');
+      const list = getAllNotes()[selectedDateStr] || [];
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-notes">这一天还没有留下字迹，写下第一条回忆吧 ✨</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="note-item">
+          <div class="note-meta">
+            <span class="note-author">${item.author}</span>
+            <span>${item.time} <span class="note-del" onclick="deleteNote(${item.id})" title="删除">✕</span></span>
+          </div>
+          <div class="note-text">${escapeHtml(item.content)}</div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ========== 8. 本地礼物定制工坊逻辑 ==========
+    function renderDevWorkshop() {
+      const qList = document.getElementById('devQuoteList');
+      qList.innerHTML = loveQuotes.map((q, idx) => `
+        <div class="dev-mini-item">
+          <span style="flex:1; padding-right:8px;">${idx + 1}. ${escapeHtml(q)}</span>
+          <span style="color:#e11d48; cursor:pointer;" onclick="devDelQuote(${idx})">删除</span>
+        </div>
+      `).join('');
+
+      const cList = document.getElementById('devCapsuleList');
+      cList.innerHTML = timeCapsules.map((c, idx) => `
+        <div class="dev-mini-item">
+          <span>⏳ [${c.unlockDate}] ${escapeHtml(c.title)}</span>
+          <span style="color:#e11d48; cursor:pointer;" onclick="devDelCapsule(${idx})">删除</span>
+        </div>
+      `).join('');
+    }
+
+    function devAddQuote() {
+      const input = document.getElementById('devNewQuote');
+      const val = input.value.trim();
+      if (!val) return;
+      loveQuotes.push(val);
+      input.value = '';
+      renderDevWorkshop();
+      drawNextQuote();
+      document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+    }
+
+    function devDelQuote(idx) {
+      if (loveQuotes.length <= 1) return alert('至少保留一句情话哦~');
+      loveQuotes.splice(idx, 1);
+      renderDevWorkshop();
+      document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+    }
+
+    function devAddCapsule() {
+      const title = document.getElementById('devCapTitle').value.trim();
+      const date = document.getElementById('devCapDate').value;
+      const body = document.getElementById('devCapBody').value.trim();
+      if (!title || !date || !body) return alert('请完整填写信件标题、开启日期和信件正文~');
+
+      timeCapsules.push({ id: Date.now(), title, unlockDate: date, content: body });
+      document.getElementById('devCapTitle').value = '';
+      document.getElementById('devCapBody').value = '';
+      renderDevWorkshop();
+      renderCapsulesList();
+    }
+
+    function devDelCapsule(idx) {
+      timeCapsules.splice(idx, 1);
+      renderDevWorkshop();
+      renderCapsulesList();
+    }
+
+    // ========== 9. 零知识加密与门禁核心逻辑 ==========
+    const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+    const fromB64 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
+
+    async function deriveAesKey(key, user, pwd) {
+      const enc = new TextEncoder();
+      const raw = `${key.trim()}|${user.trim().toLowerCase()}|${pwd.trim()}`;
+      const salt = enc.encode('DWLAPP_NXP_NT3H1101_SALT');
+      const mat = await crypto.subtle.importKey('raw', enc.encode(raw), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt, iterations: 60000, hash: 'SHA-256' },
+        mat, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
+      );
+    }
+
+    async function computeHash(key, user, pwd) {
+      const raw = `${key.trim()}|${user.trim().toLowerCase()}|${pwd.trim()}`;
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function exportLockedVersion() {
+      const bundle = JSON.stringify({
+        html: document.getElementById('customContent').innerHTML,
+        quotes: loveQuotes,
+        capsules: timeCapsules
+      });
+
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const aesKey = await deriveAesKey(NFC_KEY, ADMIN_USER, ADMIN_PWD);
+      const cipherBuf = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv }, aesKey, new TextEncoder().encode(bundle)
+      );
+      const combined = new Uint8Array(12 + cipherBuf.byteLength);
+      combined.set(iv, 0);
+      combined.set(new Uint8Array(cipherBuf), 12);
+
+      const cipherB64 = toB64(combined);
+      const authHash = await computeHash(NFC_KEY, ADMIN_USER, ADMIN_PWD);
+
+      let source = document.documentElement.outerHTML;
+      source = source.replace(
+        /<div id="customContent">[\s\S]*?<\/div>\s*<!-- 2026\/03\/12/,
+        '<div id="customContent"></div>\n\n    <!-- 2026/03/12'
+      );
+      source = source.replace(/let loveQuotes = \[[\s\S]*?\];/, 'let loveQuotes = [];');
+      source = source.replace(/let timeCapsules = \[[\s\S]*?\];/, 'let timeCapsules = [];');
+      source = source.replace(/const NFC_KEY = '.*?';/, "const NFC_KEY = '';");
+      source = source.replace(/const ADMIN_USER = '.*?';/, "const ADMIN_USER = '';");
+      source = source.replace(/const ADMIN_PWD = '.*?';/, "const ADMIN_PWD = '';");
+      source = source.replace('"__ENCRYPTED_BUNDLE_PLACEHOLDER__"', `"${cipherB64}"`);
+      source = source.replace('"__EXPECTED_HASH_PLACEHOLDER__"', `"${authHash}"`);
+
+      const blob = new Blob(['<!DOCTYPE html>\n' + source], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'index.html';
+      a.click();
+
+      const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
+      const box = document.getElementById('nfcLinkBox');
+      box.style.display = 'block';
+      box.innerHTML = `<strong>✅ 已下载加密版 index.html（已按三栏导航归整并加密）</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
+    }
+
+    async function unlockOnline(key, user, pwd, withIntro = true) {
+      const hash = await computeHash(key, user, pwd);
+      if (hash !== EXPECTED_HASH) throw new Error('Invalid');
+      const combined = fromB64(ENCRYPTED_BUNDLE);
+      const iv = combined.slice(0, 12);
+      const data = combined.slice(12);
+      const aesKey = await deriveAesKey(key, user, pwd);
+      const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, data);
+      const bundle = JSON.parse(new TextDecoder().decode(plainBuf));
+
+      document.getElementById('customContent').innerHTML = bundle.html || '';
+      if (Array.isArray(bundle.quotes) && bundle.quotes.length > 0) loveQuotes = bundle.quotes;
+      if (Array.isArray(bundle.capsules)) timeCapsules = bundle.capsules;
+
+      document.getElementById('loginView').style.display = 'none';
+      startTimerAndIntro(withIntro);
+    }
+
+    async function verifyAdmin() {
+      const nfcKey = new URLSearchParams(window.location.search).get('key');
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPwd').value;
+
+      try {
+        await unlockOnline(nfcKey, u, p, true);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ k: nfcKey, u, p }));
+      } catch (e) {
+        document.getElementById('errMsg').style.display = 'block';
+      }
+    }
+
+    document.getElementById('loginPwd').addEventListener('keypress', e => {
+      if (e.key === 'Enter') verifyAdmin();
+    });
 
     function logout() {
       localStorage.removeItem(STORAGE_KEY);
       location.reload();
     }
 
-    (function init() {
-      if (localStorage.getItem(STORAGE_KEY) === 'verified') {
-        showMain();
+    (async function init() {
+      const params = new URLSearchParams(window.location.search);
+      // 本地模式下，如果网址带了 ?testlock=1，则强制模拟线上门禁与登录流程
+      if (IS_LOCAL && params.get('testlock') !== '1') {
+        document.getElementById('devPanel').style.display = 'block';
+        const badge = document.getElementById('modeBadge');
+        badge.textContent = '🛠️ 本地编辑预览模式';
+        badge.className = 'badge badge-dev';
+        renderDevWorkshop();
+        startTimerAndIntro(true);
+        return;
       }
+
+      const nfcKey = params.get('key');
+      if (!nfcKey) {
+        document.getElementById('denyView').style.display = 'block';
+        return;
+      }
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const { k, u, p } = JSON.parse(saved);
+          if (k === nfcKey) {
+            await unlockOnline(k, u, p, true);
+            return;
+          }
+        } catch (e) {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
+
+      document.getElementById('loginView').style.display = 'block';
+
       if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
         navigator.serviceWorker.register('./sw.js').then(() => {
-          document.getElementById('netStatus').textContent = '已启用本地离线缓存';
+          document.getElementById('netStatus').textContent = '已启用离线缓存 · 断网亦可开启';
         });
       }
     })();
