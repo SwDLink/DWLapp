@@ -683,14 +683,14 @@
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 离线(点重试)</div>
+      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 网络波动(点重试)</div>
     </div>
 
     <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 8天3时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 8天2时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
@@ -716,15 +716,15 @@
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">20</span>
+          <span class="time-num" id="tHours">21</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">52</span>
+          <span class="time-num" id="tMins">03</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">04</span>
+          <span class="time-num" id="tSecs">55</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -773,7 +773,7 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">所爱隔山海，山海皆可平；等下次见面，一定要抱很久很久。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">从苏州到武汉的高铁票，是我最期待的风景。</div>
       </div>
     </div>
 
@@ -911,7 +911,7 @@
     </button>
   </nav>
 
-  <script>
+<script>
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -923,17 +923,20 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "V34N28eycpG7DVRseRrZ6vFXNIewQIN7efmIhwPNtUbpEdvek2lxgIRZYXQiLjhFO41ifqE3VZqnSufYbZCyABrOsGJxtAw90kbqrbbfJ747rlXJqu2+wP9paLqTz7+rcrzUK31ctidMLNkOW0GIcgtOBCdUIZVRAT42zSaZC6/mj+Xc1hTiDnhTDRNHZlEgljOIs5lRHvx8dG71njMJbkVAf1KI9b1O5qPApi2pzWXPffe8ibQbKWkG9YjgjDKQgX77gClSe0BJyydXlMeM96f2dvgMPgAodbSSbZkas1EderR8Monvsr1acrH4c+veeFibJ8BAXILsWGecODdTsHhRepbFbJctEFHJLfh7FRfUXTs7hQZ+VsMaZdLcmMMyI5gvn+6EiWyPCdI29Ql8a6uji++iXPQIDLwBV5VycIL3mUKF5bjxWXeHAzM92Hj9jRMsiewDla2ejCKwlZwuuSBunyDvBedqmQmvk8SIjA2CDADTcnfVPl3ziWS5PzKYwKf6WVLVs+K1C5itybC7aRnCqyfdFQU4GoKAV0Qblpu5siH+jBJv2TB0eCs4YwZU7tjnKPV6/d/PjGXGFRWiShxQCRXEarfeNUc/cMwCA3D777PP+TJyEkA7m4rYl/h5BE6qeBLt9tTAffJIfhTvYxDksfCcCuWTfvyZ+MSDNGukCUFEJW4VGtElfWUbRyTbpTPWPwAt5q8G+3n8zJgv0w0+7Sdt6OlEQGObWccZtZGZwdvAbjEbVQuNNwXGlHbg66k9v5cIr7O+zo2+d+vq6N4a7PKKzgsxCHrlQhsJbGhDVkiL1fSWeXe7wFhlE1uohfptpcAKpMt6efLfs/Q1CUVeaEoYGmA25LA/4uuFdceRSJsoxoXZ2YUJbfynNAMHVbU5+cQtCH/nMalOMzs7zS4x+Nlz2ftrss6dvXHtjVRwacqlOdKWXbcFIfM0RvLcIFSuNWxMdi5xzC8dc9dX57hg2/r30eOr5LsRjaKA9WChJttBJkPrdgrettpuvasFILMFqUXekUuuAc7EQuEnRl7GSLbZft0AiQqDXdqSJRMYModrlZg2qJlXqQ/HbiiuXJtehvMS+kQirCVqhhCnXoqcK3w0a1BB9rXhj+OJ8i2EUKboxM1MnhOjcTzjOd1deI+7wYDDWP7gKwPz6NLOyIqdISgKEUX2DzoNtkkVFEaPmZNrQePJv7OXKvjNUC9OmbYueKu9HDm7RvmzgxdH0h4vk0wBYc8Wq05IWqQHuRCGC0tnHQ10YaeM8IcqwKrexrf3g7mmCo5p30+XllsnC5imTvLn4oZq1Kr+Okx498yJUTgdqoOD0Lryadh7h6tCCJ9yl5ya8KJbuC6GvUu3+8TCwHIj613LbNRt7H6b42uXLS2iMir9BwrobYdfl/PrYDZIGQ9BaabHpPMSBiqSqL1FlHeTtCHun9bIkGP0o8avCp7yVxreMg2TOFPQKWyup9tffjzmIOeBHn6LPkQIFZiv9hwnRNtQvBAxV9Cpct+Hm5digQMgSeS/n0Pl9TH/38VcXQ/VfWpYcU46gAfYKd0hUvoz4axe1gsIXah9hlxWJ2bsxWgfsUuqvE8oT6lvp8XPLHmmRSGXDxDDpyGaZBRt6mkrWcxYaIg0MZn9ZTY5+QtWdS7jMnJUfPgwaEt4rWiiOWFXjVWeQ37xAjiBBaU1fPMDdbUCwj16L2fGTpmeuOS1vFaN+94Hgn6VMGVEJIXp4Xo3PEgQymkIOUkEQGdqxXDC2SJoiJrfDLi3GNK/bAg7QWvfNC64D5LbB02/wAPPe/DuHuZSlyeFvREaLTOCsFgSv6JDEI14bX4bU7WoxYVWoic2f3OxWLv4xvUNFo5M2lFA0/c3ovK8zWROZLLj7xgOumikUXfHL6LxW3jGnLggkI+idw==";
+    const ENCRYPTED_BUNDLE = "vNj+tf+Y6d5t3NFh2FPiwUsgruIffK/eYRQxWxygL5VXqLNHoj0QiGEIkYf6zWRWsYr1vJHi22AuTBgXs1MuOF6ROOI7ZY0QOlXQzPtj62/1mF+DJj5oI18KCAbcMaRF3dzVvnSiORO7FdtETC+mtel67a8rATTL4Gm27Ldu1tEAWHGwcN1QsxiV6awROXhJ+G1Vh4NqfkQbGmdzrjuXhwEXHuSJ3JWDK9nGKNn6N9RcFnJOfZSoTS+KTp+2thbSIvWSDGedQmmKp7cSsxii02NM2249lRv76XvKyDYorVSzOA5Iy7XgqopGQn9oYg71QzDJ+BXQPQuVhNTSTap587DWbcBoHQbH8df5YG4iTcMWZ3yGrFITiQN2ZRP4jbWkidifWlg5g94gtXFpCzHsnFW7NLFGFuBMyzDZuj2wUATvynl/PBWIH6TLtm0MHujY4Uh7cieUcOsaC7ekZuHGX436MfVgLuI+eQ96kRQM7IIZ7jowTz5pfhykbo9qVaM2FW0Mth1rXWeIx+DGddwzzsKLu4nIXWq2d/Ueodp0bZCng2WeOGz/P6mGA00HEEroRNUDr6fq6SEo1GSNlx1DV2f3fneRcbsTbn5k5VAov1saYoiyTOsHdbdzp/B4D0NWkr3U544w3t4k5uQB5hbXqpva8IQ+e8ZV1QcVkpEk0Kv84qbVv2cHyMPbkWHLUwad+a/3IiO6bA3vVK4qkn5yZzuWc6t6fIVwm70EKy9PfYU7ppREIP/539QGDDTxa6+wRdBXK4kH0dtmKsTQtA56zdAdYe3IkV81cH8CD7BNup5BFb6VBiWGpWdOh4bIvjs69rL/7AUBcTRkkgJFfv22L5lMSPTY275pcp8NPDQtEG25z9GNBGm0Y4Qnt9II9kjKqtNThBt7iAiTepg95ZorNIXBAWYM0hDwGjcqnZpmaH54aH0n/yC0O/vPZgIXf6b+amJEuiFryOx5dFM2zYfybHAZnndO2ITA+aWZR9hW8lid9xe1tA67nzoJ8RHkMZ8xRdepMEYKKy6/O7S7MLgPGuY/VhA/+vx40arj0Dxzaft0LaM42fuD9HFVI2XiW2haN4biNWXhh0SXVGpqGYdX27qjmbbjs0CTA2G0pAsYAf3s4o6aWSsxNUgqj4rqOimHg2z1WGLnHaYN8DF6S6ORa9sT7nLqF1SUjJA41t8ba2m8wk7EVV42pIo67a4JFfHi7yItwMgyqokOqx4mZXBdhxHIWEeSGacHomCVp0vegKFo+pLROXZtC1Iu4ArGqZpysKR0Vffb6c7WOnc+gDkejMzxBHM7rk4Bhh3pbcthAC+GBudoiuA/LsrN2BTU6xMVzoYoGu9pi1hUyxkeM1wZkMBb1wxws3YXzonxJJR0oTdNES5Zc7SdAgGDVqxenUi8r6xW5nZNp4ECPlfousKGfiPxSaklnmOM+9krbsAX486vVGhSWLuWS9UMEINs3Re4VTUGhjINlENuw51pVxDo1XtI4DuN0v00RmGUwlbp0esCdB6yqvXP2ncxObHBAHdI7+sW3PsoMgLphW2hIcuExHIuB4/WuvDST4X6NA16szXHZ3AVUIzEqlnw+Dhf5qGmMgxhlQBw5lE2fvZVaYfHn8iBQUSsPay1m3JEB3zPuq4UY7ehu4dDSxZMCuzvREr/vlp+llOBiwD4DGuLNFboqtswsdGarqa07O0bmgvGx39z5P2PgVsFFT+a7cN+/Ld/TVKne3yfT41x476XV7e8vGV73LRclnzwgdNXFtFvGrNthEXEpqIhADVHQSnee9Qe9A+tTkVJ0g7xTAxTjet8aBGx/vPkDiSCBG7RJVpKazhDBX3AD/yUCw08Pmr0ddz9YdCuLqshPfOVJkjqsqyDoIsvHk6m35ai7nKMvjARToE01+eYyoBSvg==";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
     const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
+    const DELETED_NOTES_KEY = 'dwlapp_love_del_notes_v1';
     const READ_STATUS_KEY = 'dwlapp_love_read_v1';
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v1';
 
-    let activeAesKey = null; // 解锁后缓存在内存中的 AES-256 密钥，用于云端端到端加解密
+    let activeAesKey = null;
+    let isSyncingNow = false;
+    let lastCloudCipher = '';
 
     let loveQuotes = [];
 
@@ -988,7 +991,7 @@
       return new TextDecoder().decode(plainBuf);
     }
 
-    // ========== Supabase 端到端加密双端同步引擎 ==========
+    // ========== Supabase 端到端加密双端实时同步引擎 ==========
     function setSyncPill(state, text) {
       const pill = document.getElementById('syncStatusPill');
       if (!pill) return;
@@ -996,13 +999,33 @@
       pill.textContent = text;
     }
 
-    // 将本地全量互动数据（留言、见面行程、兑换券、事件清单）加密推送到 Supabase
+    function getDeletedIds() {
+      try {
+        return JSON.parse(localStorage.getItem(DELETED_NOTES_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function addDeletedId(id) {
+      const list = getDeletedIds();
+      if (!list.includes(id)) {
+        list.push(id);
+        localStorage.setItem(DELETED_NOTES_KEY, JSON.stringify(list.slice(-200)));
+      }
+    }
+
     async function pushToCloud() {
       if (!activeAesKey) return;
+      isSyncingNow = true;
       setSyncPill('syncing', '🔄 同步中...');
       try {
+        // 推送前先拉取一次最新云端数据做合并，防止覆盖对方刚发的内容
+        await pullFromCloud(false, true);
+
         const snapshot = JSON.stringify({
           notes: getAllNotes(),
+          deletedIds: getDeletedIds(),
           meet: getMeetConfig(),
           coupons: getAllCoupons(),
           events: getAllEvents(),
@@ -1010,12 +1033,13 @@
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
 
-        const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync`, {
+        // 关键修复：加上 ?on_conflict=id 确保重复更新同一条记录时执行 Upsert 覆盖而非 409 冲突报错
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync?on_conflict=id`, {
           method: 'POST',
           headers: {
             'apikey': SUPABASE_KEY,
             'Content-Type': 'application/json',
-            'Prefer': 'resolution=merge-duplicates'
+            'Prefer': 'resolution=merge-duplicates,return=minimal'
           },
           body: JSON.stringify({
             id: CLOUD_DOC_ID,
@@ -1024,20 +1048,28 @@
           })
         });
 
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        if (!resp.ok) {
+          const errText = await resp.text();
+          throw new Error(`HTTP ${resp.status}: ${errText}`);
+        }
+        lastCloudCipher = encryptedPayload;
         setSyncPill('ok', '☁️ 已同步');
       } catch (err) {
         console.error('Push failed:', err);
-        setSyncPill('err', '⚠️ 同步异常(点重试)');
+        setSyncPill('err', '⚠️ 同步失败(点重试)');
+      } finally {
+        isSyncingNow = false;
       }
     }
 
-    // 从 Supabase 拉取云端加密数据并合并到本地，自动刷新当前界面
-    async function pullFromCloud(manual = false) {
+    async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (!activeAesKey) return;
+      if (!silentBeforePush && isSyncingNow) return;
       if (manual) setSyncPill('syncing', '🔄 拉取中...');
+
       try {
-        const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload`, {
+        // 加上时间戳防浏览器 GET 缓存
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload&_t=${Date.now()}`, {
           method: 'GET',
           headers: { 'apikey': SUPABASE_KEY }
         });
@@ -1045,25 +1077,43 @@
         const rows = await resp.json();
 
         if (Array.isArray(rows) && rows.length > 0 && rows[0].payload) {
-          const decryptedStr = await decryptWithActiveKey(rows[0].payload);
+          const cipher = rows[0].payload;
+          if (cipher === lastCloudCipher && !manual) {
+            setSyncPill('ok', '☁️ 已同步');
+            return;
+          }
+          lastCloudCipher = cipher;
+
+          const decryptedStr = await decryptWithActiveKey(cipher);
           const remote = JSON.parse(decryptedStr);
 
-          // 1. 合并双端每日悄悄话（按日期合并去重，保留双方所有留言）
+          // 合并已删除 ID 列表
+          const localDel = getDeletedIds();
+          const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
+          const allDelSet = new Set([...localDel, ...remoteDel]);
+          localStorage.setItem(DELETED_NOTES_KEY, JSON.stringify(Array.from(allDelSet).slice(-200)));
+
+          // 1. 合并双端每日悄悄话（剔除已删除项，按时间倒序合并）
           if (remote.notes && typeof remote.notes === 'object') {
             const localNotes = getAllNotes();
-            const mergedNotes = { ...localNotes };
-            for (const dateKey of Object.keys(remote.notes)) {
+            const mergedNotes = {};
+            const allDates = new Set([...Object.keys(localNotes), ...Object.keys(remote.notes)]);
+
+            for (const dateKey of allDates) {
               const rList = remote.notes[dateKey] || [];
-              const lList = mergedNotes[dateKey] || [];
+              const lList = localNotes[dateKey] || [];
               const map = new Map();
-              [...lList, ...rList].forEach(item => map.set(item.id, item));
-              mergedNotes[dateKey] = Array.from(map.values()).sort((a, b) => b.id - a.id);
+              [...lList, ...rList].forEach(item => {
+                if (!allDelSet.has(item.id)) map.set(item.id, item);
+              });
+              const arr = Array.from(map.values()).sort((a, b) => b.id - a.id);
+              if (arr.length > 0) mergedNotes[dateKey] = arr;
             }
             saveAllNotes(mergedNotes);
           }
 
           // 2. 同步见面行程
-          if (remote.meet !== undefined) {
+          if (!silentBeforePush && remote.meet !== undefined) {
             if (remote.meet) {
               localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
             } else {
@@ -1072,32 +1122,34 @@
           }
 
           // 3. 同步恋爱兑换券
-          if (Array.isArray(remote.coupons)) {
+          if (!silentBeforePush && Array.isArray(remote.coupons)) {
             localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(remote.coupons));
           }
 
           // 4. 同步专属事件清单
-          if (Array.isArray(remote.events)) {
+          if (!silentBeforePush && Array.isArray(remote.events)) {
             localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
           }
 
           // 刷新所有界面视图
-          renderCalendar();
-          updateCityProgress();
-          updatePromiseCounters();
-          if (document.getElementById('noteView').style.display === 'block') {
-            refreshMeetSetupUI();
-            renderNotesList();
-          }
-          if (currentMainTab === 'promise') {
-            renderCouponsList();
-            renderEventsList();
+          if (!silentBeforePush) {
+            renderCalendar();
+            updateCityProgress();
+            updatePromiseCounters();
+            if (document.getElementById('noteView').style.display === 'block') {
+              refreshMeetSetupUI();
+              renderNotesList();
+            }
+            if (currentMainTab === 'promise') {
+              renderCouponsList();
+              renderEventsList();
+            }
           }
         }
-        setSyncPill('ok', '☁️ 已同步');
+        if (!silentBeforePush) setSyncPill('ok', '☁️ 已同步');
       } catch (err) {
         console.error('Pull failed:', err);
-        setSyncPill('err', '⚠️ 离线(点重试)');
+        if (!silentBeforePush) setSyncPill('err', '⚠️ 网络波动(点重试)');
       }
     }
 
@@ -1209,7 +1261,7 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（带自动云同步） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑 ==========
     function getAllCoupons() {
       try {
         const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
@@ -1291,7 +1343,7 @@
       if (e.key === 'Enter') addCustomCoupon();
     });
 
-    // ========== ✨ 专属事件清单逻辑（带自动云同步） ==========
+    // ========== ✨ 专属事件清单逻辑 ==========
     function getAllEvents() {
       try {
         return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]');
@@ -1404,7 +1456,7 @@
       container.innerHTML = html;
     }
 
-    // ========== 双城进度条（苏州 ↔ 武汉）与见面行程（带自动云同步） ==========
+    // ========== 双城进度条与见面行程 ==========
     function getMeetConfig() {
       try {
         return JSON.parse(localStorage.getItem(MEET_CONFIG_KEY) || 'null');
@@ -1561,9 +1613,10 @@
       }
     }
 
-    // ========== 2026/03/12 实时计时器与开场动画 ==========
+    // ========== 2026/03/12 实时计时器与后台自动同步轮询 ==========
     const START_TIMESTAMP = new Date('2026-03-12T00:00:00').getTime();
     let timerInterval = null;
+    let syncPollInterval = null;
 
     function updateElapsedTimer() {
       const daysEl = document.getElementById('tDays');
@@ -1592,8 +1645,11 @@
       updateCapsuleBadge();
       updatePromiseCounters();
 
-      // 解锁进入后自动从云端拉取对方最新同步的悄悄话、行程与约定
+      // 立即同步一次，并启动每 5 秒后台静默轮询（实现双方同时在线秒级同步）
       pullFromCloud(false);
+      if (!syncPollInterval) {
+        syncPollInterval = setInterval(() => pullFromCloud(false), 5000);
+      }
 
       const homeView = document.getElementById('tabHomeView');
       const navBar = document.getElementById('bottomNavBar');
@@ -1635,7 +1691,7 @@
       }
     }
 
-    // ========== 恋爱日历与独立双人对话留言板（带自动云同步） ==========
+    // ========== 恋爱日历与独立双人对话留言板 ==========
     let currentCalDate = new Date();
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
@@ -1798,6 +1854,7 @@
 
     async function deleteNote(noteId) {
       if (!confirm('确定要删除这条留言吗？（删除后也将同步到云端）')) return;
+      addDeletedId(noteId);
       const all = getAllNotes();
       if (all[selectedDateStr]) {
         all[selectedDateStr] = all[selectedDateStr].filter(item => item.id !== noteId);
@@ -1957,7 +2014,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载双端云同步加密版 index.html</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载修复版双端同步 index.html</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
@@ -2044,5 +2101,6 @@
       }
     })();
   </script>
+
 
 </body></html>
