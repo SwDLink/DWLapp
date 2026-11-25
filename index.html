@@ -683,7 +683,7 @@
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 网络波动(点重试)</div>
+      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 已同步</div>
     </div>
 
     <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
@@ -720,11 +720,11 @@
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">03</span>
+          <span class="time-num" id="tMins">11</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">55</span>
+          <span class="time-num" id="tSecs">19</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -923,7 +923,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "vNj+tf+Y6d5t3NFh2FPiwUsgruIffK/eYRQxWxygL5VXqLNHoj0QiGEIkYf6zWRWsYr1vJHi22AuTBgXs1MuOF6ROOI7ZY0QOlXQzPtj62/1mF+DJj5oI18KCAbcMaRF3dzVvnSiORO7FdtETC+mtel67a8rATTL4Gm27Ldu1tEAWHGwcN1QsxiV6awROXhJ+G1Vh4NqfkQbGmdzrjuXhwEXHuSJ3JWDK9nGKNn6N9RcFnJOfZSoTS+KTp+2thbSIvWSDGedQmmKp7cSsxii02NM2249lRv76XvKyDYorVSzOA5Iy7XgqopGQn9oYg71QzDJ+BXQPQuVhNTSTap587DWbcBoHQbH8df5YG4iTcMWZ3yGrFITiQN2ZRP4jbWkidifWlg5g94gtXFpCzHsnFW7NLFGFuBMyzDZuj2wUATvynl/PBWIH6TLtm0MHujY4Uh7cieUcOsaC7ekZuHGX436MfVgLuI+eQ96kRQM7IIZ7jowTz5pfhykbo9qVaM2FW0Mth1rXWeIx+DGddwzzsKLu4nIXWq2d/Ueodp0bZCng2WeOGz/P6mGA00HEEroRNUDr6fq6SEo1GSNlx1DV2f3fneRcbsTbn5k5VAov1saYoiyTOsHdbdzp/B4D0NWkr3U544w3t4k5uQB5hbXqpva8IQ+e8ZV1QcVkpEk0Kv84qbVv2cHyMPbkWHLUwad+a/3IiO6bA3vVK4qkn5yZzuWc6t6fIVwm70EKy9PfYU7ppREIP/539QGDDTxa6+wRdBXK4kH0dtmKsTQtA56zdAdYe3IkV81cH8CD7BNup5BFb6VBiWGpWdOh4bIvjs69rL/7AUBcTRkkgJFfv22L5lMSPTY275pcp8NPDQtEG25z9GNBGm0Y4Qnt9II9kjKqtNThBt7iAiTepg95ZorNIXBAWYM0hDwGjcqnZpmaH54aH0n/yC0O/vPZgIXf6b+amJEuiFryOx5dFM2zYfybHAZnndO2ITA+aWZR9hW8lid9xe1tA67nzoJ8RHkMZ8xRdepMEYKKy6/O7S7MLgPGuY/VhA/+vx40arj0Dxzaft0LaM42fuD9HFVI2XiW2haN4biNWXhh0SXVGpqGYdX27qjmbbjs0CTA2G0pAsYAf3s4o6aWSsxNUgqj4rqOimHg2z1WGLnHaYN8DF6S6ORa9sT7nLqF1SUjJA41t8ba2m8wk7EVV42pIo67a4JFfHi7yItwMgyqokOqx4mZXBdhxHIWEeSGacHomCVp0vegKFo+pLROXZtC1Iu4ArGqZpysKR0Vffb6c7WOnc+gDkejMzxBHM7rk4Bhh3pbcthAC+GBudoiuA/LsrN2BTU6xMVzoYoGu9pi1hUyxkeM1wZkMBb1wxws3YXzonxJJR0oTdNES5Zc7SdAgGDVqxenUi8r6xW5nZNp4ECPlfousKGfiPxSaklnmOM+9krbsAX486vVGhSWLuWS9UMEINs3Re4VTUGhjINlENuw51pVxDo1XtI4DuN0v00RmGUwlbp0esCdB6yqvXP2ncxObHBAHdI7+sW3PsoMgLphW2hIcuExHIuB4/WuvDST4X6NA16szXHZ3AVUIzEqlnw+Dhf5qGmMgxhlQBw5lE2fvZVaYfHn8iBQUSsPay1m3JEB3zPuq4UY7ehu4dDSxZMCuzvREr/vlp+llOBiwD4DGuLNFboqtswsdGarqa07O0bmgvGx39z5P2PgVsFFT+a7cN+/Ld/TVKne3yfT41x476XV7e8vGV73LRclnzwgdNXFtFvGrNthEXEpqIhADVHQSnee9Qe9A+tTkVJ0g7xTAxTjet8aBGx/vPkDiSCBG7RJVpKazhDBX3AD/yUCw08Pmr0ddz9YdCuLqshPfOVJkjqsqyDoIsvHk6m35ai7nKMvjARToE01+eYyoBSvg==";
+    const ENCRYPTED_BUNDLE = "u367tZiBoW1/k+EoSS60+r+VnTU5wa8Aon5ovriQy032g4y4/cFXhI3Uyos52boHjRLTSrgY8wT2L9Wj83kllEj767t02bknstJ9isVt+NekO2IbBe7jDFFZg0mOjd0P84/wM4eSz2t3jhb5F2I2+pn+qIK4+7VEY+JEN2hSVsJ/coAn3EAQFHbwhsFCCbBEquabVt/iXMgAay7z+cMOwEAuHBM0LSgKnOpO7dtzquuC/YXgo2DPldzj6XTw+HknsTZ7tyE3H2L/Y9PtsGvhnPGXrZ8V0kVnxI8iYUkql7+I8H84bweZ+1lX3kb/hIr0XMnWr9YtwHVzzlYdfl7foBhTioluDqufiaCnJwFQLXlhpHMh6GnT+0tYZeTmmVcs6xQF2UMU38RTZ1gZ/3OWakPIaK21t2v/3CMmpwyOAzqiuRO1D2Xr91+t/9Q1N16wgRdJMxJ2CaWFywU9BNKMgTXOtp+SBEo6q/7umVb4fNleOIS+yDwTufIYKvY9OZTsVSP6eBSHaaXjln3lL6iPZXaO+VQAnB8ehtc4sTm1j9n4o6yn2z4ADM52FOPlr6CuFgl2C0XjPt6l9y5bpQ0thp0njsqkTRJFj5+YX8xTr3JuTPEogaaKvYfL2DJDW5Cc7IPDkC1k2C2xwH781uYo6+GkDiGsenOfX9gBqm2jMulYD0PQoScZ3DUzMhCui/d3buJNv5oxzrGdTgX/SuT18wOKxehHMZX+p/jsC9MMSLpj9Fnnny4wFK7ZU0z2g9kuoOQuJqEAgd9VEvWl2xvWTwqnW5wCwZVjq0S6tSGhgOltW5uLesicpr64JKQRH8FHXFSFqR4ZmebsKDyYC6nEIjFWjekr08/SPG1A9Pncah0mV2qt3qdyuDckj++8W9U/msGRYcnkCUd7l0QxqIXpG65ijAoOrPRS543jwoCX3QCIw8rjT4gjbyTty7m+5gdEt8ir64M2cW0HL+j/jqvioWMq4QsrRg41U6VOZusjIdi+eDTx8gI7xOkvVcMbOmf2M5Xnia+EoxnbgY5q14+Y0FaRl3/wArSo/3p04w0vbyDntsukYb2L5jouA1ZOxVp+lQx9h1wSkM/mobnw1b1NcL8XqpJe1mTN0X3dyXTKHy5dN8ym3rpe8wayuYID+FsGFrrmhQl9iwo0BZRxgD1ieP6fEt0RN2oOXz1vQFsqpWBu/JvMdE16GU9mJ25psKVQmjzXh0q37t99kPUYUR1PgrL5Ha738bYEGsUOFTfn2g6chSSLO9Twhzd4KlHCpV0IMNFfavHr8AOfcQK0z3ggyUp0yFxyGnVaf7DNkQQYvKBOLFzldR6814o51wbY/L4NvSeLsv+p2W/IWXd0PSsq5NRgCS+Si+1q11rt9kAOSPf+VMHUZP8E+20vjbSE7bh4LbCDFrZfQd+PGECSHiZbxiWKZStEu9raemcfx2I3qMkSZ4y5gh/ExeO2dTgO6PTuuOz7OoL9QotVyJCjhyrMzRbTUI+XQ1RM1xBsftOm0oVk1PPQrIxv2xTR/aIi0aQ+oYJWs+bKWnrlFtmgnXlbmV40JeKJZruG/H+9HfKRrQkUSvCI3XfgQT50jeLtzONcbaSvUsZarNhmGV5InYQb2h90aqmARZ5t3k35jumEbTRKFdTC4npELEn0a6kws5/E0waTAnau5532UuKCiMLYc7D7hSdsiVnDSH7gr3+6mhaq1PIIcB2JQlPRb22KO126YJebTf8o72X57CiOwLTScLzSGwvEVauqP+HqltO5RZoIFh1X4aXgAEhgmRDIaFBgbtqyCdbEsAOHN0S9gEPpsAH3sELFN17cMvomI0lDcbo8Be7ssfZiXnYAo0Z1Sk4uTqzbw7d2O+UeCwwR0acZm3M1OL4RT595M2jfH9dFlZ51AH7mKtOwfg==";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -992,35 +992,11 @@
     }
 
     // ========== Supabase 端到端加密双端实时同步引擎 ==========
-    function setSyncPill(state, text) {
-      const pill = document.getElementById('syncStatusPill');
-      if (!pill) return;
-      pill.className = 'sync-pill' + (state === 'syncing' ? ' syncing' : state === 'err' ? ' err' : '');
-      pill.textContent = text;
-    }
-
-    function getDeletedIds() {
-      try {
-        return JSON.parse(localStorage.getItem(DELETED_NOTES_KEY) || '[]');
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function addDeletedId(id) {
-      const list = getDeletedIds();
-      if (!list.includes(id)) {
-        list.push(id);
-        localStorage.setItem(DELETED_NOTES_KEY, JSON.stringify(list.slice(-200)));
-      }
-    }
-
-    async function pushToCloud() {
+async function pushToCloud() {
       if (!activeAesKey) return;
       isSyncingNow = true;
-      setSyncPill('syncing', '🔄 同步中...');
+      setSyncPill('syncing', '🔄 正在上传云端...');
       try {
-        // 推送前先拉取一次最新云端数据做合并，防止覆盖对方刚发的内容
         await pullFromCloud(false, true);
 
         const snapshot = JSON.stringify({
@@ -1033,11 +1009,11 @@
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
 
-        // 关键修复：加上 ?on_conflict=id 确保重复更新同一条记录时执行 Upsert 覆盖而非 409 冲突报错
         const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync?on_conflict=id`, {
           method: 'POST',
           headers: {
             'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
             'Content-Type': 'application/json',
             'Prefer': 'resolution=merge-duplicates,return=minimal'
           },
@@ -1053,15 +1029,104 @@
           throw new Error(`HTTP ${resp.status}: ${errText}`);
         }
         lastCloudCipher = encryptedPayload;
-        setSyncPill('ok', '☁️ 已同步');
+        setSyncPill('ok', '☁️ 云端已同步');
       } catch (err) {
         console.error('Push failed:', err);
-        setSyncPill('err', '⚠️ 同步失败(点重试)');
+        setSyncPill('err', `⚠️ 上传失败(${err.message.slice(0, 18)})`);
       } finally {
         isSyncingNow = false;
       }
     }
 
+    async function pullFromCloud(manual = false, silentBeforePush = false) {
+      if (!activeAesKey) return;
+      if (!silentBeforePush && isSyncingNow) return;
+      if (manual) setSyncPill('syncing', '🔄 正在拉取...');
+
+      try {
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload&_t=${Date.now()}`, {
+          method: 'GET',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
+        if (!resp.ok) {
+          const errText = await resp.text();
+          throw new Error(`HTTP ${resp.status}: ${errText}`);
+        }
+        const rows = await resp.json();
+
+        if (Array.isArray(rows) && rows.length > 0 && rows[0].payload) {
+          const cipher = rows[0].payload;
+          if (cipher === lastCloudCipher && !manual) {
+            setSyncPill('ok', '☁️ 云端已同步');
+            return;
+          }
+          lastCloudCipher = cipher;
+
+          const decryptedStr = await decryptWithActiveKey(cipher);
+          const remote = JSON.parse(decryptedStr);
+
+          const localDel = getDeletedIds();
+          const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
+          const allDelSet = new Set([...localDel, ...remoteDel]);
+          localStorage.setItem(DELETED_NOTES_KEY, JSON.stringify(Array.from(allDelSet).slice(-200)));
+
+          if (remote.notes && typeof remote.notes === 'object') {
+            const localNotes = getAllNotes();
+            const mergedNotes = {};
+            const allDates = new Set([...Object.keys(localNotes), ...Object.keys(remote.notes)]);
+
+            for (const dateKey of allDates) {
+              const rList = remote.notes[dateKey] || [];
+              const lList = localNotes[dateKey] || [];
+              const map = new Map();
+              [...lList, ...rList].forEach(item => {
+                if (!allDelSet.has(item.id)) map.set(item.id, item);
+              });
+              const arr = Array.from(map.values()).sort((a, b) => b.id - a.id);
+              if (arr.length > 0) mergedNotes[dateKey] = arr;
+            }
+            saveAllNotes(mergedNotes);
+          }
+
+          if (!silentBeforePush && remote.meet !== undefined) {
+            if (remote.meet) {
+              localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
+            } else {
+              localStorage.removeItem(MEET_CONFIG_KEY);
+            }
+          }
+
+          if (!silentBeforePush && Array.isArray(remote.coupons)) {
+            localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(remote.coupons));
+          }
+
+          if (!silentBeforePush && Array.isArray(remote.events)) {
+            localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
+          }
+
+          if (!silentBeforePush) {
+            renderCalendar();
+            updateCityProgress();
+            updatePromiseCounters();
+            if (document.getElementById('noteView').style.display === 'block') {
+              refreshMeetSetupUI();
+              renderNotesList();
+            }
+            if (currentMainTab === 'promise') {
+              renderCouponsList();
+              renderEventsList();
+            }
+          }
+        }
+        if (!silentBeforePush) setSyncPill('ok', '☁️ 云端已同步');
+      } catch (err) {
+        console.error('Pull failed:', err);
+        if (!silentBeforePush) setSyncPill('err', `⚠️ 拉取失败(${err.message.slice(0, 18)})`);
+      }
+    }
     async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (!activeAesKey) return;
       if (!silentBeforePush && isSyncingNow) return;
