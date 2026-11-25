@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NFC 专属访问页</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      padding: 32px 24px; border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 360px; width: 100%; text-align: center;
+    }
+    .badge {
+      display: inline-block; background: #eef4ff; color: #2b6cb0;
+      font-size: 12px; font-weight: 600; padding: 4px 12px;
+      border-radius: 99px; margin-bottom: 14px;
+    }
+    h1 { font-size: 21px; color: #1a202c; margin-bottom: 10px; }
+    p { font-size: 14px; color: #4a5568; line-height: 1.6; margin-bottom: 20px; word-break: break-word; }
+    input {
+      width: 100%; padding: 12px 14px; margin-bottom: 12px;
+      border: 1px solid #cbd5e0; border-radius: 10px;
+      font-size: 15px; outline: none; transition: border-color 0.2s;
+    }
+    input:focus { border-color: #2563eb; }
+    .btn {
+      display: block; width: 100%; padding: 13px; border: none; cursor: pointer;
+      background: #2563eb; color: #fff; text-decoration: none;
+      border-radius: 12px; font-weight: 600; font-size: 15px;
+      margin-bottom: 10px; transition: opacity 0.2s;
+    }
+    .btn:active { opacity: 0.85; }
+    .btn-ghost { background: #edf2f7; color: #4a5568; font-size: 13px; padding: 10px; }
+    .err { color: #e53e3e; font-size: 13px; margin-bottom: 12px; display: none; }
+    .status { font-size: 12px; color: #a0aec0; margin-top: 14px; }
+  </style>
+</head>
+<body>
+
+  <!-- 1. 首次登录验证界面 -->
+  <div class="card" id="loginView">
+    <div class="badge">🔒 身份验证</div>
+    <h1>请登录以继续</h1>
+    <p>首次通过 NFC 触碰需验证账号，本机验证通过后下次自动直达。</p>
+    <input type="text" id="username" placeholder="请输入账号" autocomplete="username">
+    <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+    <div class="err" id="errMsg">账号或密码错误，请重试</div>
+    <button class="btn" onclick="checkLogin()">确认登录</button>
+  </div>
+
+  <!-- 2. 登录成功后的专属内容页 -->
+  <div class="card" id="mainView" style="display:none;">
+    <div class="badge">NXP NT3H1101</div>
+    
+    <!-- ========== 在下方自定义你的专属页面内容 ========== -->
+    <h1>欢迎回来，Admin</h1>
+    <p>验证已通过！你可以在这里放置你的私密备忘、常用链接或一键启动指定 App。</p>
+    
+    <a class="btn" href="weixin://scanqrcode">打开微信扫一扫</a>
+    <!-- ================================================ -->
+
+    <button class="btn btn-ghost" onclick="logout()">退出登录（重新锁定本机）</button>
+    <div class="status" id="netStatus"></div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'nfc_auth_token_admin_v2';
+
+    function checkLogin() {
+      const u = document.getElementById('username').value.trim().toLowerCase();
+      const p = document.getElementById('password').value.trim();
+      const errEl = document.getElementById('errMsg');
+
+      // 直接比对 admin 与 zxc6005（atob 解码后即为 admin / zxc6005）
+      if (u === atob('YWRtaW4=') && p === atob('enhjNjAwNQ==')) {
+        errEl.style.display = 'none';
+        localStorage.setItem(STORAGE_KEY, 'verified');
+        showMain();
+      } else {
+        errEl.style.display = 'block';
+      }
+    }
+
+    document.getElementById('password').addEventListener('keypress', e => {
+      if (e.key === 'Enter') checkLogin();
+    });
+
+    function showMain() {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('mainView').style.display = 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    (function init() {
+      if (localStorage.getItem(STORAGE_KEY) === 'verified') {
+        showMain();
+      }
+      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        navigator.serviceWorker.register('./sw.js').then(() => {
+          document.getElementById('netStatus').textContent = '已启用本地离线缓存';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
