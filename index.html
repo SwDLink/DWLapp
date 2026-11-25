@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
   <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>我们的专属纪念 · DWLapp V1.3</title>
   <style>
@@ -689,23 +692,23 @@
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
       <span class="ver-pill">V1.3</span>
-      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 离线(HTTP 401: permission denied for )</div>
+      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
     <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 8天2时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 7天0时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 9.1%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 9.1%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 8%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 8%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 9.1%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 90.9%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 8%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 92%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -722,15 +725,15 @@
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">21</span>
+          <span class="time-num" id="tHours">23</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">43</span>
+          <span class="time-num" id="tMins">00</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">59</span>
+          <span class="time-num" id="tSecs">16</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -779,7 +782,7 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">不管今天有多累，碰一下这枚小小的卡片，我就在你身边。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">跨越山海，苏州与武汉的距离，终将化作相拥的温度。</div>
       </div>
     </div>
 
@@ -828,7 +831,7 @@
     <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">3</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">4</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">0/0</span>)
@@ -931,7 +934,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "pbvnICIcBJxcJwcAL70xzsJg4c1+ZHjef+sqiTuiGiU3fl7UebIyMztdDCNZgKuHwgjKObvPYfGn0Zhyv6KI+YFXEOeGB5mHicHmg+tXPgySzf5a2EW+V8fEZb/COEf5YaRrXaA+GM7OqOibSbfV0re4QlgtQV/ulAK3Aaa3ZIwQTCaHJE9+Rx8gvZcG+M9poQluNbF/DzeqL34r5myTn0FISuE3YL9uMesb1HVZ636rdwcXRFg/tdMKyFFXwzE/cG8UC+/n00Bb2k7v/m5Fy6jGzpCQfuE/VxcACu1OOkxA36gRvhWk9Y7e78EEZhrJP0EL0rHAXKpcfyLalqlGoTNNiH3LpZfhu9+Kvidw565iJ4eDlGMGoEqr3Rit255ubCevRLLBgtFfR0BvHVUN7c2WbTIk4G+CqVQBS4lMMUWUGDFEp6ggJOXSnV+eiOg5KY1AtwFbSyZiae+FfaP/rnxX7n7vjFpxTAFlhG8+GXlUqpNJ6l5dSBzgqPiQnxNs0pO8PDX+XOaj5Tp0jh8/U1zweZpgzNThy4RPGKZ0MB9dtg0swRUByG5vtqz5mnXlfBga+/7/0p3DmGgXd8TCu/p9PjyQBrnZnMIZeVYoUecfZXnXVRgj9/9EBtz/6JFU4SqrdO327xrXQffMahVwEXRI1YpnwLg8fCcmr3ilgiq2uYR1gk/h3MpHudW5cFukhjTP5mgkhPQt8rZEv1INd8pVmREaadhWKpVXIH4kQZgo7kFLtR9stBfyjFWlY0GcCZgyNIcQvR/XaM9s3OmLS2Sskz3X1/WVv/1fwU+5XdjnMTWIpkLJlzXACeZUX1tdkpqkfnfD8RKNoXe9Y35rf9oImwo8/2LNKvgh6ljDwIxyERQEuTaQHT1sWDocDdEmnkHfxIhwy+Y062hDY3afVeFNEnaqrkYpx+mPHs66C7HxtU4lVvh3SGT1QVHOOkySQYMhDuQcm2GcKLTXNOFezXrSmkHIefim7x1t5sOc6K6zwZIcuygWxAkWgf5zV/iVnf7wQPeNW2mvxcYN8mg0mYqzuO6SgPBy+/icjSFWpAeKo8MQsoZS1mvK4TVU+KzEbKulLHinkhrrUheVWRfaHNfC3O8P53gLHgZtYqhNJdRv0Ov7YmjlLq1ZDZmHQmUCVtzNVN2JWKNQPrrTnXA1fxi00lXoIfd4Oe0W5aoqQkDwXzJH7oX6S9SODqse4v3yExRrupGIl/bRiIHieiavzlCNwr4qwQ5VYU/QDspbhNfJ+aV/7Q8h27cG756hq0qRS6tDRO3h3HG+iKzK/FDTR0+B7OEvITozJEqxCxzpw6pYRTdnc8QogFRL60R2WKEQtHop6sNWqLdbooWgIbalJG+J13PsHpj7DMKuKZuESM/QoaCrkecs4X18fVke72tAX9SS1qIN6lp8jjs7L10EruCwAMrRV28SVCQFhEG6gxUcX0C1FVIsHrW7SpGJtYg/ubuTuqmfmMasR6uG9qoOAaFW0R5QBQ3LhKiuuEirqImJAnzz2N7sgMkTGwk07S62pF2U9C7Fj8p5OOTWyLwJd1YIEO6i63TWoEf88HF+MUtK2Vccw9lvCOh8QCRRbRdbj2CgsZ3Sbt+j5isHEo633WUFwteaGR66Bjw26iZnxv6rPMQZbORcsIHz9axLvRa/wiAkt5PJaEtBq3VnFTgfGoOY9lTnOp5dqbp7W5t5/RKhjYvqU9vgxbWMAwOkwqbDO1S3K9+OHOJs2sHilk3qRjVgxrkAqSFjJsTgePcX0Vp/kTpHxaa4gEjaA8ihZ8K5eesL2JW3/vWyk/QMNEG3+Eb26VUyQYJdyaQbf1CUzRUMDRvsROr3yftLgy6dUyuwx+ru7hlonesBe6BKzNbetchsSc4aufyrCd313xr49dngtVEbirDsvw==";
+    const ENCRYPTED_BUNDLE = "WpyFgfboBES1pmQZD7LD9ru5rls2oqEZm0AA8gyEl6Fu/3z70RcjOiurA2BsoWZ1WehytgozWKlEP7fKDtbQab1u73NUkZXmZubg1khLLv7O8qUK/KWgF9djgDED/gvHyWfQIAo8dM7COxsaz4wZB1FBAK4/D5OU2Ru+Wq0aB8nyF7Y6oQ1YgFotzEQVmpfJnQhfEMuz2t0OtNlziEpoqusWLT9IbgwxsTkOeOOOf/MIhzg5NZZXkFc4k49L13uBCx9SVZTcZ/MIPaQosxFmTHXjRxO+9JS4ol/RNR43oNNtH+DKvA5F3CnWdflngqFSfjwN2WWq0EQkLKBz9ZFxKQESZOH4Nkyq9wanMkiDMsjVhSyffYJk4X5uE20QIKg+NcD7tCaDsqQgTJMeyqOTFBRFzjWOacnbywDPBbO1GvUDl+r1JRwinGkXKJmp9SunLQl+HAWwofv9JllmRJTKZdG78yYexxY1CTRgAvNzETeF56KGU32n50QzRJ45CMtqUPK96/H4wSdqEB8vVG5KfQYPtT3DDuT4Epex633KlUn/JdVhjr8tk3TTmZYSRtzJVnxqeR9TVWNvEFxUQXj6k6EDQdezGoO2a+Rc4ijxFNdLnv+zZBdeWczZb3IUgf8nibxezZeuqL/Ay37F0591JNo86KZ91Zyl7J7JOE8Q85VgoNMJhpsWbVx1ipHWwg1Q7/SjrpitwxxNaPWXLsxVLF0q3MHc6othZscD/Aif6w9iVj2+vDWvbamHw3w+l6JkctehQgCICp7sYUkI9PU45BhlW2tM7Cd26LayaGittyHrOCzfCPKnliS+7zZNChX48+zltjqyWIFqLgYocYyNl7lrB5GRU6MjWtXlrRuSOITYX637RXxBRSIDuIewZx6TS5etU2MJwhPa4BkrZ40MCsvDYAJqWSMHhtvLAC8Ckdbdn9GPsCLZltcuq7uL2H9OOd7ubn5I3kMa7BjwyM90dvXTi1k/nZAsTSCKOsvdRFvd4llkNb4hJVn3NiykDvya2NHmbwMH2WS9wekllZWiqKT4PzhhoIKkx/dBLUAN/6EmwZPwwitjQBFsV/8j50gaZfjM/mu3PaBo4K6qiCbeygQDq6DmhhlemvT1DKGFygWmdizwSg1ynnbqmMzhjcZPRB/3DePRoxctvWzwIdMfuY+AJYAtaDyerdeHoO9eZzlukuBj6SUCk0sPd1dkY2BJqYsMwpsHqpDYKhb1N6UHQLs18ybWucUCLca53RhnQPotmjmaaHjuNYo7XvV/NVvnN7wMOeLd2cY1xbWSS+OgPDdzjb30+ySAIOQsla3zqOtxlqzNV9FuUFpXKejdqoQrf6lDjo1+rf/OYII1WH7H3b0JRe7I6quBOWPpmuP93d9yr1ZkY9QHFJJt/94wj1Oej6FidVXhOjyiBmaOYNzOlKh5vxlEAvwrXtmYfBvIw8SRu4JLLaUFNN+bkWZ9NQOTapANzXdSPfvyTREEU/u+lz+mt31Dq5WdbHjnYuYcUMO9eawr9yrYXwxpusjlfT/vhiTJLaRxC2puHz6ZR+BIc7kuBgf40WGWMERDnwGVa5jHa24P3R2Qr3ZLDjd39oIOAmxWOQ4NyTLj7YcJ7fd9TpGxLABqGg1SiOhDGExxWZtZvdBIjfO5A+S+oIK8b3hp/Iv0YuMrLwRiZbGz7S4kQ0JSXtY+5N05SQlNaolV4XzxTesukMB8K6991YEk9YPMDWEkvM8n95yIbOdEHs0TumkJ7aP2JBIqGg0hr2E7s9k5A7TcOn2uuBpB1x1jQ/jgi18prXdFYifyHbf5fIoFVGoxLCvpaRLb9WYHZJ7+MubfJ2vg9VWzFtXikg3wAFVDMYBrDA/9KMvAtrPWMLD8vVRuKMHdz6Wzsbz4uMOP2Biiky1g4zpUNQ==";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
