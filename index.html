@@ -2,7 +2,7 @@
 <html lang="zh-CN"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>我们的专属纪念 · DWLapp V1.2</title>
+  <title>我们的专属纪念 · DWLapp V1.3</title>
   <style>
     :root {
       --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
@@ -668,14 +668,14 @@
 
   <!-- 状态 1：门禁拦截界面 -->
   <div class="card" id="denyView" style="display:none;">
-    <div class="badge badge-danger">🔒 专属信物保护中 · V1.2</div>
+    <div class="badge badge-danger">🔒 专属信物保护中 · V1.3</div>
     <h1>需要触碰专属 NFC 信物</h1>
     <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
   </div>
 
   <!-- 状态 2：首次登录验证界面 -->
   <div class="card" id="loginView" style="display:none;">
-    <div class="badge">✨ 已感应到专属信物 · V1.2</div>
+    <div class="badge">✨ 已感应到专属信物 · V1.3</div>
     <h1>开启我们的纪念空间</h1>
     <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
     <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
@@ -688,8 +688,8 @@
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill">V1.2</span>
-      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 离线(HTTP 400: {"code":)</div>
+      <span class="ver-pill">V1.3</span>
+      <div class="sync-pill err" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">⚠️ 离线(HTTP 401: permission denied for )</div>
     </div>
 
     <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
@@ -726,11 +726,11 @@
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">33</span>
+          <span class="time-num" id="tMins">43</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">08</span>
+          <span class="time-num" id="tSecs">59</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -779,7 +779,7 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">跨越山海，苏州与武汉的距离，终将化作相拥的温度。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">不管今天有多累，碰一下这枚小小的卡片，我就在你身边。</div>
       </div>
     </div>
 
@@ -795,7 +795,7 @@
     <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地礼物定制工坊 (V1.2)</strong>：在此编辑情话盲盒、专属长信与未来时间胶囊，完成后导出上锁版上传 GitHub。
+        🛠️ <strong>本地礼物定制工坊 (V1.3)</strong>：在此编辑情话盲盒、专属长信与未来时间胶囊，完成后导出上锁版上传 GitHub。
       </p>
 
       <div class="dev-section">
@@ -816,7 +816,7 @@
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
 
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.2)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.3)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -919,7 +919,7 @@
   </nav>
 
   <script>
-    const APP_VERSION = 'V1.2';
+    const APP_VERSION = 'V1.3';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置（2026 新版 Publishable Key 规范）
@@ -931,7 +931,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "Rrg6GOQCm258mMGWr7XOqgMiDxX3I0dZyeKayOWr2/rKwfs9IBDVR5ZLhij+SOSFYviVkASeVKPgnC6fQv3SaVw1UtKQ3DtZjuN+RJhcoDUJ53R0ayuO2zdumRU0fuiCw4ozVhBMGc6QD+YbYRg2NcatHPRVuStM9bEWEgudeJihigRimgYXVFfV+TgtRdwa+m23czavSDtGMXN0xwOrZ8nd7693ZDdzOUP/OiuPrE7cbkg9a68Ky7Jj8VxULo+2O0kSuk1HY3Auz5AKcFnuTXf1ZYlIIR1pua6unXlU6boghWOsaYVJOqZjGrdvv3+JBVSlBh020FsONIdtMY4q2e7kWcDw4ypHDTKcNajmYLFyeXOZGjavAHfPlW51qoj3jNJTPSli3gpya3iW1bPuYa5OrtCrV8UOuQOE6kSMXWkvX7L1/Rw6uEZOHay/G3z6xoNV7BHCUOU44ImbMC09Gz9e8Ww/dDG10sjzoj4Jp85LBNWL6Xe6oK5oNk2WJntRPQGRgAVrMAB2Xu5xtuKIUKBv7iC9m5dndyOCSBWlylS9Fje+mlbL1CbDkCT1WzHgkYNDXyYuTNKZQZzShoNi0XKlZIFAwxBYQ1LNAh1Fp0DDM/4L4qhdyuIPeh1z3Hv41n/+ALuO53EXtDF+yIjV5UDWPT2WbBabXqxTByNKlhWzx3BNObIcZ2U+/TgHM1QP7ZHMYqfQG3HueKEEJ3YK/NEcFn8oXa3t3aY5jVybJ74VgHSAHWh+SNVJnhLboAawtalXbcpFLrNtsSX8eNSLxhejiFcT0FuCncmYAvctD6HY0IFv8QRlF53pqYeW3R97CXn5w11bPFpKlsKYMTabzrZu3Ry4yO7pFhWatgmqOxjj0GuaikaFoLMWBH1LzTi8SnemTxAdlpnsr0zRtW7tCF3MBS1kZhgsZBkiigBIy6/mI7ZUpDvCECRzTN03mdPrAk+tGfdqcOEOPatDPT0+RcSe5kkaxNQZIOFgMRFp6dOfvkNzl3F8WYTa2sF9cui8vHuU6+yQAu1CfXAwm+M3WQ3qOQGaEyekCGQTjsG90JQpEH+g7wT5mZuGk99o4B7Me3lF3hc/3+s871fNOdviDNUvxGM1HbYVINdgq0LfuKHF5xgaFLhdThD0p8gZH8iCUPHX9lqq9HrYG5TBi3iB9wSSfb6qfPMYuy70rWO/pE5Psb/qKQ30/SUTtIjMXZ4NdiW0qWKC+F16GdPIOi6yWLMJnoZu4OHuNX9huBmZEHF9Fs5uE3oCe8a2faleoHoDh61m4ZJuRQgJ8HWyN2JKRumUf2Yk5dVtawSya7gQjJnIGSFxyfdF6CuTSTz/2Drrnlkrg2wxR50I07OT4vJRuMYMpu24Ua1ujehtEojOPmMRm3AkAbrToVeyXLzZPl4lPlSE6msaBhryvyGl8ksNB48asLBAPoAKIDVNmfzGbByLOtDryWfQ9iOq/vPny+VtaqKxQEAr93GGW54aN3b2wyMlvpiqOS+1JpHwaT6Ns43aRnQGsfPQiHYEA+8BjFhbNn1O/vt15M5uLvcdxes34tAQ3cGHOSjD6izMzRaVtxqhAiHXKB7slZefGAjnhQ8etgBSAtoHWDidxC6vu7UHmy27dwjdBK7Dt+XyGInJXmps5DQGWLrW2yY8RQUYsjfNDptX+yUnkrOJgrClXPOaJK4s8O0tVo9MYKxoojvZziwXucxlkLpQDKvOeTT3WbhIdwXVxdwhrg6NAUtrBt4qitUvGN4n/W73nrStUdcyIhPbvBxSucmx5/MRbsV+U8S5kEnu0CDGSVuSa5u1hS1LJrLro58w1KYAr+NzFl+EN17Qj0daFzlWmZ7N/QFgnbm4Yqk506SXisFmzg+e8WyHvMplfUGNOfMdXMUM+sFE3bgxK9HAnDd0kg==";
+    const ENCRYPTED_BUNDLE = "pbvnICIcBJxcJwcAL70xzsJg4c1+ZHjef+sqiTuiGiU3fl7UebIyMztdDCNZgKuHwgjKObvPYfGn0Zhyv6KI+YFXEOeGB5mHicHmg+tXPgySzf5a2EW+V8fEZb/COEf5YaRrXaA+GM7OqOibSbfV0re4QlgtQV/ulAK3Aaa3ZIwQTCaHJE9+Rx8gvZcG+M9poQluNbF/DzeqL34r5myTn0FISuE3YL9uMesb1HVZ636rdwcXRFg/tdMKyFFXwzE/cG8UC+/n00Bb2k7v/m5Fy6jGzpCQfuE/VxcACu1OOkxA36gRvhWk9Y7e78EEZhrJP0EL0rHAXKpcfyLalqlGoTNNiH3LpZfhu9+Kvidw565iJ4eDlGMGoEqr3Rit255ubCevRLLBgtFfR0BvHVUN7c2WbTIk4G+CqVQBS4lMMUWUGDFEp6ggJOXSnV+eiOg5KY1AtwFbSyZiae+FfaP/rnxX7n7vjFpxTAFlhG8+GXlUqpNJ6l5dSBzgqPiQnxNs0pO8PDX+XOaj5Tp0jh8/U1zweZpgzNThy4RPGKZ0MB9dtg0swRUByG5vtqz5mnXlfBga+/7/0p3DmGgXd8TCu/p9PjyQBrnZnMIZeVYoUecfZXnXVRgj9/9EBtz/6JFU4SqrdO327xrXQffMahVwEXRI1YpnwLg8fCcmr3ilgiq2uYR1gk/h3MpHudW5cFukhjTP5mgkhPQt8rZEv1INd8pVmREaadhWKpVXIH4kQZgo7kFLtR9stBfyjFWlY0GcCZgyNIcQvR/XaM9s3OmLS2Sskz3X1/WVv/1fwU+5XdjnMTWIpkLJlzXACeZUX1tdkpqkfnfD8RKNoXe9Y35rf9oImwo8/2LNKvgh6ljDwIxyERQEuTaQHT1sWDocDdEmnkHfxIhwy+Y062hDY3afVeFNEnaqrkYpx+mPHs66C7HxtU4lVvh3SGT1QVHOOkySQYMhDuQcm2GcKLTXNOFezXrSmkHIefim7x1t5sOc6K6zwZIcuygWxAkWgf5zV/iVnf7wQPeNW2mvxcYN8mg0mYqzuO6SgPBy+/icjSFWpAeKo8MQsoZS1mvK4TVU+KzEbKulLHinkhrrUheVWRfaHNfC3O8P53gLHgZtYqhNJdRv0Ov7YmjlLq1ZDZmHQmUCVtzNVN2JWKNQPrrTnXA1fxi00lXoIfd4Oe0W5aoqQkDwXzJH7oX6S9SODqse4v3yExRrupGIl/bRiIHieiavzlCNwr4qwQ5VYU/QDspbhNfJ+aV/7Q8h27cG756hq0qRS6tDRO3h3HG+iKzK/FDTR0+B7OEvITozJEqxCxzpw6pYRTdnc8QogFRL60R2WKEQtHop6sNWqLdbooWgIbalJG+J13PsHpj7DMKuKZuESM/QoaCrkecs4X18fVke72tAX9SS1qIN6lp8jjs7L10EruCwAMrRV28SVCQFhEG6gxUcX0C1FVIsHrW7SpGJtYg/ubuTuqmfmMasR6uG9qoOAaFW0R5QBQ3LhKiuuEirqImJAnzz2N7sgMkTGwk07S62pF2U9C7Fj8p5OOTWyLwJd1YIEO6i63TWoEf88HF+MUtK2Vccw9lvCOh8QCRRbRdbj2CgsZ3Sbt+j5isHEo633WUFwteaGR66Bjw26iZnxv6rPMQZbORcsIHz9axLvRa/wiAkt5PJaEtBq3VnFTgfGoOY9lTnOp5dqbp7W5t5/RKhjYvqU9vgxbWMAwOkwqbDO1S3K9+OHOJs2sHilk3qRjVgxrkAqSFjJsTgePcX0Vp/kTpHxaa4gEjaA8ihZ8K5eesL2JW3/vWyk/QMNEG3+Eb26VUyQYJdyaQbf1CUzRUMDRvsROr3yftLgy6dUyuwx+ru7hlonesBe6BKzNbetchsSc4aufyrCd313xr49dngtVEbirDsvw==";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1091,22 +1091,31 @@
       }
     }
 
-    async function pullFromCloud(manual = false, silentBeforePush = false) {
+async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (!activeAesKey) return;
       if (!silentBeforePush && isSyncingNow) return;
       if (manual) setSyncPill('syncing', '🔄 正在拉取...');
 
       try {
-        const resp = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload&_t=${Date.now()}`, {
+        // 严格只传数据库存在的列名参数，防缓存改用 Cache-Control 请求头
+        const resp = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload`, {
           method: 'GET',
+          cache: 'no-store',
           headers: {
-            'apikey': SUPABASE_KEY
+            'apikey': SUPABASE_KEY,
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
           }
         }, 8000);
 
         if (!resp.ok) {
           const errText = await resp.text();
-          throw new Error(`HTTP ${resp.status}: ${errText}`);
+          let errMsg = `HTTP ${resp.status}`;
+          try {
+            const errObj = JSON.parse(errText);
+            if (errObj.message) errMsg += `: ${errObj.message}`;
+          } catch (e) {}
+          throw new Error(errMsg);
         }
         const rows = await resp.json();
 
@@ -1178,12 +1187,11 @@
       } catch (err) {
         console.error('Pull failed:', err);
         if (!silentBeforePush) {
-          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 18);
+          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 32);
           setSyncPill('err', `⚠️ 离线(${msg})`);
         }
       }
     }
-
     // ========== 导航切换控制 ==========
     let currentMainTab = 'home';
 
@@ -2048,7 +2056,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V1.2 双端同步加密版 index.html</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V1.3 双端同步加密版 index.html</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
