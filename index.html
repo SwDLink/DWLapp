@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
   <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>我们的专属纪念 · DWLapp V1.3</title>
+  <title>我们的专属纪念 · DWLapp V1.4.2</title>
   <style>
     :root {
       --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
@@ -73,6 +73,7 @@
       display: inline-flex; align-items: center;
       background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff;
       font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px;
+      cursor: pointer;
     }
     .sync-pill {
       display: inline-flex; align-items: center; gap: 4px;
@@ -87,13 +88,13 @@
     h1 { font-size: var(--fs-title); color: var(--text-main); margin-bottom: 6px; line-height: 1.35; }
     p { font-size: var(--fs-body); color: var(--text-sub); line-height: 1.6; margin-bottom: 12px; word-break: break-word; }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%; padding: 11px 13px; margin-bottom: 10px;
       border: 1px solid #f3e8ff; border-radius: 13px;
       font-size: 14px; outline: none; background: rgba(255, 255, 255, 0.96);
       font-family: inherit; transition: all 0.2s;
     }
-    input:focus, textarea:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12); }
+    input:focus, textarea:focus, select:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12); }
 
     .btn {
       display: block; width: 100%; padding: clamp(12px, 3.5vw, 14px);
@@ -108,6 +109,196 @@
     .btn-green { background: #16a34a; box-shadow: none; }
     .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
     .err { color: #e11d48; font-size: 13px; margin-bottom: 12px; display: none; }
+
+    /* ==========================================================================
+       V1.4.2 专属仪式感全屏动画舞台（拆卡核销 / 达成干杯 / 写信封缄）
+       ========================================================================== */
+    #fxStageOverlay {
+      position: fixed; inset: 0; z-index: 980;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      pointer-events: none;
+      animation: fxOverlayFade 1.4s ease forwards;
+    }
+    @keyframes fxOverlayFade {
+      0% { opacity: 0; }
+      15% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .fx-caption {
+      margin-top: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      color: #db2777;
+      font-size: 13.5px; font-weight: 700;
+      padding: 7px 18px; border-radius: 99px;
+      border: 1px solid #fbcfe8;
+      box-shadow: 0 8px 24px rgba(236, 72, 153, 0.25);
+      animation: captionPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes captionPop {
+      from { transform: translateY(10px) scale(0.9); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* 1. 拆卡核销全屏动画 */
+    .tear-card-stage {
+      width: 240px; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .tear-half-top {
+      width: 100%; background: linear-gradient(135deg, #fff5f7, #ffffff);
+      border: 2px solid #f472b6; border-bottom: none;
+      border-radius: 18px 18px 4px 4px; padding: 14px 14px 12px;
+      text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.2);
+      animation: tearTopShift 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .tear-perforation {
+      width: 96%; border-top: 2px dashed #ec4899; margin: 1px 0;
+      animation: perfFlash 0.5s ease forwards;
+    }
+    .tear-half-bottom {
+      width: 100%; background: var(--accent-grad); color: #fff;
+      font-size: 12px; font-weight: 700;
+      border-radius: 4px 4px 18px 18px; padding: 10px;
+      text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.25);
+      animation: tearBottomDrop 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes tearTopShift {
+      0% { transform: translateY(0) rotate(0deg); }
+      35% { transform: translateY(-4px) rotate(-2deg); }
+      100% { transform: translateY(-10px) rotate(-4deg); }
+    }
+    @keyframes tearBottomDrop {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      35% { transform: translateY(4px) rotate(2deg); opacity: 1; }
+      100% { transform: translateY(24px) rotate(8deg); opacity: 0.85; }
+    }
+    @keyframes perfFlash {
+      0% { opacity: 1; transform: scaleX(1); }
+      100% { opacity: 0; transform: scaleX(1.15); }
+    }
+
+    /* 2. 专属事件达成干杯动画 */
+    .cheers-stage {
+      position: relative; width: 180px; height: 110px;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .cheers-glass-l, .cheers-glass-r {
+      font-size: 54px; position: absolute;
+      filter: drop-shadow(0 6px 16px rgba(251, 191, 36, 0.5));
+    }
+    .cheers-glass-l {
+      left: 22px; transform-origin: bottom right;
+      animation: glassClinkL 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .cheers-glass-r {
+      right: 22px; transform-origin: bottom left;
+      animation: glassClinkR 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .cheers-spark {
+      position: absolute; top: 4px; font-size: 24px; opacity: 0;
+      animation: sparkBurst 0.8s ease 0.32s forwards;
+    }
+    @keyframes glassClinkL {
+      0% { transform: translateX(-24px) rotate(-18deg) scale(0.85); }
+      40% { transform: translateX(10px) rotate(14deg) scale(1.08); }
+      65% { transform: translateX(4px) rotate(6deg) scale(1); }
+      100% { transform: translateX(6px) rotate(10deg) scale(1.02); }
+    }
+    @keyframes glassClinkR {
+      0% { transform: translateX(24px) rotate(18deg) scaleX(-1) scale(0.85); }
+      40% { transform: translateX(-10px) rotate(-14deg) scaleX(-1) scale(1.08); }
+      65% { transform: translateX(-4px) rotate(-6deg) scaleX(-1) scale(1); }
+      100% { transform: translateX(-6px) rotate(-10deg) scaleX(-1) scale(1.02); }
+    }
+    @keyframes sparkBurst {
+      0% { opacity: 0; transform: scale(0.4) translateY(8px); }
+      50% { opacity: 1; transform: scale(1.25) translateY(-4px); }
+      100% { opacity: 0; transform: scale(1.4) translateY(-12px); }
+    }
+
+    /* 3. 写信火漆封缄飞向云端动画 */
+    .seal-mail-stage {
+      position: relative; width: 150px; height: 110px;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .seal-paper {
+      position: absolute; font-size: 38px;
+      animation: paperSlideIn 0.55s ease forwards;
+    }
+    .seal-env {
+      font-size: 68px;
+      filter: drop-shadow(0 8px 20px rgba(236, 72, 153, 0.35));
+      animation: envFlyAway 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .seal-wax {
+      position: absolute; font-size: 26px; opacity: 0;
+      animation: waxStampPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.35s forwards;
+    }
+    @keyframes paperSlideIn {
+      0% { transform: translateY(-28px) scale(1); opacity: 1; }
+      100% { transform: translateY(6px) scale(0.45); opacity: 0; }
+    }
+    @keyframes waxStampPop {
+      0% { opacity: 0; transform: scale(2.2); }
+      60% { opacity: 1; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1) translateY(-16px); }
+    }
+    @keyframes envFlyAway {
+      0%, 55% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-38px) scale(0.85); opacity: 0.9; }
+    }
+
+    /* 粒子飞散动效 */
+    .fx-particle {
+      position: fixed; z-index: 990; pointer-events: none;
+      font-size: 18px;
+      animation: particleFly 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes particleFly {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
+    }
+
+    /* ========== 更新提示框弹窗 ========== */
+    .modal-mask {
+      position: fixed; inset: 0; z-index: 950;
+      background: rgba(15, 23, 42, 0.48);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: none; justify-content: center; align-items: center;
+      padding: 20px;
+      animation: fadeInModal 0.25s ease forwards;
+    }
+    @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+    .update-modal {
+      background: #fff;
+      border: 1.5px solid #fbcfe8;
+      border-radius: 24px;
+      padding: 22px 20px 18px;
+      width: 100%; max-width: 370px;
+      text-align: left;
+      box-shadow: 0 20px 50px rgba(236, 72, 153, 0.25);
+      animation: popUpModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes popUpModal {
+      from { transform: scale(0.9) translateY(14px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .update-badge {
+      display: inline-block; background: var(--accent-grad); color: #fff;
+      font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px;
+      margin-bottom: 8px;
+    }
+    .update-title { font-size: 18px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
+    .update-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .update-list li {
+      font-size: 13px; color: #374151; line-height: 1.55;
+      background: #fdf2f8; border: 1px solid #fce7f3;
+      padding: 9px 11px; border-radius: 12px;
+    }
+    .update-list li strong { color: #db2777; }
 
     /* ========== 底部三栏悬浮导航栏（左：信封 | 中：首页 | 右：约定） ========== */
     .bottom-nav {
@@ -362,22 +553,60 @@
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
     /* ==========================================================================
-       导航第一项【💌 信封】排版
+       导航第一项【💌 信封】排版（含拆信展开动画与写信封缄动画）
        ========================================================================== */
     .env-header-banner {
       background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
       border: 1px solid #fbcfe8;
       border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      padding: 13px 15px;
+      margin-bottom: 14px;
       text-align: left;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
     .env-banner-title { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .env-banner-sub { font-size: 12px; color: #9ca3af; }
-    .env-banner-icon { font-size: 32px; filter: drop-shadow(0 4px 8px rgba(236, 72, 153, 0.2)); }
+    .write-letter-toggle-btn {
+      background: var(--accent-grad); color: #fff; border: none;
+      padding: 8px 13px; border-radius: 13px; font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+    }
+    .write-letter-toggle-btn:active { transform: scale(0.95); }
 
-    .section-block { margin-bottom: 18px; text-align: left; }
+    .compose-letter-box {
+      background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%);
+      border: 1.5px solid #f9a8d4;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 16px;
+      text-align: left;
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1);
+      display: none;
+      transform-origin: top center;
+      animation: unfoldCompose 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes unfoldCompose {
+      from { opacity: 0; transform: translateY(-8px) scaleY(0.92); }
+      to { opacity: 1; transform: translateY(0) scaleY(1); }
+    }
+    .compose-letter-box.sealing {
+      animation: foldSealBox 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes foldSealBox {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(0.92) rotateX(18deg); }
+      100% { opacity: 0; transform: scale(0.65) translateY(-16px); }
+    }
+    .compose-row-label {
+      font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 6px;
+    }
+    .compose-grid-2 {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
+    }
+    .compose-grid-2 select, .compose-grid-2 input { margin-bottom: 0; font-size: 12.5px; padding: 9px 10px; }
+
+    .section-block { margin-bottom: 16px; text-align: left; }
     .section-head {
       display: flex; justify-content: space-between; align-items: center;
       font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 10px;
@@ -392,7 +621,7 @@
       background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%);
       border: 1.5px solid #f9a8d4;
       border-radius: 20px;
-      padding: 18px 18px 16px;
+      padding: 16px 16px 14px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -404,7 +633,7 @@
       font-size: 56px; opacity: 0.08; pointer-events: none;
     }
     .blindbox-card:active { transform: scale(0.98); }
-    .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .blindbox-tag {
       font-size: 11px; font-weight: 700; color: #be185d;
       background: rgba(251, 207, 232, 0.45); padding: 3px 10px; border-radius: 8px;
@@ -414,16 +643,16 @@
       padding: 4px 10px; border-radius: 99px; font-weight: 700;
     }
     .blindbox-quote {
-      font-size: 15px; color: #1f2937; line-height: 1.75; font-weight: 500;
-      letter-spacing: 0.3px; min-height: 52px;
+      font-size: 14.5px; color: #1f2937; line-height: 1.7; font-weight: 500;
+      letter-spacing: 0.3px; min-height: 48px;
       display: flex; align-items: center;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
     .quote-flip { opacity: 0; transform: translateY(5px); }
 
-    .capsule-list { display: flex; flex-direction: column; gap: 12px; }
+    .capsule-list { display: flex; flex-direction: column; gap: 11px; max-height: 360px; overflow-y: auto; }
     .capsule-card {
-      border-radius: 18px; padding: 14px 15px; border: 1px solid #fbcfe8;
+      border-radius: 18px; padding: 13px 14px; border: 1px solid #fbcfe8;
       background: #fff; cursor: pointer; transition: all 0.2s ease;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
     }
@@ -437,39 +666,57 @@
       border-color: #f9a8d4;
       box-shadow: 0 6px 18px rgba(236, 72, 153, 0.09);
     }
-    .cap-row { display: flex; align-items: center; gap: 12px; }
+    .cap-row { display: flex; align-items: center; gap: 11px; }
     .cap-seal-icon {
-      width: 42px; height: 42px; border-radius: 14px;
+      width: 40px; height: 40px; border-radius: 13px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
+      font-size: 19px; flex-shrink: 0;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .capsule-card.opened .cap-seal-icon {
+      transform: scale(1.12) rotate(-8deg);
     }
     .capsule-card.locked .cap-seal-icon { background: #ede9fe; }
     .capsule-card.unlocked .cap-seal-icon { background: linear-gradient(135deg, #fce7f3, #fef3c7); }
     .cap-info { flex: 1; min-width: 0; }
     .cap-title {
-      font-size: 14px; font-weight: 700; color: #1f2937;
-      margin-bottom: 4px; line-height: 1.35;
+      font-size: 13.5px; font-weight: 700; color: #1f2937;
+      margin-bottom: 3px; line-height: 1.35;
     }
-    .cap-meta { font-size: 11.5px; color: #6b7280; }
+    .cap-meta { font-size: 11px; color: #6b7280; }
     .cap-badge {
-      font-size: 11px; font-weight: 700; padding: 4px 10px;
+      font-size: 11px; font-weight: 700; padding: 4px 9px;
       border-radius: 99px; white-space: nowrap; flex-shrink: 0;
     }
     .cap-badge.lock { background: #ede9fe; color: #6d28d9; }
     .cap-badge.open { background: var(--accent-grad); color: #fff; }
 
     .cap-letter-body {
-      margin-top: 14px; padding: 14px 15px;
+      margin-top: 12px; padding: 13px 14px;
       background-color: #fffcfd;
       background-image: linear-gradient(to bottom, transparent 27px, #fce7f3 28px);
       background-size: 100% 28px;
       border-radius: 12px; border: 1px solid #fbcfe8;
       font-size: 14px; color: #374151; line-height: 28px;
       white-space: pre-wrap; display: none;
+      transform-origin: top center;
+    }
+    .cap-letter-body.unfolding {
+      display: block;
+      animation: letterUnfold 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes letterUnfold {
+      0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); }
+      100% { opacity: 1; transform: translateY(0) scaleY(1); }
+    }
+    .cap-footer-actions {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8;
+      font-size: 11px; color: #9ca3af;
     }
 
     /* ==========================================================================
-       导航第三项【🎁 约定】排版
+       导航第三项【🎁 约定】排版（含拆卡震动光效）
        ========================================================================== */
     .sub-tabs {
       display: flex; background: #fdf2f8; border: 1px solid #fbcfe8;
@@ -507,6 +754,16 @@
       display: flex; flex-direction: column; justify-content: space-between;
       position: relative;
       box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .coupon-ticket.tearing {
+      animation: ticketShakeTear 0.45s ease forwards;
+    }
+    @keyframes ticketShakeTear {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; }
+      65% { transform: scale(0.97) rotate(2deg); }
+      100% { transform: scale(1) rotate(0deg); }
     }
     .coupon-ticket.used {
       background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; box-shadow: none;
@@ -558,6 +815,7 @@
       display: flex; align-items: center; gap: 10px;
       background: #fff; border: 1px solid #fce7f3; border-radius: 14px; padding: 11px 13px;
       box-shadow: 0 2px 6px rgba(236, 72, 153, 0.04);
+      transition: transform 0.2s ease, background 0.2s ease;
     }
     .event-item.done { background: #faf5ff; border-color: #e9d5ff; opacity: 0.78; box-shadow: none; }
     .event-checkbox { width: 20px; height: 20px; margin: 0; flex-shrink: 0; accent-color: #ec4899; cursor: pointer; }
@@ -659,6 +917,23 @@
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
+  <!-- V1.4.2 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
+  <div id="fxStageOverlay" style="display:none;"></div>
+
+  <!-- V1.4.2 版本更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display:none;">
+    <div class="update-modal">
+      <span class="update-badge">✨ 新版本上线 · V1.4.2</span>
+      <div class="update-title">仪式感微交互动画已上线</div>
+      <ul class="update-list">
+        <li><strong>🎟️ 核销拆卡动画</strong>：在「约定」页点击立即核销，新增沿虚线撕开卡券与星光粒子动效。</li>
+        <li><strong>🥂 达成干杯动画</strong>：勾选完成任意「专属事件」时，触发双杯碰杯庆祝火花。</li>
+        <li><strong>💌 拆信与封信动画</strong>：信箱拆开长信时信纸顺滑展开；写完长信寄出时触发折叠封蜡飞向云端动效。</li>
+      </ul>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启甜蜜体验 💖</button>
+    </div>
+  </div>
+
   <!-- 登录成功开场动画 -->
   <div id="introOverlay" style="display: none;">
     <div class="heart-pulse-wrap" id="introAnimStage">
@@ -671,14 +946,14 @@
 
   <!-- 状态 1：门禁拦截界面 -->
   <div class="card" id="denyView" style="display:none;">
-    <div class="badge badge-danger">🔒 专属信物保护中 · V1.3</div>
+    <div class="badge badge-danger">🔒 专属信物保护中 · V1.4.2</div>
     <h1>需要触碰专属 NFC 信物</h1>
     <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
   </div>
 
   <!-- 状态 2：首次登录验证界面 -->
   <div class="card" id="loginView" style="display:none;">
-    <div class="badge">✨ 已感应到专属信物 · V1.3</div>
+    <div class="badge">✨ 已感应到专属信物 · V1.4.2</div>
     <h1>开启我们的纪念空间</h1>
     <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
     <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
@@ -691,7 +966,7 @@
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill">V1.3</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V1.4.2 更新说明">V1.4.2</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -699,16 +974,16 @@
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 7天0时</span>
+        <span class="city-status" id="meetCountdownText">点击日历设定见面行程</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 8%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 8%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 6%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 6%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 8%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 92%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 6%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 94%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -721,19 +996,19 @@
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit">
-          <span class="time-num" id="tDays">258</span>
+          <span class="time-num" id="tDays">259</span>
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">23</span>
+          <span class="time-num" id="tHours">15</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">00</span>
+          <span class="time-num" id="tMins">05</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">16</span>
+          <span class="time-num" id="tSecs">53</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -761,14 +1036,32 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航左侧项：💌 信封（情话、长信、时间胶囊） ==================== -->
+  <!-- ==================== 导航左侧项：💌 信封（情话、双人写信、时间胶囊） ==================== -->
   <div class="card reveal-main" id="tabEnvelopeView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">💌 见字如面 · 专属信箱</div>
-        <div class="env-banner-sub">每一句悄悄话，都是穿越700公里的拥抱</div>
+        <div class="env-banner-sub">双方随时写信与封存未来时光胶囊</div>
       </div>
-      <div class="env-banner-icon">📮</div>
+      <button class="write-letter-toggle-btn" id="toggleComposeBtn" onclick="toggleComposeBox()">✍️ 写一封信</button>
+    </div>
+
+    <!-- 双人在线写信与封存时光胶囊面板（云端加密同步） -->
+    <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
+      <div class="compose-row-label">📮 寄信人与开启时间（选今天即对方立即可读，选未来日期即封存为时光胶囊）</div>
+      <div class="compose-grid-2">
+        <select id="userCapAuthor">
+          <option value="👦 他的来信">👦 他的来信</option>
+          <option value="👧 她的来信">👧 她的来信</option>
+        </select>
+        <input type="date" id="userCapDate" title="选择信件解锁日期">
+      </div>
+      <input type="text" id="userCapTitle" placeholder="信件标题（如：今晚突然很想你 / 写给下次见面）" style="font-size:13px;">
+      <textarea id="userCapBody" rows="4" placeholder="在这里写下想对彼此说的长信..." style="font-size:13.5px;"></textarea>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-ghost" style="width:32%; margin-bottom:0;" onclick="toggleComposeBox()">取消</button>
+        <button class="btn" id="sendUserLetterBtn" style="flex:1; margin-bottom:0;" onclick="submitUserCapsule()">💌 封存并云端寄出</button>
+      </div>
     </div>
 
     <!-- 模块 1：一碰一语 · 随机情话盲盒 -->
@@ -782,15 +1075,15 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">跨越山海，苏州与武汉的距离，终将化作相拥的温度。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">想和你一起吃遍武汉的过早，也想带你走遍苏州的晚风。</div>
       </div>
     </div>
 
-    <!-- 模块 2：长信 & 时光胶囊 -->
+    <!-- 模块 2：长信 & 时光胶囊（融合内置预埋信件 + 双人云端寄出的信件） -->
     <div class="section-block" style="margin-bottom:0;">
       <div class="section-head">
         <span>⏳ 专属长信 &amp; 时光胶囊</span>
-        <span class="section-pill" id="capsuleStatusLabel">共 2 封</span>
+        <span class="section-pill" id="capsuleStatusLabel">共 3 封</span>
       </div>
       <div class="capsule-list" id="capsuleListContainer"></div>
     </div>
@@ -798,11 +1091,11 @@
     <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地礼物定制工坊 (V1.3)</strong>：在此编辑情话盲盒、专属长信与未来时间胶囊，完成后导出上锁版上传 GitHub。
+        🛠️ <strong>本地礼物定制工坊 (V1.4.2)</strong>：在此预埋初始情话与初始长信，完成后导出上锁版上传 GitHub。
       </p>
 
       <div class="dev-section">
-        <div class="dev-sec-title">🎲 添加随机情话</div>
+        <div class="dev-sec-title">🎲 添加内置随机情话</div>
         <div style="display:flex; gap:6px;">
           <input type="text" id="devNewQuote" placeholder="输入一句新的情话或回忆..." style="margin-bottom:0; font-size:12px; padding:8px 10px;">
           <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="devAddQuote()">添加</button>
@@ -811,15 +1104,15 @@
       </div>
 
       <div class="dev-section">
-        <div class="dev-sec-title">⏳ 封存长信 / 未来时间胶囊（开启日期选今天或之前即为即时可读长信）</div>
+        <div class="dev-sec-title">⏳ 预埋初始长信 / 未来时间胶囊</div>
         <input type="text" id="devCapTitle" placeholder="信件标题（如：写给一周年纪念日的你）" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
         <input type="date" id="devCapDate" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
         <textarea id="devCapBody" rows="3" placeholder="写下想对她说的话..." style="font-size:12px; padding:8px 10px; margin-bottom:6px;"></textarea>
-        <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入信箱</button>
+        <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
 
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.3)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.4.2)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -831,10 +1124,10 @@
     <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">4</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">3</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
-        ✨ 专属事件 (<span id="eventDoneRatio">0/0</span>)
+        ✨ 专属事件 (<span id="eventDoneRatio">1/1</span>)
       </button>
     </div>
 
@@ -852,10 +1145,10 @@
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
-          <span id="eventPercentText" style="color:#db2777;">0/0 (0%)</span>
+          <span id="eventPercentText" style="color:#db2777;">1/1 (100%)</span>
         </div>
         <div class="event-progress-bar" style="margin-bottom:0;">
-          <div class="event-progress-fill" id="eventProgressFill" style="width: 0%;"></div>
+          <div class="event-progress-fill" id="eventProgressFill" style="width: 100%;"></div>
         </div>
       </div>
 
@@ -920,12 +1213,11 @@
       <span class="nav-label">约定</span>
     </button>
   </nav>
-
-  <script>
-    const APP_VERSION = 'V1.3';
+<script>
+    const APP_VERSION = '1.4.2';
     const IS_LOCAL = window.location.protocol === 'file:';
 
-    // Supabase 端到端加密云同步配置（2026 新版 Publishable Key 规范）
+    // Supabase 端到端加密云同步配置
     const SUPABASE_URL = 'https://crzxwlicqvccpqjsuuzr.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_3V-HcmB1aLNC5KZzKXAP7w_8KG47NbK';
     const CLOUD_DOC_ID = 'dwl_suzhou_wuhan_room_v1';
@@ -934,16 +1226,19 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "WpyFgfboBES1pmQZD7LD9ru5rls2oqEZm0AA8gyEl6Fu/3z70RcjOiurA2BsoWZ1WehytgozWKlEP7fKDtbQab1u73NUkZXmZubg1khLLv7O8qUK/KWgF9djgDED/gvHyWfQIAo8dM7COxsaz4wZB1FBAK4/D5OU2Ru+Wq0aB8nyF7Y6oQ1YgFotzEQVmpfJnQhfEMuz2t0OtNlziEpoqusWLT9IbgwxsTkOeOOOf/MIhzg5NZZXkFc4k49L13uBCx9SVZTcZ/MIPaQosxFmTHXjRxO+9JS4ol/RNR43oNNtH+DKvA5F3CnWdflngqFSfjwN2WWq0EQkLKBz9ZFxKQESZOH4Nkyq9wanMkiDMsjVhSyffYJk4X5uE20QIKg+NcD7tCaDsqQgTJMeyqOTFBRFzjWOacnbywDPBbO1GvUDl+r1JRwinGkXKJmp9SunLQl+HAWwofv9JllmRJTKZdG78yYexxY1CTRgAvNzETeF56KGU32n50QzRJ45CMtqUPK96/H4wSdqEB8vVG5KfQYPtT3DDuT4Epex633KlUn/JdVhjr8tk3TTmZYSRtzJVnxqeR9TVWNvEFxUQXj6k6EDQdezGoO2a+Rc4ijxFNdLnv+zZBdeWczZb3IUgf8nibxezZeuqL/Ay37F0591JNo86KZ91Zyl7J7JOE8Q85VgoNMJhpsWbVx1ipHWwg1Q7/SjrpitwxxNaPWXLsxVLF0q3MHc6othZscD/Aif6w9iVj2+vDWvbamHw3w+l6JkctehQgCICp7sYUkI9PU45BhlW2tM7Cd26LayaGittyHrOCzfCPKnliS+7zZNChX48+zltjqyWIFqLgYocYyNl7lrB5GRU6MjWtXlrRuSOITYX637RXxBRSIDuIewZx6TS5etU2MJwhPa4BkrZ40MCsvDYAJqWSMHhtvLAC8Ckdbdn9GPsCLZltcuq7uL2H9OOd7ubn5I3kMa7BjwyM90dvXTi1k/nZAsTSCKOsvdRFvd4llkNb4hJVn3NiykDvya2NHmbwMH2WS9wekllZWiqKT4PzhhoIKkx/dBLUAN/6EmwZPwwitjQBFsV/8j50gaZfjM/mu3PaBo4K6qiCbeygQDq6DmhhlemvT1DKGFygWmdizwSg1ynnbqmMzhjcZPRB/3DePRoxctvWzwIdMfuY+AJYAtaDyerdeHoO9eZzlukuBj6SUCk0sPd1dkY2BJqYsMwpsHqpDYKhb1N6UHQLs18ybWucUCLca53RhnQPotmjmaaHjuNYo7XvV/NVvnN7wMOeLd2cY1xbWSS+OgPDdzjb30+ySAIOQsla3zqOtxlqzNV9FuUFpXKejdqoQrf6lDjo1+rf/OYII1WH7H3b0JRe7I6quBOWPpmuP93d9yr1ZkY9QHFJJt/94wj1Oej6FidVXhOjyiBmaOYNzOlKh5vxlEAvwrXtmYfBvIw8SRu4JLLaUFNN+bkWZ9NQOTapANzXdSPfvyTREEU/u+lz+mt31Dq5WdbHjnYuYcUMO9eawr9yrYXwxpusjlfT/vhiTJLaRxC2puHz6ZR+BIc7kuBgf40WGWMERDnwGVa5jHa24P3R2Qr3ZLDjd39oIOAmxWOQ4NyTLj7YcJ7fd9TpGxLABqGg1SiOhDGExxWZtZvdBIjfO5A+S+oIK8b3hp/Iv0YuMrLwRiZbGz7S4kQ0JSXtY+5N05SQlNaolV4XzxTesukMB8K6991YEk9YPMDWEkvM8n95yIbOdEHs0TumkJ7aP2JBIqGg0hr2E7s9k5A7TcOn2uuBpB1x1jQ/jgi18prXdFYifyHbf5fIoFVGoxLCvpaRLb9WYHZJ7+MubfJ2vg9VWzFtXikg3wAFVDMYBrDA/9KMvAtrPWMLD8vVRuKMHdz6Wzsbz4uMOP2Biiky1g4zpUNQ==";
+    const ENCRYPTED_BUNDLE = "rJkqfOj2zerDksxJV9e1MI+mO4bI1MIafbEVdtoNQPqiuZM/V4J36TPi3BYW789Sa/8W+vpbHMsy5zxAndaiBK73lGdZdECtP70ZZFYBCSjsOdp0/neas7UyXFdbv+hqOdrY1+Wk55uEkKj2d3qqpHgwvIHDkHHM8r7T/D9YuNyUdUZgYKlLBR1nAn0fPm+Q6HqoSOdNemXD4bjPoq9fZGsKQZ5bVzadXT988bZUxUtwhgsYwtePjoXmLjFGRwHFDLGdBlhMGBFEIAHqIzk7lriXXXl1IMSMRQ382p2uhi30U1uZCgO25gLSKzouahBhSuCv6sN2ACOV+lcCYPNr/Jpug0x+a9gjdtMSgpopOvxhCx2AqSng7gymIIiPIbP9pMPMBpZwfeBSiG3hZqNNN7QmDySAu1i4fhoA2IRvDnz3K9kkJGFdfWMlay+Fwv3Vq+abSsM9LvRlEqUByNtJbrSDVCsDUvphCvJ8wCJ84exXT6m/ua1zvajo3y/5gl0AbVsPjTEIWtIhz4Y9nt3dR9xMxVBEN46eAYpn0gNbZP7iGjgT4fIpwcPchWDoQNeaYS2TUuXxU8jul9pNKoUYipgoEOSpne4CHo6+axFztB8imikU09ecnR2XOvsruAm3nfgzI4ERToH/kAigpmLo2e82OkqpXOP6bb5vbGdfw6V2/DlsGyhwBuKsgZes5X3Z+WTWMBtZT78fHfMMN/MXybje0fRV9mJ+y1GpnuDts9Ue3sRSOGCkEPn8x7fTGhkefPyBU3vOaqfR1wd1JBQCyB8GdK0fAmb+HFmYn2Zwc1R1YpcCEQGSrwwEkElz4gqNSl+YsB/l216gAYAi9TpAsGmxbANRFcD/VKVtHlAhVXaKhKMk8XHz0V2+P1OFPFE0u0rTqWM0pbY3ltdMG7ChrNtamY4rj76cniAgQ1cjforGGxAuMfV8JJg+pvnDpuj/47aeBSIpzWVbghngKjJJ942rQv5tAWIDM1CP+DSV4UWXOMmkI6eEPp5ZVSz8FzbUc1CVJK3dg9kPlG6C6+mycQSS5g0O4h3QvYRmApVop+0f1NZVF04fDXLE6e4c/1CseQ3RMjLG5s2lC+w0Lwx0GN/opk+Pzg0zhMQXSgIo8L0cfbkSnrArb/VWf9yjwKCxSLai/FZhKXOLlgZK5+24wxzg5avj5R5Pe9/e3oH881uhDUlkcffqOm8UE0v4lPQfu6o37SNG8/oFvCGP0Lc+8fU38RR4SJGurKyIWx3aw9PssCSQP3DBbYL26DgwSfmvCj/Oy72T37KOt6hkM+tO7seb7yrBwMz7WbXC/xFjrsFS0CqpWqEMo6Fh6o1kIPgA5KSNBYt24aKZgafj3FQjOCZ72MGRDO2ewKxfb/9w/XzK/JNqsu/mOKRc+tnUfW+itB7tD4RrCSIFXJ0tZLUXxfknHLFSLdZAWcotI+I3sYfEq++bZPiOnSCDi8HJbz2gUBLKDYNJwCgaOIwro9odjaIJF9zlzLOlh25qYtjN7l39jHOLqJp1+5H8nRJ7tIvRP+ImIZNx11kRdks9lqzsc/Ccwe5qY3eZrzW6RKeyJr5zO+mc3byhL76xhmvag/PGerlVMf61ixaXql26wjWlaCgbjiekwRPyvVrP/6kMMnAI1naMJZ8EsNoS2Sf2G7PfLGillP/yhM4PP/aZhhajJMsALca+bOIcvl/oaPfyIXlCSUFAbeJBtaL5Q8oScBL6aAJewXqGQw+do/GkwzJuNPYdWNKx0QJP5dt9FyvYhCYoW48X1OEF2VdYeVFBArqYKWUtI0GGVdLsWrMEB7FQARIdilg5XGa06aHccMa/rpY37NuUzsEeUS4SSipIhTgvGvvPNw4YezlOA+wbEkiQGIsF8U2CZyXw6Yl8FloA9ibSjdI1fxTg3b9W7HXMvpZxgpUKmU9Xg2c4yJkvR+IsqSjSWFFdLYaL296QhaGzsRYU6RTQyjdohYj6s51tC5wduJo=";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
     const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
     const DELETED_NOTES_KEY = 'dwlapp_love_del_notes_v1';
+    const USER_CAPSULES_KEY = 'dwlapp_love_user_capsules_v1';
+    const DELETED_CAPSULES_KEY = 'dwlapp_love_del_capsules_v1';
     const READ_STATUS_KEY = 'dwlapp_love_read_v1';
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v1';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_4_2';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -960,7 +1255,118 @@
       { id: 4, name: "🍜 任意美食大餐券", desc: "指定任意一家想吃的餐厅，无条件安排打卡", used: false, usedAt: "" }
     ];
 
-    // ========== 带 8 秒硬超时的网络请求封装（彻底防止网络挂起卡死按钮） ==========
+    // ========== V1.4.2 仪式感微交互动画播放引擎（拆卡 / 干杯 / 封信） ==========
+    let fxHideTimer = null;
+
+    function spawnFxParticles(emojis = ['✨', '💖', '🌸', '💫']) {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      for (let i = 0; i < 14; i++) {
+        const el = document.createElement('span');
+        el.className = 'fx-particle';
+        el.textContent = emojis[i % emojis.length];
+        const angle = (Math.PI * 2 * i) / 14 + (Math.random() - 0.5) * 0.4;
+        const dist = 75 + Math.random() * 95;
+        el.style.left = `${cx}px`;
+        el.style.top = `${cy}px`;
+        el.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+        el.style.setProperty('--dy', `${Math.sin(angle) * dist - 20}px`);
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1050);
+      }
+    }
+
+    function playCeremonyFx(type, labelText = '') {
+      const stage = document.getElementById('fxStageOverlay');
+      if (!stage) return;
+      if (fxHideTimer) clearTimeout(fxHideTimer);
+
+      if (type === 'tear') {
+        stage.innerHTML = `
+          <div class="tear-card-stage">
+            <div class="tear-half-top">
+              <div style="font-size:11px; color:#db2777; font-weight:700;">🎟️ 甜蜜特权券</div>
+              <div style="font-size:14px; color:#1f2937; font-weight:700; margin-top:3px;">${escapeHtml(labelText)}</div>
+            </div>
+            <div class="tear-perforation"></div>
+            <div class="tear-half-bottom">✂️ 已盖章核销 · 立即兑现</div>
+          </div>
+          <div class="fx-caption">✨ 拆卡成功，约定即刻生效！</div>
+        `;
+        spawnFxParticles(['🎟️', '✨', '💖', '🌸']);
+      } else if (type === 'cheers') {
+        stage.innerHTML = `
+          <div class="cheers-stage">
+            <span class="cheers-spark">✨💖✨</span>
+            <span class="cheers-glass-l">🥂</span>
+            <span class="cheers-glass-r">🥂</span>
+          </div>
+          <div class="fx-caption">🥂 干杯！又一起完成了一个愿望</div>
+        `;
+        spawnFxParticles(['🥂', '✨', '💛', '💖']);
+      } else if (type === 'seal') {
+        stage.innerHTML = `
+          <div class="seal-mail-stage">
+            <span class="seal-paper">📝</span>
+            <span class="seal-env">✉️</span>
+            <span class="seal-wax">💖</span>
+          </div>
+          <div class="fx-caption">💌 信件已封缄并加密飞往云端</div>
+        `;
+        spawnFxParticles(['💌', '💕', '✨', '🕊️']);
+      }
+
+      stage.style.display = 'flex';
+      fxHideTimer = setTimeout(() => {
+        stage.style.display = 'none';
+        stage.innerHTML = '';
+      }, 1350);
+    }
+
+    // ========== 自动破缓存与版本比较器 ==========
+    function isNewerVersion(remoteVer, localVer) {
+      if (!remoteVer || !localVer) return false;
+      const rParts = String(remoteVer).replace(/^v/i, '').split('.').map(Number);
+      const lParts = String(localVer).replace(/^v/i, '').split('.').map(Number);
+      const len = Math.max(rParts.length, lParts.length);
+      for (let i = 0; i < len; i++) {
+        const r = rParts[i] || 0;
+        const l = lParts[i] || 0;
+        if (r > l) return true;
+        if (r < l) return false;
+      }
+      return false;
+    }
+
+    function triggerCacheBustReload(targetVer) {
+      if (IS_LOCAL) return;
+      const guardKey = `dwl_reloaded_to_${targetVer}`;
+      if (sessionStorage.getItem(guardKey)) return;
+      sessionStorage.setItem(guardKey, '1');
+
+      setSyncPill('syncing', `🚀 发现新版 V${targetVer}，自动更新中...`);
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', targetVer);
+      url.searchParams.set('_cb', Date.now());
+      setTimeout(() => {
+        window.location.replace(url.toString());
+      }, 450);
+    }
+
+    // ========== V1.4.2 更新提示弹窗控制 ==========
+    function openUpdateModal(force = false) {
+      if (!force && localStorage.getItem(SEEN_UPDATE_KEY) === '1') return;
+      const mask = document.getElementById('updateModalMask');
+      if (mask) mask.style.display = 'flex';
+    }
+
+    function closeUpdateModal() {
+      localStorage.setItem(SEEN_UPDATE_KEY, '1');
+      const mask = document.getElementById('updateModalMask');
+      if (mask) mask.style.display = 'none';
+    }
+
+    // ========== 带 8 秒硬超时的网络请求封装 ==========
     async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -1029,11 +1435,7 @@
     }
 
     function getDeletedIds() {
-      try {
-        return JSON.parse(localStorage.getItem(DELETED_NOTES_KEY) || '[]');
-      } catch (e) {
-        return [];
-      }
+      try { return JSON.parse(localStorage.getItem(DELETED_NOTES_KEY) || '[]'); } catch (e) { return []; }
     }
 
     function addDeletedId(id) {
@@ -1044,17 +1446,31 @@
       }
     }
 
+    function getDeletedCapsuleIds() {
+      try { return JSON.parse(localStorage.getItem(DELETED_CAPSULES_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function addDeletedCapsuleId(id) {
+      const list = getDeletedCapsuleIds();
+      if (!list.includes(id)) {
+        list.push(id);
+        localStorage.setItem(DELETED_CAPSULES_KEY, JSON.stringify(list.slice(-200)));
+      }
+    }
+
     async function pushToCloud() {
       if (!activeAesKey) return false;
       isSyncingNow = true;
       setSyncPill('syncing', '🔄 正在同步云端...');
       try {
-        // 先快速拉取合并，确保不覆盖对方刚发的内容
         await pullFromCloud(false, true);
 
         const snapshot = JSON.stringify({
+          latestVer: APP_VERSION,
           notes: getAllNotes(),
           deletedIds: getDeletedIds(),
+          userCapsules: getUserCapsules(),
+          deletedCapsuleIds: getDeletedCapsuleIds(),
           meet: getMeetConfig(),
           coupons: getAllCoupons(),
           events: getAllEvents(),
@@ -1062,7 +1478,6 @@
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
 
-        // 严格按照 Supabase 2026 新版 Publishable Key 规范：只传 apikey 头，不传 Authorization Bearer
         const resp = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/dwl_sync?on_conflict=id`, {
           method: 'POST',
           headers: {
@@ -1086,7 +1501,7 @@
         return true;
       } catch (err) {
         console.error('Push failed:', err);
-        const msg = err.name === 'AbortError' ? '连接超时(8s)' : err.message.slice(0, 22);
+        const msg = err.name === 'AbortError' ? '连接超时(8s)' : err.message.slice(0, 24);
         setSyncPill('err', `⚠️ 本地已存 · 云端失败(${msg})`);
         return false;
       } finally {
@@ -1094,13 +1509,12 @@
       }
     }
 
-async function pullFromCloud(manual = false, silentBeforePush = false) {
+    async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (!activeAesKey) return;
       if (!silentBeforePush && isSyncingNow) return;
       if (manual) setSyncPill('syncing', '🔄 正在拉取...');
 
       try {
-        // 严格只传数据库存在的列名参数，防缓存改用 Cache-Control 请求头
         const resp = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload`, {
           method: 'GET',
           cache: 'no-store',
@@ -1133,6 +1547,11 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
           const decryptedStr = await decryptWithActiveKey(cipher);
           const remote = JSON.parse(decryptedStr);
 
+          if (!silentBeforePush && remote.latestVer && isNewerVersion(remote.latestVer, APP_VERSION)) {
+            triggerCacheBustReload(remote.latestVer);
+            return;
+          }
+
           const localDel = getDeletedIds();
           const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
           const allDelSet = new Set([...localDel, ...remoteDel]);
@@ -1156,6 +1575,21 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
             saveAllNotes(mergedNotes);
           }
 
+          const localCapDel = getDeletedCapsuleIds();
+          const remoteCapDel = Array.isArray(remote.deletedCapsuleIds) ? remote.deletedCapsuleIds : [];
+          const allCapDelSet = new Set([...localCapDel, ...remoteCapDel]);
+          localStorage.setItem(DELETED_CAPSULES_KEY, JSON.stringify(Array.from(allCapDelSet).slice(-200)));
+
+          if (Array.isArray(remote.userCapsules)) {
+            const localCaps = getUserCapsules();
+            const capMap = new Map();
+            [...localCaps, ...remote.userCapsules].forEach(c => {
+              if (!allCapDelSet.has(c.id)) capMap.set(c.id, c);
+            });
+            const mergedCaps = Array.from(capMap.values()).sort((a, b) => b.id - a.id);
+            saveUserCapsules(mergedCaps);
+          }
+
           if (!silentBeforePush && remote.meet !== undefined) {
             if (remote.meet) {
               localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
@@ -1176,15 +1610,21 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
             renderCalendar();
             updateCityProgress();
             updatePromiseCounters();
+            updateCapsuleBadge();
             if (document.getElementById('noteView').style.display === 'block') {
               refreshMeetSetupUI();
               renderNotesList();
+            }
+            if (currentMainTab === 'envelope') {
+              renderCapsulesList();
             }
             if (currentMainTab === 'promise') {
               renderCouponsList();
               renderEventsList();
             }
           }
+        } else if (!silentBeforePush && rows.length === 0) {
+          pushToCloud();
         }
         if (!silentBeforePush) setSyncPill('ok', '☁️ 云端已同步');
       } catch (err) {
@@ -1195,6 +1635,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
         }
       }
     }
+
     // ========== 导航切换控制 ==========
     let currentMainTab = 'home';
 
@@ -1248,45 +1689,140 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       }, 180);
     }
 
-    // ========== ⏳ 长信 & 未来时间胶囊逻辑 ==========
+    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（含拆信与封信动画） ==========
+    function getUserCapsules() {
+      try { return JSON.parse(localStorage.getItem(USER_CAPSULES_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveUserCapsules(list) {
+      localStorage.setItem(USER_CAPSULES_KEY, JSON.stringify(list));
+    }
+
+    function getAllMergedCapsules() {
+      const userList = getUserCapsules().map(c => ({ ...c, isUserWritten: true }));
+      const builtinList = timeCapsules.map(c => ({ ...c, isUserWritten: false }));
+      return [...userList, ...builtinList];
+    }
+
+    function toggleComposeBox() {
+      const box = document.getElementById('composeLetterBox');
+      const btn = document.getElementById('toggleComposeBtn');
+      const isOpening = box.style.display === 'none';
+      box.classList.remove('sealing');
+      box.style.display = isOpening ? 'block' : 'none';
+      btn.textContent = isOpening ? '收起写信' : '✍️ 写一封信';
+      if (isOpening && !document.getElementById('userCapDate').value) {
+        document.getElementById('userCapDate').value = getTodayStr();
+      }
+    }
+
+    async function submitUserCapsule() {
+      const author = document.getElementById('userCapAuthor').value;
+      const unlockDate = document.getElementById('userCapDate').value || getTodayStr();
+      const title = document.getElementById('userCapTitle').value.trim();
+      const content = document.getElementById('userCapBody').value.trim();
+
+      if (!title) return alert('给这封信起个温暖的标题吧~');
+      if (!content) return alert('信纸还是空的哦，写下想说的话再寄出吧~');
+
+      const btn = document.getElementById('sendUserLetterBtn');
+      const box = document.getElementById('composeLetterBox');
+      btn.disabled = true;
+      btn.textContent = '正在封缄并加密寄出...';
+
+      // 触发写信面板折叠封信动画 + 全屏火漆封信飞行动画
+      box.classList.add('sealing');
+      playCeremonyFx('seal');
+
+      setTimeout(async () => {
+        const list = getUserCapsules();
+        list.unshift({
+          id: Date.now(),
+          author,
+          title,
+          unlockDate,
+          content,
+          createdAt: getTodayStr()
+        });
+        saveUserCapsules(list);
+
+        document.getElementById('userCapTitle').value = '';
+        document.getElementById('userCapBody').value = '';
+        box.classList.remove('sealing');
+        box.style.display = 'none';
+        document.getElementById('toggleComposeBtn').textContent = '✍️ 写一封信';
+        renderCapsulesList();
+
+        try {
+          await pushToCloud();
+        } finally {
+          btn.disabled = false;
+          btn.textContent = '💌 封存并云端寄出';
+        }
+      }, 420);
+    }
+
+    async function deleteUserCapsule(event, capId) {
+      event.stopPropagation();
+      if (!confirm('确定要删除这封信件吗？（删除后也将同步到云端）')) return;
+      addDeletedCapsuleId(capId);
+      const list = getUserCapsules().filter(c => c.id !== capId);
+      saveUserCapsules(list);
+      renderCapsulesList();
+      await pushToCloud();
+    }
+
     function updateCapsuleBadge() {
+      const allCaps = getAllMergedCapsules();
       const today = getTodayStr();
-      const readyCount = timeCapsules.filter(c => today >= c.unlockDate).length;
+      const readyCount = allCaps.filter(c => today >= c.unlockDate).length;
       const dot = document.getElementById('envelopeNavDot');
       if (dot) dot.style.display = readyCount > 0 ? 'block' : 'none';
       const label = document.getElementById('capsuleStatusLabel');
-      if (label) label.textContent = `共 ${timeCapsules.length} 封`;
+      if (label) label.textContent = `共 ${allCaps.length} 封`;
     }
 
     function renderCapsulesList() {
       updateCapsuleBadge();
       const container = document.getElementById('capsuleListContainer');
+      const allCaps = getAllMergedCapsules();
       const today = getTodayStr();
       const todayMs = new Date(`${today}T00:00:00`).getTime();
 
-      if (timeCapsules.length === 0) {
-        container.innerHTML = `<div class="empty-notes">信箱里暂时还没有信件哦 ✨</div>`;
+      if (allCaps.length === 0) {
+        container.innerHTML = `<div class="empty-notes">信箱里暂时还没有信件，点击右上角「写一封信」寄出第一封吧 ✨</div>`;
         return;
       }
 
-      container.innerHTML = timeCapsules.map(cap => {
+      container.innerHTML = allCaps.map(cap => {
         const unlockMs = new Date(`${cap.unlockDate}T00:00:00`).getTime();
         const isUnlocked = todayMs >= unlockMs;
         const remainDays = Math.ceil((unlockMs - todayMs) / 86400000);
+        const authorTag = cap.author ? `${cap.author} · ` : '';
 
         return `
-          <div class="capsule-card ${isUnlocked ? 'unlocked' : 'locked'}" onclick="toggleCapsuleOpen(${cap.id}, ${isUnlocked}, ${remainDays})">
+          <div class="capsule-card ${isUnlocked ? 'unlocked' : 'locked'}" id="capCard_${cap.id}" onclick="toggleCapsuleOpen(${cap.id}, ${isUnlocked}, ${remainDays})">
             <div class="cap-row">
               <div class="cap-seal-icon">${isUnlocked ? '💌' : '🔒'}</div>
               <div class="cap-info">
                 <div class="cap-title">${escapeHtml(cap.title)}</div>
-                <div class="cap-meta">${isUnlocked ? `启封日期：${cap.unlockDate}` : `约定开启：${cap.unlockDate}`}</div>
+                <div class="cap-meta">${authorTag}${isUnlocked ? `启封：${cap.unlockDate}` : `约定开启：${cap.unlockDate}`}</div>
               </div>
-              <span class="cap-badge ${isUnlocked ? 'open' : 'lock'}">
+              <span class="cap-badge ${isUnlocked ? 'open' : 'lock'}" id="capBadge_${cap.id}">
                 ${isUnlocked ? '拆开阅读' : `剩 ${remainDays} 天`}
               </span>
             </div>
-            ${isUnlocked ? `<div class="cap-letter-body" id="capBody_${cap.id}">${escapeHtml(cap.content)}</div>` : ''}
+            ${isUnlocked ? `
+              <div class="cap-letter-body" id="capBody_${cap.id}">
+                <div>${escapeHtml(cap.content)}</div>
+                ${cap.isUserWritten ? `
+                  <div class="cap-footer-actions" onclick="event.stopPropagation()">
+                    <span>寄出于 ${cap.createdAt || cap.unlockDate}</span>
+                    <span style="color:#e11d48; cursor:pointer;" onclick="deleteUserCapsule(event, ${cap.id})">删除此信</span>
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
           </div>
         `;
       }).join('');
@@ -1297,13 +1833,27 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
         alert(`这封时间胶囊还在时光里酝酿哦，还差 ${remainDays} 天才能拆开呢 ⏳`);
         return;
       }
+      const cardEl = document.getElementById(`capCard_${capId}`);
       const bodyEl = document.getElementById(`capBody_${capId}`);
-      if (bodyEl) {
-        bodyEl.style.display = bodyEl.style.display === 'block' ? 'none' : 'block';
+      const badgeEl = document.getElementById(`capBadge_${capId}`);
+      if (!bodyEl) return;
+
+      const isCurrentlyOpen = bodyEl.classList.contains('unfolding');
+      if (!isCurrentlyOpen) {
+        bodyEl.style.display = 'block';
+        bodyEl.classList.add('unfolding');
+        if (cardEl) cardEl.classList.add('opened');
+        if (badgeEl) badgeEl.textContent = '收起信纸';
+        spawnFxParticles(['💌', '✨', '🌸']);
+      } else {
+        bodyEl.classList.remove('unfolding');
+        bodyEl.style.display = 'none';
+        if (cardEl) cardEl.classList.remove('opened');
+        if (badgeEl) badgeEl.textContent = '拆开阅读';
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑 ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（含拆卡核销动画） ==========
     function getAllCoupons() {
       try {
         const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
@@ -1335,7 +1885,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       const sorted = [...rawList].sort((a, b) => Number(a.used) - Number(b.used));
 
       container.innerHTML = sorted.map(c => `
-        <div class="coupon-ticket ${c.used ? 'used' : ''}">
+        <div class="coupon-ticket ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
           <div>
             <span class="ticket-top-tag">${c.used ? '已兑现' : '特权券'}</span>
             <div class="coupon-name">${escapeHtml(c.name)}</div>
@@ -1357,10 +1907,16 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       const list = getAllCoupons();
       const target = list.find(c => c.id === id);
       if (target && !target.used) {
-        target.used = true;
-        target.usedAt = getTodayStr();
-        saveAllCoupons(list, true);
-        renderCouponsList();
+        const cardEl = document.getElementById(`couponCard_${id}`);
+        if (cardEl) cardEl.classList.add('tearing');
+        playCeremonyFx('tear', target.name);
+
+        setTimeout(() => {
+          target.used = true;
+          target.usedAt = getTodayStr();
+          saveAllCoupons(list, true);
+          renderCouponsList();
+        }, 480);
       }
     }
 
@@ -1385,7 +1941,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (e.key === 'Enter') addCustomCoupon();
     });
 
-    // ========== ✨ 专属事件清单逻辑 ==========
+    // ========== ✨ 专属事件清单逻辑（含达成干杯动画） ==========
     function getAllEvents() {
       try {
         return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]');
@@ -1446,10 +2002,15 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       const list = getAllEvents();
       const target = list.find(item => item.id === eventId);
       if (target) {
-        target.done = !target.done;
-        target.doneAt = target.done ? getTodayStr() : '';
+        const becomesDone = !target.done;
+        target.done = becomesDone;
+        target.doneAt = becomesDone ? getTodayStr() : '';
         saveAllEvents(list, true);
         renderEventsList();
+
+        if (becomesDone) {
+          playCeremonyFx('cheers');
+        }
       }
     }
 
@@ -1722,6 +2283,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
           homeView.style.display = 'block';
           homeView.classList.add('reveal-main');
           navBar.style.display = 'grid';
+          openUpdateModal(false);
         }, 2200);
         setTimeout(() => {
           overlay.style.display = 'none';
@@ -1729,6 +2291,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       } else {
         homeView.style.display = 'block';
         navBar.style.display = 'grid';
+        openUpdateModal(false);
       }
     }
 
@@ -1988,7 +2551,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       const body = document.getElementById('devCapBody').value.trim();
       if (!title || !date || !body) return alert('请完整填写信件标题、开启日期和信件正文~');
 
-      timeCapsules.push({ id: Date.now(), title, unlockDate: date, content: body });
+      timeCapsules.push({ id: Date.now(), author: "👦 他的来信", title, unlockDate: date, content: body });
       document.getElementById('devCapTitle').value = '';
       document.getElementById('devCapBody').value = '';
       renderDevWorkshop();
@@ -2023,7 +2586,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
 
       const clonedDoc = document.documentElement.cloneNode(true);
 
-      ['introOverlay', 'denyView', 'loginView', 'tabHomeView', 'tabEnvelopeView', 'tabPromiseView', 'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox'].forEach(id => {
+      ['fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView', 'tabHomeView', 'tabEnvelopeView', 'tabPromiseView', 'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox'].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.style.display = 'none';
       });
@@ -2059,7 +2622,7 @@ async function pullFromCloud(manual = false, silentBeforePush = false) {
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V1.3 双端同步加密版 index.html</strong><br><br>写入 NT3H1101 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V1.4.2 完整动画加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
