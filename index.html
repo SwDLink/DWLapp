@@ -5,7 +5,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>我们的专属纪念 · DWLapp V1.4.2</title>
+  <title>我们的专属纪念 · DWLapp V1.4.3</title>
   <style>
     :root {
       --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
@@ -111,7 +111,7 @@
     .err { color: #e11d48; font-size: 13px; margin-bottom: 12px; display: none; }
 
     /* ==========================================================================
-       V1.4.2 专属仪式感全屏动画舞台（拆卡核销 / 达成干杯 / 写信封缄）
+       专属仪式感全屏动画舞台（拆卡核销 / 达成干杯 / 写信封缄）
        ========================================================================== */
     #fxStageOverlay {
       position: fixed; inset: 0; z-index: 980;
@@ -553,7 +553,7 @@
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
     /* ==========================================================================
-       导航第一项【💌 信封】排版（含拆信展开动画与写信封缄动画）
+       导航第一项【💌 信封】排版（含双人身份快捷切换写信 + 拆信/封信动画）
        ========================================================================== */
     .env-header-banner {
       background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
@@ -599,12 +599,34 @@
       100% { opacity: 0; transform: scale(0.65) translateY(-16px); }
     }
     .compose-row-label {
-      font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 6px;
+      font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 8px;
     }
-    .compose-grid-2 {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
+    /* 双人身份按钮组 */
+    .sender-switch-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;
     }
-    .compose-grid-2 select, .compose-grid-2 input { margin-bottom: 0; font-size: 12.5px; padding: 9px 10px; }
+    .sender-chip {
+      padding: 9px 6px; border-radius: 12px; font-size: 12.5px; font-weight: 700;
+      border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280;
+      cursor: pointer; text-align: center; transition: all 0.15s;
+    }
+    .sender-chip.active-him {
+      background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+      border-color: #ec4899; color: #db2777;
+      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.12);
+    }
+    .sender-chip.active-her {
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border-color: #8b5cf6; color: #6d28d9;
+      box-shadow: 0 3px 10px rgba(139, 92, 246, 0.12);
+    }
+    .compose-date-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.85); padding: 6px 10px; border-radius: 12px;
+      border: 1px solid #f3e8ff;
+    }
+    .compose-date-row span { font-size: 12px; color: #6b7280; font-weight: 600; white-space: nowrap; }
+    .compose-date-row input { margin-bottom: 0; border: none; padding: 4px; background: transparent; font-size: 13px; }
 
     .section-block { margin-bottom: 16px; text-align: left; }
     .section-head {
@@ -666,6 +688,10 @@
       border-color: #f9a8d4;
       box-shadow: 0 6px 18px rgba(236, 72, 153, 0.09);
     }
+    .capsule-card.from-her.unlocked {
+      background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%);
+      border-color: #c084fc;
+    }
     .cap-row { display: flex; align-items: center; gap: 11px; }
     .cap-seal-icon {
       width: 40px; height: 40px; border-radius: 13px;
@@ -716,7 +742,7 @@
     }
 
     /* ==========================================================================
-       导航第三项【🎁 约定】排版（含拆卡震动光效）
+       导航第三项【🎁 约定】排版
        ========================================================================== */
     .sub-tabs {
       display: flex; background: #fdf2f8; border: 1px solid #fbcfe8;
@@ -917,18 +943,18 @@
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
-  <!-- V1.4.2 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
+  <!-- V1.4.3 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V1.4.2 版本更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display:none;">
+  <!-- V1.4.3 版本更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display: none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 新版本上线 · V1.4.2</span>
-      <div class="update-title">仪式感微交互动画已上线</div>
+      <span class="update-badge">✨ 新版本上线 · V1.4.3</span>
+      <div class="update-title">双人写信与首页体验已优化</div>
       <ul class="update-list">
-        <li><strong>🎟️ 核销拆卡动画</strong>：在「约定」页点击立即核销，新增沿虚线撕开卡券与星光粒子动效。</li>
-        <li><strong>🥂 达成干杯动画</strong>：勾选完成任意「专属事件」时，触发双杯碰杯庆祝火花。</li>
-        <li><strong>💌 拆信与封信动画</strong>：信箱拆开长信时信纸顺滑展开；写完长信寄出时触发折叠封蜡飞向云端动效。</li>
+        <li><strong>✍️ 双方均可独立写信</strong>：进入「💌 信封」点击右上角「写一封信」，可自由切换「👦 他写给她的信」与「👧 她写给他的信」双身份，双方手机实时加密同步。</li>
+        <li><strong>🧭 首页导航同步修复</strong>：进入空间后底部导航栏与主界面精准同步默认停留在「🏠 首页」。</li>
+        <li><strong>✨ 全套仪式感动画保留</strong>：拆卡核销、达成干杯、拆信展纸与火漆封信动效完整支持。</li>
       </ul>
       <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启甜蜜体验 💖</button>
     </div>
@@ -946,14 +972,14 @@
 
   <!-- 状态 1：门禁拦截界面 -->
   <div class="card" id="denyView" style="display:none;">
-    <div class="badge badge-danger">🔒 专属信物保护中 · V1.4.2</div>
+    <div class="badge badge-danger">🔒 专属信物保护中 · V1.4.3</div>
     <h1>需要触碰专属 NFC 信物</h1>
     <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
   </div>
 
   <!-- 状态 2：首次登录验证界面 -->
   <div class="card" id="loginView" style="display:none;">
-    <div class="badge">✨ 已感应到专属信物 · V1.4.2</div>
+    <div class="badge">✨ 已感应到专属信物 · V1.4.3</div>
     <h1>开启我们的纪念空间</h1>
     <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
     <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
@@ -966,7 +992,7 @@
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V1.4.2 更新说明">V1.4.2</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V1.4.3 更新说明">V1.4.3</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -1004,11 +1030,11 @@
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">05</span>
+          <span class="time-num" id="tMins">28</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">53</span>
+          <span class="time-num" id="tSecs">00</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -1040,21 +1066,22 @@
   <div class="card reveal-main" id="tabEnvelopeView" style="display: none;">
     <div class="env-header-banner">
       <div>
-        <div class="env-banner-title">💌 见字如面 · 专属信箱</div>
-        <div class="env-banner-sub">双方随时写信与封存未来时光胶囊</div>
+        <div class="env-banner-title">💌 见字如面 · 双人信箱</div>
+        <div class="env-banner-sub">他与她都能随时写信或封存时光胶囊</div>
       </div>
       <button class="write-letter-toggle-btn" id="toggleComposeBtn" onclick="toggleComposeBox()">✍️ 写一封信</button>
     </div>
 
-    <!-- 双人在线写信与封存时光胶囊面板（云端加密同步） -->
+    <!-- 双人在线写信与封存时光胶囊面板（支持双身份切换 + 云端加密同步） -->
     <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
-      <div class="compose-row-label">📮 寄信人与开启时间（选今天即对方立即可读，选未来日期即封存为时光胶囊）</div>
-      <div class="compose-grid-2">
-        <select id="userCapAuthor">
-          <option value="👦 他的来信">👦 他的来信</option>
-          <option value="👧 她的来信">👧 她的来信</option>
-        </select>
-        <input type="date" id="userCapDate" title="选择信件解锁日期">
+      <div class="compose-row-label">📮 选择寄信身份（系统将自动记住本机默认身份）：</div>
+      <div class="sender-switch-row">
+        <div class="sender-chip active-him" id="senderChipHim" onclick="selectLetterSender('👦 他写给她的信')">👦 他写给她的信</div>
+        <div class="sender-chip" id="senderChipHer" onclick="selectLetterSender('👧 她写给他的信')">👧 她写给他的信</div>
+      </div>
+      <div class="compose-date-row">
+        <span>📅 开启日期：</span>
+        <input type="date" id="userCapDate" title="选今天即对方立即可读，选未来日期即封存为时光胶囊">
       </div>
       <input type="text" id="userCapTitle" placeholder="信件标题（如：今晚突然很想你 / 写给下次见面）" style="font-size:13px;">
       <textarea id="userCapBody" rows="4" placeholder="在这里写下想对彼此说的长信..." style="font-size:13.5px;"></textarea>
@@ -1075,14 +1102,14 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">想和你一起吃遍武汉的过早，也想带你走遍苏州的晚风。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">不管今天有多累，碰一下这枚小小的卡片，我就在你身边。</div>
       </div>
     </div>
 
-    <!-- 模块 2：长信 & 时光胶囊（融合内置预埋信件 + 双人云端寄出的信件） -->
+    <!-- 模块 2：长信 & 时光胶囊（融合内置预埋信件 + 双人云端互寄信件） -->
     <div class="section-block" style="margin-bottom:0;">
       <div class="section-head">
-        <span>⏳ 专属长信 &amp; 时光胶囊</span>
+        <span>⏳ 双方长信 &amp; 时光胶囊</span>
         <span class="section-pill" id="capsuleStatusLabel">共 3 封</span>
       </div>
       <div class="capsule-list" id="capsuleListContainer"></div>
@@ -1091,7 +1118,7 @@
     <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地礼物定制工坊 (V1.4.2)</strong>：在此预埋初始情话与初始长信，完成后导出上锁版上传 GitHub。
+        🛠️ <strong>本地礼物定制工坊 (V1.4.3)</strong>：在此预埋初始情话与初始长信，完成后导出上锁版上传 GitHub。
       </p>
 
       <div class="dev-section">
@@ -1112,7 +1139,7 @@
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
 
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.4.2)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.4.3)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -1124,7 +1151,7 @@
     <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">3</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">0</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">1/1</span>)
@@ -1199,12 +1226,12 @@
 
   <!-- ==================== 底部三栏悬浮导航栏（左：信封 | 中：首页 | 右：约定） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
-    <button class="nav-item active" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
+    <button class="nav-item" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
       <span class="nav-dot" id="envelopeNavDot" style="display: block;"></span>
       <span class="nav-icon">💌</span>
       <span class="nav-label">信封</span>
     </button>
-    <button class="nav-item" id="navBtnHome" onclick="switchMainTab('home')">
+    <button class="nav-item active" id="navBtnHome" onclick="switchMainTab('home')">
       <span class="nav-icon">🏠</span>
       <span class="nav-label">首页</span>
     </button>
@@ -1214,7 +1241,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '1.4.2';
+    const APP_VERSION = '1.4.3';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1226,7 +1253,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "rJkqfOj2zerDksxJV9e1MI+mO4bI1MIafbEVdtoNQPqiuZM/V4J36TPi3BYW789Sa/8W+vpbHMsy5zxAndaiBK73lGdZdECtP70ZZFYBCSjsOdp0/neas7UyXFdbv+hqOdrY1+Wk55uEkKj2d3qqpHgwvIHDkHHM8r7T/D9YuNyUdUZgYKlLBR1nAn0fPm+Q6HqoSOdNemXD4bjPoq9fZGsKQZ5bVzadXT988bZUxUtwhgsYwtePjoXmLjFGRwHFDLGdBlhMGBFEIAHqIzk7lriXXXl1IMSMRQ382p2uhi30U1uZCgO25gLSKzouahBhSuCv6sN2ACOV+lcCYPNr/Jpug0x+a9gjdtMSgpopOvxhCx2AqSng7gymIIiPIbP9pMPMBpZwfeBSiG3hZqNNN7QmDySAu1i4fhoA2IRvDnz3K9kkJGFdfWMlay+Fwv3Vq+abSsM9LvRlEqUByNtJbrSDVCsDUvphCvJ8wCJ84exXT6m/ua1zvajo3y/5gl0AbVsPjTEIWtIhz4Y9nt3dR9xMxVBEN46eAYpn0gNbZP7iGjgT4fIpwcPchWDoQNeaYS2TUuXxU8jul9pNKoUYipgoEOSpne4CHo6+axFztB8imikU09ecnR2XOvsruAm3nfgzI4ERToH/kAigpmLo2e82OkqpXOP6bb5vbGdfw6V2/DlsGyhwBuKsgZes5X3Z+WTWMBtZT78fHfMMN/MXybje0fRV9mJ+y1GpnuDts9Ue3sRSOGCkEPn8x7fTGhkefPyBU3vOaqfR1wd1JBQCyB8GdK0fAmb+HFmYn2Zwc1R1YpcCEQGSrwwEkElz4gqNSl+YsB/l216gAYAi9TpAsGmxbANRFcD/VKVtHlAhVXaKhKMk8XHz0V2+P1OFPFE0u0rTqWM0pbY3ltdMG7ChrNtamY4rj76cniAgQ1cjforGGxAuMfV8JJg+pvnDpuj/47aeBSIpzWVbghngKjJJ942rQv5tAWIDM1CP+DSV4UWXOMmkI6eEPp5ZVSz8FzbUc1CVJK3dg9kPlG6C6+mycQSS5g0O4h3QvYRmApVop+0f1NZVF04fDXLE6e4c/1CseQ3RMjLG5s2lC+w0Lwx0GN/opk+Pzg0zhMQXSgIo8L0cfbkSnrArb/VWf9yjwKCxSLai/FZhKXOLlgZK5+24wxzg5avj5R5Pe9/e3oH881uhDUlkcffqOm8UE0v4lPQfu6o37SNG8/oFvCGP0Lc+8fU38RR4SJGurKyIWx3aw9PssCSQP3DBbYL26DgwSfmvCj/Oy72T37KOt6hkM+tO7seb7yrBwMz7WbXC/xFjrsFS0CqpWqEMo6Fh6o1kIPgA5KSNBYt24aKZgafj3FQjOCZ72MGRDO2ewKxfb/9w/XzK/JNqsu/mOKRc+tnUfW+itB7tD4RrCSIFXJ0tZLUXxfknHLFSLdZAWcotI+I3sYfEq++bZPiOnSCDi8HJbz2gUBLKDYNJwCgaOIwro9odjaIJF9zlzLOlh25qYtjN7l39jHOLqJp1+5H8nRJ7tIvRP+ImIZNx11kRdks9lqzsc/Ccwe5qY3eZrzW6RKeyJr5zO+mc3byhL76xhmvag/PGerlVMf61ixaXql26wjWlaCgbjiekwRPyvVrP/6kMMnAI1naMJZ8EsNoS2Sf2G7PfLGillP/yhM4PP/aZhhajJMsALca+bOIcvl/oaPfyIXlCSUFAbeJBtaL5Q8oScBL6aAJewXqGQw+do/GkwzJuNPYdWNKx0QJP5dt9FyvYhCYoW48X1OEF2VdYeVFBArqYKWUtI0GGVdLsWrMEB7FQARIdilg5XGa06aHccMa/rpY37NuUzsEeUS4SSipIhTgvGvvPNw4YezlOA+wbEkiQGIsF8U2CZyXw6Yl8FloA9ibSjdI1fxTg3b9W7HXMvpZxgpUKmU9Xg2c4yJkvR+IsqSjSWFFdLYaL296QhaGzsRYU6RTQyjdohYj6s51tC5wduJo=";
+    const ENCRYPTED_BUNDLE = "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";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1234,11 +1261,12 @@
     const DELETED_NOTES_KEY = 'dwlapp_love_del_notes_v1';
     const USER_CAPSULES_KEY = 'dwlapp_love_user_capsules_v1';
     const DELETED_CAPSULES_KEY = 'dwlapp_love_del_capsules_v1';
+    const PREFERRED_SENDER_KEY = 'dwlapp_love_pref_sender_v1';
     const READ_STATUS_KEY = 'dwlapp_love_read_v1';
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_4_2';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_4_3';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1255,7 +1283,7 @@
       { id: 4, name: "🍜 任意美食大餐券", desc: "指定任意一家想吃的餐厅，无条件安排打卡", used: false, usedAt: "" }
     ];
 
-    // ========== V1.4.2 仪式感微交互动画播放引擎（拆卡 / 干杯 / 封信） ==========
+    // ========== 仪式感微交互动画播放引擎（拆卡 / 干杯 / 封信） ==========
     let fxHideTimer = null;
 
     function spawnFxParticles(emojis = ['✨', '💖', '🌸', '💫']) {
@@ -1353,7 +1381,7 @@
       }, 450);
     }
 
-    // ========== V1.4.2 更新提示弹窗控制 ==========
+    // ========== V1.4.3 更新提示弹窗控制 ==========
     function openUpdateModal(force = false) {
       if (!force && localStorage.getItem(SEEN_UPDATE_KEY) === '1') return;
       const mask = document.getElementById('updateModalMask');
@@ -1636,26 +1664,36 @@
       }
     }
 
-    // ========== 导航切换控制 ==========
+    // ========== 导航切换控制（彻底修复初始默认停留在首页的同步问题） ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
       currentMainTab = tabName;
-      document.getElementById('tabHomeView').style.display = (tabName === 'home') ? 'block' : 'none';
-      document.getElementById('tabEnvelopeView').style.display = (tabName === 'envelope') ? 'block' : 'none';
-      document.getElementById('tabPromiseView').style.display = (tabName === 'promise') ? 'block' : 'none';
-      document.getElementById('noteView').style.display = 'none';
+      const homeEl = document.getElementById('tabHomeView');
+      const envEl = document.getElementById('tabEnvelopeView');
+      const promEl = document.getElementById('tabPromiseView');
+      const noteEl = document.getElementById('noteView');
 
-      document.getElementById('navBtnHome').classList.toggle('active', tabName === 'home');
-      document.getElementById('navBtnEnvelope').classList.toggle('active', tabName === 'envelope');
-      document.getElementById('navBtnPromise').classList.toggle('active', tabName === 'promise');
+      if (homeEl) homeEl.style.display = (tabName === 'home') ? 'block' : 'none';
+      if (envEl) envEl.style.display = (tabName === 'envelope') ? 'block' : 'none';
+      if (promEl) promEl.style.display = (tabName === 'promise') ? 'block' : 'none';
+      if (noteEl) noteEl.style.display = 'none';
+
+      const navHome = document.getElementById('navBtnHome');
+      const navEnv = document.getElementById('navBtnEnvelope');
+      const navProm = document.getElementById('navBtnPromise');
+
+      if (navHome) navHome.classList.toggle('active', tabName === 'home');
+      if (navEnv) navEnv.classList.toggle('active', tabName === 'envelope');
+      if (navProm) navProm.classList.toggle('active', tabName === 'promise');
 
       if (tabName === 'home') {
         renderCalendar();
         updateCityProgress();
       } else if (tabName === 'envelope') {
         renderCapsulesList();
-        document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+        const qLabel = document.getElementById('quoteCountLabel');
+        if (qLabel) qLabel.textContent = `共 ${loveQuotes.length} 句`;
       } else if (tabName === 'promise') {
         renderCouponsList();
         renderEventsList();
@@ -1689,7 +1727,20 @@
       }, 180);
     }
 
-    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（含拆信与封信动画） ==========
+    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（双方独立身份写信 + 云端同步） ==========
+    let currentLetterSender = localStorage.getItem(PREFERRED_SENDER_KEY) || '👦 他写给她的信';
+
+    function selectLetterSender(senderName) {
+      currentLetterSender = senderName;
+      localStorage.setItem(PREFERRED_SENDER_KEY, senderName);
+      const chipHim = document.getElementById('senderChipHim');
+      const chipHer = document.getElementById('senderChipHer');
+      if (chipHim && chipHer) {
+        chipHim.className = 'sender-chip' + (senderName.includes('他写') ? ' active-him' : '');
+        chipHer.className = 'sender-chip' + (senderName.includes('她写') ? ' active-her' : '');
+      }
+    }
+
     function getUserCapsules() {
       try { return JSON.parse(localStorage.getItem(USER_CAPSULES_KEY) || '[]'); } catch (e) { return []; }
     }
@@ -1711,13 +1762,16 @@
       box.classList.remove('sealing');
       box.style.display = isOpening ? 'block' : 'none';
       btn.textContent = isOpening ? '收起写信' : '✍️ 写一封信';
-      if (isOpening && !document.getElementById('userCapDate').value) {
-        document.getElementById('userCapDate').value = getTodayStr();
+      if (isOpening) {
+        selectLetterSender(currentLetterSender);
+        if (!document.getElementById('userCapDate').value) {
+          document.getElementById('userCapDate').value = getTodayStr();
+        }
       }
     }
 
     async function submitUserCapsule() {
-      const author = document.getElementById('userCapAuthor').value;
+      const author = currentLetterSender;
       const unlockDate = document.getElementById('userCapDate').value || getTodayStr();
       const title = document.getElementById('userCapTitle').value.trim();
       const content = document.getElementById('userCapBody').value.trim();
@@ -1799,11 +1853,12 @@
         const isUnlocked = todayMs >= unlockMs;
         const remainDays = Math.ceil((unlockMs - todayMs) / 86400000);
         const authorTag = cap.author ? `${cap.author} · ` : '';
+        const isFromHer = cap.author && cap.author.includes('她写');
 
         return `
-          <div class="capsule-card ${isUnlocked ? 'unlocked' : 'locked'}" id="capCard_${cap.id}" onclick="toggleCapsuleOpen(${cap.id}, ${isUnlocked}, ${remainDays})">
+          <div class="capsule-card ${isUnlocked ? 'unlocked' : 'locked'} ${isFromHer ? 'from-her' : ''}" id="capCard_${cap.id}" onclick="toggleCapsuleOpen(${cap.id}, ${isUnlocked}, ${remainDays})">
             <div class="cap-row">
-              <div class="cap-seal-icon">${isUnlocked ? '💌' : '🔒'}</div>
+              <div class="cap-seal-icon">${isUnlocked ? (isFromHer ? '💜' : '💌') : '🔒'}</div>
               <div class="cap-info">
                 <div class="cap-title">${escapeHtml(cap.title)}</div>
                 <div class="cap-meta">${authorTag}${isUnlocked ? `启封：${cap.unlockDate}` : `约定开启：${cap.unlockDate}`}</div>
@@ -1817,7 +1872,7 @@
                 <div>${escapeHtml(cap.content)}</div>
                 ${cap.isUserWritten ? `
                   <div class="cap-footer-actions" onclick="event.stopPropagation()">
-                    <span>寄出于 ${cap.createdAt || cap.unlockDate}</span>
+                    <span>${escapeHtml(cap.author || '')} · ${cap.createdAt || cap.unlockDate}</span>
                     <span style="color:#e11d48; cursor:pointer;" onclick="deleteUserCapsule(event, ${cap.id})">删除此信</span>
                   </div>
                 ` : ''}
@@ -2243,7 +2298,6 @@
     function startTimerAndIntro(playIntro = true) {
       updateElapsedTimer();
       if (!timerInterval) timerInterval = setInterval(updateElapsedTimer, 1000);
-      renderCalendar();
       drawNextQuote();
       updateCapsuleBadge();
       updatePromiseCounters();
@@ -2280,17 +2334,17 @@
 
         overlay.style.display = 'flex';
         setTimeout(() => {
-          homeView.style.display = 'block';
-          homeView.classList.add('reveal-main');
           navBar.style.display = 'grid';
+          switchMainTab('home'); // 强制同步底部高亮与首页视图
+          homeView.classList.add('reveal-main');
           openUpdateModal(false);
         }, 2200);
         setTimeout(() => {
           overlay.style.display = 'none';
         }, 3200);
       } else {
-        homeView.style.display = 'block';
         navBar.style.display = 'grid';
+        switchMainTab('home');
         openUpdateModal(false);
       }
     }
@@ -2551,7 +2605,7 @@
       const body = document.getElementById('devCapBody').value.trim();
       if (!title || !date || !body) return alert('请完整填写信件标题、开启日期和信件正文~');
 
-      timeCapsules.push({ id: Date.now(), author: "👦 他的来信", title, unlockDate: date, content: body });
+      timeCapsules.push({ id: Date.now(), author: "👦 他写给她的信", title, unlockDate: date, content: body });
       document.getElementById('devCapTitle').value = '';
       document.getElementById('devCapBody').value = '';
       renderDevWorkshop();
@@ -2591,6 +2645,14 @@
         if (el) el.style.display = 'none';
       });
 
+      // 确保导出后的底部导航栏默认高亮在“首页”
+      const navHome = clonedDoc.querySelector('#navBtnHome');
+      const navEnv = clonedDoc.querySelector('#navBtnEnvelope');
+      const navProm = clonedDoc.querySelector('#navBtnPromise');
+      if (navHome) navHome.classList.add('active');
+      if (navEnv) navEnv.classList.remove('active');
+      if (navProm) navProm.classList.remove('active');
+
       const badge = clonedDoc.querySelector('#modeBadge');
       if (badge) {
         badge.textContent = '💕 我们的纪念空间';
@@ -2622,7 +2684,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V1.4.2 完整动画加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V1.4.3 双人写信加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
