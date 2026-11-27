@@ -1099,7 +1099,7 @@
   <div id="fxStageOverlay" style="display:none;"></div>
 
   <!-- V2.0.1 更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display: none;">
+  <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
       <span class="update-badge">✨ 版本更新 · V2.0.1</span>
       <div class="update-title">隐秘登录与开锁淡入体验已上线</div>
@@ -1168,23 +1168,23 @@
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
       <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.0.1 更新说明">V2.0.1</span>
-      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
+      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 已同步</div>
     </div>
 
     <!-- 顶部：苏州 ↔ 武汉 双城奔赴进度条 -->
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 6天12时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 6天2时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.7%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.7%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 14%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 14%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.7%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.3%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 14%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 86%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -1201,15 +1201,15 @@
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">11</span>
+          <span class="time-num" id="tHours">21</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">23</span>
+          <span class="time-num" id="tMins">30</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">21</span>
+          <span class="time-num" id="tSecs">22</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -1330,7 +1330,7 @@
   </div>
 
   <!-- ==================== 导航右侧项：🎁 约定（恋爱券、专属事件） ==================== -->
-  <div class="card" id="tabPromiseView" style="display: none;">
+  <div class="card" id="tabPromiseView" style="display:none;">
     <div class="badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
@@ -1414,7 +1414,7 @@
   <!-- ==================== 底部三栏悬浮导航栏（左：信封 | 中：首页 | 右：约定） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
-      <span class="nav-dot" id="envelopeNavDot" style="display: none;"></span>
+      <span class="nav-dot" id="envelopeNavDot" style="display:none;"></span>
       <span class="nav-icon">💌</span>
       <span class="nav-label">信封</span>
     </button>
@@ -1440,8 +1440,8 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "d1JXvwXdgcJNBcVY43itvKOF/hvSeXgokQ8Xrs9X5oyobSyANRgAaKdMF0UoS8iCy9yi84UDuagqC9qGlAbNMd8vVLEas/zmAvIsb7sEpNa6J5+DbwRTlUWgO8jpBgFtyS6vcpo8siN2fAl2g9/8mHSIp/cTmzcCkGgBdNYuItcfONSogzpMuKqC0SvprQMcobjEKbB6Yy4kugzD7t94Z2WsCfS8LcPgDwbrMTG5q2zm0Il8AiStyd7O0O5jPUPoMi+yaRBLEyInFieSCXazlTu87Tmq6QO1r8L2+TYKQWUfAKV0y+2S";
-    const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
+    const ENCRYPTED_BUNDLE = "bLXXwRsAYW9p2kOgDqkVRoRSurktnldlLuP+79lNVdRLRQyqZdneHpqvbn5QJIRzIRMue3tfQXxHIAO3XSJxSMRTxWerdi94fbFEq5HlO+//Oov/ljM1pdr3R1+mZuheI8SZxtuiHrA2qjA345/gtyD868yzTWS00UsdUe2C46IZGf2rCpe58ulTUFNnB9TksMtlyA8rGNYTY+uH4QG0w0poCERUDVRgV8EeobN1yuuMdpkrErAGhMMMOqtE6TfwQXpm/BdsnTN+76p5Dh+rGsw6JxAFkFzUDwdtEnrRP/xQwKGXAG5T";
+    const EXPECTED_HASH = "d5722a232cc17e33f9c269216b2c0d679c9387d664aa27354ba9d888ffbcb9bd";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
     const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
