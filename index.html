@@ -5,9 +5,10 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>我们的专属纪念 · DWLapp V2.0</title>
+  <title>系统登录 · Portal</title>
   <style>
     :root {
+      --bg-plain: #f3f4f6;
       --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
       --card-bg: rgba(255, 255, 255, 0.95);
       --accent: #ec4899;
@@ -25,9 +26,10 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
+    /* 默认状态下为普通简洁网页背景，解锁添加 .romantic-mode 后淡入情侣空间背景 */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Display", "Segoe UI", sans-serif;
-      background: var(--bg-romantic);
+      background-color: var(--bg-plain);
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       min-height: 100dvh;
       padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(88px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
@@ -35,9 +37,25 @@
       position: relative;
     }
 
+    /* 解锁后才淡入的情侣空间专属渐变背景层 */
+    .romantic-bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: var(--bg-romantic);
+      opacity: 0;
+      transition: opacity 1.1s ease;
+    }
+    body.romantic-mode .romantic-bg-layer {
+      opacity: 1;
+    }
+
     .bg-orb {
-      position: fixed; border-radius: 50%; filter: blur(60px); opacity: 0.45; z-index: 0; pointer-events: none;
+      position: fixed; border-radius: 50%; filter: blur(60px);
+      opacity: 0; z-index: 0; pointer-events: none;
+      transition: opacity 1.2s ease;
       animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    body.romantic-mode .bg-orb {
+      opacity: 0.45;
     }
     .orb-1 { width: 220px; height: 220px; background: #fbcfe8; top: -40px; left: -40px; }
     .orb-2 { width: 260px; height: 260px; background: #ddd6fe; bottom: -60px; right: -40px; animation-delay: -4s; }
@@ -46,6 +64,62 @@
       100% { transform: translate(20px, 25px) scale(1.1); }
     }
 
+    /* ========== 普通伪装登录页 / 门禁页专属极简样式 ========== */
+    .card-plain {
+      position: relative; z-index: 1;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 28px 24px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      width: 100%; max-width: 380px;
+      text-align: left;
+    }
+    .plain-logo-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .plain-logo-box {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #111827; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+    }
+    .plain-logo-box.warn { background: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
+    .plain-brand-name { font-size: 16px; font-weight: 700; color: #111827; line-height: 1.2; }
+    .plain-brand-sub { font-size: 12px; color: #6b7280; margin-top: 2px; }
+    .plain-field-label {
+      display: block; font-size: 12.5px; font-weight: 600; color: #374151;
+      margin-bottom: 6px;
+    }
+    .card-plain input {
+      width: 100%; padding: 10px 12px; margin-bottom: 14px;
+      border: 1px solid #d1d5db; border-radius: 9px;
+      font-size: 14px; background: #fff; color: #111827;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .card-plain input:focus {
+      border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+    .btn-plain {
+      display: block; width: 100%; padding: 11px;
+      border: none; border-radius: 9px; cursor: pointer;
+      background: #111827; color: #ffffff;
+      font-size: 14px; font-weight: 600;
+      transition: background 0.15s, transform 0.12s;
+    }
+    .btn-plain:hover { background: #1f2937; }
+    .btn-plain:active { transform: scale(0.985); }
+    .plain-err {
+      color: #dc2626; font-size: 12.5px; margin-bottom: 12px;
+      background: #fef2f2; border: 1px solid #fecaca;
+      padding: 8px 10px; border-radius: 8px; display: none;
+    }
+    .plain-footer {
+      margin-top: 16px; padding-top: 12px; border-top: 1px solid #f3f4f6;
+      font-size: 11.5px; color: #9ca3af; text-align: center;
+    }
+
+    /* ========== 解锁后的情侣空间卡片样式 ========== */
     .card {
       position: relative; z-index: 1;
       background: var(--card-bg);
@@ -69,7 +143,6 @@
       font-size: clamp(11px, 3vw, 12px); font-weight: 600;
       padding: 4px 12px; border-radius: 99px;
     }
-    .badge-danger { background: #fff1f2; color: #e11d48; border-color: #fecdd3; margin-bottom: 12px; }
     .badge-dev { background: #fefce8; color: #a16207; border-color: #fef08a; }
     .ver-pill {
       display: inline-flex; align-items: center;
@@ -110,7 +183,114 @@
     .btn:disabled { opacity: 0.65; cursor: not-allowed; }
     .btn-green { background: #16a34a; box-shadow: none; }
     .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
-    .err { color: #e11d48; font-size: 13px; margin-bottom: 12px; display: none; }
+
+    /* ==========================================================================
+       V2.0.1 开锁动画 + 淡入转场层（#introOverlay）
+       ========================================================================== */
+    #introOverlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: radial-gradient(circle at center, #2e1065 0%, #1e1b4b 52%, #0f172a 100%);
+      color: #fff;
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      padding: 24px; text-align: center;
+      opacity: 1;
+      transition: opacity 0.85s ease, visibility 0.85s ease;
+    }
+    #introOverlay.fading-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .unlock-stage {
+      position: relative; width: 128px; height: 128px;
+      display: flex; justify-content: center; align-items: center;
+      margin-bottom: 22px;
+    }
+    .unlock-ring {
+      position: absolute; width: 92px; height: 92px; border-radius: 50%;
+      border: 2px solid rgba(244, 114, 182, 0.7);
+      opacity: 0;
+      animation: unlockRipple 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.52s forwards;
+    }
+    .unlock-ring-2 {
+      position: absolute; width: 92px; height: 92px; border-radius: 50%;
+      border: 1.5px solid rgba(192, 132, 252, 0.55);
+      opacity: 0;
+      animation: unlockRipple 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.72s forwards;
+    }
+    @keyframes unlockRipple {
+      0% { transform: scale(0.75); opacity: 0.95; }
+      100% { transform: scale(1.9); opacity: 0; }
+    }
+    .unlock-svg {
+      width: 78px; height: 78px; overflow: visible;
+      filter: drop-shadow(0 0 18px rgba(236, 72, 153, 0.45));
+      animation: lockBodyBounce 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+    }
+    .lock-shackle {
+      transform-origin: 48px 34px;
+      animation: shacklePopOpen 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards;
+    }
+    .lock-body-rect {
+      animation: lockBodyGlow 0.8s ease 0.55s forwards;
+    }
+    .lock-keyhole {
+      animation: keyholeFade 0.4s ease 0.55s forwards;
+    }
+    .lock-heart-reveal {
+      opacity: 0; transform-origin: 32px 46px; transform: scale(0.3);
+      animation: lockHeartIn 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.72s forwards;
+    }
+    @keyframes shacklePopOpen {
+      0% { transform: translateY(0) rotate(0deg); }
+      40% { transform: translateY(-7px) rotate(0deg); }
+      100% { transform: translateY(-9px) rotate(28deg); stroke: #f9a8d4; }
+    }
+    @keyframes lockBodyBounce {
+      0% { transform: scale(1); }
+      35% { transform: scale(0.93); }
+      70% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    @keyframes lockBodyGlow {
+      0% { fill: #334155; stroke: #94a3b8; }
+      100% { fill: #ec4899; stroke: #fbcfe8; }
+    }
+    @keyframes keyholeFade {
+      to { opacity: 0; transform: scale(0.5); }
+    }
+    @keyframes lockHeartIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      70% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .intro-title {
+      font-size: clamp(19px, 5.2vw, 23px); font-weight: 600; letter-spacing: 1.5px;
+      background: linear-gradient(to right, #fbcfe8, #ffffff, #e9d5ff);
+      -webkit-background-clip: text; color: transparent;
+      opacity: 0; transform: translateY(12px);
+      animation: slideUpFade 0.65s ease 0.75s forwards;
+    }
+    .intro-sub {
+      font-size: clamp(13px, 3.6vw, 14px); color: #f5d0fe; margin-top: 10px;
+      opacity: 0; transform: translateY(10px);
+      animation: slideUpFade 0.65s ease 1.05s forwards;
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.18); }
+      45% { transform: scale(0.96); }
+      65% { transform: scale(1.12); }
+    }
+    @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+
+    /* 解锁后主界面丝滑淡入效果 */
+    .reveal-main { animation: mainCardFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes mainCardFadeIn {
+      0% { opacity: 0; transform: translateY(16px) scale(0.975); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
     /* ==========================================================================
        专属仪式感全屏动画舞台（拆卡核销 / 达成干杯 / 写信封缄）
@@ -144,7 +324,6 @@
       to { transform: translateY(0) scale(1); opacity: 1; }
     }
 
-    /* 1. 拆卡核销全屏动画 */
     .tear-card-stage {
       width: 240px; position: relative;
       display: flex; flex-direction: column; align-items: center;
@@ -182,7 +361,6 @@
       100% { opacity: 0; transform: scaleX(1.15); }
     }
 
-    /* 2. 专属事件达成干杯动画 */
     .cheers-stage {
       position: relative; width: 180px; height: 110px;
       display: flex; justify-content: center; align-items: center;
@@ -221,7 +399,6 @@
       100% { opacity: 0; transform: scale(1.4) translateY(-12px); }
     }
 
-    /* 3. 写信火漆封缄飞向云端动画 */
     .seal-mail-stage {
       position: relative; width: 150px; height: 110px;
       display: flex; justify-content: center; align-items: center;
@@ -253,7 +430,6 @@
       100% { transform: translateY(-38px) scale(0.85); opacity: 0.9; }
     }
 
-    /* 粒子飞散动效 */
     .fx-particle {
       position: fixed; z-index: 990; pointer-events: none;
       font-size: 18px;
@@ -387,88 +563,6 @@
       animation: heartBeat 1.2s ease-in-out infinite;
     }
 
-    /* ========== 开场动画层 ========== */
-    #introOverlay {
-      position: fixed; inset: 0; z-index: 999;
-      background: radial-gradient(circle at center, #3b0764 0%, #1e1b4b 55%, #0f172a 100%);
-      color: #fff;
-      display: none; flex-direction: column; justify-content: center; align-items: center;
-      padding: 24px; text-align: center;
-      animation: overlayFadeOut 0.7s ease 2.6s forwards;
-    }
-    .heart-pulse-wrap {
-      position: relative; width: 140px; height: 84px;
-      display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
-    }
-    .heart-ripple {
-      position: absolute; width: 84px; height: 84px; border-radius: 50%;
-      border: 2px solid rgba(244, 114, 182, 0.6);
-      animation: rippleOut 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-    }
-    .heart-icon {
-      font-size: 40px;
-      filter: drop-shadow(0 0 16px rgba(244, 114, 182, 0.8));
-      animation: heartBeat 1.2s ease-in-out infinite;
-    }
-    .merge-heart-left, .merge-heart-right {
-      position: absolute; font-size: 38px;
-      filter: drop-shadow(0 0 14px rgba(244, 114, 182, 0.85));
-    }
-    .merge-heart-left { animation: mergeFromLeft 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .merge-heart-right { animation: mergeFromRight 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .merge-heart-final {
-      font-size: 50px; opacity: 0; transform: scale(0.3);
-      filter: drop-shadow(0 0 24px rgba(244, 63, 94, 0.95));
-      animation: finalHeartPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.15s forwards, heartBeat 1.1s ease-in-out 1.95s infinite;
-    }
-    @keyframes mergeFromLeft {
-      0% { transform: translateX(-75px) scale(0.85); opacity: 0; }
-      30% { opacity: 1; }
-      85% { transform: translateX(-6px) scale(1.05); opacity: 1; }
-      100% { transform: translateX(0) scale(0); opacity: 0; }
-    }
-    @keyframes mergeFromRight {
-      0% { transform: translateX(75px) scale(0.85); opacity: 0; }
-      30% { opacity: 1; }
-      85% { transform: translateX(6px) scale(1.05); opacity: 1; }
-      100% { transform: translateX(0) scale(0); opacity: 0; }
-    }
-    @keyframes finalHeartPop {
-      0% { opacity: 0; transform: scale(0.3); }
-      70% { opacity: 1; transform: scale(1.25); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    .intro-title {
-      font-size: clamp(19px, 5.2vw, 23px); font-weight: 600; letter-spacing: 1.5px;
-      background: linear-gradient(to right, #fbcfe8, #ffffff, #e9d5ff);
-      -webkit-background-clip: text; color: transparent;
-      opacity: 0; transform: translateY(14px);
-      animation: slideUpFade 0.6s ease 0.5s forwards;
-    }
-    .intro-sub {
-      font-size: clamp(13px, 3.6vw, 14px); color: #f5d0fe; margin-top: 10px;
-      opacity: 0; transform: translateY(10px);
-      animation: slideUpFade 0.6s ease 0.9s forwards;
-    }
-    @keyframes heartBeat {
-      0%, 100% { transform: scale(1); }
-      25% { transform: scale(1.18); }
-      45% { transform: scale(0.96); }
-      65% { transform: scale(1.12); }
-    }
-    @keyframes rippleOut {
-      0% { transform: scale(0.7); opacity: 0.9; }
-      100% { transform: scale(1.65); opacity: 0; }
-    }
-    @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-    @keyframes overlayFadeOut { to { opacity: 0; visibility: hidden; } }
-
-    .reveal-main { animation: mainCardIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes mainCardIn {
-      0% { opacity: 0; transform: translateY(12px) scale(0.985); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
     /* ========== 首页：纪念日计时器看板 ========== */
     .timer-box {
       background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%);
@@ -496,7 +590,7 @@
     }
     .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
 
-    /* ========== 首页：浪漫恋爱日历模块（V2.0 农历 + 生日专属标注） ========== */
+    /* ========== 首页：浪漫恋爱农历日历模块 ========== */
     .cal-box {
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid #f3e8ff;
@@ -583,7 +677,7 @@
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
     /* ==========================================================================
-       导航第一项【💌 信封】排版（纯净双人写信 + 胶囊增删 + 在线添情话）
+       导航第一项【💌 信封】排版
        ========================================================================== */
     .env-header-banner {
       background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
@@ -994,61 +1088,86 @@
     .status { font-size: 11px; color: #9ca3af; margin-top: 8px; }
   </style>
 </head>
-<body>
+<body class="">
 
+  <!-- 浪漫渐变背景层与漂浮光晕球（仅在解锁后随 .romantic-mode 淡入显示） -->
+  <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.0 正式版更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display:none;">
+  <!-- V2.0.1 更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display: none;">
     <div class="update-modal">
-      <span class="update-badge">🎉 正式版上线 · V2.0</span>
-      <div class="update-title">我们的专属空间 V2.0 正式发布</div>
+      <span class="update-badge">✨ 版本更新 · V2.0.1</span>
+      <div class="update-title">隐秘登录与开锁淡入体验已上线</div>
       <ul class="update-list">
-        <li><strong>🧹 纯净正式版</strong>：已清空信箱与约定中的测试预设内容，所有情话、长信与兑换券均由你们共同书写。</li>
-        <li><strong>💌 长信与胶囊自由管理</strong>：信箱内的长信与未来时光胶囊均支持双方随时添加与删除，云端加密实时同步。</li>
-        <li><strong>🌙 日历新增农历与生日标注</strong>：内置完整农历显示，自动高亮标记她的生日（农历四月初九 🎂）与他的生日（农历八月初一 🎂）。</li>
+        <li><strong>🕵️ 普通网页隐秘登录</strong>：未解锁前为极简普通系统登录页，解锁后才淡入属于两个人的浪漫空间背景。</li>
+        <li><strong>🔓 全新开锁 + 淡入转场</strong>：进入空间时新增挂锁弹开动画与柔光淡入效果，仪式感更流畅自然。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.0 正式版 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启专属空间 💖</button>
     </div>
   </div>
 
-  <!-- 登录成功开场动画 -->
-  <div id="introOverlay" style="display: none;">
-    <div class="heart-pulse-wrap" id="introAnimStage">
-      <div class="heart-ripple"></div>
-      <span class="heart-icon">💖</span>
+  <!-- V2.0.1 开锁动画 + 淡入转场层 -->
+  <div id="introOverlay" style="display: none;" class="">
+    <div class="unlock-stage" id="introAnimStage">
+      <div class="unlock-ring"></div>
+      <div class="unlock-ring-2"></div>
+      <svg class="unlock-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="lock-shackle" d="M20 30V20C20 13.3726 25.3726 8 32 8C38.6274 8 44 13.3726 44 20V30" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"></path>
+        <rect class="lock-body-rect" x="12" y="29" width="40" height="30" rx="9" fill="#334155" stroke="#94a3b8" stroke-width="2"></rect>
+        <g class="lock-keyhole">
+          <circle cx="32" cy="42" r="3.5" fill="#f8fafc"></circle>
+          <path d="M32 45V50" stroke="#f8fafc" stroke-width="2.8" stroke-linecap="round"></path>
+        </g>
+        <path class="lock-heart-reveal" d="M32 52C32 52 22 45.8 22 39.8C22 36.8 24.3 34.5 27.1 34.5C29.1 34.5 30.8 35.6 32 37.3C33.2 35.6 34.9 34.5 36.9 34.5C39.7 34.5 42 36.8 42 39.8C42 45.8 32 52 32 52Z" fill="#ffffff"></path>
+      </svg>
     </div>
-    <div class="intro-title" id="introTitleText">欢迎来到我们的专属空间</div>
+    <div class="intro-title" id="introTitleText">空间已解锁 · 欢迎回来</div>
     <div class="intro-sub" id="introSubText">自 2026.03.12 起，每一秒都值得被珍藏</div>
   </div>
 
-  <!-- 状态 1：门禁拦截界面 -->
-  <div class="card" id="denyView" style="display:none;">
-    <div class="badge badge-danger">🔒 专属信物保护中 · V2.0</div>
-    <h1>需要触碰专属 NFC 信物</h1>
-    <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
+  <!-- 状态 1：普通网页风格门禁拦截界面（无情侣元素） -->
+  <div class="card-plain" id="denyView" style="display:none;">
+    <div class="plain-logo-row">
+      <div class="plain-logo-box warn">403</div>
+      <div>
+        <div class="plain-brand-name">访问受限</div>
+        <div class="plain-brand-sub">Access Denied · Error 403</div>
+      </div>
+    </div>
+    <p style="font-size:13.5px; color:#4b5563; margin-bottom:0;">
+      缺少有效的访问凭证参数，请通过授权链接或终端设备重新进入此页面。
+    </p>
+    <div class="plain-footer">Portal Gateway · Security Check</div>
   </div>
 
-  <!-- 状态 2：首次登录验证界面 -->
-  <div class="card" id="loginView" style="display:none;">
-    <div class="badge">✨ 已感应到专属信物 · V2.0</div>
-    <h1>开启我们的纪念空间</h1>
-    <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
+  <!-- 状态 2：普通网页风格登录验证界面（无情侣元素） -->
+  <div class="card-plain" id="loginView" style="display:none;">
+    <div class="plain-logo-row">
+      <div class="plain-logo-box">P</div>
+      <div>
+        <div class="plain-brand-name">系统登录</div>
+        <div class="plain-brand-sub">请输入您的账号与密码以继续</div>
+      </div>
+    </div>
+    <label class="plain-field-label" for="loginUser">账号</label>
     <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
+    <label class="plain-field-label" for="loginPwd">密码</label>
     <input type="password" id="loginPwd" placeholder="请输入密码" autocomplete="current-password">
-    <div class="err" id="errMsg">账号或密码不对哦，再试一次吧</div>
-    <button class="btn" onclick="verifyAdmin()">解锁进入</button>
+    <div class="plain-err" id="errMsg">账号或密码不正确，请检查后重试。</div>
+    <button class="btn-plain" onclick="verifyAdmin()">登 录</button>
+    <div class="plain-footer">Encrypted Session · Web Portal</div>
   </div>
 
   <!-- ==================== 导航中间项：🏠 首页（进度条、时间、农历日历） ==================== -->
-  <div class="card reveal-main" id="tabHomeView" style="display: none;">
+  <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.0 正式版更新说明">V2.0</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.0.1 更新说明">V2.0.1</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -1056,16 +1175,16 @@
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 6天13时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 6天12时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.5%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.5%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 11.7%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 11.7%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.5%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.5%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 11.7%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 88.3%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -1082,15 +1201,15 @@
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">10</span>
+          <span class="time-num" id="tHours">11</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">51</span>
+          <span class="time-num" id="tMins">23</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">47</span>
+          <span class="time-num" id="tSecs">21</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
@@ -1120,7 +1239,7 @@
   </div>
 
   <!-- ==================== 导航左侧项：💌 信封（情话、双人写信、时间胶囊） ==================== -->
-  <div class="card reveal-main" id="tabEnvelopeView" style="display: none;">
+  <div class="card" id="tabEnvelopeView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">💌 见字如面 · 双人信箱</div>
@@ -1129,7 +1248,7 @@
       <button class="write-letter-toggle-btn" id="toggleComposeBtn" onclick="toggleComposeBox()">✍️ 写一封信</button>
     </div>
 
-    <!-- 双人在线写信与封存时光胶囊面板（支持双身份切换 + 云端加密同步） -->
+    <!-- 双人在线写信与封存时光胶囊面板 -->
     <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
       <div class="compose-row-label">📮 选择寄信身份（系统将自动记住本机默认身份）：</div>
       <div class="sender-switch-row">
@@ -1148,7 +1267,7 @@
       </div>
     </div>
 
-    <!-- 模块 1：一碰一语 · 随机情话盲盒（支持双方在线添加） -->
+    <!-- 模块 1：一碰一语 · 随机情话盲盒 -->
     <div class="section-block">
       <div class="section-head">
         <span>🎲 一碰一语 · 情话盲盒</span>
@@ -1172,19 +1291,19 @@
       </div>
     </div>
 
-    <!-- 模块 2：长信 & 时光胶囊（均支持添加与删除） -->
+    <!-- 模块 2：长信 & 时光胶囊 -->
     <div class="section-block" style="margin-bottom:0;">
       <div class="section-head">
         <span>⏳ 双方长信 &amp; 时光胶囊</span>
-        <span class="section-pill" id="capsuleStatusLabel">共 1 封</span>
+        <span class="section-pill" id="capsuleStatusLabel">共 0 封</span>
       </div>
       <div class="capsule-list" id="capsuleListContainer"></div>
     </div>
 
-    <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
+    <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.0 正式版)</strong>：默认已清空测试数据，可直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.0.1)</strong>：未解锁前为普通系统登录页，解锁后触发开锁淡入动画进入情侣空间。
       </p>
 
       <div class="dev-section">
@@ -1205,16 +1324,15 @@
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
 
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.0 正式版)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.0.1)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
 
   <!-- ==================== 导航右侧项：🎁 约定（恋爱券、专属事件） ==================== -->
-  <div class="card reveal-main" id="tabPromiseView" style="display:none;">
+  <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge">🎁 我们的甜蜜约定</div>
 
-    <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
         🎟️ 恋爱兑换券 (<span id="couponAvailCount">4</span>)
@@ -1224,7 +1342,6 @@
       </button>
     </div>
 
-    <!-- 子面板 A：双列实体恋爱兑换券 -->
     <div id="subPanelCoupon">
       <div class="event-add-row">
         <input type="text" id="newCouponInput" placeholder="新增特权券，如：周末专属按摩券...">
@@ -1233,7 +1350,6 @@
       <div class="coupon-grid" id="couponListContainer"></div>
     </div>
 
-    <!-- 子面板 B：专属事件清单（进度仪表盘 + 分组多选清单） -->
     <div id="subPanelEvent" style="display:none;">
       <div class="event-dashboard">
         <div class="event-dash-row">
@@ -1255,7 +1371,7 @@
   </div>
 
   <!-- ==================== 日历点击进入的【独立双人气泡留言与见面行程页】 ==================== -->
-  <div class="card reveal-main" id="noteView" style="display:none;">
+  <div class="card" id="noteView" style="display:none;">
     <div class="subpage-header">
       <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
       <div class="subpage-title-wrap">
@@ -1298,7 +1414,7 @@
   <!-- ==================== 底部三栏悬浮导航栏（左：信封 | 中：首页 | 右：约定） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
-      <span class="nav-dot" id="envelopeNavDot" style="display: block;"></span>
+      <span class="nav-dot" id="envelopeNavDot" style="display: none;"></span>
       <span class="nav-icon">💌</span>
       <span class="nav-label">信封</span>
     </button>
@@ -1312,7 +1428,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.0';
+    const APP_VERSION = '2.0.1';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1324,7 +1440,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "j30zQ7JsgUjXWeuFtmxFGoeuORnfPUmKAgZsE4XbWq7bkbMVIl32wd9TnNoYuDtVscPKrNil+ZvpFIjKSWRjoj3DN3crMUaTZjBfIGZHWV0RJWgb9MVya737wNBKTT07iUZ3U0KB1Kh3w8ynliV8ybyIv2r0fNssiiU3gFky+cx7xrfKiNPmtiJ+wS2jxVDMD4At9UNu/wN6bVo2g96XeYR87yM2ieQzb2Qz74/PhKfbbq+DmJU1KvipfiFGvMRHS8PDmFNVGchc4nbdeiMmAMasiwrdEh+Cf+A8gl+9X8lIXwKGUVim";
+    const ENCRYPTED_BUNDLE = "d1JXvwXdgcJNBcVY43itvKOF/hvSeXgokQ8Xrs9X5oyobSyANRgAaKdMF0UoS8iCy9yi84UDuagqC9qGlAbNMd8vVLEas/zmAvIsb7sEpNa6J5+DbwRTlUWgO8jpBgFtyS6vcpo8siN2fAl2g9/8mHSIp/cTmzcCkGgBdNYuItcfONSogzpMuKqC0SvprQMcobjEKbB6Yy4kugzD7t94Z2WsCfS8LcPgDwbrMTG5q2zm0Il8AiStyd7O0O5jPUPoMi+yaRBLEyInFieSCXazlTu87Tmq6QO1r8L2+TYKQWUfAKV0y+2S";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1338,18 +1454,18 @@
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_0';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_0_1';
 
     let activeAesKey = null;
     let isSyncingNow = false;
     let lastCloudCipher = '';
 
-    // V2.0 正式版：清空所有默认测试情话、测试长信与测试恋爱券
+    // V2.0+ 正式版：清空所有默认测试情话、测试长信与测试恋爱券
     let loveQuotes = [];
     let timeCapsules = [];
     const DEFAULT_COUPONS = [];
 
-    // ========== V2.0 原生高精度农历与生日识别引擎（女方农历0409 / 男方农历0801） ==========
+    // ========== 原生高精度农历与生日识别引擎（女方农历0409 / 男方农历0801） ==========
     const LUNAR_MONTH_LABELS = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
     const LUNAR_DAY_LABELS = [
       '', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
@@ -1502,7 +1618,7 @@
       }, 450);
     }
 
-    // ========== V2.0 更新提示弹窗控制 ==========
+    // ========== V2.0.1 更新提示弹窗控制 ==========
     function openUpdateModal(force = false) {
       if (!force && localStorage.getItem(SEEN_UPDATE_KEY) === '1') return;
       const mask = document.getElementById('updateModalMask');
@@ -1702,7 +1818,6 @@
             return;
           }
 
-          // 1. 合并每日悄悄话
           const localDel = getDeletedIds();
           const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
           const allDelSet = new Set([...localDel, ...remoteDel]);
@@ -1726,13 +1841,11 @@
             saveAllNotes(mergedNotes);
           }
 
-          // 2. 合并双方添加的情话盲盒
           if (Array.isArray(remote.userQuotes)) {
             const mergedQuotes = Array.from(new Set([...getUserQuotes(), ...remote.userQuotes]));
             saveUserQuotes(mergedQuotes);
           }
 
-          // 3. 合并双人长信 & 时光胶囊（支持任意删除同步）
           const localCapDel = getDeletedCapsuleIds();
           const remoteCapDel = Array.isArray(remote.deletedCapsuleIds) ? remote.deletedCapsuleIds : [];
           const allCapDelSet = new Set([...localCapDel, ...remoteCapDel]);
@@ -1748,7 +1861,6 @@
             saveUserCapsules(mergedCaps);
           }
 
-          // 4. 同步见面行程 / 恋爱券 / 专属事件
           if (!silentBeforePush && remote.meet !== undefined) {
             if (remote.meet) localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
             else localStorage.removeItem(MEET_CONFIG_KEY);
@@ -1835,7 +1947,7 @@
       document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
     }
 
-    // ========== 🎲 随机情书盲盒逻辑（支持双方在线添加并云同步） ==========
+    // ========== 🎲 随机情书盲盒逻辑 ==========
     let currentQuoteIdx = -1;
 
     function getUserQuotes() {
@@ -1911,7 +2023,7 @@
       }, 180);
     }
 
-    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（均可自由添加与删除） ==========
+    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑 ==========
     let currentLetterSender = localStorage.getItem(PREFERRED_SENDER_KEY) || '👦 他写给她的信';
 
     function selectLetterSender(senderName) {
@@ -2093,7 +2205,7 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（纯净无预设 + 支持发券/核销/删除） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑 ==========
     function getAllCoupons() {
       try {
         const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
@@ -2188,7 +2300,7 @@
       if (e.key === 'Enter') addCustomCoupon();
     });
 
-    // ========== ✨ 专属事件清单逻辑（含达成干杯动画） ==========
+    // ========== ✨ 专属事件清单逻辑 ==========
     function getAllEvents() {
       try {
         return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]');
@@ -2463,7 +2575,7 @@
       }
     }
 
-    // ========== 2026/03/12 实时计时器与后台自动同步轮询 ==========
+    // ========== V2.0.1 开锁动画 + 淡入转场与情侣背景激活 ==========
     const START_TIMESTAMP = new Date('2026-03-12T00:00:00').getTime();
     let timerInterval = null;
     let syncPollInterval = null;
@@ -2488,6 +2600,10 @@
     }
 
     function startTimerAndIntro(playIntro = true) {
+      // 解锁成功：切换网页标题并激活浪漫情侣背景淡入
+      document.title = `我们的专属纪念 · DWLapp V${APP_VERSION}`;
+      document.body.classList.add('romantic-mode');
+
       updateElapsedTimer();
       if (!timerInterval) timerInterval = setInterval(updateElapsedTimer, 1000);
       updateQuoteLabel();
@@ -2504,39 +2620,38 @@
 
       if (playIntro) {
         const overlay = document.getElementById('introOverlay');
-        const stage = document.getElementById('introAnimStage');
         const titleEl = document.getElementById('introTitleText');
         const subEl = document.getElementById('introSubText');
 
         const cfg = getMeetConfig();
         const meetDayIdx = getMeetDayIndex(getTodayStr(), cfg);
-
         if (meetDayIdx > 0) {
-          stage.innerHTML = `
-            <div class="heart-ripple"></div>
-            <span class="merge-heart-left">💗</span>
-            <span class="merge-heart-right">💜</span>
-            <span class="merge-heart-final">💞</span>
-          `;
           titleEl.textContent = '苏州 · 武汉 · 终于相见';
           subEl.textContent = cfg.days > 1
             ? `相聚第 ${meetDayIdx} 天，两颗心在此刻紧紧合二为一`
             : '跨越距离，两颗心在此刻紧紧合二为一';
         }
 
+        overlay.classList.remove('fading-out');
         overlay.style.display = 'flex';
+
+        // 挂锁弹开后开始淡出遮罩，同时平滑淡入首页与导航栏
         setTimeout(() => {
+          overlay.classList.add('fading-out');
           navBar.style.display = 'grid';
           switchMainTab('home');
           homeView.classList.add('reveal-main');
           openUpdateModal(false);
-        }, 2200);
+        }, 1900);
+
         setTimeout(() => {
           overlay.style.display = 'none';
-        }, 3200);
+          overlay.classList.remove('fading-out');
+        }, 2800);
       } else {
         navBar.style.display = 'grid';
         switchMainTab('home');
+        homeView.classList.add('reveal-main');
         openUpdateModal(false);
       }
     }
@@ -2877,9 +2992,18 @@
 
       const clonedDoc = document.documentElement.cloneNode(true);
 
+      // 确保导出文件默认处于普通网页伪装状态（移除 romantic-mode 并还原中性标题）
+      const clonedBody = clonedDoc.querySelector('body');
+      if (clonedBody) clonedBody.classList.remove('romantic-mode');
+      const clonedTitle = clonedDoc.querySelector('title');
+      if (clonedTitle) clonedTitle.textContent = '系统登录 · Portal';
+
       ['fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView', 'tabHomeView', 'tabEnvelopeView', 'tabPromiseView', 'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox', 'addQuoteInlineBox', 'bdayBanner'].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
-        if (el) el.style.display = 'none';
+        if (el) {
+          el.style.display = 'none';
+          el.classList.remove('fading-out', 'reveal-main');
+        }
       });
 
       const navHome = clonedDoc.querySelector('#navBtnHome');
@@ -2920,7 +3044,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.0 正式版加密 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.0.1 隐秘登录+开锁淡入版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
