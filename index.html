@@ -5,7 +5,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>我们的专属纪念 · DWLapp V1.4.3</title>
+  <title>我们的专属纪念 · DWLapp V2.0</title>
   <style>
     :root {
       --bg-romantic: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 45%, #ede9fe 100%);
@@ -13,6 +13,8 @@
       --accent: #ec4899;
       --accent-grad: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%);
       --meet-grad: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      --bday-her-grad: linear-gradient(135deg, #fb7185 0%, #f59e0b 100%);
+      --bday-him-grad: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
       --text-main: #1f2937;
       --text-sub: #6b7280;
       --pad-card: clamp(18px, 5vw, 24px) clamp(15px, 4.5vw, 20px);
@@ -494,7 +496,7 @@
     }
     .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
 
-    /* ========== 首页：浪漫恋爱日历模块 ========== */
+    /* ========== 首页：浪漫恋爱日历模块（V2.0 农历 + 生日专属标注） ========== */
     .cal-box {
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid #f3e8ff;
@@ -516,36 +518,64 @@
     }
     .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .cal-day {
-      aspect-ratio: 1 / 1; border-radius: 11px;
+      min-height: 46px; border-radius: 11px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      font-size: 13px; color: #374151; cursor: pointer; position: relative;
-      background: rgba(255, 255, 255, 0.65); transition: all 0.15s;
-      padding-bottom: 4px;
+      color: #374151; cursor: pointer; position: relative;
+      background: rgba(255, 255, 255, 0.72); transition: all 0.15s;
+      padding: 3px 1px 6px;
     }
     .cal-day:active { transform: scale(0.92); background: #fce7f3; }
     .cal-day.empty { background: transparent; cursor: default; pointer-events: none; }
-    .cal-day.today { border: 1.5px dashed #ec4899; font-weight: 700; color: #db2777; }
+    .cal-solar { font-size: 13px; font-weight: 600; line-height: 1.15; }
+    .cal-lunar {
+      font-size: 9px; color: #9ca3af; line-height: 1.1; margin-top: 2px;
+      white-space: nowrap; transform: scale(0.92);
+    }
+    .cal-day.lunar-first .cal-lunar { color: #db2777; font-weight: 700; }
+    .cal-day.today { border: 1.5px dashed #ec4899; color: #db2777; }
+    .cal-day.today .cal-solar { font-weight: 700; }
     .cal-day.anniv {
-      background: var(--accent-grad); color: #fff; font-weight: 700;
+      background: var(--accent-grad); color: #fff;
       box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3);
     }
     .cal-day.meet-day {
-      background: var(--meet-grad); color: #fff; font-weight: 700;
+      background: var(--meet-grad); color: #fff;
       box-shadow: 0 3px 10px rgba(139, 92, 246, 0.3);
     }
+    .cal-day.bday-her {
+      background: var(--bday-her-grad); color: #fff;
+      box-shadow: 0 3px 10px rgba(244, 63, 94, 0.32);
+    }
+    .cal-day.bday-him {
+      background: var(--bday-him-grad); color: #fff;
+      box-shadow: 0 3px 10px rgba(59, 130, 246, 0.32);
+    }
+    .cal-day.anniv .cal-lunar,
+    .cal-day.meet-day .cal-lunar,
+    .cal-day.bday-her .cal-lunar,
+    .cal-day.bday-him .cal-lunar {
+      color: rgba(255, 255, 255, 0.94); font-weight: 700;
+    }
     .meet-plane { position: absolute; top: 1px; right: 2px; font-size: 9px; line-height: 1; }
+    .bday-icon { position: absolute; top: 1px; left: 2px; font-size: 9px; line-height: 1; }
     .cal-dot-unread {
-      width: 6px; height: 6px; border-radius: 50%; background: #ec4899;
-      position: absolute; bottom: 4px;
+      width: 5px; height: 5px; border-radius: 50%; background: #ec4899;
+      position: absolute; bottom: 2px;
     }
-    .cal-day.anniv .cal-dot-unread, .cal-day.meet-day .cal-dot-unread { background: #fff; }
+    .cal-day.anniv .cal-dot-unread,
+    .cal-day.meet-day .cal-dot-unread,
+    .cal-day.bday-her .cal-dot-unread,
+    .cal-day.bday-him .cal-dot-unread { background: #fff; }
     .cal-dot-read {
-      width: 6px; height: 6px; border-radius: 50%; background: transparent;
-      border: 1.5px solid #ec4899; position: absolute; bottom: 4px;
+      width: 5px; height: 5px; border-radius: 50%; background: transparent;
+      border: 1.5px solid #ec4899; position: absolute; bottom: 2px;
     }
-    .cal-day.anniv .cal-dot-read, .cal-day.meet-day .cal-dot-read { border-color: #fff; }
+    .cal-day.anniv .cal-dot-read,
+    .cal-day.meet-day .cal-dot-read,
+    .cal-day.bday-her .cal-dot-read,
+    .cal-day.bday-him .cal-dot-read { border-color: #fff; }
     .cal-legend {
-      display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px;
       font-size: 11px; color: #9ca3af; margin-top: 8px;
     }
     .legend-item { display: inline-flex; align-items: center; gap: 4px; }
@@ -553,7 +583,7 @@
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
     /* ==========================================================================
-       导航第一项【💌 信封】排版（含双人身份快捷切换写信 + 拆信/封信动画）
+       导航第一项【💌 信封】排版（纯净双人写信 + 胶囊增删 + 在线添情话）
        ========================================================================== */
     .env-header-banner {
       background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
@@ -601,7 +631,6 @@
     .compose-row-label {
       font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 8px;
     }
-    /* 双人身份按钮组 */
     .sender-switch-row {
       display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;
     }
@@ -634,10 +663,16 @@
       font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 10px;
       padding: 0 2px;
     }
+    .section-head-right { display: flex; align-items: center; gap: 6px; }
     .section-pill {
       font-size: 11px; color: #db2777; background: #fdf2f8;
       padding: 2px 10px; border-radius: 99px; font-weight: 600;
     }
+    .mini-add-btn {
+      font-size: 11px; font-weight: 700; color: #7e22ce; background: #f3e8ff;
+      border: 1px solid #e9d5ff; padding: 2px 9px; border-radius: 99px; cursor: pointer;
+    }
+    .mini-add-btn:active { transform: scale(0.94); }
 
     .blindbox-card {
       background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%);
@@ -692,7 +727,7 @@
       background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%);
       border-color: #c084fc;
     }
-    .cap-row { display: flex; align-items: center; gap: 11px; }
+    .cap-row { display: flex; align-items: center; gap: 10px; }
     .cap-seal-icon {
       width: 40px; height: 40px; border-radius: 13px;
       display: flex; align-items: center; justify-content: center;
@@ -710,12 +745,23 @@
       margin-bottom: 3px; line-height: 1.35;
     }
     .cap-meta { font-size: 11px; color: #6b7280; }
+    .cap-right-actions {
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    }
     .cap-badge {
       font-size: 11px; font-weight: 700; padding: 4px 9px;
-      border-radius: 99px; white-space: nowrap; flex-shrink: 0;
+      border-radius: 99px; white-space: nowrap;
     }
     .cap-badge.lock { background: #ede9fe; color: #6d28d9; }
     .cap-badge.open { background: var(--accent-grad); color: #fff; }
+    .cap-del-btn {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: none; background: rgba(243, 244, 246, 0.9);
+      color: #9ca3af; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .cap-del-btn:hover, .cap-del-btn:active { background: #ffe4e6; color: #e11d48; }
 
     .cap-letter-body {
       margin-top: 12px; padding: 13px 14px;
@@ -794,10 +840,12 @@
     .coupon-ticket.used {
       background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; box-shadow: none;
     }
+    .ticket-top-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+    }
     .ticket-top-tag {
       font-size: 10px; font-weight: 700; color: #db2777;
       background: #fce7f3; padding: 2px 7px; border-radius: 6px;
-      align-self: flex-start; margin-bottom: 6px;
     }
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
     .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; }
@@ -855,13 +903,21 @@
        ========================================================================== */
     .subpage-header {
       display: flex; align-items: center; justify-content: space-between; gap: 6px;
-      margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #fce7f3;
+      margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #fce7f3;
     }
     .back-btn {
       background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777;
       padding: 6px 11px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer;
     }
+    .subpage-title-wrap { text-align: center; }
     .subpage-title { font-size: 15px; font-weight: 700; color: #1f2937; }
+    .subpage-lunar { font-size: 11px; color: #db2777; font-weight: 600; margin-top: 2px; }
+    .bday-banner {
+      background: linear-gradient(135deg, #fff1f2 0%, #fef3c7 100%);
+      border: 1px solid #fda4af; color: #be123c;
+      border-radius: 14px; padding: 9px 12px; margin-bottom: 10px;
+      font-size: 12.5px; font-weight: 700; display: none;
+    }
     .meet-setup-box {
       background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 100%);
       border: 1px solid #e9d5ff; border-radius: 16px;
@@ -943,20 +999,20 @@
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
-  <!-- V1.4.3 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
+  <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V1.4.3 版本更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display: none;">
+  <!-- V2.0 正式版更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 新版本上线 · V1.4.3</span>
-      <div class="update-title">双人写信与首页体验已优化</div>
+      <span class="update-badge">🎉 正式版上线 · V2.0</span>
+      <div class="update-title">我们的专属空间 V2.0 正式发布</div>
       <ul class="update-list">
-        <li><strong>✍️ 双方均可独立写信</strong>：进入「💌 信封」点击右上角「写一封信」，可自由切换「👦 他写给她的信」与「👧 她写给他的信」双身份，双方手机实时加密同步。</li>
-        <li><strong>🧭 首页导航同步修复</strong>：进入空间后底部导航栏与主界面精准同步默认停留在「🏠 首页」。</li>
-        <li><strong>✨ 全套仪式感动画保留</strong>：拆卡核销、达成干杯、拆信展纸与火漆封信动效完整支持。</li>
+        <li><strong>🧹 纯净正式版</strong>：已清空信箱与约定中的测试预设内容，所有情话、长信与兑换券均由你们共同书写。</li>
+        <li><strong>💌 长信与胶囊自由管理</strong>：信箱内的长信与未来时光胶囊均支持双方随时添加与删除，云端加密实时同步。</li>
+        <li><strong>🌙 日历新增农历与生日标注</strong>：内置完整农历显示，自动高亮标记她的生日（农历四月初九 🎂）与他的生日（农历八月初一 🎂）。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启甜蜜体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.0 正式版 💖</button>
     </div>
   </div>
 
@@ -972,14 +1028,14 @@
 
   <!-- 状态 1：门禁拦截界面 -->
   <div class="card" id="denyView" style="display:none;">
-    <div class="badge badge-danger">🔒 专属信物保护中 · V1.4.3</div>
+    <div class="badge badge-danger">🔒 专属信物保护中 · V2.0</div>
     <h1>需要触碰专属 NFC 信物</h1>
     <p>这是只属于两个人的秘密空间，请使用对应的纪念 NFC 卡片靠近手机解锁。</p>
   </div>
 
   <!-- 状态 2：首次登录验证界面 -->
   <div class="card" id="loginView" style="display:none;">
-    <div class="badge">✨ 已感应到专属信物 · V1.4.3</div>
+    <div class="badge">✨ 已感应到专属信物 · V2.0</div>
     <h1>开启我们的纪念空间</h1>
     <p>首次开启请输入专属账号密码，验证后本机将永久记住这份约定。</p>
     <input type="text" id="loginUser" placeholder="请输入账号" autocomplete="username">
@@ -988,11 +1044,11 @@
     <button class="btn" onclick="verifyAdmin()">解锁进入</button>
   </div>
 
-  <!-- ==================== 导航中间项：🏠 首页（进度条、时间、日历） ==================== -->
+  <!-- ==================== 导航中间项：🏠 首页（进度条、时间、农历日历） ==================== -->
   <div class="card reveal-main" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V1.4.3 更新说明">V1.4.3</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.0 正式版更新说明">V2.0</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -1000,16 +1056,16 @@
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">点击日历设定见面行程</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 6天13时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 6%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 6%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 11.5%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 11.5%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 6%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 94%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 11.5%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 88.5%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -1022,25 +1078,25 @@
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit">
-          <span class="time-num" id="tDays">259</span>
+          <span class="time-num" id="tDays">260</span>
           <span class="time-txt">天</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tHours">15</span>
+          <span class="time-num" id="tHours">10</span>
           <span class="time-txt">时</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tMins">28</span>
+          <span class="time-num" id="tMins">51</span>
           <span class="time-txt">分</span>
         </div>
         <div class="time-unit">
-          <span class="time-num" id="tSecs">00</span>
+          <span class="time-num" id="tSecs">47</span>
           <span class="time-txt">秒</span>
         </div>
       </div>
     </div>
 
-    <!-- 恋爱纪念日历模块 -->
+    <!-- 恋爱纪念农历日历模块 -->
     <div class="cal-box">
       <div class="cal-header">
         <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
@@ -1054,7 +1110,8 @@
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
-        <span>· 点击日期留言或设见面行程</span>
+        <span class="legend-item">🎂 农历生日</span>
+        <span>· 点击日期留言/设行程</span>
       </div>
     </div>
 
@@ -1091,26 +1148,35 @@
       </div>
     </div>
 
-    <!-- 模块 1：一碰一语 · 随机情话盲盒 -->
+    <!-- 模块 1：一碰一语 · 随机情话盲盒（支持双方在线添加） -->
     <div class="section-block">
       <div class="section-head">
         <span>🎲 一碰一语 · 情话盲盒</span>
-        <span class="section-pill" id="quoteCountLabel">共 6 句</span>
+        <div class="section-head-right">
+          <span class="section-pill" id="quoteCountLabel">共 0 句</span>
+          <button class="mini-add-btn" onclick="toggleAddQuoteBox()">+ 添一句</button>
+        </div>
+      </div>
+      <div id="addQuoteInlineBox" style="display:none; margin-bottom:10px;">
+        <div class="event-add-row" style="margin-bottom:0;">
+          <input type="text" id="userNewQuoteInput" placeholder="写一句想放进盲盒的情话...">
+          <button class="event-add-btn" onclick="addUserQuote()">存入</button>
+        </div>
       </div>
       <div class="blindbox-card" onclick="drawNextQuote()">
         <div class="blindbox-top">
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">不管今天有多累，碰一下这枚小小的卡片，我就在你身边。</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨</div>
       </div>
     </div>
 
-    <!-- 模块 2：长信 & 时光胶囊（融合内置预埋信件 + 双人云端互寄信件） -->
+    <!-- 模块 2：长信 & 时光胶囊（均支持添加与删除） -->
     <div class="section-block" style="margin-bottom:0;">
       <div class="section-head">
         <span>⏳ 双方长信 &amp; 时光胶囊</span>
-        <span class="section-pill" id="capsuleStatusLabel">共 3 封</span>
+        <span class="section-pill" id="capsuleStatusLabel">共 1 封</span>
       </div>
       <div class="capsule-list" id="capsuleListContainer"></div>
     </div>
@@ -1118,11 +1184,11 @@
     <!-- 本地礼物定制工坊（仅在本地双击预览时显示，导出时自动隐藏并加密打包） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地礼物定制工坊 (V1.4.3)</strong>：在此预埋初始情话与初始长信，完成后导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.0 正式版)</strong>：默认已清空测试数据，可直接点击下方按钮导出上锁版上传 GitHub。
       </p>
 
       <div class="dev-section">
-        <div class="dev-sec-title">🎲 添加内置随机情话</div>
+        <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
         <div style="display:flex; gap:6px;">
           <input type="text" id="devNewQuote" placeholder="输入一句新的情话或回忆..." style="margin-bottom:0; font-size:12px; padding:8px 10px;">
           <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="devAddQuote()">添加</button>
@@ -1131,7 +1197,7 @@
       </div>
 
       <div class="dev-section">
-        <div class="dev-sec-title">⏳ 预埋初始长信 / 未来时间胶囊</div>
+        <div class="dev-sec-title">⏳ 预埋初始长信 / 未来时间胶囊（可选）</div>
         <input type="text" id="devCapTitle" placeholder="信件标题（如：写给一周年纪念日的你）" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
         <input type="date" id="devCapDate" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
         <textarea id="devCapBody" rows="3" placeholder="写下想对她说的话..." style="font-size:12px; padding:8px 10px; margin-bottom:6px;"></textarea>
@@ -1139,7 +1205,7 @@
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
 
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.4.3)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.0 正式版)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -1151,10 +1217,10 @@
     <!-- 顶部分段切换：恋爱券 vs 专属事件 -->
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">0</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">4</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
-        ✨ 专属事件 (<span id="eventDoneRatio">1/1</span>)
+        ✨ 专属事件 (<span id="eventDoneRatio">0/0</span>)
       </button>
     </div>
 
@@ -1172,10 +1238,10 @@
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
-          <span id="eventPercentText" style="color:#db2777;">1/1 (100%)</span>
+          <span id="eventPercentText" style="color:#db2777;">0/0 (0%)</span>
         </div>
         <div class="event-progress-bar" style="margin-bottom:0;">
-          <div class="event-progress-fill" id="eventProgressFill" style="width: 100%;"></div>
+          <div class="event-progress-fill" id="eventProgressFill" style="width: 0%;"></div>
         </div>
       </div>
 
@@ -1192,9 +1258,14 @@
   <div class="card reveal-main" id="noteView" style="display:none;">
     <div class="subpage-header">
       <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
-      <div class="subpage-title" id="selectedDateLabel">2026-11-24</div>
+      <div class="subpage-title-wrap">
+        <div class="subpage-title" id="selectedDateLabel">2026-11-24</div>
+        <div class="subpage-lunar" id="selectedLunarLabel">农历十月十五</div>
+      </div>
       <span style="width:64px;"></span>
     </div>
+
+    <div class="bday-banner" id="bdayBanner" style="display: none;"></div>
 
     <div class="meet-setup-box">
       <div class="meet-setup-top">
@@ -1241,7 +1312,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '1.4.3';
+    const APP_VERSION = '2.0';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1253,35 +1324,85 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "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";
+    const ENCRYPTED_BUNDLE = "j30zQ7JsgUjXWeuFtmxFGoeuORnfPUmKAgZsE4XbWq7bkbMVIl32wd9TnNoYuDtVscPKrNil+ZvpFIjKSWRjoj3DN3crMUaTZjBfIGZHWV0RJWgb9MVya737wNBKTT07iUZ3U0KB1Kh3w8ynliV8ybyIv2r0fNssiiU3gFky+cx7xrfKiNPmtiJ+wS2jxVDMD4At9UNu/wN6bVo2g96XeYR87yM2ieQzb2Qz74/PhKfbbq+DmJU1KvipfiFGvMRHS8PDmFNVGchc4nbdeiMmAMasiwrdEh+Cf+A8gl+9X8lIXwKGUVim";
     const EXPECTED_HASH = "b1beae91d03eea3edb13732ddbc5addf1de5f2a277e3818aafa973f760cc35d6";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
     const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
     const DELETED_NOTES_KEY = 'dwlapp_love_del_notes_v1';
+    const USER_QUOTES_KEY = 'dwlapp_love_user_quotes_v2';
     const USER_CAPSULES_KEY = 'dwlapp_love_user_capsules_v1';
     const DELETED_CAPSULES_KEY = 'dwlapp_love_del_capsules_v1';
     const PREFERRED_SENDER_KEY = 'dwlapp_love_pref_sender_v1';
     const READ_STATUS_KEY = 'dwlapp_love_read_v1';
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
-    const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_4_3';
+    const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_0';
 
     let activeAesKey = null;
     let isSyncingNow = false;
     let lastCloudCipher = '';
 
+    // V2.0 正式版：清空所有默认测试情话、测试长信与测试恋爱券
     let loveQuotes = [];
-
     let timeCapsules = [];
+    const DEFAULT_COUPONS = [];
 
-    const DEFAULT_COUPONS = [
-      { id: 1, name: "🥤 跨城奶茶投喂券", desc: "无论在苏州还是武汉，随时召唤一杯指定外卖奶茶", used: false, usedAt: "" },
-      { id: 2, name: "🤝 无条件和好券", desc: "发生小别扭时出示此券，立刻拥抱和好不许翻旧账", used: false, usedAt: "" },
-      { id: 3, name: "🎒 见面全程拎包券", desc: "见面相聚期间，所有包包与行李统统交给我来提", used: false, usedAt: "" },
-      { id: 4, name: "🍜 任意美食大餐券", desc: "指定任意一家想吃的餐厅，无条件安排打卡", used: false, usedAt: "" }
+    // ========== V2.0 原生高精度农历与生日识别引擎（女方农历0409 / 男方农历0801） ==========
+    const LUNAR_MONTH_LABELS = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
+    const LUNAR_DAY_LABELS = [
+      '', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+      '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+      '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十'
     ];
+    const CN_MONTH_MAP = {
+      '正': 1, '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6,
+      '七': 7, '八': 8, '九': 9, '十': 10, '十一': 11, '冬': 11, '十二': 12, '腊': 12
+    };
+    const lunarFmt = typeof Intl !== 'undefined'
+      ? new Intl.DateTimeFormat('zh-CN', { calendar: 'chinese', month: 'long', day: 'numeric' })
+      : null;
+
+    function getLunarInfo(year, monthIdx, day) {
+      const fallback = { month: 0, day: 0, isLeap: false, shortText: '', fullText: '', isHerBday: false, isHimBday: false };
+      if (!lunarFmt) return fallback;
+      try {
+        const d = new Date(year, monthIdx, day, 12, 0, 0);
+        const parts = lunarFmt.formatToParts(d);
+        const mRaw = (parts.find(p => p.type === 'month') || {}).value || '';
+        const dRaw = (parts.find(p => p.type === 'day') || {}).value || '';
+
+        const isLeap = mRaw.includes('闰') || mRaw.includes('bis');
+        const mClean = mRaw.replace(/[闰月bis\s]/g, '');
+        let mNum = parseInt(mClean, 10);
+        if (isNaN(mNum)) mNum = CN_MONTH_MAP[mClean] || 0;
+
+        let dNum = parseInt(dRaw.replace(/\D/g, ''), 10);
+        if (isNaN(dNum)) {
+          const idx = LUNAR_DAY_LABELS.indexOf(dRaw.trim());
+          dNum = idx > 0 ? idx : 0;
+        }
+
+        if (!mNum || !dNum) return fallback;
+        const mText = (isLeap ? '闰' : '') + (LUNAR_MONTH_LABELS[mNum - 1] || `${mNum}月`);
+        const dText = LUNAR_DAY_LABELS[dNum] || `${dNum}`;
+        const isHerBday = !isLeap && mNum === 4 && dNum === 9;
+        const isHimBday = !isLeap && mNum === 8 && dNum === 1;
+
+        return {
+          month: mNum,
+          day: dNum,
+          isLeap,
+          shortText: dNum === 1 ? mText : dText,
+          fullText: `农历${mText}${dText}`,
+          isHerBday,
+          isHimBday
+        };
+      } catch (e) {
+        return fallback;
+      }
+    }
 
     // ========== 仪式感微交互动画播放引擎（拆卡 / 干杯 / 封信） ==========
     let fxHideTimer = null;
@@ -1381,7 +1502,7 @@
       }, 450);
     }
 
-    // ========== V1.4.3 更新提示弹窗控制 ==========
+    // ========== V2.0 更新提示弹窗控制 ==========
     function openUpdateModal(force = false) {
       if (!force && localStorage.getItem(SEEN_UPDATE_KEY) === '1') return;
       const mask = document.getElementById('updateModalMask');
@@ -1497,6 +1618,7 @@
           latestVer: APP_VERSION,
           notes: getAllNotes(),
           deletedIds: getDeletedIds(),
+          userQuotes: getUserQuotes(),
           userCapsules: getUserCapsules(),
           deletedCapsuleIds: getDeletedCapsuleIds(),
           meet: getMeetConfig(),
@@ -1580,6 +1702,7 @@
             return;
           }
 
+          // 1. 合并每日悄悄话
           const localDel = getDeletedIds();
           const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
           const allDelSet = new Set([...localDel, ...remoteDel]);
@@ -1603,6 +1726,13 @@
             saveAllNotes(mergedNotes);
           }
 
+          // 2. 合并双方添加的情话盲盒
+          if (Array.isArray(remote.userQuotes)) {
+            const mergedQuotes = Array.from(new Set([...getUserQuotes(), ...remote.userQuotes]));
+            saveUserQuotes(mergedQuotes);
+          }
+
+          // 3. 合并双人长信 & 时光胶囊（支持任意删除同步）
           const localCapDel = getDeletedCapsuleIds();
           const remoteCapDel = Array.isArray(remote.deletedCapsuleIds) ? remote.deletedCapsuleIds : [];
           const allCapDelSet = new Set([...localCapDel, ...remoteCapDel]);
@@ -1618,12 +1748,10 @@
             saveUserCapsules(mergedCaps);
           }
 
+          // 4. 同步见面行程 / 恋爱券 / 专属事件
           if (!silentBeforePush && remote.meet !== undefined) {
-            if (remote.meet) {
-              localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
-            } else {
-              localStorage.removeItem(MEET_CONFIG_KEY);
-            }
+            if (remote.meet) localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
+            else localStorage.removeItem(MEET_CONFIG_KEY);
           }
 
           if (!silentBeforePush && Array.isArray(remote.coupons)) {
@@ -1639,6 +1767,7 @@
             updateCityProgress();
             updatePromiseCounters();
             updateCapsuleBadge();
+            updateQuoteLabel();
             if (document.getElementById('noteView').style.display === 'block') {
               refreshMeetSetupUI();
               renderNotesList();
@@ -1664,7 +1793,7 @@
       }
     }
 
-    // ========== 导航切换控制（彻底修复初始默认停留在首页的同步问题） ==========
+    // ========== 导航切换控制 ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
@@ -1692,8 +1821,7 @@
         updateCityProgress();
       } else if (tabName === 'envelope') {
         renderCapsulesList();
-        const qLabel = document.getElementById('quoteCountLabel');
-        if (qLabel) qLabel.textContent = `共 ${loveQuotes.length} 句`;
+        updateQuoteLabel();
       } else if (tabName === 'promise') {
         renderCouponsList();
         renderEventsList();
@@ -1707,27 +1835,83 @@
       document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
     }
 
-    // ========== 🎲 随机情书盲盒逻辑 ==========
+    // ========== 🎲 随机情书盲盒逻辑（支持双方在线添加并云同步） ==========
     let currentQuoteIdx = -1;
+
+    function getUserQuotes() {
+      try { return JSON.parse(localStorage.getItem(USER_QUOTES_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveUserQuotes(list) {
+      localStorage.setItem(USER_QUOTES_KEY, JSON.stringify(list));
+    }
+
+    function getAllMergedQuotes() {
+      return Array.from(new Set([...getUserQuotes(), ...loveQuotes]));
+    }
+
+    function updateQuoteLabel() {
+      const all = getAllMergedQuotes();
+      const label = document.getElementById('quoteCountLabel');
+      if (label) label.textContent = `共 ${all.length} 句`;
+      const el = document.getElementById('blindboxQuoteText');
+      if (el && all.length === 0) {
+        el.textContent = '盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨';
+      } else if (el && currentQuoteIdx === -1 && all.length > 0) {
+        currentQuoteIdx = 0;
+        el.textContent = all[0];
+      }
+    }
+
+    function toggleAddQuoteBox() {
+      const box = document.getElementById('addQuoteInlineBox');
+      if (!box) return;
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addUserQuote() {
+      const input = document.getElementById('userNewQuoteInput');
+      const val = input.value.trim();
+      if (!val) return alert('先输入一句想放进盲盒的情话吧~');
+      const list = getUserQuotes();
+      list.unshift(val);
+      saveUserQuotes(list);
+      input.value = '';
+      document.getElementById('addQuoteInlineBox').style.display = 'none';
+      currentQuoteIdx = 0;
+      const el = document.getElementById('blindboxQuoteText');
+      if (el) el.textContent = val;
+      updateQuoteLabel();
+      pushToCloud();
+    }
+
+    document.getElementById('userNewQuoteInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') addUserQuote();
+    });
 
     function drawNextQuote() {
       const el = document.getElementById('blindboxQuoteText');
-      if (!el || loveQuotes.length === 0) return;
+      const all = getAllMergedQuotes();
+      if (!el) return;
+      if (all.length === 0) {
+        el.textContent = '盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨';
+        return;
+      }
 
-      let nextIdx = Math.floor(Math.random() * loveQuotes.length);
-      if (loveQuotes.length > 1 && nextIdx === currentQuoteIdx) {
-        nextIdx = (nextIdx + 1) % loveQuotes.length;
+      let nextIdx = Math.floor(Math.random() * all.length);
+      if (all.length > 1 && nextIdx === currentQuoteIdx) {
+        nextIdx = (nextIdx + 1) % all.length;
       }
       currentQuoteIdx = nextIdx;
 
       el.classList.add('quote-flip');
       setTimeout(() => {
-        el.textContent = loveQuotes[currentQuoteIdx];
+        el.textContent = all[currentQuoteIdx];
         el.classList.remove('quote-flip');
       }, 180);
     }
 
-    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（双方独立身份写信 + 云端同步） ==========
+    // ========== ⏳ 双人长信 & 未来时间胶囊逻辑（均可自由添加与删除） ==========
     let currentLetterSender = localStorage.getItem(PREFERRED_SENDER_KEY) || '👦 他写给她的信';
 
     function selectLetterSender(senderName) {
@@ -1750,8 +1934,9 @@
     }
 
     function getAllMergedCapsules() {
-      const userList = getUserCapsules().map(c => ({ ...c, isUserWritten: true }));
-      const builtinList = timeCapsules.map(c => ({ ...c, isUserWritten: false }));
+      const delSet = new Set(getDeletedCapsuleIds());
+      const userList = getUserCapsules().filter(c => !delSet.has(c.id)).map(c => ({ ...c, isUserWritten: true }));
+      const builtinList = timeCapsules.filter(c => !delSet.has(c.id)).map(c => ({ ...c, isUserWritten: false }));
       return [...userList, ...builtinList];
     }
 
@@ -1784,7 +1969,6 @@
       btn.disabled = true;
       btn.textContent = '正在封缄并加密寄出...';
 
-      // 触发写信面板折叠封信动画 + 全屏火漆封信飞行动画
       box.classList.add('sealing');
       playCeremonyFx('seal');
 
@@ -1816,9 +2000,9 @@
       }, 420);
     }
 
-    async function deleteUserCapsule(event, capId) {
+    async function deleteCapsuleAny(event, capId) {
       event.stopPropagation();
-      if (!confirm('确定要删除这封信件吗？（删除后也将同步到云端）')) return;
+      if (!confirm('确定要删除这封长信 / 时光胶囊吗？（删除后也将同步到云端）')) return;
       addDeletedCapsuleId(capId);
       const list = getUserCapsules().filter(c => c.id !== capId);
       saveUserCapsules(list);
@@ -1844,7 +2028,7 @@
       const todayMs = new Date(`${today}T00:00:00`).getTime();
 
       if (allCaps.length === 0) {
-        container.innerHTML = `<div class="empty-notes">信箱里暂时还没有信件，点击右上角「写一封信」寄出第一封吧 ✨</div>`;
+        container.innerHTML = `<div class="empty-notes">信箱还是空的，点击右上角「✍️ 写一封信」寄出第一封长信或时光胶囊吧 ✨</div>`;
         return;
       }
 
@@ -1863,19 +2047,20 @@
                 <div class="cap-title">${escapeHtml(cap.title)}</div>
                 <div class="cap-meta">${authorTag}${isUnlocked ? `启封：${cap.unlockDate}` : `约定开启：${cap.unlockDate}`}</div>
               </div>
-              <span class="cap-badge ${isUnlocked ? 'open' : 'lock'}" id="capBadge_${cap.id}">
-                ${isUnlocked ? '拆开阅读' : `剩 ${remainDays} 天`}
-              </span>
+              <div class="cap-right-actions">
+                <span class="cap-badge ${isUnlocked ? 'open' : 'lock'}" id="capBadge_${cap.id}">
+                  ${isUnlocked ? '拆开阅读' : `剩 ${remainDays} 天`}
+                </span>
+                <button class="cap-del-btn" onclick="deleteCapsuleAny(event, ${cap.id})" title="删除此信或胶囊">✕</button>
+              </div>
             </div>
             ${isUnlocked ? `
               <div class="cap-letter-body" id="capBody_${cap.id}">
                 <div>${escapeHtml(cap.content)}</div>
-                ${cap.isUserWritten ? `
-                  <div class="cap-footer-actions" onclick="event.stopPropagation()">
-                    <span>${escapeHtml(cap.author || '')} · ${cap.createdAt || cap.unlockDate}</span>
-                    <span style="color:#e11d48; cursor:pointer;" onclick="deleteUserCapsule(event, ${cap.id})">删除此信</span>
-                  </div>
-                ` : ''}
+                <div class="cap-footer-actions" onclick="event.stopPropagation()">
+                  <span>${escapeHtml(cap.author || '专属信件')} · ${cap.createdAt || cap.unlockDate}</span>
+                  <span style="color:#e11d48; cursor:pointer;" onclick="deleteCapsuleAny(event, ${cap.id})">删除此信</span>
+                </div>
               </div>
             ` : ''}
           </div>
@@ -1908,17 +2093,14 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（含拆卡核销动画） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（纯净无预设 + 支持发券/核销/删除） ==========
     function getAllCoupons() {
       try {
         const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
-        if (!raw) {
-          localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(DEFAULT_COUPONS));
-          return [...DEFAULT_COUPONS];
-        }
+        if (!raw) return [...DEFAULT_COUPONS];
         return JSON.parse(raw);
       } catch (e) {
-        return [...DEFAULT_COUPONS];
+        return [];
       }
     }
 
@@ -1933,7 +2115,7 @@
       const container = document.getElementById('couponListContainer');
       const rawList = getAllCoupons();
       if (rawList.length === 0) {
-        container.innerHTML = `<div class="empty-notes" style="grid-column:span 2;">卡包空空如也，快发一张新特权券吧 🎟️</div>`;
+        container.innerHTML = `<div class="empty-notes" style="grid-column:span 2;">卡包还是空的，在上方输入名称发第一张专属恋爱券吧 🎟️</div>`;
         return;
       }
 
@@ -1942,7 +2124,10 @@
       container.innerHTML = sorted.map(c => `
         <div class="coupon-ticket ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
           <div>
-            <span class="ticket-top-tag">${c.used ? '已兑现' : '特权券'}</span>
+            <div class="ticket-top-row">
+              <span class="ticket-top-tag">${c.used ? '已兑现' : '特权券'}</span>
+              <span class="note-del" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+            </div>
             <div class="coupon-name">${escapeHtml(c.name)}</div>
             <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt}` : escapeHtml(c.desc)}</div>
           </div>
@@ -1973,6 +2158,13 @@
           renderCouponsList();
         }, 480);
       }
+    }
+
+    function deleteCoupon(id) {
+      if (!confirm('确定要删除这张恋爱兑换券吗？')) return;
+      const list = getAllCoupons().filter(c => c.id !== id);
+      saveAllCoupons(list, true);
+      renderCouponsList();
     }
 
     function addCustomCoupon() {
@@ -2298,7 +2490,7 @@
     function startTimerAndIntro(playIntro = true) {
       updateElapsedTimer();
       if (!timerInterval) timerInterval = setInterval(updateElapsedTimer, 1000);
-      drawNextQuote();
+      updateQuoteLabel();
       updateCapsuleBadge();
       updatePromiseCounters();
 
@@ -2335,7 +2527,7 @@
         overlay.style.display = 'flex';
         setTimeout(() => {
           navBar.style.display = 'grid';
-          switchMainTab('home'); // 强制同步底部高亮与首页视图
+          switchMainTab('home');
           homeView.classList.add('reveal-main');
           openUpdateModal(false);
         }, 2200);
@@ -2349,7 +2541,7 @@
       }
     }
 
-    // ========== 恋爱日历与独立双人对话留言板 ==========
+    // ========== 恋爱农历日历与独立双人对话留言板 ==========
     let currentCalDate = new Date();
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
@@ -2410,23 +2602,54 @@
 
       for (let d = 1; d <= daysInMonth; d++) {
         const dateStr = formatDateStr(year, month, d);
+        const lunar = getLunarInfo(year, month, d);
+
         const cell = document.createElement('div');
         cell.className = 'cal-day';
-        cell.textContent = d;
+        if (lunar.day === 1) cell.classList.add('lunar-first');
+
+        const solarSpan = document.createElement('span');
+        solarSpan.className = 'cal-solar';
+        solarSpan.textContent = d;
+        cell.appendChild(solarSpan);
+
+        const lunarSpan = document.createElement('span');
+        lunarSpan.className = 'cal-lunar';
+        if (lunar.isHerBday) {
+          lunarSpan.textContent = '她的生日';
+        } else if (lunar.isHimBday) {
+          lunarSpan.textContent = '他的生日';
+        } else {
+          lunarSpan.textContent = lunar.shortText;
+        }
+        cell.appendChild(lunarSpan);
 
         const meetIdx = getMeetDayIndex(dateStr, meetCfg);
-        if (meetIdx > 0) {
+        if (lunar.isHerBday) {
+          cell.classList.add('bday-her');
+          const cake = document.createElement('span');
+          cake.className = 'bday-icon';
+          cake.textContent = '🎂';
+          cell.appendChild(cake);
+        } else if (lunar.isHimBday) {
+          cell.classList.add('bday-him');
+          const cake = document.createElement('span');
+          cake.className = 'bday-icon';
+          cake.textContent = '🎂';
+          cell.appendChild(cake);
+        } else if (meetIdx > 0) {
           cell.classList.add('meet-day');
-          if (meetIdx === 1) {
-            const plane = document.createElement('span');
-            plane.className = 'meet-plane';
-            plane.textContent = '✈️';
-            cell.appendChild(plane);
-          }
         } else if (dateStr === '2026-03-12') {
           cell.classList.add('anniv');
         } else if (dateStr === todayStr) {
           cell.classList.add('today');
+        }
+
+        if (meetIdx === 1) {
+          const plane = document.createElement('span');
+          plane.className = 'meet-plane';
+          plane.textContent = '✈️';
+          cell.appendChild(plane);
         }
 
         const dayNotes = notesData[dateStr];
@@ -2445,8 +2668,24 @@
 
     function openNoteView(dateStr) {
       selectedDateStr = dateStr;
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const lunar = getLunarInfo(y, m - 1, d);
+
       const label = dateStr === '2026-03-12' ? `${dateStr} · 💖纪念日` : dateStr;
       document.getElementById('selectedDateLabel').textContent = label;
+      document.getElementById('selectedLunarLabel').textContent = lunar.fullText || '';
+
+      const bdayBanner = document.getElementById('bdayBanner');
+      if (lunar.isHerBday) {
+        bdayBanner.textContent = '🎂 她的农历生日（四月初九）· 愿岁岁年年，万喜万般宜 💖';
+        bdayBanner.style.display = 'block';
+      } else if (lunar.isHimBday) {
+        bdayBanner.textContent = '🎂 他的农历生日（八月初一）· 祝最爱的你生日快乐 🎉';
+        bdayBanner.style.display = 'block';
+      } else {
+        bdayBanner.style.display = 'none';
+      }
+
       document.getElementById('noteInput').value = '';
       document.getElementById('noteSyncHint').textContent = '';
 
@@ -2562,7 +2801,7 @@
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    // ========== 本地礼物定制工坊逻辑 ==========
+    // ========== 本地打包工坊逻辑 ==========
     function renderDevWorkshop() {
       const qList = document.getElementById('devQuoteList');
       qList.innerHTML = loveQuotes.map((q, idx) => `
@@ -2588,15 +2827,13 @@
       loveQuotes.push(val);
       input.value = '';
       renderDevWorkshop();
-      drawNextQuote();
-      document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+      updateQuoteLabel();
     }
 
     function devDelQuote(idx) {
-      if (loveQuotes.length <= 1) return alert('至少保留一句情话哦~');
       loveQuotes.splice(idx, 1);
       renderDevWorkshop();
-      document.getElementById('quoteCountLabel').textContent = `共 ${loveQuotes.length} 句`;
+      updateQuoteLabel();
     }
 
     function devAddCapsule() {
@@ -2640,12 +2877,11 @@
 
       const clonedDoc = document.documentElement.cloneNode(true);
 
-      ['fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView', 'tabHomeView', 'tabEnvelopeView', 'tabPromiseView', 'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox'].forEach(id => {
+      ['fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView', 'tabHomeView', 'tabEnvelopeView', 'tabPromiseView', 'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox', 'addQuoteInlineBox', 'bdayBanner'].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.style.display = 'none';
       });
 
-      // 确保导出后的底部导航栏默认高亮在“首页”
       const navHome = clonedDoc.querySelector('#navBtnHome');
       const navEnv = clonedDoc.querySelector('#navBtnEnvelope');
       const navProm = clonedDoc.querySelector('#navBtnPromise');
@@ -2684,7 +2920,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V1.4.3 双人写信加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.0 正式版加密 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
@@ -2700,7 +2936,7 @@
       const bundle = JSON.parse(new TextDecoder().decode(plainBuf));
 
       document.getElementById('customContent').innerHTML = bundle.html || '';
-      if (Array.isArray(bundle.quotes) && bundle.quotes.length > 0) loveQuotes = bundle.quotes;
+      if (Array.isArray(bundle.quotes)) loveQuotes = bundle.quotes;
       if (Array.isArray(bundle.capsules)) timeCapsules = bundle.capsules;
 
       document.getElementById('loginView').style.display = 'none';
