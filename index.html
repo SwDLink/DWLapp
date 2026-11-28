@@ -14,6 +14,7 @@
       --accent: #ec4899;
       --accent-grad: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%);
       --meet-grad: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      --hist-meet-grad: linear-gradient(135deg, #f472b6 0%, #c084fc 100%);
       --bday-her-grad: linear-gradient(135deg, #fb7185 0%, #f59e0b 100%);
       --bday-him-grad: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
       --text-main: #1f2937;
@@ -116,24 +117,25 @@
       border-radius: clamp(22px, 6vw, 28px);
       box-shadow: 0 16px 40px rgba(236, 72, 153, 0.12);
       width: 100%; max-width: 420px; text-align: center;
+      overflow-x: hidden;
     }
 
-    .tab-anim-enter {
-      animation: tabSwitchIn 0.36s var(--ease-spring) forwards;
-    }
+    .tab-anim-enter { animation: tabSwitchIn 0.36s var(--ease-spring) forwards; }
     @keyframes tabSwitchIn {
       0% { opacity: 0; transform: translateY(14px) scale(0.98); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .subpanel-fade {
-      animation: subPanelFadeIn 0.28s var(--ease-spring) forwards;
-    }
+    .subpanel-fade { animation: subPanelFadeIn 0.28s var(--ease-spring) forwards; }
     @keyframes subPanelFadeIn {
       0% { opacity: 0; transform: translateY(8px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    .top-bar-row { display: flex; justify-content: center; align-items: center; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    /* ========== 顶部栏 ========== */
+    .top-bar-row {
+      display: flex; justify-content: center; align-items: center; gap: 7px;
+      margin-bottom: 12px; flex-wrap: wrap;
+    }
     .badge {
       display: inline-flex; align-items: center; gap: 4px;
       background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8;
@@ -144,7 +146,7 @@
     .ver-pill {
       display: inline-flex; align-items: center;
       background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff;
-      font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; cursor: pointer;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; cursor: pointer;
       transition: transform 0.16s var(--ease-spring), background 0.2s;
     }
     .ver-pill:active { transform: scale(0.93); }
@@ -157,6 +159,27 @@
     .sync-pill:active { transform: scale(0.93); }
     .sync-pill.syncing { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
     .sync-pill.err { background: #fff1f2; color: #be123c; border-color: #fecdd3; }
+
+    .inbox-pill {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8;
+      font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 99px;
+      cursor: pointer;
+    }
+    .inbox-pill:active { transform: scale(0.93); }
+    .inbox-dot {
+      position: absolute; top: -2px; right: -2px;
+      min-width: 15px; height: 15px; padding: 0 4px;
+      border-radius: 99px; background: #ef4444; color: #fff;
+      font-size: 9.5px; font-weight: 800; line-height: 15px; text-align: center;
+      display: none; box-shadow: 0 2px 6px rgba(239, 68, 68, 0.45);
+      animation: pulseBadge 1.6s ease-in-out infinite;
+    }
+    @keyframes pulseBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
 
     h1 { font-size: var(--fs-title); color: var(--text-main); margin-bottom: 6px; line-height: 1.35; }
     p { font-size: var(--fs-body); color: var(--text-sub); line-height: 1.6; margin-bottom: 12px; word-break: break-word; }
@@ -179,6 +202,7 @@
     .btn:active { transform: scale(0.965); opacity: 0.92; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.18); }
     .btn:disabled { opacity: 0.65; cursor: not-allowed; }
     .btn-green { background: #16a34a; box-shadow: none; }
+    .btn-danger { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; box-shadow: none; }
     .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
 
     /* ========== 轻提示 Toast ========== */
@@ -253,16 +277,24 @@
     .fx-particle { position: fixed; z-index: 990; pointer-events: none; font-size: 18px; animation: particleFly 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes particleFly { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; } }
 
-    /* ========== 更新提示框弹窗 ========== */
+    /* ========== 弹窗通用遮罩（更新提示 + 信箱 + 兑换券编辑 + 时光轴编辑） ========== */
     .modal-mask { position: fixed; inset: 0; z-index: 950; background: rgba(15, 23, 42, 0.48); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; padding: 20px; animation: fadeInModal 0.25s ease forwards; }
     @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
-    .update-modal { background: #fff; border: 1.5px solid #fbcfe8; border-radius: 24px; padding: 22px 20px 18px; width: 100%; max-width: 370px; text-align: left; box-shadow: 0 20px 50px rgba(236, 72, 153, 0.25); animation: popUpModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    .update-modal { background: #fff; border: 1.5px solid #fbcfe8; border-radius: 24px; padding: 20px 18px 16px; width: 100%; max-width: 380px; text-align: left; box-shadow: 0 20px 50px rgba(236, 72, 153, 0.25); animation: popUpModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
     @keyframes popUpModal { from { transform: scale(0.9) translateY(14px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
     .update-badge { display: inline-block; background: var(--accent-grad); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 8px; }
-    .update-title { font-size: 18px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
-    .update-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto; }
+    .update-title { font-size: 17px; font-weight: 700; color: #1f2937; margin-bottom: 10px; }
+    .update-list { list-style: none; margin-bottom: 14px; display: flex; flex-direction: column; gap: 7px; max-height: 290px; overflow-y: auto; }
     .update-list li { font-size: 12.5px; color: #374151; line-height: 1.5; background: #fdf2f8; border: 1px solid #fce7f3; padding: 8px 10px; border-radius: 12px; }
     .update-list li strong { color: #db2777; }
+    .modal-field-label { display: block; font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 4px; }
+    .modal-status-info { font-size: 12px; color: #6b7280; background: #fdf2f8; border: 1px solid #fce7f3; padding: 8px 10px; border-radius: 10px; margin-bottom: 10px; line-height: 1.5; }
+
+    .inbox-list { max-height: 310px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .inbox-item { background: #fdf2f8; border: 1px solid #fce7f3; border-radius: 13px; padding: 9px 11px; font-size: 12.5px; color: #374151; line-height: 1.45; }
+    .inbox-item.unread { background: linear-gradient(135deg, #fff1f2, #f5f3ff); border-color: #f472b6; }
+    .inbox-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; font-size: 11px; color: #9ca3af; }
+    .inbox-item-cat { font-weight: 700; color: #db2777; }
 
     /* ========== 底部可滑动悬浮导航栏（默认展示 4 项，左右滑动查看更多） ========== */
     .bottom-nav {
@@ -296,25 +328,62 @@
       color: #db2777;
       box-shadow: inset 0 0 0 1px #fbcfe8, 0 3px 10px rgba(236, 72, 153, 0.12);
     }
-    .nav-icon {
-      font-size: 19px; line-height: 1.15; margin-bottom: 2px;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+    .nav-icon { font-size: 19px; line-height: 1.15; margin-bottom: 2px; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .nav-item.active .nav-icon { transform: translateY(-2px) scale(1.14); }
     .nav-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
     .nav-dot { position: absolute; top: 5px; right: 22%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
 
-    /* ========== 首页：双城进度条 + 计时器 + V2.1.5 上下滑动农历日历 ========== */
-    .city-tracker { background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%); border: 1px solid #f5d0fe; border-radius: 18px; padding: 12px 14px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06); }
-    .city-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 4px; }
+    /* ========== 首页：双城奔赴进度条 + 互动爱心 ========== */
+    .city-tracker {
+      background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%);
+      border: 1px solid #f5d0fe; border-radius: 18px;
+      padding: 12px 14px 10px; margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06);
+      position: relative; overflow: visible;
+    }
+    .city-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 4px; }
     .city-tag { font-size: 13px; font-weight: 700; color: #374151; display: flex; align-items: center; gap: 3px; white-space: nowrap; }
     .city-status { font-size: 11px; font-weight: 600; color: #db2777; background: rgba(255, 255, 255, 0.9); padding: 3px 10px; border-radius: 99px; border: 1px solid #fbcfe8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .track-bar-wrap { position: relative; height: 26px; display: flex; align-items: center; }
+    .track-bar-wrap { position: relative; height: 32px; display: flex; align-items: center; overflow: visible; }
     .track-line-bg { width: 100%; height: 6px; background: #f3e8ff; border-radius: 99px; position: relative; overflow: hidden; }
     .track-fill-left { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #ec4899, #f43f5e); border-radius: 99px; transition: width 0.6s var(--ease-spring); }
     .track-fill-right { position: absolute; right: 0; top: 0; bottom: 0; background: linear-gradient(270deg, #a855f7, #ec4899); border-radius: 99px; transition: width 0.6s var(--ease-spring); }
-    .heart-runner { position: absolute; top: 50%; transform: translate(-50%, -50%); font-size: 16px; transition: left 0.6s var(--ease-spring); filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.35)); z-index: 2; }
-    .heart-merged-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 22px; z-index: 3; animation: heartBeat 1.2s ease-in-out infinite; }
+
+    .heart-btn-runner {
+      position: absolute; top: 50%; transform: translate(-50%, -50%);
+      border: none; background: transparent; cursor: pointer;
+      font-size: 21px; line-height: 1; padding: 5px;
+      transition: left 0.6s var(--ease-spring), transform 0.18s var(--ease-spring);
+      filter: drop-shadow(0 2px 5px rgba(236, 72, 153, 0.4)); z-index: 4;
+    }
+    .heart-btn-runner:active { transform: translate(-50%, -50%) scale(1.32); }
+    .heart-merged-center {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      border: none; background: transparent; cursor: pointer;
+      font-size: 24px; z-index: 5; animation: heartBeat 1.2s ease-in-out infinite;
+    }
+    .miss-bubble {
+      position: absolute; z-index: 30; pointer-events: none;
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+      color: #fff; font-size: 11.5px; font-weight: 700;
+      padding: 4px 11px; border-radius: 99px; white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+      transform: translate(-50%, -100%);
+      animation: missBubbleFloat 1.55s var(--ease-spring) forwards;
+    }
+    .miss-bubble.her-style { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    @keyframes missBubbleFloat {
+      0% { opacity: 0; transform: translate(-50%, -40%) scale(0.6); }
+      20% { opacity: 1; transform: translate(-50%, -115%) scale(1.06); }
+      75% { opacity: 1; transform: translate(-50%, -135%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -170%) scale(0.92); }
+    }
+    .heart-hint-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10.5px; color: #b483a2; margin-top: 3px; padding: 0 2px;
+    }
+    .heart-hint-active { color: #db2777; font-weight: 800; }
+    .heart-hint-active.her { color: #7e22ce; }
 
     .timer-box { background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin: 10px 0 12px; }
     .timer-label { font-size: clamp(11px, 3vw, 12px); color: #db2777; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px; }
@@ -323,37 +392,20 @@
     .time-num { display: block; font-size: var(--fs-timer-num); font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; color: transparent; font-variant-numeric: tabular-nums; line-height: 1.15; }
     .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
 
-    .cal-box { background: rgba(255, 255, 255, 0.82); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; }
-    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .cal-title { font-size: 14px; font-weight: 700; color: #374151; }
-    .cal-today-btn {
-      background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777;
-      padding: 4px 10px; border-radius: 99px; cursor: pointer;
-      font-weight: 700; font-size: 11px;
-    }
+    /* ========== 左右滑动恋爱农历日历 ========== */
+    .cal-box { background: rgba(255, 255, 255, 0.84); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; touch-action: pan-y; user-select: none; }
+    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
+    .cal-title { font-size: 15px; font-weight: 800; color: #374151; }
+    .cal-swipe-tip { font-size: 10.5px; color: #a855f7; background: #faf5ff; padding: 3px 8px; border-radius: 99px; font-weight: 600; }
+    .cal-today-btn { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; padding: 4px 10px; border-radius: 99px; cursor: pointer; font-weight: 700; font-size: 11px; }
     .cal-today-btn:active { transform: scale(0.92); }
-    .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; padding-bottom: 6px; font-weight: 600; border-bottom: 1px solid #fce7f3; }
-    .cal-scroll-container {
-      max-height: 295px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      padding-top: 4px;
-      scrollbar-width: none;
-    }
-    .cal-scroll-container::-webkit-scrollbar { display: none; }
-    .cal-month-block { margin-bottom: 14px; }
-    .cal-month-block:last-child { margin-bottom: 4px; }
-    .cal-month-label {
-      font-size: 12px; font-weight: 800; color: #db2777;
-      text-align: left; padding: 4px 4px 6px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .cal-month-label::after {
-      content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, #fbcfe8, transparent);
-    }
+    .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; padding-bottom: 6px; font-weight: 600; border-bottom: 1px solid #fce7f3; margin-bottom: 6px; }
     .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-slide-next { animation: calSlideNext 0.28s var(--ease-spring) forwards; }
+    .cal-slide-prev { animation: calSlidePrev 0.28s var(--ease-spring) forwards; }
+    @keyframes calSlideNext { from { opacity: 0.25; transform: translateX(26px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes calSlidePrev { from { opacity: 0.25; transform: translateX(-26px); } to { opacity: 1; transform: translateX(0); } }
+
     .cal-day { min-height: 46px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #374151; cursor: pointer; position: relative; background: rgba(255, 255, 255, 0.72); transition: transform 0.16s var(--ease-spring), background 0.16s; padding: 3px 1px 6px; }
     .cal-day:active { transform: scale(0.9); background: #fce7f3; }
     .cal-day.empty { background: transparent; cursor: default; pointer-events: none; }
@@ -364,21 +416,22 @@
     .cal-day.today .cal-solar { font-weight: 700; }
     .cal-day.anniv { background: var(--accent-grad); color: #fff; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3); }
     .cal-day.meet-day { background: var(--meet-grad); color: #fff; box-shadow: 0 3px 10px rgba(139, 92, 246, 0.3); }
+    .cal-day.hist-meet-day { background: var(--hist-meet-grad); color: #fff; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.25); }
     .cal-day.bday-her { background: var(--bday-her-grad); color: #fff; box-shadow: 0 3px 10px rgba(244, 63, 94, 0.32); }
     .cal-day.bday-him { background: var(--bday-him-grad); color: #fff; box-shadow: 0 3px 10px rgba(59, 130, 246, 0.32); }
-    .cal-day.anniv .cal-lunar, .cal-day.meet-day .cal-lunar, .cal-day.bday-her .cal-lunar, .cal-day.bday-him .cal-lunar { color: rgba(255, 255, 255, 0.94); font-weight: 700; }
+    .cal-day.anniv .cal-lunar, .cal-day.meet-day .cal-lunar, .cal-day.hist-meet-day .cal-lunar, .cal-day.bday-her .cal-lunar, .cal-day.bday-him .cal-lunar { color: rgba(255, 255, 255, 0.94); font-weight: 700; }
     .meet-plane { position: absolute; top: 1px; right: 2px; font-size: 9px; line-height: 1; }
     .bday-icon { position: absolute; top: 1px; left: 2px; font-size: 9px; line-height: 1; }
     .cal-dot-unread { width: 5px; height: 5px; border-radius: 50%; background: #ec4899; position: absolute; bottom: 2px; }
-    .cal-day.anniv .cal-dot-unread, .cal-day.meet-day .cal-dot-unread, .cal-day.bday-her .cal-dot-unread, .cal-day.bday-him .cal-dot-unread { background: #fff; }
+    .cal-day.anniv .cal-dot-unread, .cal-day.meet-day .cal-dot-unread, .cal-day.hist-meet-day .cal-dot-unread, .cal-day.bday-her .cal-dot-unread, .cal-day.bday-him .cal-dot-unread { background: #fff; }
     .cal-dot-read { width: 5px; height: 5px; border-radius: 50%; background: transparent; border: 1.5px solid #ec4899; position: absolute; bottom: 2px; }
-    .cal-day.anniv .cal-dot-read, .cal-day.meet-day .cal-dot-read, .cal-day.bday-her .cal-dot-read, .cal-day.bday-him .cal-dot-read { border-color: #fff; }
+    .cal-day.anniv .cal-dot-read, .cal-day.meet-day .cal-dot-read, .cal-day.hist-meet-day .cal-dot-read, .cal-day.bday-her .cal-dot-read, .cal-day.bday-him .cal-dot-read { border-color: #fff; }
     .cal-legend { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #9ca3af; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fce7f3; }
     .legend-item { display: inline-flex; align-items: center; gap: 4px; }
     .legend-solid { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ec4899; }
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
-    /* ========== 见面计时器页样式 ========== */
+    /* ========== 见面计时器页样式（V1.2.7 含相见天数 + 点击整行弹窗编辑） ========== */
     .meet-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 14px; }
     .meet-hero-card { background: linear-gradient(145deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 12px 10px; text-align: center; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.07); }
     .meet-hero-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px; }
@@ -386,15 +439,28 @@
     .meet-hero-sub { font-size: 10.5px; color: #9ca3af; margin-top: 3px; }
     .meet-add-form { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px; margin-bottom: 14px; text-align: left; }
     .meet-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .meet-form-row input { margin-bottom: 0; font-size: 12.5px; padding: 9px 10px; }
-    .meet-history-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 9px; text-align: left; }
-    .meet-rec-card { background: #fff; border: 1px solid #f3e8ff; border-radius: 15px; padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(168, 85, 247, 0.05); transition: transform 0.18s var(--ease-spring); }
+    .meet-form-row-3 { display: grid; grid-template-columns: 1.25fr 0.75fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .meet-form-row input, .meet-form-row-3 input { margin-bottom: 0; font-size: 12px; padding: 9px 8px; }
+    .meet-history-list { display: flex; flex-direction: column; gap: 9px; text-align: left; }
+    .meet-rec-card {
+      background: #fff; border: 1px solid #f3e8ff; border-radius: 15px;
+      padding: 11px 12px; cursor: pointer;
+      box-shadow: 0 3px 10px rgba(168, 85, 247, 0.05);
+      transition: transform 0.16s var(--ease-spring), border-color 0.2s;
+    }
+    .meet-rec-card:active { transform: scale(0.98); border-color: #f472b6; }
+    .meet-rec-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .meet-rec-left { flex: 1; min-width: 0; }
     .meet-rec-title { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
-    .meet-rec-meta { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
-    .meet-rec-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .meet-elapsed-pill { font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8; white-space: nowrap; }
+    .meet-rec-meta { font-size: 11.5px; color: #6b7280; line-height: 1.4; word-break: break-word; }
+    .meet-rec-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .meet-elapsed-pill { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8; white-space: nowrap; }
     .meet-elapsed-pill.future { background: #f3e8ff; color: #7e22ce; border-color: #e9d5ff; }
+    .meet-days-badge { font-size: 10px; font-weight: 700; background: #f3e8ff; color: #7e22ce; padding: 1px 6px; border-radius: 6px; margin-left: 4px; }
+    .pager-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 8px; border-top: 1px dashed #f3e8ff; }
+    .pager-btn { border: 1px solid #fbcfe8; background: #fdf2f8; color: #db2777; border-radius: 10px; padding: 5px 12px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+    .pager-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .pager-info { font-size: 11.5px; font-weight: 700; color: #6b7280; }
 
     /* ========== 旅行页样式 ========== */
     .global-packing-card { background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%); border: 1.5px solid #fcd34d; border-radius: 18px; padding: 12px 13px; margin-bottom: 14px; text-align: left; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.09); }
@@ -459,6 +525,14 @@
     .dish-order-btn:active { transform: scale(0.92); }
     .dish-order-btn.added { background: #fff; color: #db2777; border: 1px solid #f9a8d4; box-shadow: none; }
 
+    /* ========== 关于与版本历程页样式 ========== */
+    .about-list { max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; text-align: left; margin-top: 10px; }
+    .about-ver-card { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 12px 13px; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05); }
+    .about-ver-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .about-ver-tag { font-size: 12px; font-weight: 800; color: #fff; background: var(--accent-grad); padding: 2px 10px; border-radius: 99px; }
+    .about-ver-date { font-size: 11px; font-weight: 600; color: #9ca3af; }
+    .about-ver-items { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #374151; line-height: 1.5; }
+
     /* ========== 导航【💌 信封】排版 ========== */
     .env-header-banner { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: 13px 15px; margin-bottom: 14px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .env-banner-title { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
@@ -520,7 +594,7 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版（V2.1.5 隐私脱敏 **** 模式） ========== */
+    /* ========== 导航【🎁 约定】排版（V1.2.7 修复卡券横向溢出 + 点击卡片编辑详情） ========== */
     .promise-top-badge { margin-bottom: 16px; }
     .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
     .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
@@ -535,26 +609,36 @@
     .coupon-sender-chip.active-him { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
     .coupon-sender-chip.active-her { background: #f5f3ff; border-color: #8b5cf6; color: #6d28d9; }
 
-    .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; padding: 0 2px; }
+    .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; padding: 0 2px; }
     .coupon-ctrl-group { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
     .coupon-mini-ctrl { border: 1px solid #fbcfe8; background: #fdf2f8; color: #db2777; border-radius: 9px; padding: 4px 8px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
     .coupon-mini-ctrl:active { transform: scale(0.92); }
     .coupon-mini-ctrl.muted { background: #f3f4f6; border-color: #e5e7eb; color: #6b7280; }
-    .view-mode-switch { display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; padding: 2px; gap: 2px; }
-    .view-mode-btn { border: none; background: transparent; cursor: pointer; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280; white-space: nowrap; }
-    .view-mode-btn:active { transform: scale(0.92); }
-    .view-mode-btn.active { background: #fff; color: #db2777; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.14); }
+    .coupon-mini-ctrl.purple { background: #f3e8ff; border-color: #e9d5ff; color: #7e22ce; }
 
     .event-add-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .event-add-row input { margin-bottom: 0; flex: 1; background: #fff; }
     .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
     .event-add-btn:active { transform: scale(0.93); }
 
-    .coupon-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
+    .coupon-grid {
+      max-height: 360px; overflow-y: auto; overflow-x: hidden;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+      text-align: left; padding-bottom: 4px;
+    }
     .coupon-grid.collapsed { display: none !important; }
-    .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 7px; }
-    .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.22s var(--ease-spring), opacity 0.22s ease; }
+    .coupon-grid.list-mode { grid-template-columns: minmax(0, 1fr); gap: 7px; }
+    .coupon-ticket {
+      min-width: 0; width: 100%; overflow: hidden; cursor: pointer;
+      background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%);
+      border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07);
+      transition: transform 0.22s var(--ease-spring), opacity 0.22s ease;
+    }
+    .coupon-ticket:active { transform: scale(0.975); }
     .coupon-ticket.from-her { background: linear-gradient(155deg, #f5f3ff 0%, #ffffff 55%, #fdf2f8 100%); border-color: #c4b5fd; }
+    .ticket-main-info { min-width: 0; width: 100%; }
 
     .coupon-grid.list-mode .coupon-ticket { flex-direction: row; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 13px; }
     .coupon-grid.list-mode .ticket-main-info { flex: 1; min-width: 0; }
@@ -571,14 +655,17 @@
 
     .coupon-ticket.tearing { animation: ticketShakeTear 0.45s ease forwards; }
     @keyframes ticketShakeTear { 0% { transform: scale(1); } 30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; } 65% { transform: scale(0.97) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); } }
-    .coupon-ticket.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; box-shadow: none; }
+    .coupon-ticket.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.82; box-shadow: none; }
     .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 4px; }
     .ticket-top-tag { font-size: 10px; font-weight: 700; color: #db2777; background: #fce7f3; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
     .ticket-top-tag.her-tag { color: #6d28d9; background: #ede9fe; }
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
-    .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; }
+    .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .coupon-ticket.used .coupon-name { color: #6b7280; text-decoration: line-through; }
-    .coupon-desc { font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px; flex: 1; word-break: break-word; }
+    .coupon-desc {
+      font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
     .ticket-divider { border-top: 1.5px dashed #fbcfe8; margin: 0 -11px 8px; position: relative; }
     .coupon-ticket.from-her .ticket-divider { border-top-color: #ddd6fe; }
     .coupon-ticket.used .ticket-divider { border-top-color: #e5e7eb; }
@@ -609,7 +696,8 @@
     .subpage-title { font-size: 15px; font-weight: 700; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .subpage-lunar { font-size: 11px; color: #db2777; font-weight: 600; margin-top: 2px; }
     .bday-banner { background: linear-gradient(135deg, #fff1f2 0%, #fef3c7 100%); border: 1px solid #fda4af; color: #be123c; border-radius: 14px; padding: 9px 12px; margin-bottom: 10px; font-size: 12.5px; font-weight: 700; display: none; }
-    .meet-setup-box { background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 100%); border: 1px solid #e9d5ff; border-radius: 16px; padding: 11px 12px; margin-bottom: 12px; text-align: left; }
+    .hist-day-banner { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); border: 1px solid #f472b6; color: #9d174d; border-radius: 14px; padding: 9px 12px; margin-bottom: 10px; font-size: 12px; font-weight: 700; display: none; text-align: left; }
+    .meet-setup-box { background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 100%); border: 1px solid #e9d5ff; border-radius: 16px; padding: 11px 12px; margin-bottom: 10px; text-align: left; }
     .meet-setup-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .meet-setup-label { font-size: 12px; font-weight: 700; color: #6d28d9; }
     .meet-clear-btn { font-size: 11px; color: #9ca3af; background: none; border: none; cursor: pointer; text-decoration: underline; }
@@ -617,6 +705,12 @@
     .dur-chip { padding: 6px 2px; border-radius: 9px; font-size: 11.5px; font-weight: 700; border: 1px solid #ddd6fe; background: #fff; color: #6d28d9; cursor: pointer; text-align: center; }
     .dur-chip:active { transform: scale(0.9); }
     .dur-chip.active { background: var(--meet-grad); color: #fff; border-color: transparent; }
+
+    .cal-quick-hist-box {
+      background: linear-gradient(135deg, #fff5f7 0%, #fdf2f8 100%);
+      border: 1px solid #fbcfe8; border-radius: 16px;
+      padding: 10px 12px; margin-bottom: 12px; text-align: left;
+    }
 
     .role-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
     .role-chip { padding: 8px 4px; border-radius: 11px; font-size: 12px; font-weight: 700; border: 1px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; transition: all 0.2s var(--ease-spring); }
@@ -649,21 +743,90 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip" class="">🙈 兑换券已进入 **** 隐私模式</div>
+  <div id="toastTip" class="">✅ 已更新相见记录并同步至日历</div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.5 更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display: none;">
+  <!-- V1.2.7 更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.5</span>
-      <div class="update-title">上下滑动日历与兑换券全脱敏隐藏上线</div>
+      <span class="update-badge">✨ 版本更新 · V1.2.7</span>
+      <div class="update-title">卡券弹窗编辑、相见天数联动与当日爱心提示</div>
       <ul class="update-list">
-        <li><strong>📅 日历改为上下滑动</strong>：连续上下滑动即可流畅浏览全部月份，点击右上角「回到今天」一键定位本月。</li>
-        <li><strong>🙈 兑换券隐私脱敏模式</strong>：开启隐藏模式后，兑换券的大字标题与小字说明均会统一替换为 <code>****</code>。</li>
+        <li><strong>🎟️ 卡券防溢出+弹窗编辑</strong>：已核销卡券不再撑宽页面，点击任意卡券可弹窗查看完整信息与编辑。</li>
+        <li><strong>⏳ 时光轴弹窗编辑+天数联动</strong>：点击时光轴任意行弹出独立编辑框，支持设置相见天数并自动高亮首页日历。</li>
+        <li><strong>📅 日历双向设相见日</strong>：点击首页日历任意日期可直接记为相见日并同步至时光轴。</li>
+        <li><strong>💗 爱心当日状态提示</strong>：当日首次点击苏州/武汉爱心，下方提示语即刻变为「他想你了 / 她想你了」。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.5 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V1.2.7 体验 💖</button>
+    </div>
+  </div>
+
+  <!-- 首页顶部【🔔 更新动态信箱】弹窗 -->
+  <div class="modal-mask" id="inboxModalMask" style="display:none;" onclick="if(event.target===this) closeInboxModal()">
+    <div class="update-modal">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="update-title" style="margin-bottom:0;">🔔 空间更新信箱</div>
+        <button class="meet-clear-btn" onclick="clearInboxLogs()">清空记录</button>
+      </div>
+      <div class="inbox-list" id="inboxListContainer"></div>
+      <button class="btn" style="margin-bottom:0;" onclick="closeInboxModal()">全部已读并关闭</button>
+    </div>
+  </div>
+
+  <!-- V1.2.7 新增【🎟️ 恋爱兑换券详情与编辑】独立弹窗 -->
+  <div class="modal-mask" id="couponEditModalMask" style="display:none;" onclick="if(event.target===this) closeCouponEditModal()">
+    <div class="update-modal">
+      <div class="update-title" id="couponModalHeading">🎟️ 兑换券详情与编辑</div>
+      <div class="modal-status-info" id="couponModalStatusInfo"></div>
+
+      <label class="modal-field-label">发券人</label>
+      <div class="coupon-sender-row" style="margin-bottom:10px;">
+        <div class="coupon-sender-chip" id="editCouponSenderHim" onclick="setEditCouponSender('him')">👦 他发的券</div>
+        <div class="coupon-sender-chip" id="editCouponSenderHer" onclick="setEditCouponSender('her')">👧 她发的券</div>
+      </div>
+
+      <label class="modal-field-label" for="editCouponNameInput">特权券名称</label>
+      <input type="text" id="editCouponNameInput" placeholder="输入特权券名称">
+
+      <label class="modal-field-label" for="editCouponDescInput">详细说明 / 备注</label>
+      <textarea id="editCouponDescInput" rows="3" placeholder="输入详细使用说明..."></textarea>
+
+      <div style="display:flex; gap:8px; margin-top:4px;">
+        <button class="btn btn-ghost" style="width:36%; margin-bottom:0;" onclick="closeCouponEditModal()">取消</button>
+        <button class="btn" style="flex:1; margin-bottom:0;" onclick="saveCouponEdit()">保存修改</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- V1.2.7 新增【⏳ 历史相见时光轴编辑】独立弹窗 -->
+  <div class="modal-mask" id="meetEditModalMask" style="display: none;" onclick="if(event.target===this) closeMeetEditModal()">
+    <div class="update-modal">
+      <div class="update-title">⏳ 编辑相见记录</div>
+
+      <div class="meet-form-row">
+        <div>
+          <label class="modal-field-label" for="modalMeetDate">相见起始日期</label>
+          <input type="date" id="modalMeetDate">
+        </div>
+        <div>
+          <label class="modal-field-label" for="modalMeetDays">相见天数</label>
+          <input type="number" id="modalMeetDays" min="1" max="365" placeholder="如：3">
+        </div>
+      </div>
+
+      <label class="modal-field-label" for="modalMeetPlace">相见地点</label>
+      <input type="text" id="modalMeetPlace" placeholder="如：武汉 / 苏州">
+
+      <label class="modal-field-label" for="modalMeetNote">回忆备注</label>
+      <textarea id="modalMeetNote" rows="2" placeholder="写下这次相见的美好回忆..."></textarea>
+
+      <div style="display:flex; gap:8px; margin-top:4px;">
+        <button class="btn btn-danger" style="width:28%; margin-bottom:0; padding:10px 4px; font-size:12.5px;" onclick="deleteMeetFromModal()">删除</button>
+        <button class="btn btn-ghost" style="width:26%; margin-bottom:0; padding:10px 4px;" onclick="closeMeetEditModal()">取消</button>
+        <button class="btn" style="flex:1; margin-bottom:0; padding:10px;" onclick="saveMeetEditFromModal()">保存修改</button>
+      </div>
     </div>
   </div>
 
@@ -719,38 +882,44 @@
     <div class="plain-footer">Encrypted Session · Web Portal</div>
   </div>
 
-  <!-- ==================== 导航第 1 项：⏳ 见面计时器 ==================== -->
-  <div class="card" id="tabMeetView" style="display:none;">
+  <!-- ==================== 导航第 1 项：⏳ 见面计时器（V1.2.7 新增相见天数 + 点击整行弹窗编辑） ==================== -->
+  <div class="card" id="tabMeetView" style="display: none;">
     <div class="badge">⏳ 见面计时器 · 相聚印记</div>
 
     <div class="meet-hero-grid">
       <div class="meet-hero-card">
         <div class="meet-hero-label">距上次见面已过</div>
-        <div class="meet-hero-num" id="sinceLastMeetDays">--</div>
-        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史记录</div>
+        <div class="meet-hero-num" id="sinceLastMeetDays">15 天</div>
+        <div class="meet-hero-sub" id="sinceLastMeetDate">上次：2026-11-13 · 葛仙村</div>
       </div>
       <div class="meet-hero-card">
         <div class="meet-hero-label">累计相见次数</div>
-        <div class="meet-hero-num" id="totalMeetCount">0 次</div>
-        <div class="meet-hero-sub" id="nextMeetMiniHint">可在首页日历设下次行程</div>
+        <div class="meet-hero-num" id="totalMeetCount">16 次</div>
+        <div class="meet-hero-sub" id="nextMeetMiniHint">距下次见面还有 6 天</div>
       </div>
     </div>
 
     <div class="meet-add-form">
-      <div class="compose-row-label" style="margin-bottom:8px;">📍 添加历史见面记录（云端加密同步）</div>
-      <div class="meet-form-row">
-        <input type="date" id="meetHistDate" title="见面日期">
-        <input type="text" id="meetHistPlace" placeholder="地点（如：武汉 / 苏州）">
+      <div class="compose-row-label" style="margin-bottom:8px;">📍 添加历史见面记录（天数将自动同步展示在首页日历）</div>
+      <div class="meet-form-row-3">
+        <input type="date" id="meetHistDate" title="见面起始日期">
+        <input type="number" id="meetHistDays" min="1" max="365" value="1" placeholder="天数" title="相见天数">
+        <input type="text" id="meetHistPlace" placeholder="地点(武汉/苏州)">
       </div>
       <input type="text" id="meetHistNote" placeholder="一句话回忆（如：一起吃热干面看江景）" style="font-size:13px; margin-bottom:8px;">
       <button class="btn" style="padding:10px; font-size:13.5px; margin-bottom:0;" onclick="addMeetHistory()">+ 记录这次相见 💖</button>
     </div>
 
     <div class="section-head">
-      <span>🗓️ 历史相见时光轴</span>
-      <span class="section-pill" id="meetHistCountLabel">共 0 条</span>
+      <span>🗓️ 历史相见时光轴（点击任意行编辑）</span>
+      <span class="section-pill" id="meetHistCountLabel">共 16 条</span>
     </div>
-    <div class="meet-history-list" id="meetHistoryList"></div>
+    <div class="meet-history-list subpanel-fade" id="meetHistoryList"></div>
+    <div class="pager-bar" id="meetPagerBar" style="display: flex;">
+      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)" disabled="">‹ 上一页</button>
+      <span class="pager-info" id="meetPageInfo">第 1 / 4 页</span>
+      <button class="pager-btn" id="meetNextPageBtn" onclick="changeMeetPage(1)">下一页 ›</button>
+    </div>
   </div>
 
   <!-- ==================== 导航第 2 项：💌 信封 ==================== -->
@@ -815,7 +984,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.5)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V1.2.7)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -833,63 +1002,75 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.5)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V1.2.7)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
 
-  <!-- ==================== 导航第 3 项：🏠 首页（V2.1.5 上下滑动日历） ==================== -->
+  <!-- ==================== 导航第 3 项：🏠 首页 ==================== -->
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
-      <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.5 更新说明">V2.1.5</span>
-      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
+      <div class="badge badge-dev" id="modeBadge" style="display: none;">🛠️ 本地编辑模式</div>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V1.2.7 更新说明">V1.2.7</span>
+      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端</div>
+      <button class="inbox-pill" id="inboxOpenBtn" onclick="openInboxModal()" title="查看空间更新动态">
+        🔔 信箱
+        <span class="inbox-dot" id="inboxUnreadDot" style="display: none;">0</span>
+      </button>
     </div>
 
-    <div class="city-tracker">
+    <!-- 顶部双城奔赴进度条（V1.2.7 当日首次点击爱心后下方文案变为“他想你了 / 她想你了”） -->
+    <div class="city-tracker" id="cityTrackerBox">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天10时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天8时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
-      <div class="track-bar-wrap">
+      <div class="track-bar-wrap" id="trackBarWrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.7%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.7%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 12.2%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 12.2%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.7%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.3%; display: inline;">💜</span>
-        <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
+        <button class="heart-btn-runner" id="heartLeft" style="left: 12.2%; display: inline-block;" onclick="triggerMissBubble('suzhou', this)" title="点击发送：他想你了">💗</button>
+        <button class="heart-btn-runner" id="heartRight" style="left: 87.8%; display: inline-block;" onclick="triggerMissBubble('wuhan', this)" title="点击发送：她想你了">💜</button>
+        <button class="heart-merged-center" id="heartMerged" style="display:none;" onclick="triggerMissBubble('both', this)" title="相聚零距离">💞</button>
+      </div>
+      <div class="heart-hint-row">
+        <span id="suzhouHeartHint" class="heart-hint-active">💗 他想你了</span>
+        <span id="wuhanHeartHint" class="heart-hint-active her">💜 她想你了</span>
       </div>
     </div>
-    
-    <div id="customContent"></div>
+
+    <div id="customContent" style="display:none;"></div>
 
     <div class="timer-box">
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
-        <div class="time-unit"><span class="time-num" id="tHours">13</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">50</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">20</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tHours">15</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">38</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">52</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
-    <!-- V2.1.5 上下滑动恋爱农历日历 -->
-    <div class="cal-box">
+    <!-- 左右滑动恋爱农历日历 -->
+    <div class="cal-box" id="calSwipeArea" data-swipe-bound="1">
       <div class="cal-header">
-        <div class="cal-title">📅 恋爱农历日历 · 上下滑动</div>
-        <button class="cal-today-btn" onclick="scrollCalToToday(true)">回到今天</button>
+        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span class="cal-swipe-tip">← 左右滑切月 →</span>
+          <button class="cal-today-btn" onclick="resetCalToToday()">今天</button>
+        </div>
       </div>
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
-      <div class="cal-scroll-container" id="calScrollContainer"></div>
+      <div class="cal-days" id="calDaysGrid"></div>
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
+        <span class="legend-item">💞 相见日</span>
         <span class="legend-item">🎂 农历生日</span>
-        <span>· 点击日期留言/设行程</span>
       </div>
     </div>
 
@@ -897,13 +1078,13 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.5 隐藏模式改为 ****） ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定 ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">20</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">22</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">16/58</span>)
@@ -914,8 +1095,8 @@
     <div id="subPanelCoupon" class="subpanel-fade">
       <div class="coupon-add-box">
         <div class="coupon-sender-row">
-          <div class="coupon-sender-chip" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
-          <div class="coupon-sender-chip active-her" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
+          <div class="coupon-sender-chip active-him" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
+          <div class="coupon-sender-chip" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
         </div>
         <input type="text" id="newCouponInput" placeholder="特权券名称，如：周末专属按摩券...">
         <div class="event-add-row" style="margin-bottom:0;">
@@ -926,16 +1107,16 @@
 
       <div class="coupon-toolbar">
         <div class="coupon-ctrl-group">
-          <button class="coupon-mini-ctrl muted" id="couponMaskToggleBtn" onclick="toggleCouponMask()">👁️ 显示内容</button>
-          <button class="coupon-mini-ctrl" id="couponCollapseBtn" onclick="toggleCouponCollapse()">收起 ▴</button>
+          <button class="coupon-mini-ctrl purple" id="couponSortBtn" onclick="cycleCouponSort()">↕️ 时间新→旧</button>
+          <button class="coupon-mini-ctrl" id="couponViewCycleBtn" onclick="cycleCouponViewMode()">📋 精简行</button>
         </div>
-        <div class="view-mode-switch">
-          <button class="view-mode-btn active" id="couponModeGridBtn" onclick="setCouponViewMode('grid')">🗂️ 大图标</button>
-          <button class="view-mode-btn" id="couponModeListBtn" onclick="setCouponViewMode('list')">📋 精简行</button>
+        <div class="coupon-ctrl-group">
+          <button class="coupon-mini-ctrl" id="couponMaskToggleBtn" onclick="toggleCouponMask()">🙈 隐藏</button>
+          <button class="coupon-mini-ctrl" id="couponCollapseBtn" onclick="toggleCouponCollapse()">收起 ▴</button>
         </div>
       </div>
 
-      <div class="coupon-grid subpanel-fade" id="couponListContainer"></div>
+      <div class="coupon-grid list-mode" id="couponListContainer"></div>
     </div>
 
     <!-- 子面板 B：专属事件 -->
@@ -1081,7 +1262,7 @@
   </div>
 
   <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
-  <div class="card" id="tabMenuView" style="display:none;">
+  <div class="card" id="tabMenuView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
@@ -1118,9 +1299,7 @@
         <span class="order-tray-title">🛎️ <span id="activeChefLabel">王大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
         <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
       </div>
-      <div class="order-pills-wrap" id="todayOrderPills">
-        <span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>
-      </div>
+      <div class="order-pills-wrap" id="todayOrderPills"><span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span></div>
       <div class="order-tray-actions">
         <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
       </div>
@@ -1137,7 +1316,14 @@
     <div class="dish-list" id="dishListContainer"></div>
   </div>
 
-  <!-- ==================== 日历点击进入的【独立双人气泡留言与见面行程页】 ==================== -->
+  <!-- ==================== 导航第 7 项：ℹ️ 关于 ==================== -->
+  <div class="card" id="tabAboutView" style="display: none;">
+    <div class="badge">ℹ️ 关于 · DWLapp 版本历程</div>
+    <p style="font-size:12px; color:#9ca3af; margin:8px 0 6px;">端到端加密 · 苏州 ↔ 武汉 专属纪念空间</p>
+    <div class="about-list" id="aboutVersionList"></div>
+  </div>
+
+  <!-- ==================== 日历点击进入的【独立双人气泡留言与相见日设置页】 ==================== -->
   <div class="card" id="noteView" style="display:none;">
     <div class="subpage-header">
       <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
@@ -1149,10 +1335,12 @@
     </div>
 
     <div class="bday-banner" id="bdayBanner" style="display: none;"></div>
+    <div class="hist-day-banner" id="histDayBanner" style="display: none;"></div>
 
+    <!-- 下次见面倒计时行程 -->
     <div class="meet-setup-box">
       <div class="meet-setup-top">
-        <span class="meet-setup-label" id="meetSetupStatus">✈️ 从这天起见面几天？</span>
+        <span class="meet-setup-label" id="meetSetupStatus">✈️ 设为双城倒计时行程？</span>
         <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display:none;">取消行程</button>
       </div>
       <div class="duration-chips" id="durationChips">
@@ -1162,6 +1350,19 @@
         <button class="dur-chip" onclick="setMeetDuration(5)">5天</button>
         <button class="dur-chip" onclick="setMeetDuration(7)">7天</button>
         <button class="dur-chip" onclick="setCustomDuration()">自定义</button>
+      </div>
+    </div>
+
+    <!-- V1.2.7 新增：直接从日历设置相见日并同步写入历史时光轴 -->
+    <div class="cal-quick-hist-box">
+      <div class="compose-row-label" style="margin-bottom:6px;">💞 将这天设为「相见日」（同步至历史时光轴）</div>
+      <div class="meet-form-row" style="margin-bottom:6px;">
+        <input type="number" id="calHistDays" min="1" max="365" value="1" placeholder="相见天数">
+        <input type="text" id="calHistPlace" placeholder="地点（如：武汉/苏州）">
+      </div>
+      <div class="event-add-row" style="margin-bottom:0;">
+        <input type="text" id="calHistNote" placeholder="备注（可选，如：一起看电影）" style="font-size:12.5px; padding:8px 10px;">
+        <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="addMeetHistoryFromCal()">设为相见日</button>
       </div>
     </div>
 
@@ -1178,7 +1379,7 @@
     <div class="note-list" id="noteListContainer"></div>
   </div>
 
-  <!-- ==================== 可滑动底部悬浮导航栏（默认展示4项，右滑查看旅行与菜单） ==================== -->
+  <!-- ==================== 可滑动底部悬浮导航栏 ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnMeet" onclick="switchMainTab('meet')">
       <span class="nav-icon">⏳</span>
@@ -1205,9 +1406,13 @@
       <span class="nav-icon">🍽️</span>
       <span class="nav-label">菜单</span>
     </button>
+    <button class="nav-item" id="navBtnAbout" onclick="switchMainTab('about')">
+      <span class="nav-icon">ℹ️</span>
+      <span class="nav-label">关于</span>
+    </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.5';
+    const APP_VERSION = '1.2.7';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1220,7 +1425,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "gtdUj/jCZnIA6si5tSZG7pGiw+ZDmIgtSnwdEgwHPeex1KzuGDXlDaiZWNSXuRr9a1Y8h/l3QAXJlr34iO5+bQNDOeh5dU7w01FW3Cq6LIGUyoGmqIrfo44gdbXupO1cvwYNB7nuNJO/11M0rsSWGEnkMMjT8t9XNhhaM47kXOZsF1HjNwFIDWCxNHJiXMMvmEUICcIQ0718bCwHAXJnUXFkdiI1H6LBuVSZWJEvMknh8OqMbYZQhWk0S9bE4yVMqrPJ7vaurdW+3a+zZz44/f3TG8s6gx4XmUrZroljGyaxYpDE/shT";
+    const ENCRYPTED_BUNDLE = "SErkD5rblS7S232Tqi968h4naRVt12eBVzxQmTu+Qk6G98Huchv+pE+uyphZBkKUgvZCuP+TpLrUK4Ju+Jix+10=";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1239,12 +1444,16 @@
     const COUPON_SENDER_KEY = 'dwlapp_love_coupon_sender_v1';
     const COUPON_COLLAPSED_KEY = 'dwlapp_love_coupon_collapsed_v1';
     const COUPON_MASK_KEY = 'dwlapp_love_coupon_mask_v1';
+    const COUPON_SORT_KEY = 'dwlapp_love_coupon_sort_v1';
     const GLOBAL_PACKING_KEY = 'dwlapp_love_global_packing_v1';
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
     const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
     const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
     const MENU_CHEF_KEY = 'dwlapp_love_menu_chef_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_5';
+    const INBOX_LOGS_KEY = 'dwlapp_love_inbox_logs_v1';
+    const INBOX_READ_AT_KEY = 'dwlapp_love_inbox_read_at_v1';
+    const HEART_MISS_KEY = 'dwlapp_love_heart_miss_v1';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_2_7';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1254,7 +1463,111 @@
     let timeCapsules = [];
     const DEFAULT_COUPONS = [];
 
-    // ========== 轻提示 Toast ==========
+    // ========== 历代版本更新日志数据（供“关于”页展示） ==========
+    const VERSION_HISTORY = [
+      {
+        ver: 'V1.2.7',
+        date: '2026-11-28',
+        items: [
+          '修复已核销卡券文字过长导致的横向滚动条问题，点击任意卡券可弹窗查看完整信息与编辑',
+          '历史相见时光轴支持点击整行弹出独立编辑框，新增「相见天数」并自动在首页日历高亮连续天数',
+          '点击首页日历任意日期可直接将其设为「相见日」并同步写入历史时光轴',
+          '首页当日首次点击苏州/武汉爱心后，下方提示语即刻变为「他想你了 / 她想你了」并云端同步'
+        ]
+      },
+      {
+        ver: 'V2.1.6',
+        date: '2026-11-28',
+        items: [
+          '恋爱兑换券支持按发放时间/名称排序，单键循环切换大图标与精简行，已核销券不可删除',
+          '首页精简顶部并移除欢迎语，点击苏州/武汉爱心弹出「他想你了 / 她想你了」互动气泡',
+          '首页顶部云端右侧新增动态「信箱」按钮，任何内容更新实时红点提醒',
+          '恋爱日历改为左右滑动切月，并自动高亮历史相见时光轴日期',
+          '历史相见时光轴支持分页展示与在线编辑，新增「关于」导航页展示全部版本历程'
+        ]
+      },
+      {
+        ver: 'V2.1.5',
+        date: '2026-11-28',
+        items: [
+          '恋爱兑换券隐藏模式升级为大字小字全 **** 脱敏显示',
+          '日历支持连续滑动浏览与快捷回到今天'
+        ]
+      },
+      {
+        ver: 'V2.1.4',
+        date: '2026-11-27',
+        items: ['恋爱兑换券精简按行展示，支持一键收起/展开与内容显隐控制']
+      },
+      {
+        ver: 'V2.1.3',
+        date: '2026-11-27',
+        items: [
+          '恋爱兑换券区分「他发的 / 她发的」双色标签',
+          '菜单页新增「王大厨做饭 / 董大厨做饭」主厨选择',
+          '底部导航栏升级为可滑动式，默认舒适展示 4 项'
+        ]
+      },
+      {
+        ver: 'V2.1.2',
+        date: '2026-11-26',
+        items: [
+          '新增「菜单」点菜页，支持分类添菜与今日点单汇总',
+          '全站导航跳转与按键阻尼过渡动画全面完善',
+          '旅行必带物品置顶至足迹上方，兑换券支持自定义小字与双视图切换'
+        ]
+      },
+      {
+        ver: 'V2.1.1',
+        date: '2026-11-26',
+        items: [
+          '旅行页重构为足迹地点卡片流，支持新建旅程后进入专属攻略',
+          '住宿与出行分类新增入住/离店及发车/到达时间校验，新增单次旅行必带物品抽屉'
+        ]
+      },
+      {
+        ver: 'V2.1',
+        date: '2026-11-25',
+        items: [
+          '新增「见面计时器」页记录历史相聚与距今天数统计',
+          '新增「旅行攻略」页，支持吃、穿、住、行、打卡五大分类'
+        ]
+      },
+      {
+        ver: 'V2.0.1',
+        date: '2026-11-25',
+        items: [
+          '登录页升级为普通系统登录伪装，解锁后才淡入情侣浪漫背景',
+          '新增 SVG 机械挂锁弹开动画与柔光淡入转场效果'
+        ]
+      },
+      {
+        ver: 'V2.0',
+        date: '2026-11-24',
+        items: [
+          '正式版发布，清空测试数据，长信与时光胶囊支持自由增删',
+          '日历接入原生高精度农历引擎并高亮标注双方农历生日'
+        ]
+      }
+    ];
+
+    function renderAboutPage() {
+      const container = document.getElementById('aboutVersionList');
+      if (!container) return;
+      container.innerHTML = VERSION_HISTORY.map(v => `
+        <div class="about-ver-card">
+          <div class="about-ver-head">
+            <span class="about-ver-tag">${v.ver}</span>
+            <span class="about-ver-date">🕒 ${v.date}</span>
+          </div>
+          <ul class="about-ver-items">
+            ${v.items.map(it => `<li>• ${escapeHtml(it)}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    // ========== 轻提示 Toast & 通用动画重触发 ==========
     let toastTimer = null;
     function showToast(msg) {
       const el = document.getElementById('toastTip');
@@ -1265,7 +1578,6 @@
       toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
     }
 
-    // ========== 通用动画重触发工具 ==========
     function triggerElAnim(el, animClass) {
       if (!el) return;
       el.classList.remove(animClass);
@@ -1273,7 +1585,81 @@
       el.classList.add(animClass);
     }
 
-    // ========== 原生高精度农历与生日识别引擎（女方农历0409 / 男方农历0801） ==========
+    // ========== 顶部【🔔 空间更新信箱】动态追踪引擎 ==========
+    function getInboxLogs() {
+      try { return JSON.parse(localStorage.getItem(INBOX_LOGS_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveInboxLogs(list) {
+      localStorage.setItem(INBOX_LOGS_KEY, JSON.stringify(list.slice(0, 60)));
+    }
+
+    function recordInboxEvent(cat, text) {
+      const logs = getInboxLogs();
+      const now = new Date();
+      const timeStr = `${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      logs.unshift({ id: Date.now(), cat, text, time: timeStr });
+      saveInboxLogs(logs);
+      localStorage.setItem(INBOX_READ_AT_KEY, String(Date.now()));
+      updateInboxBadge();
+    }
+
+    function updateInboxBadge() {
+      const logs = getInboxLogs();
+      const readAt = Number(localStorage.getItem(INBOX_READ_AT_KEY) || 0);
+      const unreadCount = logs.filter(item => item.id > readAt).length;
+      const dot = document.getElementById('inboxUnreadDot');
+      if (!dot) return;
+      if (unreadCount > 0) {
+        dot.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+        dot.style.display = 'inline-block';
+      } else {
+        dot.style.display = 'none';
+      }
+    }
+
+    function openInboxModal() {
+      const mask = document.getElementById('inboxModalMask');
+      const container = document.getElementById('inboxListContainer');
+      if (!mask || !container) return;
+      const logs = getInboxLogs();
+      const readAt = Number(localStorage.getItem(INBOX_READ_AT_KEY) || 0);
+
+      if (logs.length === 0) {
+        container.innerHTML = `<div class="empty-notes">信箱还是空的，任何新增留言、兑换券、点菜或想念都会记录在这里 🔔</div>`;
+      } else {
+        container.innerHTML = logs.map(item => `
+          <div class="inbox-item ${item.id > readAt ? 'unread' : ''}">
+            <div class="inbox-item-top">
+              <span class="inbox-item-cat">${escapeHtml(item.cat)}</span>
+              <span>${escapeHtml(item.time)}</span>
+            </div>
+            <div>${escapeHtml(item.text)}</div>
+          </div>
+        `).join('');
+      }
+      mask.style.display = 'flex';
+    }
+
+    function closeInboxModal() {
+      const logs = getInboxLogs();
+      const maxId = logs.length > 0 ? Math.max(...logs.map(i => i.id)) : Date.now();
+      localStorage.setItem(INBOX_READ_AT_KEY, String(Math.max(Date.now(), maxId)));
+      updateInboxBadge();
+      const mask = document.getElementById('inboxModalMask');
+      if (mask) mask.style.display = 'none';
+    }
+
+    function clearInboxLogs() {
+      if (!confirm('确定清空信箱中的所有更新动态吗？')) return;
+      saveInboxLogs([]);
+      localStorage.setItem(INBOX_READ_AT_KEY, String(Date.now()));
+      updateInboxBadge();
+      openInboxModal();
+      pushToCloud();
+    }
+
+    // ========== 原生高精度农历与生日识别引擎 ==========
     const LUNAR_MONTH_LABELS = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
     const LUNAR_DAY_LABELS = [
       '', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
@@ -1315,20 +1701,17 @@
         const isHimBday = !isLeap && mNum === 8 && dNum === 1;
 
         return {
-          month: mNum,
-          day: dNum,
-          isLeap,
+          month: mNum, day: dNum, isLeap,
           shortText: dNum === 1 ? mText : dText,
           fullText: `农历${mText}${dText}`,
-          isHerBday,
-          isHimBday
+          isHerBday, isHimBday
         };
       } catch (e) {
         return fallback;
       }
     }
 
-    // ========== 仪式感微交互动画播放引擎（拆卡 / 干杯 / 封信） ==========
+    // ========== 仪式感微交互动画播放引擎 ==========
     let fxHideTimer = null;
 
     function spawnFxParticles(emojis = ['✨', '💖', '🌸', '💫']) {
@@ -1396,36 +1779,6 @@
       }, 1350);
     }
 
-    // ========== 自动破缓存与版本比较器 ==========
-    function isNewerVersion(remoteVer, localVer) {
-      if (!remoteVer || !localVer) return false;
-      const rParts = String(remoteVer).replace(/^v/i, '').split('.').map(Number);
-      const lParts = String(localVer).replace(/^v/i, '').split('.').map(Number);
-      const len = Math.max(rParts.length, lParts.length);
-      for (let i = 0; i < len; i++) {
-        const r = rParts[i] || 0;
-        const l = lParts[i] || 0;
-        if (r > l) return true;
-        if (r < l) return false;
-      }
-      return false;
-    }
-
-    function triggerCacheBustReload(targetVer) {
-      if (IS_LOCAL) return;
-      const guardKey = `dwl_reloaded_to_${targetVer}`;
-      if (sessionStorage.getItem(guardKey)) return;
-      sessionStorage.setItem(guardKey, '1');
-
-      setSyncPill('syncing', `🚀 发现新版 V${targetVer}，自动更新中...`);
-      const url = new URL(window.location.href);
-      url.searchParams.set('v', targetVer);
-      url.searchParams.set('_cb', Date.now());
-      setTimeout(() => {
-        window.location.replace(url.toString());
-      }, 450);
-    }
-
     function openUpdateModal(force = false) {
       if (!force && localStorage.getItem(SEEN_UPDATE_KEY) === '1') return;
       const mask = document.getElementById('updateModalMask');
@@ -1438,19 +1791,17 @@
       if (mask) mask.style.display = 'none';
     }
 
-    // ========== 带 8 秒硬超时的网络请求封装 ==========
+    // ========== 网络与零知识加解密工具函数 ==========
     async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const res = await fetch(url, { ...options, signal: controller.signal });
-        return res;
+        return await fetch(url, { ...options, signal: controller.signal });
       } finally {
         clearTimeout(timer);
       }
     }
 
-    // ========== 零知识加解密工具函数 ==========
     const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
     const fromB64 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
 
@@ -1533,7 +1884,7 @@
     async function pushToCloud() {
       if (!activeAesKey) return false;
       isSyncingNow = true;
-      setSyncPill('syncing', '🔄 正在同步云端...');
+      setSyncPill('syncing', '🔄 同步中...');
       try {
         await pullFromCloud(false, true);
 
@@ -1553,6 +1904,8 @@
           menuDishes: getAllDishes(),
           menuOrders: getTodayOrders(),
           menuChef: getActiveChef(),
+          inboxLogs: getInboxLogs(),
+          heartMiss: getHeartMissState(),
           updatedAt: Date.now()
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
@@ -1571,17 +1924,14 @@
           })
         }, 8000);
 
-        if (!resp.ok) {
-          const errText = await resp.text();
-          throw new Error(`HTTP ${resp.status}: ${errText}`);
-        }
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         lastCloudCipher = encryptedPayload;
-        setSyncPill('ok', '☁️ 云端已同步');
+        setSyncPill('ok', '☁️ 云端');
         return true;
       } catch (err) {
         console.error('Push failed:', err);
-        const msg = err.name === 'AbortError' ? '连接超时(8s)' : err.message.slice(0, 24);
-        setSyncPill('err', `⚠️ 本地已存 · 云端失败(${msg})`);
+        const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 18);
+        setSyncPill('err', `⚠️ 离线(${msg})`);
         return false;
       } finally {
         isSyncingNow = false;
@@ -1591,7 +1941,7 @@
     async function pullFromCloud(manual = false, silentBeforePush = false) {
       if (!activeAesKey) return;
       if (!silentBeforePush && isSyncingNow) return;
-      if (manual) setSyncPill('syncing', '🔄 正在拉取...');
+      if (manual) setSyncPill('syncing', '🔄 拉取中...');
 
       try {
         const resp = await fetchWithTimeout(`${SUPABASE_URL}/rest/v1/dwl_sync?id=eq.${CLOUD_DOC_ID}&select=payload`, {
@@ -1604,32 +1954,19 @@
           }
         }, 8000);
 
-        if (!resp.ok) {
-          const errText = await resp.text();
-          let errMsg = `HTTP ${resp.status}`;
-          try {
-            const errObj = JSON.parse(errText);
-            if (errObj.message) errMsg += `: ${errObj.message}`;
-          } catch (e) {}
-          throw new Error(errMsg);
-        }
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const rows = await resp.json();
 
         if (Array.isArray(rows) && rows.length > 0 && rows[0].payload) {
           const cipher = rows[0].payload;
           if (cipher === lastCloudCipher && !manual) {
-            if (!silentBeforePush) setSyncPill('ok', '☁️ 云端已同步');
+            if (!silentBeforePush) setSyncPill('ok', '☁️ 云端');
             return;
           }
           lastCloudCipher = cipher;
 
           const decryptedStr = await decryptWithActiveKey(cipher);
           const remote = JSON.parse(decryptedStr);
-
-          if (!silentBeforePush && remote.latestVer && isNewerVersion(remote.latestVer, APP_VERSION)) {
-            triggerCacheBustReload(remote.latestVer);
-            return;
-          }
 
           const localDel = getDeletedIds();
           const remoteDel = Array.isArray(remote.deletedIds) ? remote.deletedIds : [];
@@ -1640,12 +1977,9 @@
             const localNotes = getAllNotes();
             const mergedNotes = {};
             const allDates = new Set([...Object.keys(localNotes), ...Object.keys(remote.notes)]);
-
             for (const dateKey of allDates) {
-              const rList = remote.notes[dateKey] || [];
-              const lList = localNotes[dateKey] || [];
               const map = new Map();
-              [...lList, ...rList].forEach(item => {
+              [...(localNotes[dateKey] || []), ...(remote.notes[dateKey] || [])].forEach(item => {
                 if (!allDelSet.has(item.id)) map.set(item.id, item);
               });
               const arr = Array.from(map.values()).sort((a, b) => b.id - a.id);
@@ -1655,8 +1989,7 @@
           }
 
           if (Array.isArray(remote.userQuotes)) {
-            const mergedQuotes = Array.from(new Set([...getUserQuotes(), ...remote.userQuotes]));
-            saveUserQuotes(mergedQuotes);
+            saveUserQuotes(Array.from(new Set([...getUserQuotes(), ...remote.userQuotes])));
           }
 
           const localCapDel = getDeletedCapsuleIds();
@@ -1665,93 +1998,94 @@
           localStorage.setItem(DELETED_CAPSULES_KEY, JSON.stringify(Array.from(allCapDelSet).slice(-200)));
 
           if (Array.isArray(remote.userCapsules)) {
-            const localCaps = getUserCapsules();
             const capMap = new Map();
-            [...localCaps, ...remote.userCapsules].forEach(c => {
+            [...getUserCapsules(), ...remote.userCapsules].forEach(c => {
               if (!allCapDelSet.has(c.id)) capMap.set(c.id, c);
             });
-            const mergedCaps = Array.from(capMap.values()).sort((a, b) => b.id - a.id);
-            saveUserCapsules(mergedCaps);
+            saveUserCapsules(Array.from(capMap.values()).sort((a, b) => b.id - a.id));
+          }
+
+          if (Array.isArray(remote.inboxLogs)) {
+            const logMap = new Map();
+            [...getInboxLogs(), ...remote.inboxLogs].forEach(l => logMap.set(l.id, l));
+            saveInboxLogs(Array.from(logMap.values()).sort((a, b) => b.id - a.id).slice(0, 60));
+          }
+
+          if (remote.heartMiss && remote.heartMiss.date === getTodayStr()) {
+            const cur = getHeartMissState();
+            localStorage.setItem(HEART_MISS_KEY, JSON.stringify({
+              date: getTodayStr(),
+              suzhou: Boolean(cur.suzhou || remote.heartMiss.suzhou),
+              wuhan: Boolean(cur.wuhan || remote.heartMiss.wuhan)
+            }));
           }
 
           if (!silentBeforePush && remote.meet !== undefined) {
             if (remote.meet) localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
             else localStorage.removeItem(MEET_CONFIG_KEY);
           }
-
           if (!silentBeforePush && Array.isArray(remote.meetHistory)) {
             localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(remote.meetHistory));
           }
-
           if (!silentBeforePush && Array.isArray(remote.coupons)) {
             localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(remote.coupons));
           }
-
           if (!silentBeforePush && Array.isArray(remote.events)) {
             localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
           }
-
           if (!silentBeforePush && Array.isArray(remote.globalPacking)) {
             localStorage.setItem(GLOBAL_PACKING_KEY, JSON.stringify(remote.globalPacking));
           }
-
           if (!silentBeforePush && Array.isArray(remote.travelTrips)) {
             localStorage.setItem(TRAVEL_TRIPS_KEY, JSON.stringify(remote.travelTrips));
           }
-
           if (!silentBeforePush && Array.isArray(remote.menuDishes)) {
             localStorage.setItem(MENU_DISHES_KEY, JSON.stringify(remote.menuDishes));
           }
-
           if (!silentBeforePush && Array.isArray(remote.menuOrders)) {
             localStorage.setItem(MENU_ORDERS_KEY, JSON.stringify(remote.menuOrders));
           }
-
           if (!silentBeforePush && remote.menuChef) {
             localStorage.setItem(MENU_CHEF_KEY, remote.menuChef);
           }
 
           if (!silentBeforePush) {
-            renderCalendar(false);
+            updateInboxBadge();
+            updateHeartHintsUI();
+            renderCalendar();
             updateCityProgress();
             updatePromiseCounters();
             updateCapsuleBadge();
             updateQuoteLabel();
             if (document.getElementById('noteView').style.display === 'block') {
               refreshMeetSetupUI();
+              refreshHistDayBanner(selectedDateStr);
               renderNotesList();
             }
             if (currentMainTab === 'meet') renderMeetHistory();
             if (currentMainTab === 'envelope') renderCapsulesList();
-            if (currentMainTab === 'promise') {
-              renderCouponsList();
-              renderEventsList();
-            }
+            if (currentMainTab === 'promise') { renderCouponsList(); renderEventsList(); }
             if (currentMainTab === 'travel') {
               renderGlobalPackingList();
               if (activeTripId) renderTripDetail();
               else renderTripCards();
             }
-            if (currentMainTab === 'menu') {
-              applyMenuChefUI();
-              renderTodayOrders();
-              renderMenuDishes();
-            }
+            if (currentMainTab === 'menu') { applyMenuChefUI(); renderTodayOrders(); renderMenuDishes(); }
           }
         } else if (!silentBeforePush && rows.length === 0) {
           pushToCloud();
         }
-        if (!silentBeforePush) setSyncPill('ok', '☁️ 云端已同步');
+        if (!silentBeforePush) setSyncPill('ok', '☁️ 云端');
       } catch (err) {
         console.error('Pull failed:', err);
         if (!silentBeforePush) {
-          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 32);
+          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 18);
           setSyncPill('err', `⚠️ 离线(${msg})`);
         }
       }
     }
 
-    // ========== 可滑动六栏导航切换控制 ==========
+    // ========== 可滑动七栏导航切换控制 ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
@@ -1762,7 +2096,8 @@
         home: document.getElementById('tabHomeView'),
         promise: document.getElementById('tabPromiseView'),
         travel: document.getElementById('tabTravelView'),
-        menu: document.getElementById('tabMenuView')
+        menu: document.getElementById('tabMenuView'),
+        about: document.getElementById('tabAboutView')
       };
       const navs = {
         meet: document.getElementById('navBtnMeet'),
@@ -1770,7 +2105,8 @@
         home: document.getElementById('navBtnHome'),
         promise: document.getElementById('navBtnPromise'),
         travel: document.getElementById('navBtnTravel'),
-        menu: document.getElementById('navBtnMenu')
+        menu: document.getElementById('navBtnMenu'),
+        about: document.getElementById('navBtnAbout')
       };
 
       Object.keys(views).forEach(k => {
@@ -1795,8 +2131,10 @@
         }
         renderMeetHistory();
       } else if (tabName === 'home') {
-        renderCalendar(!hasAutoScrolledCal);
+        renderCalendar();
         updateCityProgress();
+        updateInboxBadge();
+        updateHeartHintsUI();
       } else if (tabName === 'envelope') {
         renderCapsulesList();
         updateQuoteLabel();
@@ -1812,6 +2150,8 @@
         applyMenuChefUI();
         renderTodayOrders();
         renderMenuDishes();
+      } else if (tabName === 'about') {
+        renderAboutPage();
       }
     }
 
@@ -1825,7 +2165,11 @@
       document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
     }
 
-    // ========== ⏳ 见面计时器与历史见面记录逻辑 ==========
+    // ========== V1.2.7 ⏳ 见面计时器（相见天数 + 点击整行弹窗编辑 + 日历双向联动） ==========
+    let meetCurrentPage = 1;
+    const MEET_PAGE_SIZE = 4;
+    let editingMeetModalId = null;
+
     function getMeetHistory() {
       try { return JSON.parse(localStorage.getItem(MEET_HISTORY_KEY) || '[]'); } catch (e) { return []; }
     }
@@ -1835,8 +2179,21 @@
       if (syncCloud) pushToCloud();
     }
 
+    function getHistMeetCoveredDates(item) {
+      const res = [];
+      if (!item || !item.date) return res;
+      const days = Math.max(1, parseInt(item.days, 10) || 1);
+      const base = new Date(`${item.date}T00:00:00`);
+      for (let i = 0; i < days; i++) {
+        const d = new Date(base.getTime() + i * 86400000);
+        res.push(formatDateStr(d.getFullYear(), d.getMonth(), d.getDate()));
+      }
+      return res;
+    }
+
     function addMeetHistory() {
       const dateVal = document.getElementById('meetHistDate').value;
+      const daysVal = Math.max(1, Math.min(365, parseInt(document.getElementById('meetHistDays').value, 10) || 1));
       const placeVal = document.getElementById('meetHistPlace').value.trim();
       const noteVal = document.getElementById('meetHistNote').value.trim();
 
@@ -1847,23 +2204,107 @@
       list.push({
         id: Date.now(),
         date: dateVal,
+        days: daysVal,
         place: placeVal || '奔赴彼此的城市',
         note: noteVal || '珍藏的一次相聚'
       });
       list.sort((a, b) => b.date.localeCompare(a.date));
+      meetCurrentPage = 1;
+      recordInboxEvent('⏳ 相见记录', `新增相见：${dateVal} 起 ${daysVal} 天 · ${placeVal || '相聚'}`);
       saveMeetHistory(list, true);
 
+      document.getElementById('meetHistDays').value = '1';
       document.getElementById('meetHistPlace').value = '';
       document.getElementById('meetHistNote').value = '';
       renderMeetHistory();
+      renderCalendar();
       spawnFxParticles(['💞', '✨', '✈️', '💖']);
     }
 
-    function deleteMeetHistory(id) {
-      if (!confirm('确定要删除这条见面记录吗？')) return;
-      const list = getMeetHistory().filter(item => item.id !== id);
+    function addMeetHistoryFromCal() {
+      if (!selectedDateStr) return;
+      const daysVal = Math.max(1, Math.min(365, parseInt(document.getElementById('calHistDays').value, 10) || 1));
+      const placeVal = document.getElementById('calHistPlace').value.trim() || '奔赴彼此的城市';
+      const noteVal = document.getElementById('calHistNote').value.trim() || '珍藏的一次相聚';
+
+      const list = getMeetHistory();
+      list.push({
+        id: Date.now(),
+        date: selectedDateStr,
+        days: daysVal,
+        place: placeVal,
+        note: noteVal
+      });
+      list.sort((a, b) => b.date.localeCompare(a.date));
+      recordInboxEvent('💞 日历相见日', `设为相见日：${selectedDateStr} 起 ${daysVal} 天 · ${placeVal}`);
       saveMeetHistory(list, true);
+
+      document.getElementById('calHistDays').value = '1';
+      document.getElementById('calHistPlace').value = '';
+      document.getElementById('calHistNote').value = '';
+      refreshHistDayBanner(selectedDateStr);
+      renderCalendar();
+      showToast(`💞 已将 ${selectedDateStr} (${daysVal}天) 设为相见日`);
+    }
+
+    function openMeetEditModal(id) {
+      const target = getMeetHistory().find(i => i.id === id);
+      if (!target) return;
+      editingMeetModalId = id;
+      document.getElementById('modalMeetDate').value = target.date || '';
+      document.getElementById('modalMeetDays').value = Math.max(1, parseInt(target.days, 10) || 1);
+      document.getElementById('modalMeetPlace').value = target.place || '';
+      document.getElementById('modalMeetNote').value = target.note || '';
+      document.getElementById('meetEditModalMask').style.display = 'flex';
+    }
+
+    function closeMeetEditModal() {
+      editingMeetModalId = null;
+      document.getElementById('meetEditModalMask').style.display = 'none';
+    }
+
+    function saveMeetEditFromModal() {
+      if (!editingMeetModalId) return;
+      const d = document.getElementById('modalMeetDate').value;
+      const days = Math.max(1, Math.min(365, parseInt(document.getElementById('modalMeetDays').value, 10) || 1));
+      const p = document.getElementById('modalMeetPlace').value.trim();
+      const n = document.getElementById('modalMeetNote').value.trim();
+      if (!d) return alert('相见起始日期不能为空哦~');
+
+      const list = getMeetHistory();
+      const target = list.find(i => i.id === editingMeetModalId);
+      if (target) {
+        target.date = d;
+        target.days = days;
+        target.place = p || '奔赴彼此的城市';
+        target.note = n || '珍藏的一次相聚';
+        list.sort((a, b) => b.date.localeCompare(a.date));
+        recordInboxEvent('⏳ 相见记录', `编辑相见：${d} 起 ${days} 天 · ${target.place}`);
+        saveMeetHistory(list, true);
+        closeMeetEditModal();
+        renderMeetHistory();
+        renderCalendar();
+        showToast('✅ 已更新相见记录并同步至日历');
+      }
+    }
+
+    function deleteMeetFromModal() {
+      if (!editingMeetModalId) return;
+      if (!confirm('确定要删除这条相见记录吗？')) return;
+      const list = getMeetHistory().filter(item => item.id !== editingMeetModalId);
+      saveMeetHistory(list, true);
+      closeMeetEditModal();
       renderMeetHistory();
+      renderCalendar();
+      showToast('🗑️ 已删除相见记录');
+    }
+
+    function changeMeetPage(delta) {
+      const list = getMeetHistory();
+      const totalPages = Math.max(1, Math.ceil(list.length / MEET_PAGE_SIZE));
+      meetCurrentPage = Math.min(totalPages, Math.max(1, meetCurrentPage + delta));
+      renderMeetHistory();
+      triggerElAnim(document.getElementById('meetHistoryList'), 'subpanel-fade');
     }
 
     function renderMeetHistory() {
@@ -1874,6 +2315,7 @@
       const sinceNumEl = document.getElementById('sinceLastMeetDays');
       const sinceDateEl = document.getElementById('sinceLastMeetDate');
       const nextHintEl = document.getElementById('nextMeetMiniHint');
+      const pagerBar = document.getElementById('meetPagerBar');
 
       if (countLabel) countLabel.textContent = `共 ${list.length} 条`;
       if (totalEl) totalEl.textContent = `${list.length} 次`;
@@ -1906,16 +2348,30 @@
       }
 
       if (list.length === 0) {
+        if (pagerBar) pagerBar.style.display = 'none';
         container.innerHTML = `<div class="empty-notes">还没有记录过相见时光，写下你们的第一次奔赴吧 ✈️</div>`;
         return;
       }
 
-      container.innerHTML = list.map(item => {
+      const totalPages = Math.max(1, Math.ceil(list.length / MEET_PAGE_SIZE));
+      if (meetCurrentPage > totalPages) meetCurrentPage = totalPages;
+      const startIdx = (meetCurrentPage - 1) * MEET_PAGE_SIZE;
+      const pageItems = list.slice(startIdx, startIdx + MEET_PAGE_SIZE);
+
+      if (pagerBar) {
+        pagerBar.style.display = totalPages > 1 ? 'flex' : 'none';
+        document.getElementById('meetPageInfo').textContent = `第 ${meetCurrentPage} / ${totalPages} 页`;
+        document.getElementById('meetPrevPageBtn').disabled = meetCurrentPage <= 1;
+        document.getElementById('meetNextPageBtn').disabled = meetCurrentPage >= totalPages;
+      }
+
+      container.innerHTML = pageItems.map(item => {
         const itemMs = new Date(`${item.date}T00:00:00`).getTime();
         const diffDays = Math.round((todayMs - itemMs) / 86400000);
+        const daysNum = Math.max(1, parseInt(item.days, 10) || 1);
         let pillText = '';
         let pillCls = '';
-        if (diffDays === 0) pillText = '💞 就是今天';
+        if (diffDays === 0) pillText = '💞 今天';
         else if (diffDays > 0) pillText = `已过 ${diffDays} 天`;
         else {
           pillText = `还有 ${Math.abs(diffDays)} 天`;
@@ -1923,14 +2379,18 @@
         }
 
         return `
-          <div class="meet-rec-card">
-            <div class="meet-rec-left">
-              <div class="meet-rec-title">📍 ${escapeHtml(item.place)} · <span style="font-size:12px; color:#db2777;">${item.date}</span></div>
-              <div class="meet-rec-meta">${escapeHtml(item.note)}</div>
-            </div>
-            <div class="meet-rec-right">
-              <span class="meet-elapsed-pill ${pillCls}">${pillText}</span>
-              <span class="note-del" onclick="deleteMeetHistory(${item.id})" title="删除">✕</span>
+          <div class="meet-rec-card" onclick="openMeetEditModal(${item.id})" title="点击编辑此条相见记录">
+            <div class="meet-rec-top">
+              <div class="meet-rec-left">
+                <div class="meet-rec-title">
+                  📍 ${escapeHtml(item.place)} · <span style="font-size:12px; color:#db2777;">${item.date}</span>
+                  <span class="meet-days-badge">${daysNum}天</span>
+                </div>
+                <div class="meet-rec-meta">${escapeHtml(item.note)}</div>
+              </div>
+              <div class="meet-rec-right">
+                <span class="meet-elapsed-pill ${pillCls}">${pillText}</span>
+              </div>
             </div>
           </div>
         `;
@@ -1963,6 +2423,7 @@
       if (!name) return alert('先输入旅行必带物品名称吧~');
       const list = getGlobalPacking();
       list.unshift({ id: Date.now(), name, done: false });
+      recordInboxEvent('🎒 必带物品', `新增旅行必带物品：${name}`);
       saveGlobalPacking(list, true);
       input.value = '';
       renderGlobalPackingList();
@@ -1984,8 +2445,7 @@
     }
 
     function deleteGlobalPackingItem(id) {
-      const list = getGlobalPacking().filter(i => i.id !== id);
-      saveGlobalPacking(list, true);
+      saveGlobalPacking(getGlobalPacking().filter(i => i.id !== id), true);
       renderGlobalPackingList();
     }
 
@@ -2059,17 +2519,10 @@
       if (!date) return alert('请选择出发日期~');
       if (!duration) return alert('请填写计划时长（如：3天2晚）~');
 
-      const newTrip = {
-        id: Date.now(),
-        place,
-        date,
-        duration,
-        packing: [],
-        items: []
-      };
-
+      const newTrip = { id: Date.now(), place, date, duration, packing: [], items: [] };
       const list = getAllTrips();
       list.unshift(newTrip);
+      recordInboxEvent('✈️ 旅行足迹', `新建旅程：${place}（${date} · ${duration}）`);
       saveAllTrips(list, true);
 
       document.getElementById('newTripPlace').value = '';
@@ -2084,8 +2537,7 @@
     function deleteTrip(event, tripId) {
       event.stopPropagation();
       if (!confirm('确定要删除这次旅行记录及全部攻略吗？')) return;
-      const list = getAllTrips().filter(t => t.id !== tripId);
-      saveAllTrips(list, true);
+      saveAllTrips(getAllTrips().filter(t => t.id !== tripId), true);
       renderTripCards();
     }
 
@@ -2111,10 +2563,7 @@
                 <div class="trip-card-city">📍 ${escapeHtml(t.place)}</div>
                 <span class="note-del" onclick="deleteTrip(event, ${t.id})" title="删除旅程">✕</span>
               </div>
-              <div class="trip-card-meta">
-                📅 ${t.date}<br>
-                ⏱️ ${escapeHtml(t.duration)}
-              </div>
+              <div class="trip-card-meta">📅 ${t.date}<br>⏱️ ${escapeHtml(t.duration)}</div>
             </div>
             <div class="trip-card-foot">
               <span>攻略 ${itemCount} · 物品 ${packCount}</span>
@@ -2139,8 +2588,7 @@
     function closeTripDetail() {
       activeTripId = null;
       document.getElementById('travelDetailStage').style.display = 'none';
-      const homeStage = document.getElementById('travelHomeStage');
-      homeStage.style.display = 'block';
+      document.getElementById('travelHomeStage').style.display = 'block';
       renderTripCards();
     }
 
@@ -2183,11 +2631,7 @@
       const trip = trips.find(t => t.id === activeTripId);
       if (!trip || !Array.isArray(trip.packing)) return;
       const target = trip.packing.find(p => p.id === itemId);
-      if (target) {
-        target.done = !target.done;
-        saveAllTrips(trips, true);
-        renderPackingList();
-      }
+      if (target) { target.done = !target.done; saveAllTrips(trips, true); renderPackingList(); }
     }
 
     function deletePackingItem(itemId) {
@@ -2254,19 +2698,12 @@
       const input = document.getElementById('newTravelInput');
       const text = input.value.trim();
       if (!text) return alert('先输入一条攻略内容吧~');
-
       const trips = getAllTrips();
       const trip = trips.find(t => t.id === activeTripId);
       if (!trip) return;
       if (!Array.isArray(trip.items)) trip.items = [];
-
-      trip.items.unshift({
-        id: Date.now(),
-        cat: currentTravelCat,
-        title: text,
-        done: false,
-        createdAt: getTodayStr()
-      });
+      trip.items.unshift({ id: Date.now(), cat: currentTravelCat, title: text, done: false, createdAt: getTodayStr() });
+      recordInboxEvent('✈️ 旅行攻略', `${trip.place} 新增攻略：${text}`);
       saveAllTrips(trips, true);
       input.value = '';
       renderTravelList();
@@ -2280,7 +2717,6 @@
       const name = document.getElementById('stayNameInput').value.trim();
       const checkIn = document.getElementById('stayCheckIn').value;
       const checkOut = document.getElementById('stayCheckOut').value;
-
       if (!name) return alert('请输入酒店或民宿名称~');
       if (!checkIn || !checkOut) return alert('请先选择入住时间和离开时间哦~');
       if (checkOut < checkIn) return alert('离开时间不能早于入住时间哦~');
@@ -2289,18 +2725,9 @@
       const trip = trips.find(t => t.id === activeTripId);
       if (!trip) return;
       if (!Array.isArray(trip.items)) trip.items = [];
-
-      trip.items.unshift({
-        id: Date.now(),
-        cat: 'stay',
-        title: name,
-        checkIn,
-        checkOut,
-        done: false,
-        createdAt: getTodayStr()
-      });
+      trip.items.unshift({ id: Date.now(), cat: 'stay', title: name, checkIn, checkOut, done: false, createdAt: getTodayStr() });
+      recordInboxEvent('🏨 住宿安排', `${trip.place} 预订：${name} (${checkIn}~${checkOut})`);
       saveAllTrips(trips, true);
-
       document.getElementById('stayNameInput').value = '';
       document.getElementById('stayCheckIn').value = '';
       document.getElementById('stayCheckOut').value = '';
@@ -2312,7 +2739,6 @@
       const name = document.getElementById('goNameInput').value.trim();
       const departTime = document.getElementById('goDepartTime').value;
       const arriveTime = document.getElementById('goArriveTime').value;
-
       if (!name) return alert('请输入车次或交通方式~');
       if (!departTime || !arriveTime) return alert('请先选择发车时间和到达时间哦~');
 
@@ -2320,18 +2746,13 @@
       const trip = trips.find(t => t.id === activeTripId);
       if (!trip) return;
       if (!Array.isArray(trip.items)) trip.items = [];
-
       trip.items.unshift({
-        id: Date.now(),
-        cat: 'go',
-        title: name,
-        departTime: departTime.replace('T', ' '),
-        arriveTime: arriveTime.replace('T', ' '),
-        done: false,
-        createdAt: getTodayStr()
+        id: Date.now(), cat: 'go', title: name,
+        departTime: departTime.replace('T', ' '), arriveTime: arriveTime.replace('T', ' '),
+        done: false, createdAt: getTodayStr()
       });
+      recordInboxEvent('🚄 出行车次', `${trip.place} 交通：${name}`);
       saveAllTrips(trips, true);
-
       document.getElementById('goNameInput').value = '';
       document.getElementById('goDepartTime').value = '';
       document.getElementById('goArriveTime').value = '';
@@ -2344,11 +2765,7 @@
       const trip = trips.find(t => t.id === activeTripId);
       if (!trip || !Array.isArray(trip.items)) return;
       const target = trip.items.find(i => i.id === itemId);
-      if (target) {
-        target.done = !target.done;
-        saveAllTrips(trips, true);
-        renderTravelList();
-      }
+      if (target) { target.done = !target.done; saveAllTrips(trips, true); renderTravelList(); }
     }
 
     function deleteTravelItem(itemId) {
@@ -2385,7 +2802,6 @@
         } else if (item.cat === 'go' && item.departTime && item.arriveTime) {
           extraTimeHtml = `<div class="travel-time-tag">🕒 发车 ${item.departTime} → 到达 ${item.arriveTime}</div>`;
         }
-
         return `
           <div class="event-item ${item.done ? 'done' : ''}">
             <input type="checkbox" class="event-checkbox" ${item.done ? 'checked' : ''} onchange="toggleTravelDone(${item.id})">
@@ -2404,9 +2820,7 @@
     const MENU_CAT_LABELS = { main: '🥘 主菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
     let currentMenuCat = 'all';
 
-    function getActiveChef() {
-      return localStorage.getItem(MENU_CHEF_KEY) || '王大厨';
-    }
+    function getActiveChef() { return localStorage.getItem(MENU_CHEF_KEY) || '王大厨'; }
 
     function applyMenuChefUI() {
       const chef = getActiveChef();
@@ -2421,6 +2835,7 @@
     function selectMenuChef(chefName) {
       localStorage.setItem(MENU_CHEF_KEY, chefName);
       applyMenuChefUI();
+      recordInboxEvent('🍽️ 私房菜单', `今日主厨已切换为：${chefName}`);
       showToast(`👨‍🍳 今日主厨已切换为：${chefName}`);
       pushToCloud();
     }
@@ -2455,17 +2870,11 @@
       const name = document.getElementById('newDishName').value.trim();
       const cat = document.getElementById('newDishCat').value;
       const note = document.getElementById('newDishNote').value.trim();
-
       if (!name) return alert('请填写菜品名称哦~');
       const list = getAllDishes();
-      list.unshift({
-        id: Date.now(),
-        name,
-        cat,
-        note: note || '大厨招牌推荐'
-      });
+      list.unshift({ id: Date.now(), name, cat, note: note || '大厨招牌推荐' });
+      recordInboxEvent('🍽️ 私房菜单', `菜单新增菜品：${name}`);
       saveAllDishes(list, true);
-
       document.getElementById('newDishName').value = '';
       document.getElementById('newDishNote').value = '';
       document.getElementById('addDishFormBox').style.display = 'none';
@@ -2476,10 +2885,8 @@
 
     function deleteDish(id) {
       if (!confirm('确定要从菜单中删除这道菜吗？')) return;
-      const dishes = getAllDishes().filter(d => d.id !== id);
-      const orders = getTodayOrders().filter(oid => oid !== id);
-      saveAllDishes(dishes, false);
-      saveTodayOrders(orders, true);
+      saveAllDishes(getAllDishes().filter(d => d.id !== id), false);
+      saveTodayOrders(getTodayOrders().filter(oid => oid !== id), true);
       renderTodayOrders();
       renderMenuDishes();
     }
@@ -2517,6 +2924,7 @@
       const orders = getTodayOrders();
       if (orders.length === 0) return alert('还没有点任何菜哦，先选几道想吃的吧~');
       const chef = getActiveChef();
+      recordInboxEvent('🛎️ 菜单下单', `已通知【${chef}】接单，共点了 ${orders.length} 道菜`);
       pushToCloud();
       spawnFxParticles(['🍽️', '🥘', '🧋', '💖']);
       showToast(`🛎️ 已通知【${chef}】接单，共 ${orders.length} 道菜！`);
@@ -2575,8 +2983,7 @@
         `;
       }).join('');
     }
-
-    // ========== 🎲 随机情书盲盒逻辑 ==========
+// ========== 🎲 随机情书盲盒逻辑 ==========
     let currentQuoteIdx = -1;
 
     function getUserQuotes() {
@@ -2623,6 +3030,7 @@
       const el = document.getElementById('blindboxQuoteText');
       if (el) el.textContent = val;
       updateQuoteLabel();
+      recordInboxEvent('🎲 情话盲盒', `存入了新情话：${val.slice(0, 20)}`);
       pushToCloud();
     }
 
@@ -2715,15 +3123,9 @@
 
       setTimeout(async () => {
         const list = getUserCapsules();
-        list.unshift({
-          id: Date.now(),
-          author,
-          title,
-          unlockDate,
-          content,
-          createdAt: getTodayStr()
-        });
+        list.unshift({ id: Date.now(), author, title, unlockDate, content, createdAt: getTodayStr() });
         saveUserCapsules(list);
+        recordInboxEvent('💌 双人信箱', `${author}寄出新信：《${title}》`);
 
         document.getElementById('userCapTitle').value = '';
         document.getElementById('userCapBody').value = '';
@@ -2745,8 +3147,7 @@
       event.stopPropagation();
       if (!confirm('确定要删除这封长信 / 时光胶囊吗？（删除后也将同步到云端）')) return;
       addDeletedCapsuleId(capId);
-      const list = getUserCapsules().filter(c => c.id !== capId);
-      saveUserCapsules(list);
+      saveUserCapsules(getUserCapsules().filter(c => c.id !== capId));
       renderCapsulesList();
       await pushToCloud();
     }
@@ -2834,11 +3235,14 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.5 隐藏模式将大字小字统一替换为 ****） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（V1.2.7 防溢出 + 点击卡片弹出详情与编辑框） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
     let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
     let couponCollapsed = localStorage.getItem(COUPON_COLLAPSED_KEY) === '1';
     let couponMasked = localStorage.getItem(COUPON_MASK_KEY) === '1';
+    let couponSortMode = localStorage.getItem(COUPON_SORT_KEY) || 'time_desc';
+    let editingCouponId = null;
+    let editingCouponSender = 'him';
 
     function applyCouponSenderUI() {
       const himEl = document.getElementById('couponSenderHim');
@@ -2855,8 +3259,8 @@
 
     function applyCouponCtrlUI() {
       const container = document.getElementById('couponListContainer');
-      const gridBtn = document.getElementById('couponModeGridBtn');
-      const listBtn = document.getElementById('couponModeListBtn');
+      const sortBtn = document.getElementById('couponSortBtn');
+      const viewBtn = document.getElementById('couponViewCycleBtn');
       const maskBtn = document.getElementById('couponMaskToggleBtn');
       const colBtn = document.getElementById('couponCollapseBtn');
 
@@ -2864,10 +3268,13 @@
         container.classList.toggle('list-mode', couponViewMode === 'list');
         container.classList.toggle('collapsed', couponCollapsed);
       }
-      if (gridBtn) gridBtn.classList.toggle('active', couponViewMode === 'grid');
-      if (listBtn) listBtn.classList.toggle('active', couponViewMode === 'list');
+      if (sortBtn) {
+        const sortLabels = { time_desc: '↕️ 时间新→旧', time_asc: '↕️ 时间旧→新', name_asc: '🔤 按名称' };
+        sortBtn.textContent = sortLabels[couponSortMode] || '↕️ 时间新→旧';
+      }
+      if (viewBtn) viewBtn.textContent = couponViewMode === 'list' ? '📋 精简行' : '🗂️ 大图标';
       if (maskBtn) {
-        maskBtn.textContent = couponMasked ? '👁️ 显示内容' : '🙈 隐藏内容';
+        maskBtn.textContent = couponMasked ? '👁️ 显示' : '🙈 隐藏';
         maskBtn.classList.toggle('muted', couponMasked);
       }
       if (colBtn) {
@@ -2876,9 +3283,17 @@
       }
     }
 
-    function setCouponViewMode(mode) {
-      couponViewMode = mode;
-      localStorage.setItem(COUPON_VIEW_MODE_KEY, mode);
+    function cycleCouponSort() {
+      const order = ['time_desc', 'time_asc', 'name_asc'];
+      couponSortMode = order[(order.indexOf(couponSortMode) + 1) % order.length];
+      localStorage.setItem(COUPON_SORT_KEY, couponSortMode);
+      renderCouponsList();
+      triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
+    }
+
+    function cycleCouponViewMode() {
+      couponViewMode = couponViewMode === 'grid' ? 'list' : 'grid';
+      localStorage.setItem(COUPON_VIEW_MODE_KEY, couponViewMode);
       if (couponCollapsed) {
         couponCollapsed = false;
         localStorage.setItem(COUPON_COLLAPSED_KEY, '0');
@@ -2898,9 +3313,7 @@
       couponCollapsed = !couponCollapsed;
       localStorage.setItem(COUPON_COLLAPSED_KEY, couponCollapsed ? '1' : '0');
       applyCouponCtrlUI();
-      if (!couponCollapsed) {
-        triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
-      }
+      if (!couponCollapsed) triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
     }
 
     function getAllCoupons() {
@@ -2919,6 +3332,61 @@
       if (syncCloud) pushToCloud();
     }
 
+    // V1.2.7 点击任意卡券弹出独立详情与编辑弹窗
+    function setEditCouponSender(sender) {
+      editingCouponSender = sender;
+      const himEl = document.getElementById('editCouponSenderHim');
+      const herEl = document.getElementById('editCouponSenderHer');
+      if (himEl) himEl.className = 'coupon-sender-chip' + (sender === 'him' ? ' active-him' : '');
+      if (herEl) herEl.className = 'coupon-sender-chip' + (sender === 'her' ? ' active-her' : '');
+    }
+
+    function openCouponEditModal(id) {
+      const target = getAllCoupons().find(c => c.id === id);
+      if (!target) return;
+      editingCouponId = id;
+      setEditCouponSender(target.sender === 'her' ? 'her' : 'him');
+
+      const heading = document.getElementById('couponModalHeading');
+      const infoBox = document.getElementById('couponModalStatusInfo');
+      if (heading) heading.textContent = target.used ? '🎟️ 已核销兑换券详情 / 编辑' : '🎟️ 未核销兑换券详情 / 编辑';
+      if (infoBox) {
+        const senderStr = target.sender === 'her' ? '👧 她发的' : '👦 他发的';
+        infoBox.innerHTML = target.used
+          ? `状态：<strong>✅ 已核销</strong>（核销日期：${escapeHtml(target.usedAt || '未知')}）<br>发券人：${senderStr} · 已核销券永久留存不可删除`
+          : `状态：<strong>✨ 待使用</strong> · 发券人：${senderStr}`;
+      }
+
+      document.getElementById('editCouponNameInput').value = String(target.name || '').replace(/^🎁\s*/, '');
+      document.getElementById('editCouponDescInput').value = target.desc || '';
+      document.getElementById('couponEditModalMask').style.display = 'flex';
+    }
+
+    function closeCouponEditModal() {
+      editingCouponId = null;
+      document.getElementById('couponEditModalMask').style.display = 'none';
+    }
+
+    function saveCouponEdit() {
+      if (!editingCouponId) return;
+      const newName = document.getElementById('editCouponNameInput').value.trim();
+      const newDesc = document.getElementById('editCouponDescInput').value.trim();
+      if (!newName) return alert('特权券名称不能为空哦~');
+
+      const list = getAllCoupons();
+      const target = list.find(c => c.id === editingCouponId);
+      if (target) {
+        target.sender = editingCouponSender;
+        target.name = newName.startsWith('🎁') ? newName : `🎁 ${newName}`;
+        target.desc = newDesc || '专属定制特权券，见面或随时出示即可兑现';
+        recordInboxEvent('🎟️ 恋爱兑换券', `编辑了特权券：${newName}`);
+        saveAllCoupons(list, true);
+        closeCouponEditModal();
+        renderCouponsList();
+        showToast('✅ 兑换券信息已更新');
+      }
+    }
+
     function renderCouponsList() {
       updatePromiseCounters();
       applyCouponCtrlUI();
@@ -2929,22 +3397,36 @@
         return;
       }
 
-      const sorted = [...rawList].sort((a, b) => Number(a.used) - Number(b.used));
+      const sorted = [...rawList].sort((a, b) => {
+        const usedDiff = Number(a.used) - Number(b.used);
+        if (usedDiff !== 0) return usedDiff;
+        if (couponSortMode === 'time_asc') return (a.id || 0) - (b.id || 0);
+        if (couponSortMode === 'name_asc') {
+          const na = String(a.name || '').replace(/^🎁\s*/, '');
+          const nb = String(b.name || '').replace(/^🎁\s*/, '');
+          return na.localeCompare(nb, 'zh-CN');
+        }
+        return (b.id || 0) - (a.id || 0);
+      });
 
       container.innerHTML = sorted.map(c => {
         const isHer = c.sender === 'her';
         const senderText = isHer ? '👧 她发' : '👦 他发';
         const displayName = couponMasked ? '****' : escapeHtml(c.name);
-        const rawDesc = c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc);
+        // V1.2.7 已核销卡券底部的文字精简，避免过长撑宽页面，完整内容点击卡片查看
+        const rawDesc = c.used ? `核销于 ${c.usedAt} · 点此查看` : escapeHtml(c.desc);
         const displayDesc = couponMasked ? '****' : rawDesc;
 
+        const gridDelHtml = c.used ? '' : `<span class="note-del ticket-del-grid" onclick="event.stopPropagation(); deleteCoupon(${c.id})" title="删除此券">✕</span>`;
+        const listDelHtml = c.used ? '' : `<span class="note-del ticket-del-list" onclick="event.stopPropagation(); deleteCoupon(${c.id})" title="删除此券">✕</span>`;
+
         return `
-          <div class="coupon-ticket ${isHer ? 'from-her' : ''} ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
+          <div class="coupon-ticket ${isHer ? 'from-her' : ''} ${c.used ? 'used' : ''}" id="couponCard_${c.id}" onclick="openCouponEditModal(${c.id})" title="点击查看完整信息或编辑">
             <div class="ticket-main-info">
               <div class="ticket-head-inline">
                 <div class="ticket-top-row">
                   <span class="ticket-top-tag ${isHer ? 'her-tag' : ''}">${c.used ? '已兑现' : senderText}</span>
-                  <span class="note-del ticket-del-grid" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+                  ${gridDelHtml}
                 </div>
                 <div class="coupon-name">${displayName}</div>
               </div>
@@ -2954,9 +3436,9 @@
               <div class="ticket-divider"></div>
               ${c.used
                 ? `<div class="coupon-stamp">已核销</div>`
-                : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">核销</button>`
+                : `<button class="coupon-use-btn" onclick="event.stopPropagation(); useCoupon(${c.id})">核销</button>`
               }
-              <span class="note-del ticket-del-list" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+              ${listDelHtml}
             </div>
           </div>
         `;
@@ -2964,7 +3446,7 @@
     }
 
     function useCoupon(id) {
-      if (!confirm('确认现在核销使用这张恋爱兑换券吗？（使用后将同步给对方并盖章记录）')) return;
+      if (!confirm('确认现在核销使用这张恋爱兑换券吗？（使用后将永久留存且不可删除）')) return;
       const list = getAllCoupons();
       const target = list.find(c => c.id === id);
       if (target && !target.used) {
@@ -2975,6 +3457,7 @@
         setTimeout(() => {
           target.used = true;
           target.usedAt = getTodayStr();
+          recordInboxEvent('🎟️ 恋爱兑换券', `核销使用了特权券：${target.name}`);
           saveAllCoupons(list, true);
           renderCouponsList();
         }, 480);
@@ -2982,9 +3465,11 @@
     }
 
     function deleteCoupon(id) {
-      if (!confirm('确定要删除这张恋爱兑换券吗？')) return;
-      const list = getAllCoupons().filter(c => c.id !== id);
-      saveAllCoupons(list, true);
+      const list = getAllCoupons();
+      const target = list.find(c => c.id === id);
+      if (target && target.used) return showToast('🔒 已核销的兑换券作为纪念不可删除哦');
+      if (!confirm('确定要删除这张未核销的恋爱兑换券吗？')) return;
+      saveAllCoupons(list.filter(c => c.id !== id), true);
       renderCouponsList();
     }
 
@@ -3003,6 +3488,7 @@
         used: false,
         usedAt: ''
       });
+      recordInboxEvent('🎟️ 恋爱兑换券', `${currentCouponSender === 'her' ? '她' : '他'}发放了新券：${name}`);
       saveAllCoupons(list, true);
       nameInput.value = '';
       descInput.value = '';
@@ -3044,10 +3530,8 @@
 
       const rEl = document.getElementById('eventDoneRatio');
       if (rEl) rEl.textContent = `${doneCount}/${total}`;
-
       const pText = document.getElementById('eventPercentText');
       if (pText) pText.textContent = `${doneCount}/${total} (${pct}%)`;
-
       const fill = document.getElementById('eventProgressFill');
       if (fill) fill.style.width = `${pct}%`;
     }
@@ -3056,15 +3540,9 @@
       const input = document.getElementById('newEventInput');
       const title = input.value.trim();
       if (!title) return alert('先输入想一起完成的事件吧~');
-
       const list = getAllEvents();
-      list.unshift({
-        id: Date.now(),
-        title: title,
-        done: false,
-        createdAt: getTodayStr(),
-        doneAt: ''
-      });
+      list.unshift({ id: Date.now(), title, done: false, createdAt: getTodayStr(), doneAt: '' });
+      recordInboxEvent('✨ 专属事件', `新增共同愿望：${title}`);
       saveAllEvents(list, true);
       input.value = '';
       renderEventsList();
@@ -3081,19 +3559,16 @@
         const becomesDone = !target.done;
         target.done = becomesDone;
         target.doneAt = becomesDone ? getTodayStr() : '';
+        if (becomesDone) recordInboxEvent('🥂 愿望达成', `一起完成了愿望：${target.title}`);
         saveAllEvents(list, true);
         renderEventsList();
-
-        if (becomesDone) {
-          playCeremonyFx('cheers');
-        }
+        if (becomesDone) playCeremonyFx('cheers');
       }
     }
 
     function deleteEvent(eventId) {
       if (!confirm('确定要删除这条事件吗？')) return;
-      const list = getAllEvents().filter(item => item.id !== eventId);
-      saveAllEvents(list, true);
+      saveAllEvents(getAllEvents().filter(item => item.id !== eventId), true);
       renderEventsList();
     }
 
@@ -3101,7 +3576,6 @@
       updatePromiseCounters();
       const container = document.getElementById('eventListContainer');
       const list = getAllEvents();
-
       if (list.length === 0) {
         container.innerHTML = `<div class="empty-notes">还没有添加任何事件，写下你们的第一个约定吧 ✨</div>`;
         return;
@@ -3115,27 +3589,77 @@
           <input type="checkbox" class="event-checkbox" ${item.done ? 'checked' : ''} onchange="toggleEventDone(${item.id})">
           <div class="event-content" onclick="toggleEventDone(${item.id})">
             <div class="event-title">${escapeHtml(item.title)}</div>
-            <div class="event-sub">
-              ${item.done ? `✅ 完成于 ${item.doneAt}` : `⏳ 创建于 ${item.createdAt}`}
-            </div>
+            <div class="event-sub">${item.done ? `✅ 完成于 ${item.doneAt}` : `⏳ 创建于 ${item.createdAt}`}</div>
           </div>
           <span class="note-del" onclick="deleteEvent(${item.id})" title="删除">✕</span>
         </div>
       `;
 
       let html = '';
-      if (todoList.length > 0) {
-        html += `<div class="event-group-label">📌 待一起完成 (${todoList.length})</div>`;
-        html += todoList.map(renderItem).join('');
-      }
-      if (doneList.length > 0) {
-        html += `<div class="event-group-label">💖 已达成印记 (${doneList.length})</div>`;
-        html += doneList.map(renderItem).join('');
-      }
+      if (todoList.length > 0) html += `<div class="event-group-label">📌 待一起完成 (${todoList.length})</div>` + todoList.map(renderItem).join('');
+      if (doneList.length > 0) html += `<div class="event-group-label">💖 已达成印记 (${doneList.length})</div>` + doneList.map(renderItem).join('');
       container.innerHTML = html;
     }
 
-    // ========== 双城进度条与见面行程 ==========
+    // ========== V1.2.7 双城进度条 + 当日爱心点击状态提示 ==========
+    function getHeartMissState() {
+      const today = getTodayStr();
+      try {
+        const raw = JSON.parse(localStorage.getItem(HEART_MISS_KEY) || 'null');
+        if (raw && raw.date === today) return raw;
+      } catch (e) {}
+      return { date: today, suzhou: false, wuhan: false };
+    }
+
+    function updateHeartHintsUI() {
+      const st = getHeartMissState();
+      const szEl = document.getElementById('suzhouHeartHint');
+      const whEl = document.getElementById('wuhanHeartHint');
+      if (szEl) {
+        szEl.textContent = st.suzhou ? '💗 他想你了' : '点爱心告诉她想你了';
+        szEl.className = st.suzhou ? 'heart-hint-active' : '';
+      }
+      if (whEl) {
+        whEl.textContent = st.wuhan ? '💜 她想你了' : '点爱心告诉他想你了';
+        whEl.className = st.wuhan ? 'heart-hint-active her' : '';
+      }
+    }
+
+    function triggerMissBubble(who, btnEl) {
+      const wrap = document.getElementById('trackBarWrap');
+      if (!wrap || !btnEl) return;
+
+      const st = getHeartMissState();
+      const bubble = document.createElement('span');
+      bubble.className = 'miss-bubble' + (who === 'wuhan' ? ' her-style' : '');
+      let msg = '';
+      if (who === 'suzhou') {
+        msg = '💗 他想你了';
+        st.suzhou = true;
+        recordInboxEvent('💗 苏州来信', '他按下了苏州的爱心：他想你了');
+      } else if (who === 'wuhan') {
+        msg = '💜 她想你了';
+        st.wuhan = true;
+        recordInboxEvent('💜 武汉来信', '她按下了武汉的爱心：她想你了');
+      } else {
+        msg = '💞 此刻零距离';
+        st.suzhou = true;
+        st.wuhan = true;
+        recordInboxEvent('💞 双向奔赴', '按下了相聚爱心：此刻零距离');
+      }
+
+      localStorage.setItem(HEART_MISS_KEY, JSON.stringify(st));
+      updateHeartHintsUI();
+
+      bubble.textContent = msg;
+      bubble.style.left = btnEl.style.left || '50%';
+      bubble.style.top = '0px';
+      wrap.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 1600);
+
+      pushToCloud();
+    }
+
     function getMeetConfig() {
       try { return JSON.parse(localStorage.getItem(MEET_CONFIG_KEY) || 'null'); } catch (e) { return null; }
     }
@@ -3166,12 +3690,12 @@
 
       if (!cfg || !cfg.startDate) {
         statusEl.textContent = '点击日历设定见面行程';
-        fillL.style.width = '6%';
-        fillR.style.width = '6%';
-        heartL.style.display = 'inline';
-        heartR.style.display = 'inline';
-        heartL.style.left = '6%';
-        heartR.style.left = '94%';
+        fillL.style.width = '8%';
+        fillR.style.width = '8%';
+        heartL.style.display = 'inline-block';
+        heartR.style.display = 'inline-block';
+        heartL.style.left = '8%';
+        heartR.style.left = '92%';
         heartM.style.display = 'none';
         return;
       }
@@ -3188,7 +3712,7 @@
         fillR.style.width = '50%';
         heartL.style.display = 'none';
         heartR.style.display = 'none';
-        heartM.style.display = 'inline';
+        heartM.style.display = 'inline-block';
         return;
       }
 
@@ -3202,7 +3726,7 @@
         fillR.style.width = '50%';
         heartL.style.display = 'none';
         heartR.style.display = 'none';
-        heartM.style.display = 'inline';
+        heartM.style.display = 'inline-block';
         return;
       }
 
@@ -3219,14 +3743,11 @@
       const h = Math.floor((diffSec % 86400) / 3600);
       const m = Math.floor((diffSec % 3600) / 60);
 
-      statusEl.textContent = d > 0
-        ? `距见面(${totalDays}天) 还有 ${d}天${h}时`
-        : `距见面还有 ${h}时${m}分`;
-
+      statusEl.textContent = d > 0 ? `距见面(${totalDays}天) 还有 ${d}天${h}时` : `距见面还有 ${h}时${m}分`;
       fillL.style.width = `${pct}%`;
       fillR.style.width = `${pct}%`;
-      heartL.style.display = 'inline';
-      heartR.style.display = 'inline';
+      heartL.style.display = 'inline-block';
+      heartR.style.display = 'inline-block';
       heartL.style.left = `${pct}%`;
       heartR.style.left = `${100 - parseFloat(pct)}%`;
       heartM.style.display = 'none';
@@ -3234,11 +3755,8 @@
 
     function setMeetDuration(daysCount) {
       const d = Math.max(1, Math.min(365, parseInt(daysCount, 10) || 1));
-      localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify({
-        startDate: selectedDateStr,
-        days: d,
-        setAt: Date.now()
-      }));
+      localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify({ startDate: selectedDateStr, days: d, setAt: Date.now() }));
+      recordInboxEvent('✈️ 见面行程', `设定了见面行程：${selectedDateStr} 起共 ${d} 天`);
       refreshMeetSetupUI();
       updateCityProgress();
       pushToCloud();
@@ -3271,18 +3789,15 @@
         statusLabel.textContent = `💖 已设行程：${cfg.startDate} 起共 ${cfg.days} 天`;
         clearBtn.style.display = 'inline';
         const presetMap = { 1: 0, 2: 1, 3: 2, 5: 3, 7: 4 };
-        if (presetMap[cfg.days] !== undefined) {
-          chips[presetMap[cfg.days]].classList.add('active');
-        } else {
-          chips[5].classList.add('active');
-        }
+        if (presetMap[cfg.days] !== undefined) chips[presetMap[cfg.days]].classList.add('active');
+        else chips[5].classList.add('active');
       } else {
         const dayIdx = getMeetDayIndex(selectedDateStr, cfg);
         if (dayIdx > 0) {
           statusLabel.textContent = `💞 属于 ${cfg.startDate} 行程的第 ${dayIdx}/${cfg.days} 天`;
           clearBtn.style.display = 'inline';
         } else {
-          statusLabel.textContent = '✈️ 从这天起见面几天？';
+          statusLabel.textContent = '✈️ 设为双城倒计时行程？';
           clearBtn.style.display = cfg ? 'inline' : 'none';
         }
       }
@@ -3321,14 +3836,13 @@
       updateQuoteLabel();
       updateCapsuleBadge();
       updatePromiseCounters();
+      updateInboxBadge();
+      updateHeartHintsUI();
 
       pullFromCloud(false);
-      if (!syncPollInterval) {
-        syncPollInterval = setInterval(() => pullFromCloud(false), 5000);
-      }
+      if (!syncPollInterval) syncPollInterval = setInterval(() => pullFromCloud(false), 5000);
 
       const navBar = document.getElementById('bottomNavBar');
-
       if (playIntro) {
         const overlay = document.getElementById('introOverlay');
         const titleEl = document.getElementById('introTitleText');
@@ -3338,21 +3852,17 @@
         const meetDayIdx = getMeetDayIndex(getTodayStr(), cfg);
         if (meetDayIdx > 0) {
           titleEl.textContent = '苏州 · 武汉 · 终于相见';
-          subEl.textContent = cfg.days > 1
-            ? `相聚第 ${meetDayIdx} 天，两颗心在此刻紧紧合二为一`
-            : '跨越距离，两颗心在此刻紧紧合二为一';
+          subEl.textContent = cfg.days > 1 ? `相聚第 ${meetDayIdx} 天，两颗心在此刻紧紧合二为一` : '跨越距离，两颗心在此刻紧紧合二为一';
         }
 
         overlay.classList.remove('fading-out');
         overlay.style.display = 'flex';
-
         setTimeout(() => {
           overlay.classList.add('fading-out');
           navBar.style.display = 'flex';
           switchMainTab('home');
           openUpdateModal(false);
         }, 1900);
-
         setTimeout(() => {
           overlay.style.display = 'none';
           overlay.classList.remove('fading-out');
@@ -3364,162 +3874,176 @@
       }
     }
 
-    // ========== V2.1.5 上下滑动恋爱农历日历与独立双人对话留言板 ==========
-    let hasAutoScrolledCal = false;
+    // ========== V1.2.7 左右滑动恋爱农历日历（高亮连续相见天数） ==========
+    let currentCalDate = new Date();
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
+    let calTouchStartX = 0;
+    let calTouchStartY = 0;
+
+    function initCalSwipeGesture() {
+      const area = document.getElementById('calSwipeArea');
+      if (!area || area.dataset.swipeBound === '1') return;
+      area.dataset.swipeBound = '1';
+
+      area.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) return;
+        calTouchStartX = e.touches[0].clientX;
+        calTouchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      area.addEventListener('touchend', e => {
+        if (!e.changedTouches || e.changedTouches.length === 0) return;
+        const dx = e.changedTouches[0].clientX - calTouchStartX;
+        const dy = e.changedTouches[0].clientY - calTouchStartY;
+        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) changeMonth(1);
+          else changeMonth(-1);
+        }
+      }, { passive: true });
+    }
 
     function getAllNotes() {
       try { return JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || '{}'); } catch (e) { return {}; }
     }
 
-    function saveAllNotes(data) {
-      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(data));
-    }
+    function saveAllNotes(data) { localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(data)); }
 
     function getReadMap() {
       try { return JSON.parse(localStorage.getItem(READ_STATUS_KEY) || '{}'); } catch (e) { return {}; }
     }
 
-    function setReadMap(map) {
-      localStorage.setItem(READ_STATUS_KEY, JSON.stringify(map));
-    }
+    function setReadMap(map) { localStorage.setItem(READ_STATUS_KEY, JSON.stringify(map)); }
 
     function formatDateStr(y, m, d) {
       return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     }
 
-    function scrollCalToToday(smooth = true) {
-      const container = document.getElementById('calScrollContainer');
-      if (!container) return;
-      const now = new Date();
-      const targetId = `calMonth_${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, '0')}`;
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        container.scrollTo({
-          top: Math.max(0, targetEl.offsetTop - container.offsetTop - 4),
-          behavior: smooth ? 'smooth' : 'auto'
-        });
-      }
+    function changeMonth(offset) {
+      currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+      renderCalendar(offset > 0 ? 'next' : 'prev');
     }
 
-    function renderCalendar(autoScroll = false) {
-      const container = document.getElementById('calScrollContainer');
-      if (!container) return;
-      const prevScrollTop = container.scrollTop;
-      container.innerHTML = '';
+    function resetCalToToday() {
+      currentCalDate = new Date();
+      renderCalendar('next');
+    }
+
+    function renderCalendar(slideDir = '') {
+      initCalSwipeGesture();
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      const titleEl = document.getElementById('calMonthTitle');
+      if (titleEl) titleEl.textContent = `${year}年 ${month + 1}月`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const grid = document.getElementById('calDaysGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
 
       const todayStr = getTodayStr();
       const notesData = getAllNotes();
       const readMap = getReadMap();
       const meetCfg = getMeetConfig();
 
-      const startYear = 2026;
-      const startMonth = 2; // 2026年3月（纪念日起始月）
-      const endYear = Math.max(2027, new Date().getFullYear() + 1);
-      const endMonth = 11; // 次年12月
+      // 收集历史相见时光轴中所有覆盖的连续相见日期
+      const histDateSet = new Set();
+      getMeetHistory().forEach(h => {
+        getHistMeetCoveredDates(h).forEach(ds => histDateSet.add(ds));
+      });
 
-      let y = startYear;
-      let m = startMonth;
-
-      while (y < endYear || (y === endYear && m <= endMonth)) {
-        const block = document.createElement('div');
-        block.className = 'cal-month-block';
-        block.id = `calMonth_${y}_${String(m + 1).padStart(2, '0')}`;
-
-        const label = document.createElement('div');
-        label.className = 'cal-month-label';
-        label.textContent = `${y}年 ${m + 1}月`;
-        block.appendChild(label);
-
-        const grid = document.createElement('div');
-        grid.className = 'cal-days';
-
-        const firstDay = new Date(y, m, 1).getDay();
-        const daysInMonth = new Date(y, m + 1, 0).getDate();
-
-        for (let i = 0; i < firstDay; i++) {
-          const emptyCell = document.createElement('div');
-          emptyCell.className = 'cal-day empty';
-          grid.appendChild(emptyCell);
-        }
-
-        for (let d = 1; d <= daysInMonth; d++) {
-          const dateStr = formatDateStr(y, m, d);
-          const lunar = getLunarInfo(y, m, d);
-
-          const cell = document.createElement('div');
-          cell.className = 'cal-day';
-          if (lunar.day === 1) cell.classList.add('lunar-first');
-
-          const solarSpan = document.createElement('span');
-          solarSpan.className = 'cal-solar';
-          solarSpan.textContent = d;
-          cell.appendChild(solarSpan);
-
-          const lunarSpan = document.createElement('span');
-          lunarSpan.className = 'cal-lunar';
-          if (lunar.isHerBday) lunarSpan.textContent = '她的生日';
-          else if (lunar.isHimBday) lunarSpan.textContent = '他的生日';
-          else lunarSpan.textContent = lunar.shortText;
-          cell.appendChild(lunarSpan);
-
-          const meetIdx = getMeetDayIndex(dateStr, meetCfg);
-          if (lunar.isHerBday) {
-            cell.classList.add('bday-her');
-            const cake = document.createElement('span');
-            cake.className = 'bday-icon';
-            cake.textContent = '🎂';
-            cell.appendChild(cake);
-          } else if (lunar.isHimBday) {
-            cell.classList.add('bday-him');
-            const cake = document.createElement('span');
-            cake.className = 'bday-icon';
-            cake.textContent = '🎂';
-            cell.appendChild(cake);
-          } else if (meetIdx > 0) {
-            cell.classList.add('meet-day');
-          } else if (dateStr === '2026-03-12') {
-            cell.classList.add('anniv');
-          } else if (dateStr === todayStr) {
-            cell.classList.add('today');
-          }
-
-          if (meetIdx === 1) {
-            const plane = document.createElement('span');
-            plane.className = 'meet-plane';
-            plane.textContent = '✈️';
-            cell.appendChild(plane);
-          }
-
-          const dayNotes = notesData[dateStr];
-          if (dayNotes && dayNotes.length > 0) {
-            const latestNoteId = dayNotes[0].id;
-            const isRead = (readMap[dateStr] && readMap[dateStr] >= latestNoteId);
-            const dot = document.createElement('span');
-            dot.className = isRead ? 'cal-dot-read' : 'cal-dot-unread';
-            cell.appendChild(dot);
-          }
-
-          cell.onclick = () => openNoteView(dateStr);
-          grid.appendChild(cell);
-        }
-
-        block.appendChild(grid);
-        container.appendChild(block);
-
-        m++;
-        if (m > 11) {
-          m = 0;
-          y++;
-        }
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'cal-day empty';
+        grid.appendChild(emptyCell);
       }
 
-      if (autoScroll || !hasAutoScrolledCal) {
-        hasAutoScrolledCal = true;
-        requestAnimationFrame(() => scrollCalToToday(false));
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = formatDateStr(year, month, d);
+        const lunar = getLunarInfo(year, month, d);
+
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        if (lunar.day === 1) cell.classList.add('lunar-first');
+
+        const solarSpan = document.createElement('span');
+        solarSpan.className = 'cal-solar';
+        solarSpan.textContent = d;
+        cell.appendChild(solarSpan);
+
+        const lunarSpan = document.createElement('span');
+        lunarSpan.className = 'cal-lunar';
+        const isHistMeet = histDateSet.has(dateStr);
+        if (lunar.isHerBday) lunarSpan.textContent = '她的生日';
+        else if (lunar.isHimBday) lunarSpan.textContent = '他的生日';
+        else if (isHistMeet) lunarSpan.textContent = '相见日';
+        else lunarSpan.textContent = lunar.shortText;
+        cell.appendChild(lunarSpan);
+
+        const meetIdx = getMeetDayIndex(dateStr, meetCfg);
+        if (lunar.isHerBday) {
+          cell.classList.add('bday-her');
+          const cake = document.createElement('span');
+          cake.className = 'bday-icon';
+          cake.textContent = '🎂';
+          cell.appendChild(cake);
+        } else if (lunar.isHimBday) {
+          cell.classList.add('bday-him');
+          const cake = document.createElement('span');
+          cake.className = 'bday-icon';
+          cake.textContent = '🎂';
+          cell.appendChild(cake);
+        } else if (meetIdx > 0) {
+          cell.classList.add('meet-day');
+        } else if (isHistMeet) {
+          cell.classList.add('hist-meet-day');
+          const heartMark = document.createElement('span');
+          heartMark.className = 'meet-plane';
+          heartMark.textContent = '💞';
+          cell.appendChild(heartMark);
+        } else if (dateStr === '2026-03-12') {
+          cell.classList.add('anniv');
+        } else if (dateStr === todayStr) {
+          cell.classList.add('today');
+        }
+
+        if (meetIdx === 1) {
+          const plane = document.createElement('span');
+          plane.className = 'meet-plane';
+          plane.textContent = '✈️';
+          cell.appendChild(plane);
+        }
+
+        const dayNotes = notesData[dateStr];
+        if (dayNotes && dayNotes.length > 0) {
+          const latestNoteId = dayNotes[0].id;
+          const isRead = (readMap[dateStr] && readMap[dateStr] >= latestNoteId);
+          const dot = document.createElement('span');
+          dot.className = isRead ? 'cal-dot-read' : 'cal-dot-unread';
+          cell.appendChild(dot);
+        }
+
+        cell.onclick = () => openNoteView(dateStr);
+        grid.appendChild(cell);
+      }
+
+      if (slideDir === 'next') triggerElAnim(grid, 'cal-slide-next');
+      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');
+    }
+
+    function refreshHistDayBanner(dateStr) {
+      const histBanner = document.getElementById('histDayBanner');
+      if (!histBanner) return;
+      const dayHists = getMeetHistory().filter(h => getHistMeetCoveredDates(h).includes(dateStr));
+      if (dayHists.length > 0) {
+        histBanner.innerHTML = dayHists.map(h => {
+          const dNum = Math.max(1, parseInt(h.days, 10) || 1);
+          return `💞 相见印记（${h.date} 起 ${dNum} 天）：${escapeHtml(h.place)} · ${escapeHtml(h.note)}`;
+        }).join('<br>');
+        histBanner.style.display = 'block';
       } else {
-        container.scrollTop = prevScrollTop;
+        histBanner.style.display = 'none';
       }
     }
 
@@ -3543,9 +4067,10 @@
         bdayBanner.style.display = 'none';
       }
 
+      refreshHistDayBanner(dateStr);
+
       document.getElementById('noteInput').value = '';
       document.getElementById('noteSyncHint').textContent = '';
-
       refreshMeetSetupUI();
 
       const dayNotes = getAllNotes()[dateStr];
@@ -3588,14 +4113,9 @@
       const noteId = Date.now();
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-      all[selectedDateStr].unshift({
-        id: noteId,
-        author: currentAuthor,
-        time: timeStr,
-        content: text
-      });
-
+      all[selectedDateStr].unshift({ id: noteId, author: currentAuthor, time: timeStr, content: text });
       saveAllNotes(all);
+      recordInboxEvent('💬 日历留言', `${selectedDateStr} ${currentAuthor}：${text.slice(0, 22)}`);
 
       const readMap = getReadMap();
       readMap[selectedDateStr] = noteId;
@@ -3633,7 +4153,6 @@
     function renderNotesList() {
       const container = document.getElementById('noteListContainer');
       const list = getAllNotes()[selectedDateStr] || [];
-
       if (list.length === 0) {
         container.innerHTML = `<div class="empty-notes">这一天还没有留下字迹，写下第一条回忆吧 ✨</div>`;
         return;
@@ -3643,7 +4162,6 @@
         let roleClass = 'both';
         if (item.author.includes('他')) roleClass = 'him';
         else if (item.author.includes('她')) roleClass = 'her';
-
         return `
           <div class="note-bubble ${roleClass}">
             <div class="note-meta">
@@ -3657,7 +4175,7 @@
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
     // ========== 本地打包工坊逻辑 ==========
@@ -3700,7 +4218,6 @@
       const date = document.getElementById('devCapDate').value;
       const body = document.getElementById('devCapBody').value.trim();
       if (!title || !date || !body) return alert('请完整填写信件标题、开启日期和信件正文~');
-
       timeCapsules.push({ id: Date.now(), author: "👦 他写给她的信", title, unlockDate: date, content: body });
       document.getElementById('devCapTitle').value = '';
       document.getElementById('devCapBody').value = '';
@@ -3716,17 +4233,10 @@
 
     // ========== 零知识加密与纯净 DOM 导出逻辑 ==========
     async function exportLockedVersion() {
-      const bundle = JSON.stringify({
-        html: document.getElementById('customContent').innerHTML,
-        quotes: loveQuotes,
-        capsules: timeCapsules
-      });
-
+      const bundle = JSON.stringify({ html: '', quotes: loveQuotes, capsules: timeCapsules });
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const aesKey = await deriveAesKey(NFC_KEY, ADMIN_USER, ADMIN_PWD);
-      const cipherBuf = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv }, aesKey, new TextEncoder().encode(bundle)
-      );
+      const cipherBuf = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, aesKey, new TextEncoder().encode(bundle));
       const combined = new Uint8Array(12 + cipherBuf.byteLength);
       combined.set(iv, 0);
       combined.set(new Uint8Array(cipherBuf), 12);
@@ -3735,18 +4245,18 @@
       const authHash = await computeHash(NFC_KEY, ADMIN_USER, ADMIN_PWD);
 
       const clonedDoc = document.documentElement.cloneNode(true);
-
       const clonedBody = clonedDoc.querySelector('body');
       if (clonedBody) clonedBody.classList.remove('romantic-mode');
       const clonedTitle = clonedDoc.querySelector('title');
       if (clonedTitle) clonedTitle.textContent = '系统登录 · Portal';
 
       [
-        'fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView',
-        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView', 'tabTravelView', 'tabMenuView',
+        'fxStageOverlay', 'updateModalMask', 'inboxModalMask', 'couponEditModalMask', 'meetEditModalMask',
+        'introOverlay', 'denyView', 'loginView',
+        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView', 'tabTravelView', 'tabMenuView', 'tabAboutView',
         'travelDetailStage', 'newTripFormBox', 'packingDrawerBox', 'globalPackingBody', 'addDishFormBox',
         'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox',
-        'addQuoteInlineBox', 'bdayBanner'
+        'addQuoteInlineBox', 'bdayBanner', 'histDayBanner', 'modeBadge'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) {
@@ -3755,24 +4265,17 @@
         }
       });
 
-      ['navBtnMeet', 'navBtnEnvelope', 'navBtnHome', 'navBtnPromise', 'navBtnTravel', 'navBtnMenu'].forEach(id => {
+      ['navBtnMeet', 'navBtnEnvelope', 'navBtnHome', 'navBtnPromise', 'navBtnTravel', 'navBtnMenu', 'navBtnAbout'].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.classList.toggle('active', id === 'navBtnHome');
       });
 
-      const badge = clonedDoc.querySelector('#modeBadge');
-      if (badge) {
-        badge.textContent = '💕 我们的纪念空间';
-        badge.className = 'badge';
-      }
-
-      const customEl = clonedDoc.querySelector('#customContent');
-      if (customEl) customEl.innerHTML = '';
       [
-        'calScrollContainer', 'meetHistoryList', 'capsuleListContainer',
+        'calDaysGrid', 'meetHistoryList', 'capsuleListContainer',
         'couponListContainer', 'eventListContainer', 'tripCardsGrid',
         'globalPackingListContainer', 'packingListContainer', 'travelListContainer',
-        'dishListContainer', 'noteListContainer', 'devQuoteList', 'devCapsuleList'
+        'dishListContainer', 'aboutVersionList', 'inboxListContainer',
+        'noteListContainer', 'devQuoteList', 'devCapsuleList'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.innerHTML = '';
@@ -3796,7 +4299,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.5 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V1.2.7 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
@@ -3811,7 +4314,6 @@
       const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, data);
       const bundle = JSON.parse(new TextDecoder().decode(plainBuf));
 
-      document.getElementById('customContent').innerHTML = bundle.html || '';
       if (Array.isArray(bundle.quotes)) loveQuotes = bundle.quotes;
       if (Array.isArray(bundle.capsules)) timeCapsules = bundle.capsules;
 
@@ -3823,7 +4325,6 @@
       const nfcKey = new URLSearchParams(window.location.search).get('key');
       const u = document.getElementById('loginUser').value;
       const p = document.getElementById('loginPwd').value;
-
       try {
         await unlockOnline(nfcKey, u, p, true);
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ k: nfcKey, u, p }));
@@ -3848,8 +4349,7 @@
         activeAesKey = await deriveAesKey(NFC_KEY, ADMIN_USER, ADMIN_PWD);
         document.getElementById('devPanel').style.display = 'block';
         const badge = document.getElementById('modeBadge');
-        badge.textContent = '🛠️ 本地编辑预览模式';
-        badge.className = 'badge badge-dev';
+        if (badge) badge.style.display = 'inline-flex';
         renderDevWorkshop();
         startTimerAndIntro(true);
         return;
