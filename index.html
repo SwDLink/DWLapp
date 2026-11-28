@@ -264,7 +264,7 @@
     .update-list li { font-size: 12.5px; color: #374151; line-height: 1.5; background: #fdf2f8; border: 1px solid #fce7f3; padding: 8px 10px; border-radius: 12px; }
     .update-list li strong { color: #db2777; }
 
-    /* ========== V2.1.3 底部可滑动悬浮导航栏（默认展示 4 项，左右滑动查看更多） ========== */
+    /* ========== 底部可滑动悬浮导航栏（默认展示 4 项，左右滑动查看更多） ========== */
     .bottom-nav {
       position: fixed; bottom: calc(12px + env(safe-area-inset-bottom));
       left: 50%; transform: translateX(-50%);
@@ -416,27 +416,12 @@
     .travel-list { max-height: 290px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
     .travel-time-tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: #7e22ce; background: #f3e8ff; padding: 2px 7px; border-radius: 6px; margin-top: 3px; }
 
-    /* ========== V2.1.3 菜单点菜页样式（新增大厨切换） ========== */
-    .chef-switch-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;
-    }
-    .chef-chip {
-      padding: 10px 8px; border-radius: 14px; font-size: 13px; font-weight: 700;
-      border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280;
-      cursor: pointer; text-align: center;
-      transition: all 0.22s var(--ease-spring);
-    }
+    /* ========== 菜单点菜页样式 ========== */
+    .chef-switch-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .chef-chip { padding: 10px 8px; border-radius: 14px; font-size: 13px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.22s var(--ease-spring); }
     .chef-chip:active { transform: scale(0.95); }
-    .chef-chip.active-wang {
-      background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-      border-color: #ec4899; color: #db2777;
-      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.16);
-    }
-    .chef-chip.active-dong {
-      background: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%);
-      border-color: #6366f1; color: #4338ca;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.16);
-    }
+    .chef-chip.active-wang { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-color: #ec4899; color: #db2777; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.16); }
+    .chef-chip.active-dong { background: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%); border-color: #6366f1; color: #4338ca; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.16); }
 
     .order-tray-box { background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%); border: 1.5px solid #fdba74; border-radius: 16px; padding: 11px 12px; margin-bottom: 12px; text-align: left; }
     .order-tray-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -522,7 +507,7 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版（V2.1.3 区分他发/她发恋爱券） ========== */
+    /* ========== 导航【🎁 约定】排版（V2.1.4 精简按行 + 可收起 + 说明显隐） ========== */
     .promise-top-badge { margin-bottom: 16px; }
     .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
     .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
@@ -532,18 +517,26 @@
     .coupon-add-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 10px 11px; margin-bottom: 12px; text-align: left; }
     .coupon-add-box input { margin-bottom: 8px; font-size: 13px; padding: 9px 11px; }
     .coupon-sender-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .coupon-sender-chip {
-      padding: 7px 6px; border-radius: 10px; font-size: 12px; font-weight: 700;
-      border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280;
-      cursor: pointer; text-align: center; transition: all 0.2s var(--ease-spring);
-    }
+    .coupon-sender-chip { padding: 7px 6px; border-radius: 10px; font-size: 12px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.2s var(--ease-spring); }
     .coupon-sender-chip:active { transform: scale(0.95); }
     .coupon-sender-chip.active-him { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
     .coupon-sender-chip.active-her { background: #f5f3ff; border-color: #8b5cf6; color: #6d28d9; }
 
-    .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 2px; }
-    .view-mode-switch { display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; padding: 2px; gap: 3px; }
-    .view-mode-btn { border: none; background: transparent; cursor: pointer; padding: 4px 9px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280; }
+    .coupon-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 6px;
+      margin-bottom: 10px; padding: 0 2px;
+    }
+    .coupon-ctrl-group { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .coupon-mini-ctrl {
+      border: 1px solid #fbcfe8; background: #fdf2f8; color: #db2777;
+      border-radius: 9px; padding: 4px 8px; font-size: 11px; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+    }
+    .coupon-mini-ctrl:active { transform: scale(0.92); }
+    .coupon-mini-ctrl.muted { background: #f3f4f6; border-color: #e5e7eb; color: #6b7280; }
+    .view-mode-switch { display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; padding: 2px; gap: 2px; }
+    .view-mode-btn { border: none; background: transparent; cursor: pointer; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280; white-space: nowrap; }
     .view-mode-btn:active { transform: scale(0.92); }
     .view-mode-btn.active { background: #fff; color: #db2777; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.14); }
 
@@ -552,16 +545,40 @@
     .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
     .event-add-btn:active { transform: scale(0.93); }
 
+    /* V2.1.4 恋爱兑换券：大图标 / 精简按行 / 隐藏说明 / 收起 */
     .coupon-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
-    .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 9px; }
+    .coupon-grid.collapsed { display: none !important; }
+    .coupon-grid.hide-desc .coupon-desc { display: none !important; }
+    .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 7px; }
     .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.22s var(--ease-spring), opacity 0.22s ease; }
     .coupon-ticket.from-her { background: linear-gradient(155deg, #f5f3ff 0%, #ffffff 55%, #fdf2f8 100%); border-color: #c4b5fd; }
-    .coupon-grid.list-mode .coupon-ticket { flex-direction: row; align-items: center; gap: 12px; padding: 12px 13px; }
+
+    /* 精简按行展示样式 */
+    .coupon-grid.list-mode .coupon-ticket {
+      flex-direction: row; align-items: center; gap: 8px;
+      padding: 8px 11px; border-radius: 13px;
+    }
     .coupon-grid.list-mode .ticket-main-info { flex: 1; min-width: 0; }
-    .coupon-grid.list-mode .coupon-desc { margin-bottom: 0; font-size: 12px; }
+    .coupon-grid.list-mode .ticket-head-inline {
+      display: flex; align-items: center; gap: 6px; min-width: 0;
+    }
+    .coupon-grid.list-mode .ticket-top-row { margin-bottom: 0; flex-shrink: 0; }
+    .coupon-grid.list-mode .ticket-del-grid { display: none; }
+    .coupon-grid.list-mode .coupon-name {
+      margin-bottom: 0; font-size: 13px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .coupon-grid.list-mode .coupon-desc {
+      margin-bottom: 0; margin-top: 3px; font-size: 11px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
     .coupon-grid.list-mode .ticket-divider { display: none; }
-    .coupon-grid.list-mode .ticket-action-col { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; flex-shrink: 0; min-width: 78px; }
-    .coupon-grid.list-mode .coupon-use-btn { padding: 7px 11px; width: auto; white-space: nowrap; }
+    .coupon-grid.list-mode .ticket-action-col {
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    }
+    .coupon-grid.list-mode .coupon-use-btn { padding: 5px 10px; width: auto; font-size: 11px; white-space: nowrap; }
+    .coupon-grid.list-mode .coupon-stamp { font-size: 10.5px; padding: 2px 4px; }
+    .coupon-grid:not(.list-mode) .ticket-del-list { display: none; }
 
     .coupon-ticket.tearing { animation: ticketShakeTear 0.45s ease forwards; }
     @keyframes ticketShakeTear { 0% { transform: scale(1); } 30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; } 65% { transform: scale(0.97) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); } }
@@ -643,22 +660,22 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip" class="">👨‍🍳 今日主厨已切换为：董大厨</div>
+  <div id="toastTip"></div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.3 更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display:none;">
+  <!-- V2.1.4 更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display: none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.3</span>
-      <div class="update-title">滑屏导航、大厨点单与发券人区分上线</div>
+      <span class="update-badge">✨ 版本更新 · V2.1.4</span>
+      <div class="update-title">恋爱兑换券精简视图与自由收起上线</div>
       <ul class="update-list">
-        <li><strong>🎟️ 恋爱券区分发券人</strong>：发券时可选择「他发的」或「她发的」，卡面专属色标清晰区分。</li>
-        <li><strong>👨‍🍳 菜单指定主厨</strong>：点菜页支持一键切换「王大厨做饭」或「董大厨做饭」，下单实时同步。</li>
-        <li><strong>👆 可滑动底部导航栏</strong>：默认舒适展示 4 个导航项，左右滑动即可查看「旅行」与「菜单」。</li>
+        <li><strong>📋 精简按行展示</strong>：列表模式精简为单行紧凑卡片，一屏轻松浏览更多兑换券。</li>
+        <li><strong>🔽 卡包一键收起/展开</strong>：兑换券列表支持随时折叠收起，界面更清爽。</li>
+        <li><strong>👁️ 券面说明自由显隐</strong>：支持一键隐藏或展示兑换券的详细小字说明。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.3 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.4 体验 💖</button>
     </div>
   </div>
 
@@ -810,7 +827,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.3)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.1.4)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -828,7 +845,7 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.3)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.4)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -837,7 +854,7 @@
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.3 更新说明">V2.1.3</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.4 更新说明">V2.1.4</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -865,8 +882,8 @@
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
         <div class="time-unit"><span class="time-num" id="tHours">12</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">29</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">21</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">39</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">45</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
@@ -892,7 +909,7 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.3 区分发券人） ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.4 精简按行 + 可收起 + 说明显隐） ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
@@ -919,15 +936,19 @@
         </div>
       </div>
 
+      <!-- V2.1.4 卡包控制栏：说明显隐 + 收起/展开 + 视图切换 -->
       <div class="coupon-toolbar">
-        <span style="font-size:12px; font-weight:700; color:#6b7280;">🎟️ 我的专属卡包</span>
+        <div class="coupon-ctrl-group">
+          <button class="coupon-mini-ctrl" id="couponDescToggleBtn" onclick="toggleCouponDesc()">👁️ 隐藏说明</button>
+          <button class="coupon-mini-ctrl" id="couponCollapseBtn" onclick="toggleCouponCollapse()">收起 ▴</button>
+        </div>
         <div class="view-mode-switch">
-          <button class="view-mode-btn" id="couponModeGridBtn" onclick="setCouponViewMode('grid')">🗂️ 大图标</button>
-          <button class="view-mode-btn active" id="couponModeListBtn" onclick="setCouponViewMode('list')">📋 按行详情</button>
+          <button class="view-mode-btn active" id="couponModeGridBtn" onclick="setCouponViewMode('grid')">🗂️ 大图标</button>
+          <button class="view-mode-btn" id="couponModeListBtn" onclick="setCouponViewMode('list')">📋 精简行</button>
         </div>
       </div>
 
-      <div class="coupon-grid list-mode subpanel-fade" id="couponListContainer"></div>
+      <div class="coupon-grid subpanel-fade" id="couponListContainer"></div>
     </div>
 
     <!-- 子面板 B：专属事件 -->
@@ -1072,7 +1093,7 @@
     </div>
   </div>
 
-  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页（V2.1.3 新增王大厨/董大厨选择） ==================== -->
+  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
   <div class="card" id="tabMenuView" style="display: none;">
     <div class="env-header-banner">
       <div>
@@ -1082,13 +1103,11 @@
       <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">+ 添新菜</button>
     </div>
 
-    <!-- V2.1.3 大厨选择（王大厨 vs 董大厨） -->
     <div class="chef-switch-row">
       <div class="chef-chip" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
       <div class="chef-chip active-dong" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
     </div>
 
-    <!-- 添加新菜品表单 -->
     <div class="compose-letter-box" id="addDishFormBox" style="display:none;">
       <div class="compose-row-label">👨‍🍳 录入一道拿手菜或想吃的菜：</div>
       <div class="meet-form-row">
@@ -1107,7 +1126,6 @@
       </div>
     </div>
 
-    <!-- 今日已点菜单汇总盘 -->
     <div class="order-tray-box">
       <div class="order-tray-head">
         <span class="order-tray-title">🛎️ <span id="activeChefLabel">董大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
@@ -1119,7 +1137,6 @@
       </div>
     </div>
 
-    <!-- 菜品分类筛选 -->
     <div class="menu-cat-tabs">
       <button class="menu-cat-btn active" id="mCatAll" onclick="switchMenuCat('all')">全部</button>
       <button class="menu-cat-btn" id="mCatMain" onclick="switchMenuCat('main')">🥘主菜</button>
@@ -1172,7 +1189,7 @@
     <div class="note-list" id="noteListContainer"></div>
   </div>
 
-  <!-- ==================== V2.1.3 可滑动底部悬浮导航栏（默认展示4项，右滑查看旅行与菜单） ==================== -->
+  <!-- ==================== 可滑动底部悬浮导航栏（默认展示4项，右滑查看旅行与菜单） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnMeet" onclick="switchMainTab('meet')">
       <span class="nav-icon">⏳</span>
@@ -1201,7 +1218,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.3';
+    const APP_VERSION = '2.1.4';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1214,7 +1231,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "WeXPTfvFiu3veWhQkKgao9K4SdXimeBhepOE1N76We7P2KuCyDPttnHJ4Tg20zOSFmL3uxNfjo1DvEgzL0B5jlh6EuEGMqQ2V5BhL9cRHqRkXkJMIECrsSUBxHOH8TjL/v2muXmg26aZT8DAxJOXfyk20ED2zIkNxmnUAiSBge5pCxyMTvZu5k5WgSSQN2nntt3Xg32WVoBUGBpiLpGB8HRlO8AZKTY9a+QLHQwoPRdyzuyHcrXZTJVvjM621D/c2FLu9HUq9Bi0ZAsN+YbqjNP8bk76vdVa0wCf2o3tJKr331KHTf/l";
+    const ENCRYPTED_BUNDLE = "/gPByYbubF+mN/SV1j531VKyvNX5IUpG7uDQi+/qxPw/0/Avm1YdFaj1T7dT/dHf/8NoxHe455PLenizYE0zhDl0lh0TFMdorm3dmdINXi/kFAr/ZFtoBatNO/BAyS/MmIXlRtWe3e2IyokatMVR+bV9PKw1bNt5zCm9rgmNN2nI/Xw/nz6ZponRdxcd5yZ0ickbefyaYWGGO1Y1KMWqKp+HNBosF01OPXPFEgAr7N7ZLBh8P2LybvA8eD6lL0q9E7JkhvYZrDgo8gG3p4UwlayLQ6Tj3nxtlNrq7go2zfOQ5PRaBTr8";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1231,12 +1248,14 @@
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
     const COUPON_VIEW_MODE_KEY = 'dwlapp_love_coupon_view_v1';
     const COUPON_SENDER_KEY = 'dwlapp_love_coupon_sender_v1';
+    const COUPON_COLLAPSED_KEY = 'dwlapp_love_coupon_collapsed_v1';
+    const COUPON_HIDE_DESC_KEY = 'dwlapp_love_coupon_hide_desc_v1';
     const GLOBAL_PACKING_KEY = 'dwlapp_love_global_packing_v1';
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
     const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
     const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
     const MENU_CHEF_KEY = 'dwlapp_love_menu_chef_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_3';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_4';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1743,7 +1762,7 @@
       }
     }
 
-    // ========== V2.1.3 可滑动六栏导航切换控制（自动居中滚动 + 跳转动画） ==========
+    // ========== 可滑动六栏导航切换控制 ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
@@ -1794,7 +1813,7 @@
         updateQuoteLabel();
       } else if (tabName === 'promise') {
         applyCouponSenderUI();
-        applyCouponViewModeUI();
+        applyCouponCtrlUI();
         renderCouponsList();
         renderEventsList();
       } else if (tabName === 'travel') {
@@ -2392,7 +2411,7 @@
       }).join('');
     }
 
-    // ========== V2.1.3 专属私房菜单点菜逻辑（支持王大厨 / 董大厨切换） ==========
+    // ========== 专属私房菜单点菜逻辑 ==========
     const MENU_CAT_LABELS = { main: '🥘 主菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
     let currentMenuCat = 'all';
 
@@ -2826,9 +2845,11 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.3 区分他发/她发 + 自定义小字 + 双视图） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.4 精简按行 + 可收起 + 说明显隐） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
     let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
+    let couponCollapsed = localStorage.getItem(COUPON_COLLAPSED_KEY) === '1';
+    let couponHideDesc = localStorage.getItem(COUPON_HIDE_DESC_KEY) === '1';
 
     function applyCouponSenderUI() {
       const himEl = document.getElementById('couponSenderHim');
@@ -2843,20 +2864,54 @@
       applyCouponSenderUI();
     }
 
-    function applyCouponViewModeUI() {
+    function applyCouponCtrlUI() {
       const container = document.getElementById('couponListContainer');
       const gridBtn = document.getElementById('couponModeGridBtn');
       const listBtn = document.getElementById('couponModeListBtn');
-      if (container) container.classList.toggle('list-mode', couponViewMode === 'list');
+      const descBtn = document.getElementById('couponDescToggleBtn');
+      const colBtn = document.getElementById('couponCollapseBtn');
+
+      if (container) {
+        container.classList.toggle('list-mode', couponViewMode === 'list');
+        container.classList.toggle('collapsed', couponCollapsed);
+        container.classList.toggle('hide-desc', couponHideDesc);
+      }
       if (gridBtn) gridBtn.classList.toggle('active', couponViewMode === 'grid');
       if (listBtn) listBtn.classList.toggle('active', couponViewMode === 'list');
+      if (descBtn) {
+        descBtn.textContent = couponHideDesc ? '👁️ 展示说明' : '👁️ 隐藏说明';
+        descBtn.classList.toggle('muted', couponHideDesc);
+      }
+      if (colBtn) {
+        colBtn.textContent = couponCollapsed ? '展开 ▾' : '收起 ▴';
+        colBtn.classList.toggle('muted', couponCollapsed);
+      }
     }
 
     function setCouponViewMode(mode) {
       couponViewMode = mode;
       localStorage.setItem(COUPON_VIEW_MODE_KEY, mode);
-      applyCouponViewModeUI();
+      if (couponCollapsed) {
+        couponCollapsed = false;
+        localStorage.setItem(COUPON_COLLAPSED_KEY, '0');
+      }
+      applyCouponCtrlUI();
       triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
+    }
+
+    function toggleCouponDesc() {
+      couponHideDesc = !couponHideDesc;
+      localStorage.setItem(COUPON_HIDE_DESC_KEY, couponHideDesc ? '1' : '0');
+      applyCouponCtrlUI();
+    }
+
+    function toggleCouponCollapse() {
+      couponCollapsed = !couponCollapsed;
+      localStorage.setItem(COUPON_COLLAPSED_KEY, couponCollapsed ? '1' : '0');
+      applyCouponCtrlUI();
+      if (!couponCollapsed) {
+        triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
+      }
     }
 
     function getAllCoupons() {
@@ -2877,7 +2932,7 @@
 
     function renderCouponsList() {
       updatePromiseCounters();
-      applyCouponViewModeUI();
+      applyCouponCtrlUI();
       const container = document.getElementById('couponListContainer');
       const rawList = getAllCoupons();
       if (rawList.length === 0) {
@@ -2889,23 +2944,26 @@
 
       container.innerHTML = sorted.map(c => {
         const isHer = c.sender === 'her';
-        const senderText = isHer ? '👧 她发的' : '👦 他发的';
+        const senderText = isHer ? '👧 她发' : '👦 他发';
         return `
           <div class="coupon-ticket ${isHer ? 'from-her' : ''} ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
             <div class="ticket-main-info">
-              <div class="ticket-top-row">
-                <span class="ticket-top-tag ${isHer ? 'her-tag' : ''}">${c.used ? '已兑现' : senderText}</span>
-                <span class="note-del" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+              <div class="ticket-head-inline">
+                <div class="ticket-top-row">
+                  <span class="ticket-top-tag ${isHer ? 'her-tag' : ''}">${c.used ? '已兑现' : senderText}</span>
+                  <span class="note-del ticket-del-grid" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+                </div>
+                <div class="coupon-name">${escapeHtml(c.name)}</div>
               </div>
-              <div class="coupon-name">${escapeHtml(c.name)}</div>
-              <div class="coupon-desc">${c.used ? `${senderText} · 核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
+              <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
             </div>
             <div class="ticket-action-col">
               <div class="ticket-divider"></div>
               ${c.used
-                ? `<div class="coupon-stamp">已盖章核销</div>`
-                : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">立即核销</button>`
+                ? `<div class="coupon-stamp">已核销</div>`
+                : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">核销</button>`
               }
+              <span class="note-del ticket-del-list" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
             </div>
           </div>
         `;
@@ -2955,6 +3013,10 @@
       saveAllCoupons(list, true);
       nameInput.value = '';
       descInput.value = '';
+      if (couponCollapsed) {
+        couponCollapsed = false;
+        localStorage.setItem(COUPON_COLLAPSED_KEY, '0');
+      }
       renderCouponsList();
       showToast(`🎟️ ${currentCouponSender === 'her' ? '她' : '他'}发放了一张新特权券！`);
     }
@@ -3695,7 +3757,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.3 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.1.4 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
