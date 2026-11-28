@@ -743,7 +743,7 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip" class="">✅ 已更新相见记录并同步至日历</div>
+  <div id="toastTip"></div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
@@ -801,7 +801,7 @@
   </div>
 
   <!-- V1.2.7 新增【⏳ 历史相见时光轴编辑】独立弹窗 -->
-  <div class="modal-mask" id="meetEditModalMask" style="display: none;" onclick="if(event.target===this) closeMeetEditModal()">
+  <div class="modal-mask" id="meetEditModalMask" style="display:none;" onclick="if(event.target===this) closeMeetEditModal()">
     <div class="update-modal">
       <div class="update-title">⏳ 编辑相见记录</div>
 
@@ -914,7 +914,7 @@
       <span>🗓️ 历史相见时光轴（点击任意行编辑）</span>
       <span class="section-pill" id="meetHistCountLabel">共 16 条</span>
     </div>
-    <div class="meet-history-list subpanel-fade" id="meetHistoryList"></div>
+    <div class="meet-history-list" id="meetHistoryList"></div>
     <div class="pager-bar" id="meetPagerBar" style="display: flex;">
       <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)" disabled="">‹ 上一页</button>
       <span class="pager-info" id="meetPageInfo">第 1 / 4 页</span>
@@ -1015,7 +1015,7 @@
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端</div>
       <button class="inbox-pill" id="inboxOpenBtn" onclick="openInboxModal()" title="查看空间更新动态">
         🔔 信箱
-        <span class="inbox-dot" id="inboxUnreadDot" style="display: none;">0</span>
+        <span class="inbox-dot" id="inboxUnreadDot" style="display: inline-block;">1</span>
       </button>
     </div>
 
@@ -1048,15 +1048,15 @@
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
         <div class="time-unit"><span class="time-num" id="tHours">15</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">38</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">52</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">49</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">46</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
     <!-- 左右滑动恋爱农历日历 -->
-    <div class="cal-box" id="calSwipeArea" data-swipe-bound="1">
+    <div class="cal-box" id="calSwipeArea">
       <div class="cal-header">
-        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
+        <div class="cal-title" id="calMonthTitle">2026年 12月</div>
         <div style="display:flex; align-items:center; gap:6px;">
           <span class="cal-swipe-tip">← 左右滑切月 →</span>
           <button class="cal-today-btn" onclick="resetCalToToday()">今天</button>
@@ -1065,7 +1065,7 @@
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
-      <div class="cal-days" id="calDaysGrid"></div>
+      <div class="cal-days cal-slide-prev cal-slide-next" id="calDaysGrid"></div>
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
@@ -1079,7 +1079,7 @@
   </div>
 
   <!-- ==================== 导航第 4 项：🎁 约定 ==================== -->
-  <div class="card" id="tabPromiseView" style="display: none;">
+  <div class="card" id="tabPromiseView" style="display:none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
@@ -1108,7 +1108,7 @@
       <div class="coupon-toolbar">
         <div class="coupon-ctrl-group">
           <button class="coupon-mini-ctrl purple" id="couponSortBtn" onclick="cycleCouponSort()">↕️ 时间新→旧</button>
-          <button class="coupon-mini-ctrl" id="couponViewCycleBtn" onclick="cycleCouponViewMode()">📋 精简行</button>
+          <button class="coupon-mini-ctrl" id="couponViewCycleBtn" onclick="cycleCouponViewMode()">🗂️ 大图标</button>
         </div>
         <div class="coupon-ctrl-group">
           <button class="coupon-mini-ctrl" id="couponMaskToggleBtn" onclick="toggleCouponMask()">🙈 隐藏</button>
@@ -1116,7 +1116,7 @@
         </div>
       </div>
 
-      <div class="coupon-grid list-mode" id="couponListContainer"></div>
+      <div class="coupon-grid" id="couponListContainer"></div>
     </div>
 
     <!-- 子面板 B：专属事件 -->
@@ -1141,8 +1141,8 @@
   </div>
 
   <!-- ==================== 导航第 5 项：✈️ 旅行 ==================== -->
-  <div class="card" id="tabTravelView" style="display: none;">
-    <div id="travelHomeStage" style="display: block;">
+  <div class="card" id="tabTravelView" style="display:none;">
+    <div id="travelHomeStage">
       <div class="global-packing-card">
         <div class="global-packing-head" onclick="toggleGlobalPackingBody()">
           <div class="global-packing-title">🎒 旅行必带物品清单</div>
@@ -1262,7 +1262,7 @@
   </div>
 
   <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
-  <div class="card" id="tabMenuView" style="display: none;">
+  <div class="card" id="tabMenuView" style="display:none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
@@ -1299,7 +1299,9 @@
         <span class="order-tray-title">🛎️ <span id="activeChefLabel">王大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
         <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
       </div>
-      <div class="order-pills-wrap" id="todayOrderPills"><span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span></div>
+      <div class="order-pills-wrap" id="todayOrderPills">
+        <span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>
+      </div>
       <div class="order-tray-actions">
         <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
       </div>
@@ -1317,7 +1319,7 @@
   </div>
 
   <!-- ==================== 导航第 7 项：ℹ️ 关于 ==================== -->
-  <div class="card" id="tabAboutView" style="display: none;">
+  <div class="card" id="tabAboutView" style="display:none;">
     <div class="badge">ℹ️ 关于 · DWLapp 版本历程</div>
     <p style="font-size:12px; color:#9ca3af; margin:8px 0 6px;">端到端加密 · 苏州 ↔ 武汉 专属纪念空间</p>
     <div class="about-list" id="aboutVersionList"></div>
@@ -1412,7 +1414,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '1.2.7';
+    const APP_VERSION = '2.1.7';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1425,7 +1427,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "SErkD5rblS7S232Tqi968h4naRVt12eBVzxQmTu+Qk6G98Huchv+pE+uyphZBkKUgvZCuP+TpLrUK4Ju+Jix+10=";
+    const ENCRYPTED_BUNDLE = "4v+GT81fgeHybAlu14iCKATxvhxD3iqNIkI1oigcPswvQI7JgP8PNmI6JB9KeyQzb++B7wzCsa6vkaDkifLZOvw=";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -3878,29 +3880,53 @@
     let currentCalDate = new Date();
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
-    let calTouchStartX = 0;
-    let calTouchStartY = 0;
+let calStartX = 0;
+    let calStartY = 0;
+    let isCalDragging = false;
+    let isCalSwipeBound = false;
+    let calJustSwiped = false;
 
     function initCalSwipeGesture() {
       const area = document.getElementById('calSwipeArea');
-      if (!area || area.dataset.swipeBound === '1') return;
-      area.dataset.swipeBound = '1';
+      if (!area || isCalSwipeBound) return;
+      isCalSwipeBound = true;
+      area.removeAttribute('data-swipe-bound');
 
-      area.addEventListener('touchstart', e => {
-        if (e.touches.length !== 1) return;
-        calTouchStartX = e.touches[0].clientX;
-        calTouchStartY = e.touches[0].clientY;
-      }, { passive: true });
+      const handleStart = (x, y) => {
+        calStartX = x;
+        calStartY = y;
+        isCalDragging = true;
+        calJustSwiped = false;
+      };
 
-      area.addEventListener('touchend', e => {
-        if (!e.changedTouches || e.changedTouches.length === 0) return;
-        const dx = e.changedTouches[0].clientX - calTouchStartX;
-        const dy = e.changedTouches[0].clientY - calTouchStartY;
-        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      const handleEnd = (x, y) => {
+        if (!isCalDragging) return;
+        isCalDragging = false;
+        const dx = x - calStartX;
+        const dy = y - calStartY;
+        if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.1) {
+          calJustSwiped = true;
           if (dx < 0) changeMonth(1);
           else changeMonth(-1);
+          setTimeout(() => { calJustSwiped = false; }, 260);
+        }
+      };
+
+      // 手机端触屏左右滑动
+      area.addEventListener('touchstart', e => {
+        if (e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      area.addEventListener('touchend', e => {
+        if (e.changedTouches && e.changedTouches.length > 0) {
+          handleEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
         }
       }, { passive: true });
+
+      // 电脑端鼠标左右拖拽
+      area.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
+      window.addEventListener('mouseup', e => {
+        if (isCalDragging) handleEnd(e.clientX, e.clientY);
+      });
     }
 
     function getAllNotes() {
@@ -4024,7 +4050,7 @@
           cell.appendChild(dot);
         }
 
-        cell.onclick = () => openNoteView(dateStr);
+        cell.onclick = () => { if (!calJustSwiped) openNoteView(dateStr); };
         grid.appendChild(cell);
       }
 
