@@ -18,6 +18,7 @@
       --bday-him-grad: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
       --text-main: #1f2937;
       --text-sub: #6b7280;
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
       --pad-card: clamp(18px, 5vw, 24px) clamp(15px, 4.5vw, 20px);
       --fs-title: clamp(19px, 5.2vw, 22px);
       --fs-body: clamp(13px, 3.6vw, 14px);
@@ -31,9 +32,13 @@
       background-color: var(--bg-plain);
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       min-height: 100dvh;
-      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(88px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
       overflow-x: hidden;
       position: relative;
+    }
+
+    button {
+      transition: transform 0.18s var(--ease-spring), background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, opacity 0.2s ease;
     }
 
     .romantic-bg-layer {
@@ -80,17 +85,17 @@
       width: 100%; padding: 10px 12px; margin-bottom: 14px;
       border: 1px solid #d1d5db; border-radius: 9px;
       font-size: 14px; background: #fff; color: #111827;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .card-plain input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
     .btn-plain {
       display: block; width: 100%; padding: 11px;
       border: none; border-radius: 9px; cursor: pointer;
       background: #111827; color: #ffffff;
-      font-size: 14px; font-weight: 600; transition: background 0.15s, transform 0.12s;
+      font-size: 14px; font-weight: 600;
     }
     .btn-plain:hover { background: #1f2937; }
-    .btn-plain:active { transform: scale(0.985); }
+    .btn-plain:active { transform: scale(0.975); }
     .plain-err {
       color: #dc2626; font-size: 12.5px; margin-bottom: 12px;
       background: #fef2f2; border: 1px solid #fecaca;
@@ -113,6 +118,22 @@
       width: 100%; max-width: 420px; text-align: center;
     }
 
+    /* V2.1.2 完善导航页面切换与按键面板过渡动画 */
+    .tab-anim-enter {
+      animation: tabSwitchIn 0.36s var(--ease-spring) forwards;
+    }
+    @keyframes tabSwitchIn {
+      0% { opacity: 0; transform: translateY(14px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .subpanel-fade {
+      animation: subPanelFadeIn 0.28s var(--ease-spring) forwards;
+    }
+    @keyframes subPanelFadeIn {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     .top-bar-row { display: flex; justify-content: center; align-items: center; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
     .badge {
       display: inline-flex; align-items: center; gap: 4px;
@@ -125,14 +146,16 @@
       display: inline-flex; align-items: center;
       background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff;
       font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; cursor: pointer;
+      transition: transform 0.16s var(--ease-spring), background 0.2s;
     }
+    .ver-pill:active { transform: scale(0.93); }
     .sync-pill {
       display: inline-flex; align-items: center; gap: 4px;
       background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
       font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px;
-      cursor: pointer; transition: transform 0.15s;
+      cursor: pointer; transition: transform 0.16s var(--ease-spring), background 0.2s;
     }
-    .sync-pill:active { transform: scale(0.94); }
+    .sync-pill:active { transform: scale(0.93); }
     .sync-pill.syncing { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
     .sync-pill.err { background: #fff1f2; color: #be123c; border-color: #fecdd3; }
 
@@ -143,7 +166,7 @@
       width: 100%; padding: 11px 13px; margin-bottom: 10px;
       border: 1px solid #f3e8ff; border-radius: 13px;
       font-size: 14px; outline: none; background: rgba(255, 255, 255, 0.96);
-      font-family: inherit; transition: all 0.2s;
+      font-family: inherit; transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     input:focus, textarea:focus, select:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12); }
 
@@ -153,9 +176,8 @@
       background: var(--accent-grad); color: #fff; text-decoration: none;
       border-radius: 14px; font-weight: 600; font-size: clamp(14px, 3.8vw, 15px);
       margin-bottom: 10px; box-shadow: 0 6px 18px rgba(236, 72, 153, 0.22);
-      transition: transform 0.15s ease, opacity 0.2s;
     }
-    .btn:active { transform: scale(0.97); opacity: 0.92; }
+    .btn:active { transform: scale(0.965); opacity: 0.92; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.18); }
     .btn:disabled { opacity: 0.65; cursor: not-allowed; }
     .btn-green { background: #16a34a; box-shadow: none; }
     .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
@@ -167,7 +189,7 @@
       z-index: 995; background: rgba(17, 24, 39, 0.9); color: #fff;
       font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 99px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      opacity: 0; pointer-events: none; transition: all 0.25s ease;
+      opacity: 0; pointer-events: none; transition: all 0.28s var(--ease-spring);
       white-space: nowrap;
     }
     #toastTip.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -185,7 +207,7 @@
     .unlock-ring { position: absolute; width: 92px; height: 92px; border-radius: 50%; border: 2px solid rgba(244, 114, 182, 0.7); opacity: 0; animation: unlockRipple 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.52s forwards; }
     .unlock-ring-2 { position: absolute; width: 92px; height: 92px; border-radius: 50%; border: 1.5px solid rgba(192, 132, 252, 0.55); opacity: 0; animation: unlockRipple 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.72s forwards; }
     @keyframes unlockRipple { 0% { transform: scale(0.75); opacity: 0.95; } 100% { transform: scale(1.9); opacity: 0; } }
-    .unlock-svg { width: 78px; height: 78px; overflow: visible; filter: drop-shadow(0 0 18px rgba(236, 72, 153, 0.45)); animation: lockBodyBounce 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards; }
+    .unlock-svg { width: 78px; height: 78px; overflow: visible; filter: drop-shadow(0 0 18px rgba(236, 72, 153, 0.45)); animation: lockBodyBounce 0.65s var(--ease-spring) 0.48s forwards; }
     .lock-shackle { transform-origin: 48px 34px; animation: shacklePopOpen 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards; }
     .lock-body-rect { animation: lockBodyGlow 0.8s ease 0.55s forwards; }
     .lock-keyhole { animation: keyholeFade 0.4s ease 0.55s forwards; }
@@ -199,7 +221,7 @@
     .intro-sub { font-size: clamp(13px, 3.6vw, 14px); color: #f5d0fe; margin-top: 10px; opacity: 0; transform: translateY(10px); animation: slideUpFade 0.65s ease 1.05s forwards; }
     @keyframes heartBeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.18); } 45% { transform: scale(0.96); } 65% { transform: scale(1.12); } }
     @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-    .reveal-main { animation: mainCardFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .reveal-main { animation: mainCardFadeIn 0.65s var(--ease-spring) forwards; }
     @keyframes mainCardFadeIn { 0% { opacity: 0; transform: translateY(16px) scale(0.975); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
     /* ========== 仪式感全屏动画舞台 ========== */
@@ -208,23 +230,23 @@
     .fx-caption { margin-top: 16px; background: rgba(255, 255, 255, 0.96); color: #db2777; font-size: 13.5px; font-weight: 700; padding: 7px 18px; border-radius: 99px; border: 1px solid #fbcfe8; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.25); animation: captionPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
     @keyframes captionPop { from { transform: translateY(10px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
     .tear-card-stage { width: 240px; position: relative; display: flex; flex-direction: column; align-items: center; }
-    .tear-half-top { width: 100%; background: linear-gradient(135deg, #fff5f7, #ffffff); border: 2px solid #f472b6; border-bottom: none; border-radius: 18px 18px 4px 4px; padding: 14px 14px 12px; text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.2); animation: tearTopShift 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .tear-half-top { width: 100%; background: linear-gradient(135deg, #fff5f7, #ffffff); border: 2px solid #f472b6; border-bottom: none; border-radius: 18px 18px 4px 4px; padding: 14px 14px 12px; text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.2); animation: tearTopShift 1.1s var(--ease-spring) forwards; }
     .tear-perforation { width: 96%; border-top: 2px dashed #ec4899; margin: 1px 0; animation: perfFlash 0.5s ease forwards; }
-    .tear-half-bottom { width: 100%; background: var(--accent-grad); color: #fff; font-size: 12px; font-weight: 700; border-radius: 4px 4px 18px 18px; padding: 10px; text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.25); animation: tearBottomDrop 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .tear-half-bottom { width: 100%; background: var(--accent-grad); color: #fff; font-size: 12px; font-weight: 700; border-radius: 4px 4px 18px 18px; padding: 10px; text-align: center; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.25); animation: tearBottomDrop 1.1s var(--ease-spring) forwards; }
     @keyframes tearTopShift { 0% { transform: translateY(0) rotate(0deg); } 35% { transform: translateY(-4px) rotate(-2deg); } 100% { transform: translateY(-10px) rotate(-4deg); } }
     @keyframes tearBottomDrop { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 35% { transform: translateY(4px) rotate(2deg); opacity: 1; } 100% { transform: translateY(24px) rotate(8deg); opacity: 0.85; } }
     @keyframes perfFlash { 0% { opacity: 1; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1.15); } }
     .cheers-stage { position: relative; width: 180px; height: 110px; display: flex; justify-content: center; align-items: center; }
     .cheers-glass-l, .cheers-glass-r { font-size: 54px; position: absolute; filter: drop-shadow(0 6px 16px rgba(251, 191, 36, 0.5)); }
-    .cheers-glass-l { left: 22px; transform-origin: bottom right; animation: glassClinkL 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .cheers-glass-r { right: 22px; transform-origin: bottom left; animation: glassClinkR 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .cheers-glass-l { left: 22px; transform-origin: bottom right; animation: glassClinkL 1.15s var(--ease-spring) forwards; }
+    .cheers-glass-r { right: 22px; transform-origin: bottom left; animation: glassClinkR 1.15s var(--ease-spring) forwards; }
     .cheers-spark { position: absolute; top: 4px; font-size: 24px; opacity: 0; animation: sparkBurst 0.8s ease 0.32s forwards; }
     @keyframes glassClinkL { 0% { transform: translateX(-24px) rotate(-18deg) scale(0.85); } 40% { transform: translateX(10px) rotate(14deg) scale(1.08); } 65% { transform: translateX(4px) rotate(6deg) scale(1); } 100% { transform: translateX(6px) rotate(10deg) scale(1.02); } }
     @keyframes glassClinkR { 0% { transform: translateX(24px) rotate(18deg) scaleX(-1) scale(0.85); } 40% { transform: translateX(-10px) rotate(-14deg) scaleX(-1) scale(1.08); } 65% { transform: translateX(-4px) rotate(-6deg) scaleX(-1) scale(1); } 100% { transform: translateX(-6px) rotate(-10deg) scaleX(-1) scale(1.02); } }
     @keyframes sparkBurst { 0% { opacity: 0; transform: scale(0.4) translateY(8px); } 50% { opacity: 1; transform: scale(1.25) translateY(-4px); } 100% { opacity: 0; transform: scale(1.4) translateY(-12px); } }
     .seal-mail-stage { position: relative; width: 150px; height: 110px; display: flex; justify-content: center; align-items: center; }
     .seal-paper { position: absolute; font-size: 38px; animation: paperSlideIn 0.55s ease forwards; }
-    .seal-env { font-size: 68px; filter: drop-shadow(0 8px 20px rgba(236, 72, 153, 0.35)); animation: envFlyAway 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .seal-env { font-size: 68px; filter: drop-shadow(0 8px 20px rgba(236, 72, 153, 0.35)); animation: envFlyAway 1.25s var(--ease-spring) forwards; }
     .seal-wax { position: absolute; font-size: 26px; opacity: 0; animation: waxStampPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.35s forwards; }
     @keyframes paperSlideIn { 0% { transform: translateY(-28px) scale(1); opacity: 1; } 100% { transform: translateY(6px) scale(0.45); opacity: 0; } }
     @keyframes waxStampPop { 0% { opacity: 0; transform: scale(2.2); } 60% { opacity: 1; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1) translateY(-16px); } }
@@ -239,27 +261,42 @@
     @keyframes popUpModal { from { transform: scale(0.9) translateY(14px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
     .update-badge { display: inline-block; background: var(--accent-grad); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 8px; }
     .update-title { font-size: 18px; font-weight: 700; color: #1f2937; margin-bottom: 12px; }
-    .update-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
-    .update-list li { font-size: 13px; color: #374151; line-height: 1.55; background: #fdf2f8; border: 1px solid #fce7f3; padding: 9px 11px; border-radius: 12px; }
+    .update-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto; }
+    .update-list li { font-size: 12.5px; color: #374151; line-height: 1.5; background: #fdf2f8; border: 1px solid #fce7f3; padding: 8px 10px; border-radius: 12px; }
     .update-list li strong { color: #db2777; }
 
-    /* ========== 底部五栏悬浮导航栏 ========== */
+    /* ========== V2.1.2 底部六栏悬浮导航栏（见面 | 信封 | 首页 | 约定 | 旅行 | 菜单） ========== */
     .bottom-nav {
       position: fixed; bottom: calc(12px + env(safe-area-inset-bottom));
       left: 50%; transform: translateX(-50%);
-      width: calc(100% - 20px); max-width: 428px;
-      background: rgba(255, 255, 255, 0.94);
+      width: calc(100% - 16px); max-width: 434px;
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(251, 207, 232, 0.95);
       border-radius: 22px; padding: 5px;
-      display: none; grid-template-columns: repeat(5, 1fr); gap: 4px;
+      display: none; grid-template-columns: repeat(6, 1fr); gap: 3px;
       box-shadow: 0 10px 30px rgba(236, 72, 153, 0.16); z-index: 90;
     }
-    .nav-item { border: none; background: transparent; cursor: pointer; padding: 7px 2px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #6b7280; transition: all 0.2s ease; position: relative; }
-    .nav-item.active { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); color: #db2777; box-shadow: inset 0 0 0 1px #fbcfe8; }
-    .nav-icon { font-size: 18px; line-height: 1.15; margin-bottom: 2px; }
-    .nav-label { font-size: clamp(10px, 2.7vw, 11px); font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
-    .nav-dot { position: absolute; top: 5px; right: 18%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
+    .nav-item {
+      border: none; background: transparent; cursor: pointer;
+      padding: 7px 1px; border-radius: 15px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #6b7280; position: relative;
+      transition: all 0.28s var(--ease-spring);
+    }
+    .nav-item:active { transform: scale(0.9); }
+    .nav-item.active {
+      background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
+      color: #db2777;
+      box-shadow: inset 0 0 0 1px #fbcfe8, 0 3px 10px rgba(236, 72, 153, 0.12);
+    }
+    .nav-icon {
+      font-size: 17px; line-height: 1.15; margin-bottom: 2px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .nav-item.active .nav-icon { transform: translateY(-2px) scale(1.14); }
+    .nav-label { font-size: clamp(9.5px, 2.5vw, 10.5px); font-weight: 700; letter-spacing: 0.1px; white-space: nowrap; }
+    .nav-dot { position: absolute; top: 4px; right: 14%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
 
     /* ========== 首页：双城进度条 + 计时器 + 农历日历 ========== */
     .city-tracker { background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%); border: 1px solid #f5d0fe; border-radius: 18px; padding: 12px 14px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06); }
@@ -268,9 +305,9 @@
     .city-status { font-size: 11px; font-weight: 600; color: #db2777; background: rgba(255, 255, 255, 0.9); padding: 3px 10px; border-radius: 99px; border: 1px solid #fbcfe8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .track-bar-wrap { position: relative; height: 26px; display: flex; align-items: center; }
     .track-line-bg { width: 100%; height: 6px; background: #f3e8ff; border-radius: 99px; position: relative; overflow: hidden; }
-    .track-fill-left { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #ec4899, #f43f5e); border-radius: 99px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-    .track-fill-right { position: absolute; right: 0; top: 0; bottom: 0; background: linear-gradient(270deg, #a855f7, #ec4899); border-radius: 99px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-    .heart-runner { position: absolute; top: 50%; transform: translate(-50%, -50%); font-size: 16px; transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1); filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.35)); z-index: 2; }
+    .track-fill-left { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #ec4899, #f43f5e); border-radius: 99px; transition: width 0.6s var(--ease-spring); }
+    .track-fill-right { position: absolute; right: 0; top: 0; bottom: 0; background: linear-gradient(270deg, #a855f7, #ec4899); border-radius: 99px; transition: width 0.6s var(--ease-spring); }
+    .heart-runner { position: absolute; top: 50%; transform: translate(-50%, -50%); font-size: 16px; transition: left 0.6s var(--ease-spring); filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.35)); z-index: 2; }
     .heart-merged-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 22px; z-index: 3; animation: heartBeat 1.2s ease-in-out infinite; }
 
     .timer-box { background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin: 10px 0 12px; }
@@ -284,11 +321,11 @@
     .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .cal-title { font-size: 15px; font-weight: 700; color: #374151; }
     .cal-nav { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; width: 30px; height: 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-    .cal-nav:active { transform: scale(0.92); }
+    .cal-nav:active { transform: scale(0.88); }
     .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; margin-bottom: 6px; font-weight: 600; }
     .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-    .cal-day { min-height: 46px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #374151; cursor: pointer; position: relative; background: rgba(255, 255, 255, 0.72); transition: all 0.15s; padding: 3px 1px 6px; }
-    .cal-day:active { transform: scale(0.92); background: #fce7f3; }
+    .cal-day { min-height: 46px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #374151; cursor: pointer; position: relative; background: rgba(255, 255, 255, 0.72); transition: transform 0.16s var(--ease-spring), background 0.16s; padding: 3px 1px 6px; }
+    .cal-day:active { transform: scale(0.9); background: #fce7f3; }
     .cal-day.empty { background: transparent; cursor: default; pointer-events: none; }
     .cal-solar { font-size: 13px; font-weight: 600; line-height: 1.15; }
     .cal-lunar { font-size: 9px; color: #9ca3af; line-height: 1.1; margin-top: 2px; white-space: nowrap; transform: scale(0.92); }
@@ -321,7 +358,7 @@
     .meet-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
     .meet-form-row input { margin-bottom: 0; font-size: 12.5px; padding: 9px 10px; }
     .meet-history-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 9px; text-align: left; }
-    .meet-rec-card { background: #fff; border: 1px solid #f3e8ff; border-radius: 15px; padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(168, 85, 247, 0.05); }
+    .meet-rec-card { background: #fff; border: 1px solid #f3e8ff; border-radius: 15px; padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(168, 85, 247, 0.05); transition: transform 0.18s var(--ease-spring); }
     .meet-rec-left { flex: 1; min-width: 0; }
     .meet-rec-title { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .meet-rec-meta { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
@@ -330,10 +367,28 @@
     .meet-elapsed-pill.future { background: #f3e8ff; color: #7e22ce; border-color: #e9d5ff; }
 
     /* ==========================================================================
-       V2.1.1 重构【✈️ 旅行】双层页样式（地点卡片流 + 详情攻略 + 必带物品）
+       V2.1.2 旅行页样式（顶部置顶必带物品 + 足迹地点卡 + 详情攻略）
        ========================================================================== */
+    .global-packing-card {
+      background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%);
+      border: 1.5px solid #fcd34d;
+      border-radius: 18px;
+      padding: 12px 13px;
+      margin-bottom: 14px;
+      text-align: left;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.09);
+    }
+    .global-packing-head {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer;
+    }
+    .global-packing-title { font-size: 14px; font-weight: 800; color: #b45309; display: flex; align-items: center; gap: 5px; }
+    .global-packing-body {
+      margin-top: 10px;
+      animation: unfoldCompose 0.28s var(--ease-spring) forwards;
+    }
+
     .trip-cards-grid {
-      max-height: 390px; overflow-y: auto;
+      max-height: 360px; overflow-y: auto;
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
       text-align: left; padding-bottom: 4px;
     }
@@ -343,17 +398,13 @@
       padding: 13px 12px 11px; cursor: pointer;
       display: flex; flex-direction: column; justify-content: space-between;
       box-shadow: 0 5px 15px rgba(236, 72, 153, 0.08);
-      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease;
     }
-    .trip-card:active { transform: scale(0.97); }
+    .trip-card:active { transform: scale(0.95); }
     .trip-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
     .trip-card-city { font-size: 15px; font-weight: 800; color: #1f2937; line-height: 1.25; word-break: break-word; }
     .trip-card-meta { font-size: 11px; color: #6b7280; margin-bottom: 8px; line-height: 1.45; }
-    .trip-card-foot {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 7px; border-top: 1px dashed #fbcfe8;
-      font-size: 10.5px; color: #db2777; font-weight: 700;
-    }
+    .trip-card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 7px; border-top: 1px dashed #fbcfe8; font-size: 10.5px; color: #db2777; font-weight: 700; }
 
     .packing-btn {
       background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
@@ -361,14 +412,14 @@
       padding: 6px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 700;
       cursor: pointer; white-space: nowrap;
     }
-    .packing-btn:active { transform: scale(0.95); }
+    .packing-btn:active { transform: scale(0.93); }
     .packing-drawer {
       background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%);
       border: 1.5px solid #fcd34d; border-radius: 16px;
       padding: 12px; margin-bottom: 12px; text-align: left;
-      display: none; animation: unfoldCompose 0.28s ease forwards;
+      display: none; animation: unfoldCompose 0.28s var(--ease-spring) forwards;
     }
-    .packing-list { max-height: 170px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .packing-list { max-height: 165px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
 
     .travel-cat-tabs {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px;
@@ -379,22 +430,76 @@
       border: none; background: transparent; cursor: pointer;
       padding: 7px 2px; border-radius: 11px;
       display: flex; flex-direction: column; align-items: center; gap: 2px;
-      color: #6b7280; font-size: 11px; font-weight: 700; transition: all 0.2s;
+      color: #6b7280; font-size: 11px; font-weight: 700;
     }
-    .travel-cat-btn span.t-ico { font-size: 16px; line-height: 1.1; }
-    .travel-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 8px rgba(236, 72, 153, 0.14); }
+    .travel-cat-btn span.t-ico { font-size: 16px; line-height: 1.1; transition: transform 0.25s var(--ease-spring); }
+    .travel-cat-btn:active { transform: scale(0.92); }
+    .travel-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.16); }
+    .travel-cat-btn.active span.t-ico { transform: scale(1.12); }
 
-    .travel-time-form {
-      background: #fff; border: 1px solid #fbcfe8; border-radius: 15px;
-      padding: 10px 11px; margin-bottom: 12px; text-align: left;
-    }
+    .travel-time-form { background: #fff; border: 1px solid #fbcfe8; border-radius: 15px; padding: 10px 11px; margin-bottom: 12px; text-align: left; }
     .travel-time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
     .travel-time-field label { display: block; font-size: 10.5px; color: #6b7280; font-weight: 700; margin-bottom: 3px; }
     .travel-time-field input { margin-bottom: 0; font-size: 12px; padding: 7px 8px; }
     .travel-list { max-height: 290px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
-    .travel-time-tag {
-      display: inline-block; font-size: 10.5px; font-weight: 700;
-      color: #7e22ce; background: #f3e8ff; padding: 2px 7px; border-radius: 6px; margin-top: 3px;
+    .travel-time-tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: #7e22ce; background: #f3e8ff; padding: 2px 7px; border-radius: 6px; margin-top: 3px; }
+
+    /* ==========================================================================
+       V2.1.2 新增【🍽️ 菜单点菜】页样式
+       ========================================================================== */
+    .order-tray-box {
+      background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%);
+      border: 1.5px solid #fdba74; border-radius: 16px;
+      padding: 11px 12px; margin-bottom: 12px; text-align: left;
+    }
+    .order-tray-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .order-tray-title { font-size: 12.5px; font-weight: 800; color: #c2410c; }
+    .order-pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; min-height: 24px; }
+    .order-pill-item {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #fff; border: 1px solid #fed7aa; color: #9a3412;
+      font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 99px;
+      animation: popUpModal 0.22s var(--ease-spring) forwards;
+    }
+    .order-pill-x { cursor: pointer; color: #fb923c; font-weight: 800; margin-left: 2px; }
+    .order-tray-actions { display: flex; gap: 8px; }
+
+    .menu-cat-tabs {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+      background: #fdf2f8; border: 1px solid #fbcfe8;
+      border-radius: 14px; padding: 4px; margin-bottom: 12px;
+    }
+    .menu-cat-btn {
+      border: none; background: transparent; cursor: pointer;
+      padding: 7px 2px; border-radius: 10px;
+      font-size: 11.5px; font-weight: 700; color: #6b7280;
+    }
+    .menu-cat-btn:active { transform: scale(0.92); }
+    .menu-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 8px rgba(236, 72, 153, 0.14); }
+
+    .dish-list { max-height: 310px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+    .dish-card {
+      background: #fff; border: 1px solid #fce7f3; border-radius: 15px;
+      padding: 11px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05);
+      transition: transform 0.18s var(--ease-spring), border-color 0.2s, background 0.2s;
+    }
+    .dish-card.ordered {
+      background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%);
+      border-color: #f9a8d4;
+    }
+    .dish-info { flex: 1; min-width: 0; }
+    .dish-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
+    .dish-meta { font-size: 11px; color: #6b7280; }
+    .dish-order-btn {
+      border: none; border-radius: 10px; padding: 6px 11px;
+      font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap;
+      background: var(--accent-grad); color: #fff;
+      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.2);
+    }
+    .dish-order-btn:active { transform: scale(0.92); }
+    .dish-order-btn.added {
+      background: #fff; color: #db2777; border: 1px solid #f9a8d4; box-shadow: none;
     }
 
     /* ========== 导航【💌 信封】排版 ========== */
@@ -402,14 +507,15 @@
     .env-banner-title { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .env-banner-sub { font-size: 12px; color: #9ca3af; }
     .write-letter-toggle-btn { background: var(--accent-grad); color: #fff; border: none; padding: 8px 13px; border-radius: 13px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
-    .write-letter-toggle-btn:active { transform: scale(0.95); }
-    .compose-letter-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1.5px solid #f9a8d4; border-radius: 18px; padding: 14px; margin-bottom: 16px; text-align: left; box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1); display: none; transform-origin: top center; animation: unfoldCompose 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .write-letter-toggle-btn:active { transform: scale(0.93); }
+    .compose-letter-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1.5px solid #f9a8d4; border-radius: 18px; padding: 14px; margin-bottom: 16px; text-align: left; box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1); display: none; transform-origin: top center; animation: unfoldCompose 0.3s var(--ease-spring) forwards; }
     @keyframes unfoldCompose { from { opacity: 0; transform: translateY(-8px) scaleY(0.92); } to { opacity: 1; transform: translateY(0) scaleY(1); } }
-    .compose-letter-box.sealing { animation: foldSealBox 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .compose-letter-box.sealing { animation: foldSealBox 0.45s var(--ease-spring) forwards; }
     @keyframes foldSealBox { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.75; transform: scale(0.92) rotateX(18deg); } 100% { opacity: 0; transform: scale(0.65) translateY(-16px); } }
     .compose-row-label { font-size: 11.5px; font-weight: 700; color: #db2777; margin-bottom: 8px; }
     .sender-switch-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-    .sender-chip { padding: 9px 6px; border-radius: 12px; font-size: 12.5px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.15s; }
+    .sender-chip { padding: 9px 6px; border-radius: 12px; font-size: 12.5px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.2s var(--ease-spring); }
+    .sender-chip:active { transform: scale(0.95); }
     .sender-chip.active-him { background: linear-gradient(135deg, #fdf2f8, #fce7f3); border-color: #ec4899; color: #db2777; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.12); }
     .sender-chip.active-her { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #8b5cf6; color: #6d28d9; box-shadow: 0 3px 10px rgba(139, 92, 246, 0.12); }
     .compose-date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.85); padding: 6px 10px; border-radius: 12px; border: 1px solid #f3e8ff; }
@@ -421,11 +527,11 @@
     .section-head-right { display: flex; align-items: center; gap: 6px; }
     .section-pill { font-size: 11px; color: #db2777; background: #fdf2f8; padding: 2px 10px; border-radius: 99px; font-weight: 600; }
     .mini-add-btn { font-size: 11px; font-weight: 700; color: #7e22ce; background: #f3e8ff; border: 1px solid #e9d5ff; padding: 2px 9px; border-radius: 99px; cursor: pointer; }
-    .mini-add-btn:active { transform: scale(0.94); }
+    .mini-add-btn:active { transform: scale(0.92); }
 
-    .blindbox-card { background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%); border: 1.5px solid #f9a8d4; border-radius: 20px; padding: 16px 16px 14px; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.09); transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .blindbox-card { background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%); border: 1.5px solid #f9a8d4; border-radius: 20px; padding: 16px 16px 14px; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.09); transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease; }
     .blindbox-card::after { content: "💕"; position: absolute; right: -8px; bottom: -12px; font-size: 56px; opacity: 0.08; pointer-events: none; }
-    .blindbox-card:active { transform: scale(0.98); }
+    .blindbox-card:active { transform: scale(0.97); }
     .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .blindbox-tag { font-size: 11px; font-weight: 700; color: #be185d; background: rgba(251, 207, 232, 0.45); padding: 3px 10px; border-radius: 8px; }
     .blindbox-refresh { font-size: 11px; color: #7e22ce; background: #f3e8ff; padding: 4px 10px; border-radius: 99px; font-weight: 700; }
@@ -433,8 +539,8 @@
     .quote-flip { opacity: 0; transform: translateY(5px); }
 
     .capsule-list { display: flex; flex-direction: column; gap: 11px; max-height: 360px; overflow-y: auto; }
-    .capsule-card { border-radius: 18px; padding: 13px 14px; border: 1px solid #fbcfe8; background: #fff; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03); }
-    .capsule-card:active { transform: scale(0.985); }
+    .capsule-card { border-radius: 18px; padding: 13px 14px; border: 1px solid #fbcfe8; background: #fff; cursor: pointer; transition: all 0.2s var(--ease-spring); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03); }
+    .capsule-card:active { transform: scale(0.98); }
     .capsule-card.locked { background: linear-gradient(135deg, #f8fafc 0%, #f5f3ff 100%); border-color: #ddd6fe; }
     .capsule-card.unlocked { background: linear-gradient(135deg, #fffdf7 0%, #fdf2f8 100%); border-color: #f9a8d4; box-shadow: 0 6px 18px rgba(236, 72, 153, 0.09); }
     .capsule-card.from-her.unlocked { background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%); border-color: #c084fc; }
@@ -450,46 +556,99 @@
     .cap-badge { font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; white-space: nowrap; }
     .cap-badge.lock { background: #ede9fe; color: #6d28d9; }
     .cap-badge.open { background: var(--accent-grad); color: #fff; }
-    .cap-del-btn { width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(243, 244, 246, 0.9); color: #9ca3af; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; }
-    .cap-del-btn:hover, .cap-del-btn:active { background: #ffe4e6; color: #e11d48; }
+    .cap-del-btn { width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(243, 244, 246, 0.9); color: #9ca3af; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .cap-del-btn:hover, .cap-del-btn:active { background: #ffe4e6; color: #e11d48; transform: scale(0.92); }
     .cap-letter-body { margin-top: 12px; padding: 13px 14px; background-color: #fffcfd; background-image: linear-gradient(to bottom, transparent 27px, #fce7f3 28px); background-size: 100% 28px; border-radius: 12px; border: 1px solid #fbcfe8; font-size: 14px; color: #374151; line-height: 28px; white-space: pre-wrap; display: none; transform-origin: top center; }
-    .cap-letter-body.unfolding { display: block; animation: letterUnfold 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .cap-letter-body.unfolding { display: block; animation: letterUnfold 0.42s var(--ease-spring) forwards; }
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版 ========== */
-    .sub-tabs { display: flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 16px; padding: 4px; margin-bottom: 14px; gap: 4px; }
-    .sub-tab-btn { flex: 1; border: none; background: transparent; padding: 9px 6px; border-radius: 12px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; transition: all 0.2s; }
-    .sub-tab-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.14); }
+    /* ==========================================================================
+       导航【🎁 约定】排版（V2.1.2 增大顶部双框间距 + 兑换券可编辑说明 + 视图切换）
+       ========================================================================== */
+    .promise-top-badge { margin-bottom: 16px; }
+    .sub-tabs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: transparent;
+      margin-bottom: 16px; gap: 12px;
+    }
+    .sub-tab-btn {
+      border: 1.5px solid #fbcfe8; background: #fdf2f8;
+      padding: 11px 8px; border-radius: 15px;
+      font-size: 13px; font-weight: 700; color: #6b7280;
+      cursor: pointer;
+    }
+    .sub-tab-btn:active { transform: scale(0.95); }
+    .sub-tab-btn.active {
+      background: #fff; color: #db2777; border-color: #ec4899;
+      box-shadow: 0 5px 14px rgba(236, 72, 153, 0.16);
+    }
+
+    .coupon-add-box {
+      background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%);
+      border: 1px solid #fbcfe8; border-radius: 16px;
+      padding: 10px 11px; margin-bottom: 12px; text-align: left;
+    }
+    .coupon-add-box input { margin-bottom: 8px; font-size: 13px; padding: 9px 11px; }
+    .coupon-toolbar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; padding: 0 2px;
+    }
+    .view-mode-switch {
+      display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8;
+      border-radius: 10px; padding: 2px; gap: 3px;
+    }
+    .view-mode-btn {
+      border: none; background: transparent; cursor: pointer;
+      padding: 4px 9px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280;
+    }
+    .view-mode-btn:active { transform: scale(0.92); }
+    .view-mode-btn.active { background: #fff; color: #db2777; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.14); }
+
     .event-add-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .event-add-row input { margin-bottom: 0; flex: 1; background: #fff; }
     .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
-    .event-add-btn:active { transform: scale(0.96); }
+    .event-add-btn:active { transform: scale(0.93); }
 
-    .coupon-grid { max-height: 390px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
-    .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.25s ease, opacity 0.25s ease; }
+    /* 恋爱兑换券：大图标模式（默认双列） & 详细内容按行展示模式（单列） */
+    .coupon-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
+    .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 9px; }
+    .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.22s var(--ease-spring), opacity 0.22s ease; }
+    .coupon-grid.list-mode .coupon-ticket {
+      flex-direction: row; align-items: center; gap: 12px; padding: 12px 13px;
+    }
+    .coupon-grid.list-mode .ticket-main-info { flex: 1; min-width: 0; }
+    .coupon-grid.list-mode .coupon-desc { margin-bottom: 0; font-size: 12px; }
+    .coupon-grid.list-mode .ticket-divider { display: none; }
+    .coupon-grid.list-mode .ticket-action-col {
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+      gap: 6px; flex-shrink: 0; min-width: 78px;
+    }
+    .coupon-grid.list-mode .coupon-use-btn { padding: 7px 11px; width: auto; white-space: nowrap; }
+
     .coupon-ticket.tearing { animation: ticketShakeTear 0.45s ease forwards; }
     @keyframes ticketShakeTear { 0% { transform: scale(1); } 30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; } 65% { transform: scale(0.97) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); } }
     .coupon-ticket.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; box-shadow: none; }
-    .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 6px; }
     .ticket-top-tag { font-size: 10px; font-weight: 700; color: #db2777; background: #fce7f3; padding: 2px 7px; border-radius: 6px; }
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
     .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; }
     .coupon-ticket.used .coupon-name { color: #6b7280; text-decoration: line-through; }
-    .coupon-desc { font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px; flex: 1; }
+    .coupon-desc { font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px; flex: 1; word-break: break-word; }
     .ticket-divider { border-top: 1.5px dashed #fbcfe8; margin: 0 -11px 8px; position: relative; }
     .coupon-ticket.used .ticket-divider { border-top-color: #e5e7eb; }
     .coupon-use-btn { width: 100%; background: var(--accent-grad); color: #fff; border: none; border-radius: 9px; padding: 6px 0; font-size: 11.5px; font-weight: 700; cursor: pointer; }
-    .coupon-use-btn:active { transform: scale(0.96); }
-    .coupon-stamp { text-align: center; font-size: 11px; font-weight: 700; color: #9ca3af; padding: 4px 0; }
+    .coupon-use-btn:active { transform: scale(0.93); }
+    .coupon-stamp { text-align: center; font-size: 11px; font-weight: 700; color: #9ca3af; padding: 4px 0; white-space: nowrap; }
 
     .event-dashboard { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 12px 14px; margin-bottom: 12px; text-align: left; }
     .event-dash-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 8px; }
     .event-progress-bar { background: rgba(255, 255, 255, 0.9); border-radius: 99px; height: 8px; overflow: hidden; border: 1px solid #fbcfe8; }
-    .event-progress-fill { height: 100%; background: var(--accent-grad); width: 0%; transition: width 0.35s ease; }
+    .event-progress-fill { height: 100%; background: var(--accent-grad); width: 0%; transition: width 0.38s var(--ease-spring); }
     .event-group-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-align: left; margin: 8px 0 6px 2px; letter-spacing: 0.5px; }
     .event-list { max-height: 310px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 8px; }
-    .event-item { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #fce7f3; border-radius: 14px; padding: 11px 13px; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.04); transition: transform 0.2s ease, background 0.2s ease; }
+    .event-item { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #fce7f3; border-radius: 14px; padding: 11px 13px; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.04); transition: transform 0.2s var(--ease-spring), background 0.2s ease; }
+    .event-item:active { transform: scale(0.985); }
     .event-item.done { background: #faf5ff; border-color: #e9d5ff; opacity: 0.78; box-shadow: none; }
     .event-checkbox { width: 20px; height: 20px; margin: 0; flex-shrink: 0; accent-color: #ec4899; cursor: pointer; }
     .event-content { flex: 1; min-width: 0; cursor: pointer; }
@@ -500,6 +659,7 @@
     /* ========== 日历详情页 ========== */
     .subpage-header { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #fce7f3; }
     .back-btn { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; padding: 6px 11px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .back-btn:active { transform: scale(0.92); }
     .subpage-title-wrap { text-align: center; flex: 1; min-width: 0; }
     .subpage-title { font-size: 15px; font-weight: 700; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .subpage-lunar { font-size: 11px; color: #db2777; font-weight: 600; margin-top: 2px; }
@@ -510,10 +670,12 @@
     .meet-clear-btn { font-size: 11px; color: #9ca3af; background: none; border: none; cursor: pointer; text-decoration: underline; }
     .duration-chips { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
     .dur-chip { padding: 6px 2px; border-radius: 9px; font-size: 11.5px; font-weight: 700; border: 1px solid #ddd6fe; background: #fff; color: #6d28d9; cursor: pointer; text-align: center; }
+    .dur-chip:active { transform: scale(0.9); }
     .dur-chip.active { background: var(--meet-grad); color: #fff; border-color: transparent; }
 
     .role-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
-    .role-chip { padding: 8px 4px; border-radius: 11px; font-size: 12px; font-weight: 700; border: 1px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; }
+    .role-chip { padding: 8px 4px; border-radius: 11px; font-size: 12px; font-weight: 700; border: 1px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; transition: all 0.2s var(--ease-spring); }
+    .role-chip:active { transform: scale(0.94); }
     .role-chip.active { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
 
     .note-list { max-height: 240px; overflow-y: auto; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; padding: 4px 2px; }
@@ -523,7 +685,7 @@
     .note-bubble.both { align-self: center; max-width: 96%; width: 100%; background: linear-gradient(135deg, #fffbeb 0%, #fdf4ff 100%); border: 1px solid #fde68a; text-align: center; }
     .note-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 11px; color: #9ca3af; margin-bottom: 4px; }
     .note-author { color: #db2777; font-weight: 700; }
-    .note-del { color: #d1d5db; cursor: pointer; padding: 0 3px; font-size: 12px; }
+    .note-del { color: #d1d5db; cursor: pointer; padding: 0 3px; font-size: 12px; transition: color 0.15s; }
     .note-del:hover { color: #e11d48; }
     .note-text { font-size: 13.5px; color: #1f2937; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
     .empty-notes { font-size: 13px; color: #9ca3af; padding: 20px 0; text-align: center; }
@@ -542,22 +704,23 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip" class="">✈️ 已创建「1」旅程</div>
+  <div id="toastTip"></div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.1 更新提示弹窗 -->
+  <!-- V2.1.2 更新提示弹窗 -->
   <div class="modal-mask" id="updateModalMask" style="display: none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.1</span>
-      <div class="update-title">旅行足迹卡片与专属攻略升级</div>
+      <span class="update-badge">✨ 版本更新 · V2.1.2</span>
+      <div class="update-title">丝滑过渡动画与专属点菜页上线</div>
       <ul class="update-list">
-        <li><strong>🗺️ 旅行足迹地点卡</strong>：首页展示所有旅行地点卡，顶部可添加新旅程（填入地点、日期、时长）并进入专属攻略。</li>
-        <li><strong>🏨 住 / 🚄 行时间规划</strong>：住宿需选择入住与离开日期后提示添加成功；出行需选择发车与到达时间。</li>
-        <li><strong>🎒 顶部必带物品清单</strong>：每次旅行顶部新增「必带物品」按键，随时写入与勾选行李物品。</li>
+        <li><strong>🍽️ 新增「菜单」点菜页</strong>：底部导航新增点菜页，支持分类添菜、一键点菜与今日菜单汇总。</li>
+        <li><strong>🎟️ 恋爱券双视图+自定义说明</strong>：发券时可自由编辑小字说明，支持「大图标」与「按行详情」切换，顶部双框间距更舒展。</li>
+        <li><strong>🎒 旅行必带物品置顶</strong>：在「我们的旅行足迹」上方直接管理通用必带清单。</li>
+        <li><strong>✨ 全站交互动画升级</strong>：完善导航页切换弹入动画与按键阻尼过渡效果。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.1 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.2 体验 💖</button>
     </div>
   </div>
 
@@ -657,7 +820,7 @@
       <button class="write-letter-toggle-btn" id="toggleComposeBtn" onclick="toggleComposeBox()">✍️ 写一封信</button>
     </div>
 
-    <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
+    <div class="compose-letter-box" id="composeLetterBox" style="display: none;">
       <div class="compose-row-label">📮 选择寄信身份（系统将自动记住本机默认身份）：</div>
       <div class="sender-switch-row">
         <div class="sender-chip active-him" id="senderChipHim" onclick="selectLetterSender('👦 他写给她的信')">👦 他写给她的信</div>
@@ -709,7 +872,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.1)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.1.2)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -727,7 +890,7 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.1)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.2)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -736,23 +899,23 @@
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.1 更新说明">V2.1.1</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.2 更新说明">V2.1.2</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天12时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天11时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.1%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.1%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 11.2%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 11.2%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.1%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.9%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 11.2%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 88.8%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -763,9 +926,9 @@
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
-        <div class="time-unit"><span class="time-num" id="tHours">11</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">49</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">41</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tHours">12</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">17</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">34</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
@@ -791,28 +954,42 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定 ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.2 优化间距 + 可编辑小字 + 双显示模式） ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
-    <div class="badge">🎁 我们的甜蜜约定</div>
+    <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
-      <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
+      <button class="sub-tab-btn" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
         🎟️ 恋爱兑换券 (<span id="couponAvailCount">21</span>)
       </button>
-      <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
+      <button class="sub-tab-btn active" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">16/58</span>)
       </button>
     </div>
 
-    <div id="subPanelCoupon">
-      <div class="event-add-row">
-        <input type="text" id="newCouponInput" placeholder="新增特权券，如：周末专属按摩券...">
-        <button class="event-add-btn" onclick="addCustomCoupon()">+ 发券</button>
+    <!-- 子面板 A：恋爱兑换券 -->
+    <div id="subPanelCoupon" class="subpanel-fade" style="display: none;">
+      <div class="coupon-add-box">
+        <input type="text" id="newCouponInput" placeholder="特权券名称，如：周末专属按摩券...">
+        <div class="event-add-row" style="margin-bottom:0;">
+          <input type="text" id="newCouponDescInput" placeholder="自定义小字说明（如：随时出示，半小时起步）" style="font-size:12.5px; padding:9px 11px;">
+          <button class="event-add-btn" onclick="addCustomCoupon()">+ 发券</button>
+        </div>
       </div>
-      <div class="coupon-grid" id="couponListContainer"></div>
+
+      <div class="coupon-toolbar">
+        <span style="font-size:12px; font-weight:700; color:#6b7280;">🎟️ 我的专属卡包</span>
+        <div class="view-mode-switch">
+          <button class="view-mode-btn" id="couponModeGridBtn" onclick="setCouponViewMode('grid')">🗂️ 大图标</button>
+          <button class="view-mode-btn active" id="couponModeListBtn" onclick="setCouponViewMode('list')">📋 按行详情</button>
+        </div>
+      </div>
+
+      <div class="coupon-grid list-mode subpanel-fade" id="couponListContainer"></div>
     </div>
 
-    <div id="subPanelEvent" style="display:none;">
+    <!-- 子面板 B：专属事件 -->
+    <div id="subPanelEvent" style="display: block;" class="subpanel-fade">
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
@@ -832,21 +1009,39 @@
     </div>
   </div>
 
-  <!-- ==================== 导航第 5 项：✈️ 旅行（地点卡片列表 + 单次旅行详情攻略） ==================== -->
+  <!-- ==================== 导航第 5 项：✈️ 旅行（必带物品置顶 + 足迹地点卡 + 详情攻略） ==================== -->
   <div class="card" id="tabTravelView" style="display: none;">
 
-    <!-- 视图 A：旅行地点卡片列表页 -->
+    <!-- 视图 A：必带物品置顶 + 旅行地点卡片列表 -->
     <div id="travelHomeStage" style="display: block;">
+
+      <!-- V2.1.2 必带物品置顶于"我们的旅行足迹"上方，支持直接添加与展开查看 -->
+      <div class="global-packing-card">
+        <div class="global-packing-head" onclick="toggleGlobalPackingBody()">
+          <div class="global-packing-title">🎒 旅行必带物品清单</div>
+          <div class="section-head-right">
+            <span class="section-pill" id="globalPackingCountLabel">0/0</span>
+            <span style="font-size:11px; color:#b45309; font-weight:700;" id="globalPackingToggleHint">收起 ▴</span>
+          </div>
+        </div>
+        <div class="global-packing-body" id="globalPackingBody" style="display: none;">
+          <div class="event-add-row" style="margin-bottom:6px;">
+            <input type="text" id="globalPackingInput" placeholder="添加必带物品，如：身份证、充电宝、洗漱包..." style="font-size:13px; padding:9px 10px;">
+            <button class="event-add-btn" onclick="addGlobalPackingItem()">+ 添加</button>
+          </div>
+          <div class="packing-list" id="globalPackingListContainer"></div>
+        </div>
+      </div>
+
       <div class="env-header-banner">
         <div>
           <div class="env-banner-title">✈️ 我们的旅行足迹</div>
-          <div class="env-banner-sub">点击地点卡查看详细攻略与必带物品</div>
+          <div class="env-banner-sub">点击地点卡查看详细吃穿住行攻略</div>
         </div>
         <button class="write-letter-toggle-btn" id="toggleNewTripBtn" onclick="toggleNewTripForm()">+ 添加新旅程</button>
       </div>
 
-      <!-- 添加新旅程表单（填入去的地方、日期、时长后进入详情页） -->
-      <div class="compose-letter-box" id="newTripFormBox" style="display: none;">
+      <div class="compose-letter-box" id="newTripFormBox" style="display:none;">
         <div class="compose-row-label">🗺️ 开启一段新旅程（填完后直接进入攻略页）：</div>
         <input type="text" id="newTripPlace" placeholder="去的地方（如：长沙 / 成都 / 厦门）" style="font-size:13px;">
         <div class="meet-form-row">
@@ -866,47 +1061,43 @@
       <div class="trip-cards-grid" id="tripCardsGrid"></div>
     </div>
 
-    <!-- 视图 B：单次旅行详情页（顶部必带物品 + 吃穿住行打卡） -->
-    <div id="travelDetailStage" style="display: none;">
+    <!-- 视图 B：单次旅行详情页（吃穿住行打卡 + 本次专属物品） -->
+    <div id="travelDetailStage" style="display:none;">
       <div class="subpage-header">
         <button class="back-btn" onclick="closeTripDetail()">← 返回</button>
         <div class="subpage-title-wrap">
-          <div class="subpage-title" id="detailTripTitle">📍 1</div>
-          <div class="subpage-lunar" id="detailTripMeta">2026-11-28 · 3天2晚</div>
+          <div class="subpage-title" id="detailTripTitle">武汉之旅</div>
+          <div class="subpage-lunar" id="detailTripMeta">2026-12-01 · 3天2晚</div>
         </div>
-        <button class="packing-btn" id="packingToggleBtn" onclick="togglePackingDrawer()">🎒 必带(0)</button>
+        <button class="packing-btn" id="packingToggleBtn" onclick="togglePackingDrawer()">🎒 本次物品</button>
       </div>
 
-      <!-- 本次旅行必带物品抽屉面板 -->
-      <div class="packing-drawer" id="packingDrawerBox" style="display: none;">
+      <div class="packing-drawer" id="packingDrawerBox" style="display:none;">
         <div class="section-head" style="margin-bottom:8px;">
-          <span>🎒 本次旅行必带物品</span>
+          <span>🎒 本次旅行专属物品</span>
           <span class="section-pill" id="packingCountLabel">0/0</span>
         </div>
         <div class="event-add-row" style="margin-bottom:6px;">
-          <input type="text" id="newPackingInput" placeholder="添加必带物品，如：身份证、充电宝、防晒霜..." style="font-size:13px;">
+          <input type="text" id="newPackingInput" placeholder="添加本次特别要带的物品..." style="font-size:13px;">
           <button class="event-add-btn" onclick="addPackingItem()">+ 加入</button>
         </div>
         <div class="packing-list" id="packingListContainer"></div>
       </div>
 
-      <!-- 五大攻略分类 -->
       <div class="travel-cat-tabs">
-        <button class="travel-cat-btn" id="tCatEat" onclick="switchTravelCat('eat')"><span class="t-ico">🍜</span>吃</button>
+        <button class="travel-cat-btn active" id="tCatEat" onclick="switchTravelCat('eat')"><span class="t-ico">🍜</span>吃</button>
         <button class="travel-cat-btn" id="tCatWear" onclick="switchTravelCat('wear')"><span class="t-ico">👗</span>穿</button>
         <button class="travel-cat-btn" id="tCatStay" onclick="switchTravelCat('stay')"><span class="t-ico">🏨</span>住</button>
-        <button class="travel-cat-btn active" id="tCatGo" onclick="switchTravelCat('go')"><span class="t-ico">🚄</span>行</button>
+        <button class="travel-cat-btn" id="tCatGo" onclick="switchTravelCat('go')"><span class="t-ico">🚄</span>行</button>
         <button class="travel-cat-btn" id="tCatSpot" onclick="switchTravelCat('spot')"><span class="t-ico">📸</span>打卡</button>
       </div>
 
-      <!-- 普通输入区（吃 / 穿 / 打卡） -->
-      <div class="event-add-row" id="travelSimpleAddBox" style="display: none;">
-        <input type="text" id="newTravelInput" placeholder="添加【打卡】攻略，如：黄鹤楼夜景、东湖绿道...">
+      <div class="event-add-row" id="travelSimpleAddBox">
+        <input type="text" id="newTravelInput" placeholder="添加【吃】攻略，如：过早热干面、小龙虾...">
         <button class="event-add-btn" onclick="addTravelItem()">+ 添加</button>
       </div>
 
-      <!-- 【住】专属输入区：需选择入住日期与离开日期 -->
-      <div class="travel-time-form" id="travelStayAddBox" style="display: none;">
+      <div class="travel-time-form" id="travelStayAddBox" style="display:none;">
         <input type="text" id="stayNameInput" placeholder="酒店或民宿名称（如：江汉路江景民宿）" style="font-size:13px; margin-bottom:8px;">
         <div class="travel-time-grid">
           <div class="travel-time-field">
@@ -921,8 +1112,7 @@
         <button class="btn" style="padding:9px; font-size:13px; margin-bottom:0;" onclick="addStayItem()">🏨 确认入住时间并添加</button>
       </div>
 
-      <!-- 【行】专属输入区：需选择发车时间与到达时间 -->
-      <div class="travel-time-form" id="travelGoAddBox" style="display: block;">
+      <div class="travel-time-form" id="travelGoAddBox" style="display:none;">
         <input type="text" id="goNameInput" placeholder="车次或交通方式（如：G1234 苏州北→汉口）" style="font-size:13px; margin-bottom:8px;">
         <div class="travel-time-grid">
           <div class="travel-time-field">
@@ -938,20 +1128,73 @@
       </div>
 
       <div class="section-head">
-        <span id="travelListTitle">🚄 出行车次</span>
+        <span id="travelListTitle">🍜 美食清单</span>
         <span class="section-pill" id="travelCountLabel">0/0</span>
       </div>
       <div class="travel-list" id="travelListContainer"></div>
     </div>
   </div>
 
+  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页（V2.1.2 新增） ==================== -->
+  <div class="card" id="tabMenuView" style="display: none;">
+    <div class="env-header-banner">
+      <div>
+        <div class="env-banner-title">🍽️ 专属私房菜单</div>
+        <div class="env-banner-sub">想吃什么直接点单，云端同步给大厨</div>
+      </div>
+      <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">收起</button>
+    </div>
+
+    <!-- 添加新菜品表单 -->
+    <div class="compose-letter-box" id="addDishFormBox" style="display: none;">
+      <div class="compose-row-label">👨‍🍳 录入一道拿手菜或想吃的菜：</div>
+      <div class="meet-form-row">
+        <input type="text" id="newDishName" placeholder="菜名（如：可乐鸡翅）">
+        <select id="newDishCat" style="margin-bottom:0; font-size:12.5px; padding:9px 10px;">
+          <option value="main">🥘 主菜</option>
+          <option value="snack">🍢 小吃</option>
+          <option value="drink">🧋 饮品</option>
+          <option value="sweet">🍰 甜点</option>
+        </select>
+      </div>
+      <input type="text" id="newDishNote" placeholder="口味/备注（可选，如：微辣多放葱、少糖去冰）" style="font-size:13px;">
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-ghost" style="width:32%; margin-bottom:0;" onclick="toggleAddDishForm()">取消</button>
+        <button class="btn" style="flex:1; margin-bottom:0;" onclick="addCustomDish()">🍽️ 加入菜单</button>
+      </div>
+    </div>
+
+    <!-- 今日已点菜单汇总盘 -->
+    <div class="order-tray-box">
+      <div class="order-tray-head">
+        <span class="order-tray-title">🛎️ 今日已点清单 (<span id="todayOrderCount">0</span>)</span>
+        <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
+      </div>
+      <div class="order-pills-wrap" id="todayOrderPills"><span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span></div>
+      <div class="order-tray-actions">
+        <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并同步大厨</button>
+      </div>
+    </div>
+
+    <!-- 菜品分类筛选 -->
+    <div class="menu-cat-tabs">
+      <button class="menu-cat-btn" id="mCatAll" onclick="switchMenuCat('all')">全部</button>
+      <button class="menu-cat-btn" id="mCatMain" onclick="switchMenuCat('main')">🥘主菜</button>
+      <button class="menu-cat-btn" id="mCatSnack" onclick="switchMenuCat('snack')">🍢小吃</button>
+      <button class="menu-cat-btn active" id="mCatDrink" onclick="switchMenuCat('drink')">🧋饮品</button>
+      <button class="menu-cat-btn" id="mCatSweet" onclick="switchMenuCat('sweet')">🍰甜点</button>
+    </div>
+
+    <div class="dish-list subpanel-fade" id="dishListContainer"></div>
+  </div>
+
   <!-- ==================== 日历点击进入的【独立双人气泡留言与见面行程页】 ==================== -->
-  <div class="card" id="noteView" style="display:none;">
+  <div class="card" id="noteView" style="display: none;">
     <div class="subpage-header">
       <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
       <div class="subpage-title-wrap">
-        <div class="subpage-title" id="selectedDateLabel">2026-11-24</div>
-        <div class="subpage-lunar" id="selectedLunarLabel">农历十月十五</div>
+        <div class="subpage-title" id="selectedDateLabel">2026-11-28</div>
+        <div class="subpage-lunar" id="selectedLunarLabel">农历十月二十</div>
       </div>
       <span style="width:64px;"></span>
     </div>
@@ -961,7 +1204,7 @@
     <div class="meet-setup-box">
       <div class="meet-setup-top">
         <span class="meet-setup-label" id="meetSetupStatus">✈️ 从这天起见面几天？</span>
-        <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display:none;">取消行程</button>
+        <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display: inline;">取消行程</button>
       </div>
       <div class="duration-chips" id="durationChips">
         <button class="dur-chip" onclick="setMeetDuration(1)">1天</button>
@@ -986,7 +1229,7 @@
     <div class="note-list" id="noteListContainer"></div>
   </div>
 
-  <!-- ==================== 底部五栏悬浮导航栏（见面 | 信封 | 首页 | 约定 | 旅行） ==================== -->
+  <!-- ==================== V2.1.2 底部六栏悬浮导航栏（见面 | 信封 | 首页 | 约定 | 旅行 | 菜单） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnMeet" onclick="switchMainTab('meet')">
       <span class="nav-icon">⏳</span>
@@ -1009,9 +1252,13 @@
       <span class="nav-icon">✈️</span>
       <span class="nav-label">旅行</span>
     </button>
+    <button class="nav-item" id="navBtnMenu" onclick="switchMainTab('menu')">
+      <span class="nav-icon">🍽️</span>
+      <span class="nav-label">菜单</span>
+    </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.1';
+    const APP_VERSION = '2.1.2';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1024,7 +1271,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "1aXQjWphq61AB/VFnKFn6u6McUB+zqumXPgF5nbL3iJLBtpGSqKpVDi2brY5VO5MlE8mSTTypiegwO9t7rbjSrp9V55TOWqwJ0QpuNgIvg20+e3P0vgXFwsHcTg76dQ31hvduOS+NPBBt7NZ7665YSKcK9oFTCA4oayv/PHryo5fWWXuwXBOVLzm9BXhsqfp+b4sHqX+CdhyAUG/DnmQ8NUlT2AcmZGemZ9wyyAdUCI50ujWant08QiVfhDJm8Ctp8Pe0RCJSR1D84c+E2vOgDgyhg7dUNQ5FD+ktD7DEJbCRyv0H7/Y";
+    const ENCRYPTED_BUNDLE = "VHMeldMujDTl+NrYIWo4OacGaiulneCvLAlpSB0qY8x6dd/LeRPp66iZn0izIzN0/kUXXT9cJvCsktGYN8BuZL1ldxjJz/ugGxDi+7p5yqGYxxFk/ZDedWzFMCmjm373Ax1e8FKXha9IQVfimGgdOVFarEQ6aHeZe9fIMsiKGe2gdByd30ZYkdyGXWHSXlzndbYbn43J7/jUe/hW1CEAhNgd2isAUrUsfkvHC75np6sq7ngis5FyaY9yMjg6GPKYbpOSEf9pGiW40wIozksiXsPsRZYveMafXb9nzIklEgXVvFdy8YjV";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1039,8 +1286,12 @@
     const MEET_HISTORY_KEY = 'dwlapp_love_meet_history_v1';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
+    const COUPON_VIEW_MODE_KEY = 'dwlapp_love_coupon_view_v1';
+    const GLOBAL_PACKING_KEY = 'dwlapp_love_global_packing_v1';
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_1';
+    const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
+    const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_2';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1059,6 +1310,14 @@
       el.classList.add('show');
       if (toastTimer) clearTimeout(toastTimer);
       toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    // ========== 通用动画重触发工具 ==========
+    function triggerElAnim(el, animClass) {
+      if (!el) return;
+      el.classList.remove(animClass);
+      void el.offsetWidth;
+      el.classList.add(animClass);
     }
 
     // ========== 原生高精度农历与生日识别引擎（女方农历0409 / 男方农历0801） ==========
@@ -1336,7 +1595,10 @@
           meetHistory: getMeetHistory(),
           coupons: getAllCoupons(),
           events: getAllEvents(),
+          globalPacking: getGlobalPacking(),
           travelTrips: getAllTrips(),
+          menuDishes: getAllDishes(),
+          menuOrders: getTodayOrders(),
           updatedAt: Date.now()
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
@@ -1475,8 +1737,20 @@
             localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
           }
 
+          if (!silentBeforePush && Array.isArray(remote.globalPacking)) {
+            localStorage.setItem(GLOBAL_PACKING_KEY, JSON.stringify(remote.globalPacking));
+          }
+
           if (!silentBeforePush && Array.isArray(remote.travelTrips)) {
             localStorage.setItem(TRAVEL_TRIPS_KEY, JSON.stringify(remote.travelTrips));
+          }
+
+          if (!silentBeforePush && Array.isArray(remote.menuDishes)) {
+            localStorage.setItem(MENU_DISHES_KEY, JSON.stringify(remote.menuDishes));
+          }
+
+          if (!silentBeforePush && Array.isArray(remote.menuOrders)) {
+            localStorage.setItem(MENU_ORDERS_KEY, JSON.stringify(remote.menuOrders));
           }
 
           if (!silentBeforePush) {
@@ -1496,8 +1770,13 @@
               renderEventsList();
             }
             if (currentMainTab === 'travel') {
+              renderGlobalPackingList();
               if (activeTripId) renderTripDetail();
               else renderTripCards();
+            }
+            if (currentMainTab === 'menu') {
+              renderTodayOrders();
+              renderMenuDishes();
             }
           }
         } else if (!silentBeforePush && rows.length === 0) {
@@ -1513,7 +1792,7 @@
       }
     }
 
-    // ========== 五栏导航切换控制（见面 | 信封 | 首页 | 约定 | 旅行） ==========
+    // ========== V2.1.2 六栏导航切换控制（带丝滑跳转动画） ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
@@ -1523,18 +1802,24 @@
         envelope: document.getElementById('tabEnvelopeView'),
         home: document.getElementById('tabHomeView'),
         promise: document.getElementById('tabPromiseView'),
-        travel: document.getElementById('tabTravelView')
+        travel: document.getElementById('tabTravelView'),
+        menu: document.getElementById('tabMenuView')
       };
       const navs = {
         meet: document.getElementById('navBtnMeet'),
         envelope: document.getElementById('navBtnEnvelope'),
         home: document.getElementById('navBtnHome'),
         promise: document.getElementById('navBtnPromise'),
-        travel: document.getElementById('navBtnTravel')
+        travel: document.getElementById('navBtnTravel'),
+        menu: document.getElementById('navBtnMenu')
       };
 
       Object.keys(views).forEach(k => {
-        if (views[k]) views[k].style.display = (k === tabName) ? 'block' : 'none';
+        if (views[k]) {
+          const isTarget = (k === tabName);
+          views[k].style.display = isTarget ? 'block' : 'none';
+          if (isTarget) triggerElAnim(views[k], 'tab-anim-enter');
+        }
         if (navs[k]) navs[k].classList.toggle('active', k === tabName);
       });
 
@@ -1553,16 +1838,24 @@
         renderCapsulesList();
         updateQuoteLabel();
       } else if (tabName === 'promise') {
+        applyCouponViewModeUI();
         renderCouponsList();
         renderEventsList();
       } else if (tabName === 'travel') {
+        renderGlobalPackingList();
         closeTripDetail();
+      } else if (tabName === 'menu') {
+        renderTodayOrders();
+        renderMenuDishes();
       }
     }
 
     function switchPromiseSubTab(subName) {
-      document.getElementById('subPanelCoupon').style.display = (subName === 'coupon') ? 'block' : 'none';
-      document.getElementById('subPanelEvent').style.display = (subName === 'event') ? 'block' : 'none';
+      const pCoupon = document.getElementById('subPanelCoupon');
+      const pEvent = document.getElementById('subPanelEvent');
+      pCoupon.style.display = (subName === 'coupon') ? 'block' : 'none';
+      pEvent.style.display = (subName === 'event') ? 'block' : 'none';
+      triggerElAnim(subName === 'coupon' ? pCoupon : pEvent, 'subpanel-fade');
       document.getElementById('subTabCouponBtn').classList.toggle('active', subName === 'coupon');
       document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
     }
@@ -1679,7 +1972,84 @@
       }).join('');
     }
 
-    // ========== V2.1.1 重构【✈️ 旅行足迹卡片 + 必带物品 + 吃穿住行打卡】逻辑 ==========
+    // ========== V2.1.2 旅行页顶部【🎒 通用必带物品清单】逻辑 ==========
+    function getGlobalPacking() {
+      try { return JSON.parse(localStorage.getItem(GLOBAL_PACKING_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveGlobalPacking(list, syncCloud = true) {
+      localStorage.setItem(GLOBAL_PACKING_KEY, JSON.stringify(list));
+      if (syncCloud) pushToCloud();
+    }
+
+    function toggleGlobalPackingBody() {
+      const body = document.getElementById('globalPackingBody');
+      const hint = document.getElementById('globalPackingToggleHint');
+      if (!body) return;
+      const opening = body.style.display === 'none';
+      body.style.display = opening ? 'block' : 'none';
+      if (hint) hint.textContent = opening ? '收起 ▴' : '展开 ▾';
+      if (opening) renderGlobalPackingList();
+    }
+
+    function addGlobalPackingItem() {
+      const input = document.getElementById('globalPackingInput');
+      const name = input.value.trim();
+      if (!name) return alert('先输入旅行必带物品名称吧~');
+      const list = getGlobalPacking();
+      list.unshift({ id: Date.now(), name, done: false });
+      saveGlobalPacking(list, true);
+      input.value = '';
+      renderGlobalPackingList();
+      showToast('🎒 已加入旅行必带清单');
+    }
+
+    document.getElementById('globalPackingInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') addGlobalPackingItem();
+    });
+
+    function toggleGlobalPackingDone(id) {
+      const list = getGlobalPacking();
+      const target = list.find(i => i.id === id);
+      if (target) {
+        target.done = !target.done;
+        saveGlobalPacking(list, true);
+        renderGlobalPackingList();
+      }
+    }
+
+    function deleteGlobalPackingItem(id) {
+      const list = getGlobalPacking().filter(i => i.id !== id);
+      saveGlobalPacking(list, true);
+      renderGlobalPackingList();
+    }
+
+    function renderGlobalPackingList() {
+      const list = getGlobalPacking();
+      const doneCount = list.filter(i => i.done).length;
+      const countEl = document.getElementById('globalPackingCountLabel');
+      if (countEl) countEl.textContent = `${doneCount}/${list.length}`;
+
+      const container = document.getElementById('globalPackingListContainer');
+      if (!container) return;
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-notes" style="padding:10px 0;">暂无必带物品，添加身份证、充电宝等常备行李吧 🎒</div>`;
+        return;
+      }
+
+      const sorted = [...list].sort((a, b) => Number(a.done) - Number(b.done));
+      container.innerHTML = sorted.map(p => `
+        <div class="event-item ${p.done ? 'done' : ''}" style="padding:8px 10px;">
+          <input type="checkbox" class="event-checkbox" ${p.done ? 'checked' : ''} onchange="toggleGlobalPackingDone(${p.id})">
+          <div class="event-content" onclick="toggleGlobalPackingDone(${p.id})">
+            <div class="event-title" style="font-size:13px;">${escapeHtml(p.name)}</div>
+          </div>
+          <span class="note-del" onclick="deleteGlobalPackingItem(${p.id})" title="删除">✕</span>
+        </div>
+      `).join('');
+    }
+
+    // ========== ✈️ 旅行足迹卡片 + 吃穿住行打卡逻辑 ==========
     const TRAVEL_CAT_META = {
       eat:  { name: '吃',   title: '🍜 美食清单', placeholder: '添加【吃】攻略，如：过早热干面、小龙虾...' },
       wear: { name: '穿',   title: '👗 穿搭清单', placeholder: '添加【穿】攻略，如：情侣装、防晒衣、舒适运动鞋...' },
@@ -1793,7 +2163,9 @@
     function openTripDetail(tripId) {
       activeTripId = tripId;
       document.getElementById('travelHomeStage').style.display = 'none';
-      document.getElementById('travelDetailStage').style.display = 'block';
+      const detailEl = document.getElementById('travelDetailStage');
+      detailEl.style.display = 'block';
+      triggerElAnim(detailEl, 'subpanel-fade');
       document.getElementById('packingDrawerBox').style.display = 'none';
       renderTripDetail();
       switchTravelCat('eat');
@@ -1802,7 +2174,8 @@
     function closeTripDetail() {
       activeTripId = null;
       document.getElementById('travelDetailStage').style.display = 'none';
-      document.getElementById('travelHomeStage').style.display = 'block';
+      const homeStage = document.getElementById('travelHomeStage');
+      homeStage.style.display = 'block';
       renderTripCards();
     }
 
@@ -1815,7 +2188,6 @@
       renderTravelList();
     }
 
-    // --- 顶部【🎒 必带物品】逻辑 ---
     function togglePackingDrawer() {
       const box = document.getElementById('packingDrawerBox');
       if (!box) return;
@@ -1872,10 +2244,10 @@
       const list = Array.isArray(trip.packing) ? trip.packing : [];
       const doneCount = list.filter(i => i.done).length;
       if (countEl) countEl.textContent = `${doneCount}/${list.length}`;
-      if (btn) btn.textContent = `🎒 必带(${list.length})`;
+      if (btn) btn.textContent = `🎒 本次(${list.length})`;
 
       if (list.length === 0) {
-        container.innerHTML = `<div class="empty-notes" style="padding:10px 0;">还没有添加必带物品，写下要带的行李吧 🎒</div>`;
+        container.innerHTML = `<div class="empty-notes" style="padding:10px 0;">还没有添加本次专属物品 🎒</div>`;
         return;
       }
 
@@ -1891,7 +2263,6 @@
       `).join('');
     }
 
-    // --- 吃 / 穿 / 住 / 行 / 打卡 五大攻略分类 ---
     function switchTravelCat(cat) {
       currentTravelCat = cat;
       const btnMap = { eat: 'tCatEat', wear: 'tCatWear', stay: 'tCatStay', go: 'tCatGo', spot: 'tCatSpot' };
@@ -1911,6 +2282,7 @@
       if (titleEl && meta) titleEl.textContent = meta.title;
 
       renderTravelList();
+      triggerElAnim(document.getElementById('travelListContainer'), 'subpanel-fade');
     }
 
     function addTravelItem() {
@@ -2058,6 +2430,163 @@
               <div class="event-sub">${item.done ? '✅ 已打卡完成' : `📌 添加于 ${item.createdAt}`}</div>
             </div>
             <span class="note-del" onclick="deleteTravelItem(${item.id})" title="删除">✕</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ========== V2.1.2 新增【🍽️ 专属私房菜单点菜】逻辑 ==========
+    const MENU_CAT_LABELS = { main: '🥘 主菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
+    let currentMenuCat = 'all';
+
+    function getAllDishes() {
+      try { return JSON.parse(localStorage.getItem(MENU_DISHES_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveAllDishes(list, syncCloud = true) {
+      localStorage.setItem(MENU_DISHES_KEY, JSON.stringify(list));
+      if (syncCloud) pushToCloud();
+    }
+
+    function getTodayOrders() {
+      try { return JSON.parse(localStorage.getItem(MENU_ORDERS_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveTodayOrders(list, syncCloud = true) {
+      localStorage.setItem(MENU_ORDERS_KEY, JSON.stringify(list));
+      if (syncCloud) pushToCloud();
+    }
+
+    function toggleAddDishForm() {
+      const box = document.getElementById('addDishFormBox');
+      const btn = document.getElementById('toggleAddDishBtn');
+      const isOpening = box.style.display === 'none';
+      box.style.display = isOpening ? 'block' : 'none';
+      btn.textContent = isOpening ? '收起' : '+ 添新菜';
+    }
+
+    function addCustomDish() {
+      const name = document.getElementById('newDishName').value.trim();
+      const cat = document.getElementById('newDishCat').value;
+      const note = document.getElementById('newDishNote').value.trim();
+
+      if (!name) return alert('请填写菜品名称哦~');
+      const list = getAllDishes();
+      list.unshift({
+        id: Date.now(),
+        name,
+        cat,
+        note: note || '大厨招牌推荐'
+      });
+      saveAllDishes(list, true);
+
+      document.getElementById('newDishName').value = '';
+      document.getElementById('newDishNote').value = '';
+      document.getElementById('addDishFormBox').style.display = 'none';
+      document.getElementById('toggleAddDishBtn').textContent = '+ 添新菜';
+      renderMenuDishes();
+      showToast(`🍽️ 「${name}」已加入菜单`);
+    }
+
+    function deleteDish(id) {
+      if (!confirm('确定要从菜单中删除这道菜吗？')) return;
+      const dishes = getAllDishes().filter(d => d.id !== id);
+      const orders = getTodayOrders().filter(oid => oid !== id);
+      saveAllDishes(dishes, false);
+      saveTodayOrders(orders, true);
+      renderTodayOrders();
+      renderMenuDishes();
+    }
+
+    function switchMenuCat(cat) {
+      currentMenuCat = cat;
+      const map = { all: 'mCatAll', main: 'mCatMain', snack: 'mCatSnack', drink: 'mCatDrink', sweet: 'mCatSweet' };
+      Object.keys(map).forEach(k => {
+        const el = document.getElementById(map[k]);
+        if (el) el.classList.toggle('active', k === cat);
+      });
+      renderMenuDishes();
+      triggerElAnim(document.getElementById('dishListContainer'), 'subpanel-fade');
+    }
+
+    function toggleOrderDish(dishId) {
+      const orders = getTodayOrders();
+      const idx = orders.indexOf(dishId);
+      if (idx >= 0) {
+        orders.splice(idx, 1);
+      } else {
+        orders.push(dishId);
+      }
+      saveTodayOrders(orders, true);
+      renderTodayOrders();
+      renderMenuDishes();
+    }
+
+    function clearTodayOrders() {
+      if (getTodayOrders().length === 0) return;
+      if (!confirm('确定清空今日已点菜品吗？')) return;
+      saveTodayOrders([], true);
+      renderTodayOrders();
+      renderMenuDishes();
+    }
+
+    function confirmTodayOrder() {
+      const orders = getTodayOrders();
+      if (orders.length === 0) return alert('还没有点任何菜哦，先选几道想吃的吧~');
+      pushToCloud();
+      spawnFxParticles(['🍽️', '🥘', '🧋', '💖']);
+      showToast(`🛎️ 已下单 ${orders.length} 道菜并同步给大厨！`);
+    }
+
+    function renderTodayOrders() {
+      const orders = getTodayOrders();
+      const dishes = getAllDishes();
+      const countEl = document.getElementById('todayOrderCount');
+      const pillsEl = document.getElementById('todayOrderPills');
+      if (countEl) countEl.textContent = orders.length;
+      if (!pillsEl) return;
+
+      if (orders.length === 0) {
+        pillsEl.innerHTML = `<span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>`;
+        return;
+      }
+
+      const validItems = orders.map(id => dishes.find(d => d.id === id)).filter(Boolean);
+      pillsEl.innerHTML = validItems.map(d => `
+        <span class="order-pill-item">
+          ${escapeHtml(d.name)}
+          <span class="order-pill-x" onclick="toggleOrderDish(${d.id})">✕</span>
+        </span>
+      `).join('');
+    }
+
+    function renderMenuDishes() {
+      const dishes = getAllDishes();
+      const orders = getTodayOrders();
+      const container = document.getElementById('dishListContainer');
+      if (!container) return;
+
+      const filtered = currentMenuCat === 'all' ? dishes : dishes.filter(d => d.cat === currentMenuCat);
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-notes">菜单里还没有这道分类的菜品，点右上角「+ 添新菜」录入吧 👨‍🍳</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => {
+        const isOrdered = orders.includes(d.id);
+        const catTag = MENU_CAT_LABELS[d.cat] || '🍽️ 菜品';
+        return `
+          <div class="dish-card ${isOrdered ? 'ordered' : ''}">
+            <div class="dish-info">
+              <div class="dish-name">${escapeHtml(d.name)}</div>
+              <div class="dish-meta">${catTag} · ${escapeHtml(d.note)}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+              <button class="dish-order-btn ${isOrdered ? 'added' : ''}" onclick="toggleOrderDish(${d.id})">
+                ${isOrdered ? '✓ 已点' : '+ 点菜'}
+              </button>
+              <span class="note-del" onclick="deleteDish(${d.id})" title="删除菜品">✕</span>
+            </div>
           </div>
         `;
       }).join('');
@@ -2321,7 +2850,25 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑 ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.2 自定义小字 + 大图标/按行详情切换） ==========
+    let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
+
+    function applyCouponViewModeUI() {
+      const container = document.getElementById('couponListContainer');
+      const gridBtn = document.getElementById('couponModeGridBtn');
+      const listBtn = document.getElementById('couponModeListBtn');
+      if (container) container.classList.toggle('list-mode', couponViewMode === 'list');
+      if (gridBtn) gridBtn.classList.toggle('active', couponViewMode === 'grid');
+      if (listBtn) listBtn.classList.toggle('active', couponViewMode === 'list');
+    }
+
+    function setCouponViewMode(mode) {
+      couponViewMode = mode;
+      localStorage.setItem(COUPON_VIEW_MODE_KEY, mode);
+      applyCouponViewModeUI();
+      triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
+    }
+
     function getAllCoupons() {
       try {
         const raw = localStorage.getItem(COUPONS_STORAGE_KEY);
@@ -2340,10 +2887,11 @@
 
     function renderCouponsList() {
       updatePromiseCounters();
+      applyCouponViewModeUI();
       const container = document.getElementById('couponListContainer');
       const rawList = getAllCoupons();
       if (rawList.length === 0) {
-        container.innerHTML = `<div class="empty-notes" style="grid-column:span 2;">卡包还是空的，在上方输入名称发第一张专属恋爱券吧 🎟️</div>`;
+        container.innerHTML = `<div class="empty-notes" style="grid-column:1 / -1;">卡包还是空的，在上方输入名称与说明发第一张专属恋爱券吧 🎟️</div>`;
         return;
       }
 
@@ -2351,15 +2899,15 @@
 
       container.innerHTML = sorted.map(c => `
         <div class="coupon-ticket ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
-          <div>
+          <div class="ticket-main-info">
             <div class="ticket-top-row">
               <span class="ticket-top-tag">${c.used ? '已兑现' : '特权券'}</span>
               <span class="note-del" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
             </div>
             <div class="coupon-name">${escapeHtml(c.name)}</div>
-            <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt}` : escapeHtml(c.desc)}</div>
+            <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
           </div>
-          <div>
+          <div class="ticket-action-col">
             <div class="ticket-divider"></div>
             ${c.used
               ? `<div class="coupon-stamp">已盖章核销</div>`
@@ -2396,23 +2944,30 @@
     }
 
     function addCustomCoupon() {
-      const input = document.getElementById('newCouponInput');
-      const name = input.value.trim();
+      const nameInput = document.getElementById('newCouponInput');
+      const descInput = document.getElementById('newCouponDescInput');
+      const name = nameInput.value.trim();
+      const customDesc = descInput.value.trim();
       if (!name) return alert('先输入特权券名称吧~');
       const list = getAllCoupons();
       list.unshift({
         id: Date.now(),
         name: `🎁 ${name}`,
-        desc: '专属定制特权券，见面或随时出示即可兑现',
+        desc: customDesc || '专属定制特权券，见面或随时出示即可兑现',
         used: false,
         usedAt: ''
       });
       saveAllCoupons(list, true);
-      input.value = '';
+      nameInput.value = '';
+      descInput.value = '';
       renderCouponsList();
+      showToast('🎟️ 特权券发放成功！');
     }
 
     document.getElementById('newCouponInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') addCustomCoupon();
+    });
+    document.getElementById('newCouponDescInput').addEventListener('keypress', e => {
       if (e.key === 'Enter') addCustomCoupon();
     });
 
@@ -2722,7 +3277,6 @@
         syncPollInterval = setInterval(() => pullFromCloud(false), 5000);
       }
 
-      const homeView = document.getElementById('tabHomeView');
       const navBar = document.getElementById('bottomNavBar');
 
       if (playIntro) {
@@ -2746,7 +3300,6 @@
           overlay.classList.add('fading-out');
           navBar.style.display = 'grid';
           switchMainTab('home');
-          homeView.classList.add('reveal-main');
           openUpdateModal(false);
         }, 1900);
 
@@ -2757,7 +3310,6 @@
       } else {
         navBar.style.display = 'grid';
         switchMainTab('home');
-        homeView.classList.add('reveal-main');
         openUpdateModal(false);
       }
     }
@@ -2908,7 +3460,9 @@
       }
 
       document.getElementById('tabHomeView').style.display = 'none';
-      document.getElementById('noteView').style.display = 'block';
+      const noteEl = document.getElementById('noteView');
+      noteEl.style.display = 'block';
+      triggerElAnim(noteEl, 'tab-anim-enter');
       renderNotesList();
     }
 
@@ -3093,19 +3647,19 @@
 
       [
         'fxStageOverlay', 'updateModalMask', 'introOverlay', 'denyView', 'loginView',
-        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView', 'tabTravelView',
-        'travelDetailStage', 'newTripFormBox', 'packingDrawerBox',
+        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView', 'tabTravelView', 'tabMenuView',
+        'travelDetailStage', 'newTripFormBox', 'packingDrawerBox', 'globalPackingBody', 'addDishFormBox',
         'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox',
         'addQuoteInlineBox', 'bdayBanner'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) {
           el.style.display = 'none';
-          el.classList.remove('fading-out', 'reveal-main');
+          el.classList.remove('fading-out', 'reveal-main', 'tab-anim-enter', 'subpanel-fade');
         }
       });
 
-      ['navBtnMeet', 'navBtnEnvelope', 'navBtnHome', 'navBtnPromise', 'navBtnTravel'].forEach(id => {
+      ['navBtnMeet', 'navBtnEnvelope', 'navBtnHome', 'navBtnPromise', 'navBtnTravel', 'navBtnMenu'].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.classList.toggle('active', id === 'navBtnHome');
       });
@@ -3121,8 +3675,8 @@
       [
         'calDaysGrid', 'meetHistoryList', 'capsuleListContainer',
         'couponListContainer', 'eventListContainer', 'tripCardsGrid',
-        'packingListContainer', 'travelListContainer',
-        'noteListContainer', 'devQuoteList', 'devCapsuleList'
+        'globalPackingListContainer', 'packingListContainer', 'travelListContainer',
+        'dishListContainer', 'noteListContainer', 'devQuoteList', 'devCapsuleList'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.innerHTML = '';
@@ -3146,7 +3700,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.1 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.1.2 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
