@@ -209,11 +209,11 @@
     #toastTip {
       position: fixed; top: calc(20px + env(safe-area-inset-top)); left: 50%;
       transform: translateX(-50%) translateY(-16px);
-      z-index: 995; background: rgba(17, 24, 39, 0.9); color: #fff;
+      z-index: 995; background: rgba(17, 24, 39, 0.92); color: #fff;
       font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 99px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       opacity: 0; pointer-events: none; transition: all 0.28s var(--ease-spring);
-      white-space: nowrap;
+      white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
     }
     #toastTip.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -277,7 +277,7 @@
     .fx-particle { position: fixed; z-index: 990; pointer-events: none; font-size: 18px; animation: particleFly 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes particleFly { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; } }
 
-    /* ========== 弹窗通用遮罩（更新提示 + 信箱 + 兑换券编辑 + 时光轴编辑） ========== */
+    /* ========== 弹窗通用遮罩 ========== */
     .modal-mask { position: fixed; inset: 0; z-index: 950; background: rgba(15, 23, 42, 0.48); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; padding: 20px; animation: fadeInModal 0.25s ease forwards; }
     @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
     .update-modal { background: #fff; border: 1.5px solid #fbcfe8; border-radius: 24px; padding: 20px 18px 16px; width: 100%; max-width: 380px; text-align: left; box-shadow: 0 20px 50px rgba(236, 72, 153, 0.25); animation: popUpModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -296,7 +296,7 @@
     .inbox-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; font-size: 11px; color: #9ca3af; }
     .inbox-item-cat { font-weight: 700; color: #db2777; }
 
-    /* ========== 底部可滑动悬浮导航栏（默认展示 4 项，左右滑动查看更多） ========== */
+    /* ========== 底部可滑动悬浮导航栏 ========== */
     .bottom-nav {
       position: fixed; bottom: calc(12px + env(safe-area-inset-bottom));
       left: 50%; transform: translateX(-50%);
@@ -431,7 +431,7 @@
     .legend-solid { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ec4899; }
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
-    /* ========== 见面计时器页样式（V2.1.7 含相见天数 + 点击整行弹窗编辑） ========== */
+    /* ========== 见面计时器页样式 ========== */
     .meet-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 14px; }
     .meet-hero-card { background: linear-gradient(145deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 12px 10px; text-align: center; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.07); }
     .meet-hero-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px; }
@@ -594,7 +594,7 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版（V2.1.7 修复卡券横向溢出 + 点击卡片编辑详情） ========== */
+    /* ========== 导航【🎁 约定】排版 ========== */
     .promise-top-badge { margin-bottom: 16px; }
     .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
     .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
@@ -662,10 +662,7 @@
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
     .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .coupon-ticket.used .coupon-name { color: #6b7280; text-decoration: line-through; }
-    .coupon-desc {
-      font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px;
-      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
+    .coupon-desc { font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .ticket-divider { border-top: 1.5px dashed #fbcfe8; margin: 0 -11px 8px; position: relative; }
     .coupon-ticket.from-her .ticket-divider { border-top-color: #ddd6fe; }
     .coupon-ticket.used .ticket-divider { border-top-color: #e5e7eb; }
@@ -706,11 +703,7 @@
     .dur-chip:active { transform: scale(0.9); }
     .dur-chip.active { background: var(--meet-grad); color: #fff; border-color: transparent; }
 
-    .cal-quick-hist-box {
-      background: linear-gradient(135deg, #fff5f7 0%, #fdf2f8 100%);
-      border: 1px solid #fbcfe8; border-radius: 16px;
-      padding: 10px 12px; margin-bottom: 12px; text-align: left;
-    }
+    .cal-quick-hist-box { background: linear-gradient(135deg, #fff5f7 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 10px 12px; margin-bottom: 12px; text-align: left; }
 
     .role-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
     .role-chip { padding: 8px 4px; border-radius: 11px; font-size: 12px; font-weight: 700; border: 1px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; transition: all 0.2s var(--ease-spring); }
@@ -748,23 +741,22 @@
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.7 更新提示弹窗 -->
+  <!-- V2.1.8 更新提示弹窗 -->
   <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.7</span>
-      <div class="update-title">卡券弹窗编辑、相见天数联动与当日爱心提示</div>
+      <span class="update-badge">✨ 版本更新 · V2.1.8</span>
+      <div class="update-title">全站添加消息提示与相见天数持久化升级</div>
       <ul class="update-list">
-        <li><strong>🎟️ 卡券防溢出+弹窗编辑</strong>：已核销卡券不再撑宽页面，点击任意卡券可弹窗查看完整信息与编辑。</li>
-        <li><strong>⏳ 时光轴弹窗编辑+天数联动</strong>：点击时光轴任意行弹出独立编辑框，支持设置相见天数并自动高亮首页日历。</li>
-        <li><strong>📅 日历双向设相见日</strong>：点击首页日历任意日期可直接记为相见日并同步至时光轴。</li>
-        <li><strong>💗 爱心当日状态提示</strong>：当日首次点击苏州/武汉爱心，下方提示语即刻变为「他想你了 / 她想你了」。</li>
+        <li><strong>🔔 全站主动添加提示</strong>：新增专属事件、发兑换券、添加旅行攻略、必带物品、见面记录与留言等操作均有顶部消息提示。</li>
+        <li><strong>⏳ 相见天数跨版本保留</strong>：云端同步与版本升级自动合并保护「相见天数」，历史记录完整不丢失。</li>
+        <li><strong>📅 日历双向丝滑滑动</strong>：完整集成手机触屏与电脑拖拽的左右双向流畅切月动画。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.7 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.8 体验 💖</button>
     </div>
   </div>
 
   <!-- 首页顶部【🔔 更新动态信箱】弹窗 -->
-  <div class="modal-mask" id="inboxModalMask" style="display: none;" onclick="if(event.target===this) closeInboxModal()">
+  <div class="modal-mask" id="inboxModalMask" style="display:none;" onclick="if(event.target===this) closeInboxModal()">
     <div class="update-modal">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <div class="update-title" style="margin-bottom:0;">🔔 空间更新信箱</div>
@@ -775,7 +767,7 @@
     </div>
   </div>
 
-  <!-- V2.1.7 新增【🎟️ 恋爱兑换券详情与编辑】独立弹窗 -->
+  <!-- 【🎟️ 恋爱兑换券详情与编辑】独立弹窗 -->
   <div class="modal-mask" id="couponEditModalMask" style="display:none;" onclick="if(event.target===this) closeCouponEditModal()">
     <div class="update-modal">
       <div class="update-title" id="couponModalHeading">🎟️ 兑换券详情与编辑</div>
@@ -800,7 +792,7 @@
     </div>
   </div>
 
-  <!-- V2.1.7 新增【⏳ 历史相见时光轴编辑】独立弹窗 -->
+  <!-- 【⏳ 历史相见时光轴编辑】独立弹窗 -->
   <div class="modal-mask" id="meetEditModalMask" style="display:none;" onclick="if(event.target===this) closeMeetEditModal()">
     <div class="update-modal">
       <div class="update-title">⏳ 编辑相见记录</div>
@@ -882,20 +874,20 @@
     <div class="plain-footer">Encrypted Session · Web Portal</div>
   </div>
 
-  <!-- ==================== 导航第 1 项：⏳ 见面计时器（V2.1.7 新增相见天数 + 点击整行弹窗编辑） ==================== -->
-  <div class="card" id="tabMeetView" style="display:none;">
+  <!-- ==================== 导航第 1 项：⏳ 见面计时器 ==================== -->
+  <div class="card" id="tabMeetView" style="display: none;">
     <div class="badge">⏳ 见面计时器 · 相聚印记</div>
 
     <div class="meet-hero-grid">
       <div class="meet-hero-card">
         <div class="meet-hero-label">距上次见面已过</div>
-        <div class="meet-hero-num" id="sinceLastMeetDays">--</div>
-        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史记录</div>
+        <div class="meet-hero-num" id="sinceLastMeetDays">15 天</div>
+        <div class="meet-hero-sub" id="sinceLastMeetDate">上次：2026-11-13 · 葛仙村</div>
       </div>
       <div class="meet-hero-card">
         <div class="meet-hero-label">累计相见次数</div>
-        <div class="meet-hero-num" id="totalMeetCount">0 次</div>
-        <div class="meet-hero-sub" id="nextMeetMiniHint">可在首页日历设下次行程</div>
+        <div class="meet-hero-num" id="totalMeetCount">17 次</div>
+        <div class="meet-hero-sub" id="nextMeetMiniHint">距下次见面还有 6 天</div>
       </div>
     </div>
 
@@ -912,12 +904,12 @@
 
     <div class="section-head">
       <span>🗓️ 历史相见时光轴（点击任意行编辑）</span>
-      <span class="section-pill" id="meetHistCountLabel">共 0 条</span>
+      <span class="section-pill" id="meetHistCountLabel">共 17 条</span>
     </div>
     <div class="meet-history-list" id="meetHistoryList"></div>
-    <div class="pager-bar" id="meetPagerBar" style="display:none;">
-      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)">‹ 上一页</button>
-      <span class="pager-info" id="meetPageInfo">第 1 / 1 页</span>
+    <div class="pager-bar" id="meetPagerBar" style="display: flex;">
+      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)" disabled="">‹ 上一页</button>
+      <span class="pager-info" id="meetPageInfo">第 1 / 5 页</span>
       <button class="pager-btn" id="meetNextPageBtn" onclick="changeMeetPage(1)">下一页 ›</button>
     </div>
   </div>
@@ -984,7 +976,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.7)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.1.8)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -1002,7 +994,7 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.7)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.8)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -1011,28 +1003,27 @@
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge badge-dev" id="modeBadge" style="display: none;">🛠️ 本地编辑模式</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.7 更新说明">V2.1.7</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.8 更新说明">V2.1.8</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端</div>
       <button class="inbox-pill" id="inboxOpenBtn" onclick="openInboxModal()" title="查看空间更新动态">
         🔔 信箱
-        <span class="inbox-dot" id="inboxUnreadDot" style="display: none;">1</span>
+        <span class="inbox-dot" id="inboxUnreadDot" style="display: none;">0</span>
       </button>
     </div>
 
-    <!-- 顶部双城奔赴进度条（V2.1.7 当日首次点击爱心后下方文案变为“他想你了 / 她想你了”） -->
     <div class="city-tracker" id="cityTrackerBox">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天7时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天4时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap" id="trackBarWrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 12.3%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 12.3%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 13.1%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 13.1%;"></div>
         </div>
-        <button class="heart-btn-runner" id="heartLeft" style="left: 12.3%; display: inline-block;" onclick="triggerMissBubble('suzhou', this)" title="点击发送：他想你了">💗</button>
-        <button class="heart-btn-runner" id="heartRight" style="left: 87.7%; display: inline-block;" onclick="triggerMissBubble('wuhan', this)" title="点击发送：她想你了">💜</button>
+        <button class="heart-btn-runner" id="heartLeft" style="left: 13.1%; display: inline-block;" onclick="triggerMissBubble('suzhou', this)" title="点击发送：他想你了">💗</button>
+        <button class="heart-btn-runner" id="heartRight" style="left: 86.9%; display: inline-block;" onclick="triggerMissBubble('wuhan', this)" title="点击发送：她想你了">💜</button>
         <button class="heart-merged-center" id="heartMerged" style="display:none;" onclick="triggerMissBubble('both', this)" title="相聚零距离">💞</button>
       </div>
       <div class="heart-hint-row">
@@ -1047,9 +1038,9 @@
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
-        <div class="time-unit"><span class="time-num" id="tHours">16</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">06</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">20</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tHours">19</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">02</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">09</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
@@ -1065,7 +1056,7 @@
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
-      <div class="cal-days cal-slide-next" id="calDaysGrid"></div>
+      <div class="cal-days" id="calDaysGrid"></div>
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
@@ -1079,15 +1070,15 @@
   </div>
 
   <!-- ==================== 导航第 4 项：🎁 约定 ==================== -->
-  <div class="card" id="tabPromiseView" style="display:none;">
+  <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">22</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">21</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
-        ✨ 专属事件 (<span id="eventDoneRatio">16/58</span>)
+        ✨ 专属事件 (<span id="eventDoneRatio">18/62</span>)
       </button>
     </div>
 
@@ -1108,7 +1099,7 @@
       <div class="coupon-toolbar">
         <div class="coupon-ctrl-group">
           <button class="coupon-mini-ctrl purple" id="couponSortBtn" onclick="cycleCouponSort()">↕️ 时间新→旧</button>
-          <button class="coupon-mini-ctrl" id="couponViewCycleBtn" onclick="cycleCouponViewMode()">🗂️ 大图标</button>
+          <button class="coupon-mini-ctrl" id="couponViewCycleBtn" onclick="cycleCouponViewMode()">📋 精简行</button>
         </div>
         <div class="coupon-ctrl-group">
           <button class="coupon-mini-ctrl" id="couponMaskToggleBtn" onclick="toggleCouponMask()">🙈 隐藏</button>
@@ -1116,7 +1107,7 @@
         </div>
       </div>
 
-      <div class="coupon-grid" id="couponListContainer"></div>
+      <div class="coupon-grid list-mode" id="couponListContainer"></div>
     </div>
 
     <!-- 子面板 B：专属事件 -->
@@ -1124,10 +1115,10 @@
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
-          <span id="eventPercentText" style="color:#db2777;">16/58 (28%)</span>
+          <span id="eventPercentText" style="color:#db2777;">18/62 (29%)</span>
         </div>
         <div class="event-progress-bar" style="margin-bottom:0;">
-          <div class="event-progress-fill" id="eventProgressFill" style="width: 28%;"></div>
+          <div class="event-progress-fill" id="eventProgressFill" style="width: 29%;"></div>
         </div>
       </div>
 
@@ -1141,8 +1132,8 @@
   </div>
 
   <!-- ==================== 导航第 5 项：✈️ 旅行 ==================== -->
-  <div class="card" id="tabTravelView" style="display:none;">
-    <div id="travelHomeStage">
+  <div class="card" id="tabTravelView" style="display: none;">
+    <div id="travelHomeStage" style="display: block;">
       <div class="global-packing-card">
         <div class="global-packing-head" onclick="toggleGlobalPackingBody()">
           <div class="global-packing-title">🎒 旅行必带物品清单</div>
@@ -1262,7 +1253,7 @@
   </div>
 
   <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
-  <div class="card" id="tabMenuView" style="display:none;">
+  <div class="card" id="tabMenuView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
@@ -1272,8 +1263,8 @@
     </div>
 
     <div class="chef-switch-row">
-      <div class="chef-chip active-wang" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
-      <div class="chef-chip" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
+      <div class="chef-chip" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
+      <div class="chef-chip active-dong" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
     </div>
 
     <div class="compose-letter-box" id="addDishFormBox" style="display:none;">
@@ -1296,11 +1287,14 @@
 
     <div class="order-tray-box">
       <div class="order-tray-head">
-        <span class="order-tray-title">🛎️ <span id="activeChefLabel">王大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
+        <span class="order-tray-title">🛎️ <span id="activeChefLabel">董大厨</span>今日接单 (<span id="todayOrderCount">1</span>)</span>
         <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
       </div>
       <div class="order-pills-wrap" id="todayOrderPills">
-        <span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>
+        <span class="order-pill-item">
+          大肉棒
+          <span class="order-pill-x" onclick="toggleOrderDish(1795845437606)">✕</span>
+        </span>
       </div>
       <div class="order-tray-actions">
         <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
@@ -1339,7 +1333,6 @@
     <div class="bday-banner" id="bdayBanner" style="display: none;"></div>
     <div class="hist-day-banner" id="histDayBanner" style="display: none;"></div>
 
-    <!-- 下次见面倒计时行程 -->
     <div class="meet-setup-box">
       <div class="meet-setup-top">
         <span class="meet-setup-label" id="meetSetupStatus">✈️ 设为双城倒计时行程？</span>
@@ -1355,7 +1348,6 @@
       </div>
     </div>
 
-    <!-- V2.1.7 新增：直接从日历设置相见日并同步写入历史时光轴 -->
     <div class="cal-quick-hist-box">
       <div class="compose-row-label" style="margin-bottom:6px;">💞 将这天设为「相见日」（同步至历史时光轴）</div>
       <div class="meet-form-row" style="margin-bottom:6px;">
@@ -1414,7 +1406,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.7';
+    const APP_VERSION = '2.1.8';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1427,7 +1419,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "07EmrJPvqQOByhhLUuq7yZDgc7IBgQXMN96lz+zGNYwfIk0fJLX1Q9IwEu8PkKB/vpZMp2PAz6EX5vP9sraWDXA=";
+    const ENCRYPTED_BUNDLE = "UETH//+ZFxHYrdX/1YzS/piDjitw9k5KweP/xS/+a2Fg12/pVCeLNo0vH1JcDUc8bbfO7g2b7FNj8S70QmI8Jyk=";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1436,6 +1428,7 @@
     const USER_QUOTES_KEY = 'dwlapp_love_user_quotes_v2';
     const USER_CAPSULES_KEY = 'dwlapp_love_user_capsules_v1';
     const DELETED_CAPSULES_KEY = 'dwlapp_love_del_capsules_v1';
+    const DELETED_COUPONS_KEY = 'dwlapp_love_del_coupons_v1';
     const PREFERRED_SENDER_KEY = 'dwlapp_love_pref_sender_v1';
     const READ_STATUS_KEY = 'dwlapp_love_read_v1';
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
@@ -1455,7 +1448,7 @@
     const INBOX_LOGS_KEY = 'dwlapp_love_inbox_logs_v1';
     const INBOX_READ_AT_KEY = 'dwlapp_love_inbox_read_at_v1';
     const HEART_MISS_KEY = 'dwlapp_love_heart_miss_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v1_2_7';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_8';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1468,13 +1461,22 @@
     // ========== 历代版本更新日志数据（供“关于”页展示） ==========
     const VERSION_HISTORY = [
       {
+        ver: 'V2.1.8',
+        date: '2026-11-28',
+        items: [
+          '全站所有主动添加操作（事件、兑换券、旅行攻略、必带物品、见面记录、情话、留言等）统一接入顶部消息提示',
+          '优化历史相见时光轴数据合并策略，确保「相见天数」随版本更新与云端同步永久保留不丢失',
+          '完整集成日历双向左右滑动切月与防误触修复'
+        ]
+      },
+      {
         ver: 'V2.1.7',
         date: '2026-11-28',
         items: [
-          '修复已核销卡券文字过长导致的横向滚动条问题，点击任意卡券可弹窗查看完整信息与编辑',
-          '历史相见时光轴支持点击整行弹出独立编辑框，新增「相见天数」并自动在首页日历高亮连续天数',
-          '点击首页日历任意日期可直接将其设为「相见日」并同步写入历史时光轴',
-          '首页当日首次点击苏州/武汉爱心后，下方提示语即刻变为「他想你了 / 她想你了」并云端同步'
+          '修复日历左右滑动失效及右向左滑动无过渡动画问题，同时支持手机触屏与电脑鼠标拖拽',
+          '修复已核销卡券文字过长导致的横向滚动条，点击任意卡券可弹窗查看完整信息与编辑',
+          '历史相见时光轴支持点击整行弹窗编辑并新增「相见天数」，日历支持双向设相见日',
+          '首页当日首次点击苏州/武汉爱心后，下方提示语即刻变为「他想你了 / 她想你了」'
         ]
       },
       {
@@ -1484,8 +1486,7 @@
           '恋爱兑换券支持按发放时间/名称排序，单键循环切换大图标与精简行，已核销券不可删除',
           '首页精简顶部并移除欢迎语，点击苏州/武汉爱心弹出「他想你了 / 她想你了」互动气泡',
           '首页顶部云端右侧新增动态「信箱」按钮，任何内容更新实时红点提醒',
-          '恋爱日历改为左右滑动切月，并自动高亮历史相见时光轴日期',
-          '历史相见时光轴支持分页展示与在线编辑，新增「关于」导航页展示全部版本历程'
+          '新增「关于」导航页展示全部版本历程'
         ]
       },
       {
@@ -1845,7 +1846,7 @@
       return new TextDecoder().decode(plainBuf);
     }
 
-    // ========== Supabase 端到端加密双端实时同步引擎 ==========
+    // ========== Supabase 端到端加密双端实时同步引擎（V2.1.8 相见天数持久化保护） ==========
     function setSyncPill(state, text) {
       const pill = document.getElementById('syncStatusPill');
       if (pill) {
@@ -1883,6 +1884,42 @@
       }
     }
 
+function getDeletedCouponIds() {
+      try { return JSON.parse(localStorage.getItem(DELETED_COUPONS_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function addDeletedCouponId(id) {
+      const list = getDeletedCouponIds();
+      if (!list.includes(id)) {
+        list.push(id);
+        localStorage.setItem(DELETED_COUPONS_KEY, JSON.stringify(list.slice(-300)));
+      }
+    }
+
+    // 严格按唯一 id 合并：同名卡券（无论是否核销）完全独立，已核销状态永久优先且防删
+    function mergeCoupons(localList, remoteList, delSet) {
+      const map = new Map();
+      const ingest = (item) => {
+        if (!item || item.id === undefined) return;
+        const existing = map.get(item.id);
+        if (!existing) {
+          map.set(item.id, { ...item });
+        } else {
+          const isUsed = Boolean(existing.used || item.used);
+          map.set(item.id, {
+            ...existing,
+            ...item,
+            used: isUsed,
+            usedAt: existing.used ? (existing.usedAt || item.usedAt || '') : (item.usedAt || '')
+          });
+        }
+      };
+      (Array.isArray(remoteList) ? remoteList : []).forEach(ingest);
+      (Array.isArray(localList) ? localList : []).forEach(ingest);
+
+      return Array.from(map.values()).filter(c => c.used || !delSet.has(c.id));
+    }
+
     async function pushToCloud() {
       if (!activeAesKey) return false;
       isSyncingNow = true;
@@ -1891,6 +1928,8 @@
         await pullFromCloud(false, true);
 
         const snapshot = JSON.stringify({
+          coupons: getAllCoupons(),
+          deletedCouponIds: getDeletedCouponIds(),
           latestVer: APP_VERSION,
           notes: getAllNotes(),
           deletedIds: getDeletedIds(),
@@ -1899,7 +1938,6 @@
           deletedCapsuleIds: getDeletedCapsuleIds(),
           meet: getMeetConfig(),
           meetHistory: getMeetHistory(),
-          coupons: getAllCoupons(),
           events: getAllEvents(),
           globalPacking: getGlobalPacking(),
           travelTrips: getAllTrips(),
@@ -2026,11 +2064,28 @@
             if (remote.meet) localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify(remote.meet));
             else localStorage.removeItem(MEET_CONFIG_KEY);
           }
+
+          // V2.1.8 智能合并历史相见记录，确保跨版本同步时相见天数(days)永久保留不丢失
           if (!silentBeforePush && Array.isArray(remote.meetHistory)) {
-            localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(remote.meetHistory));
+            const localMap = new Map(getMeetHistory().map(h => [h.id, h]));
+            const mergedHist = remote.meetHistory.map(r => {
+              const l = localMap.get(r.id);
+              const rDays = parseInt(r.days, 10);
+              const lDays = l ? parseInt(l.days, 10) : NaN;
+              const finalDays = (!isNaN(rDays) && rDays > 0) ? rDays : ((!isNaN(lDays) && lDays > 0) ? lDays : 1);
+              return { ...r, days: finalDays };
+            });
+            localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(mergedHist));
           }
-          if (!silentBeforePush && Array.isArray(remote.coupons)) {
-            localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(remote.coupons));
+
+          const localCouponDel = getDeletedCouponIds();
+          const remoteCouponDel = Array.isArray(remote.deletedCouponIds) ? remote.deletedCouponIds : [];
+          const allCouponDelSet = new Set([...localCouponDel, ...remoteCouponDel]);
+          localStorage.setItem(DELETED_COUPONS_KEY, JSON.stringify(Array.from(allCouponDelSet).slice(-300)));
+
+          if (Array.isArray(remote.coupons)) {
+            const mergedCoupons = mergeCoupons(getAllCoupons(), remote.coupons, allCouponDelSet);
+            localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(mergedCoupons));
           }
           if (!silentBeforePush && Array.isArray(remote.events)) {
             localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
@@ -2167,17 +2222,30 @@
       document.getElementById('subTabEventBtn').classList.toggle('active', subName === 'event');
     }
 
-    // ========== V2.1.7 ⏳ 见面计时器（相见天数 + 点击整行弹窗编辑 + 日历双向联动） ==========
+    // ========== ⏳ 见面计时器（相见天数持久化 + 点击整行弹窗编辑 + 日历双向联动） ==========
     let meetCurrentPage = 1;
     const MEET_PAGE_SIZE = 4;
     let editingMeetModalId = null;
 
     function getMeetHistory() {
-      try { return JSON.parse(localStorage.getItem(MEET_HISTORY_KEY) || '[]'); } catch (e) { return []; }
+      try {
+        const raw = JSON.parse(localStorage.getItem(MEET_HISTORY_KEY) || '[]');
+        if (!Array.isArray(raw)) return [];
+        return raw.map(item => ({
+          ...item,
+          days: Math.max(1, parseInt(item.days, 10) || 1)
+        }));
+      } catch (e) {
+        return [];
+      }
     }
 
     function saveMeetHistory(list, syncCloud = true) {
-      localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(list));
+      const normalized = list.map(item => ({
+        ...item,
+        days: Math.max(1, parseInt(item.days, 10) || 1)
+      }));
+      localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(normalized));
       if (syncCloud) pushToCloud();
     }
 
@@ -2204,7 +2272,7 @@
 
       const list = getMeetHistory();
       list.push({
-        id: Date.now(),
+        id: Date.now() * 1000 + Math.floor(Math.random() * 1000),
         date: dateVal,
         days: daysVal,
         place: placeVal || '奔赴彼此的城市',
@@ -2221,6 +2289,7 @@
       renderMeetHistory();
       renderCalendar();
       spawnFxParticles(['💞', '✨', '✈️', '💖']);
+      showToast(`💞 已记录相见：${dateVal} (${daysVal}天)`);
     }
 
     function addMeetHistoryFromCal() {
@@ -2429,7 +2498,7 @@
       saveGlobalPacking(list, true);
       input.value = '';
       renderGlobalPackingList();
-      showToast('🎒 已加入旅行必带清单');
+      showToast(`🎒 已添加必带物品：${name}`);
     }
 
     document.getElementById('globalPackingInput').addEventListener('keypress', e => {
@@ -2532,7 +2601,7 @@
       document.getElementById('newTripFormBox').style.display = 'none';
       document.getElementById('toggleNewTripBtn').textContent = '+ 添加新旅程';
 
-      showToast(`✈️ 已创建「${place}」旅程`);
+      showToast(`✈️ 已创建「${place}」旅程！`);
       openTripDetail(newTrip.id);
     }
 
@@ -2619,9 +2688,11 @@
       if (!trip) return;
       if (!Array.isArray(trip.packing)) trip.packing = [];
       trip.packing.unshift({ id: Date.now(), name, done: false });
+      recordInboxEvent('🎒 本次物品', `${trip.place} 新增物品：${name}`);
       saveAllTrips(trips, true);
       input.value = '';
       renderPackingList();
+      showToast(`🎒 已添加本次物品：${name}`);
     }
 
     document.getElementById('newPackingInput').addEventListener('keypress', e => {
@@ -2705,10 +2776,12 @@
       if (!trip) return;
       if (!Array.isArray(trip.items)) trip.items = [];
       trip.items.unshift({ id: Date.now(), cat: currentTravelCat, title: text, done: false, createdAt: getTodayStr() });
-      recordInboxEvent('✈️ 旅行攻略', `${trip.place} 新增攻略：${text}`);
+      const catName = (TRAVEL_CAT_META[currentTravelCat] || {}).name || '旅行';
+      recordInboxEvent('✈️ 旅行攻略', `${trip.place} 新增【${catName}】攻略：${text}`);
       saveAllTrips(trips, true);
       input.value = '';
       renderTravelList();
+      showToast(`✈️ 已添加【${catName}】攻略！`);
     }
 
     document.getElementById('newTravelInput').addEventListener('keypress', e => {
@@ -2882,7 +2955,7 @@
       document.getElementById('addDishFormBox').style.display = 'none';
       document.getElementById('toggleAddDishBtn').textContent = '+ 添新菜';
       renderMenuDishes();
-      showToast(`🍽️ 「${name}」已加入菜单`);
+      showToast(`🍽️ 「${name}」已加入菜单！`);
     }
 
     function deleteDish(id) {
@@ -3033,6 +3106,7 @@
       if (el) el.textContent = val;
       updateQuoteLabel();
       recordInboxEvent('🎲 情话盲盒', `存入了新情话：${val.slice(0, 20)}`);
+      showToast('🎲 新情话已存入盲盒！');
       pushToCloud();
     }
 
@@ -3135,6 +3209,7 @@
         box.style.display = 'none';
         document.getElementById('toggleComposeBtn').textContent = '✍️ 写一封信';
         renderCapsulesList();
+        showToast(`💌 信件《${title}》已封存寄出！`);
 
         try {
           await pushToCloud();
@@ -3151,6 +3226,7 @@
       addDeletedCapsuleId(capId);
       saveUserCapsules(getUserCapsules().filter(c => c.id !== capId));
       renderCapsulesList();
+      showToast('🗑️ 已删除该信件');
       await pushToCloud();
     }
 
@@ -3237,7 +3313,7 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.7 防溢出 + 点击卡片弹出详情与编辑框） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（防溢出 + 弹窗详情/编辑 + 排序 + 循环视图） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
     let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
     let couponCollapsed = localStorage.getItem(COUPON_COLLAPSED_KEY) === '1';
@@ -3334,7 +3410,6 @@
       if (syncCloud) pushToCloud();
     }
 
-    // V2.1.7 点击任意卡券弹出独立详情与编辑弹窗
     function setEditCouponSender(sender) {
       editingCouponSender = sender;
       const himEl = document.getElementById('editCouponSenderHim');
@@ -3415,7 +3490,6 @@
         const isHer = c.sender === 'her';
         const senderText = isHer ? '👧 她发' : '👦 他发';
         const displayName = couponMasked ? '****' : escapeHtml(c.name);
-        // V2.1.7 已核销卡券底部的文字精简，避免过长撑宽页面，完整内容点击卡片查看
         const rawDesc = c.used ? `核销于 ${c.usedAt} · 点此查看` : escapeHtml(c.desc);
         const displayDesc = couponMasked ? '****' : rawDesc;
 
@@ -3467,13 +3541,15 @@
     }
 
     function deleteCoupon(id) {
-      const list = getAllCoupons();
-      const target = list.find(c => c.id === id);
-      if (target && target.used) return showToast('🔒 已核销的兑换券作为纪念不可删除哦');
-      if (!confirm('确定要删除这张未核销的恋爱兑换券吗？')) return;
-      saveAllCoupons(list.filter(c => c.id !== id), true);
-      renderCouponsList();
-    }
+   const list = getAllCoupons();
+   const target = list.find(c => c.id === id);
+   if (target && target.used) return showToast('🔒 已核销的兑换券作为纪念不可删除哦');
+   if (!confirm('确定要删除这张未核销的恋爱兑换券吗？')) return;
+   addDeletedCouponId(id);
+   saveAllCoupons(list.filter(c => c.id !== id), true);
+   renderCouponsList();
+   showToast('🗑️ 已删除该兑换券');
+ }
 
     function addCustomCoupon() {
       const nameInput = document.getElementById('newCouponInput');
@@ -3483,7 +3559,7 @@
       if (!name) return alert('先输入特权券名称吧~');
       const list = getAllCoupons();
       list.unshift({
-        id: Date.now(),
+        id: Date.now() * 1000 + Math.floor(Math.random() * 1000),
         sender: currentCouponSender,
         name: `🎁 ${name}`,
         desc: customDesc || '专属定制特权券，见面或随时出示即可兑现',
@@ -3499,7 +3575,7 @@
         localStorage.setItem(COUPON_COLLAPSED_KEY, '0');
       }
       renderCouponsList();
-      showToast(`🎟️ ${currentCouponSender === 'her' ? '她' : '他'}发放了一张新特权券！`);
+      showToast(`🎟️ ${currentCouponSender === 'her' ? '她' : '他'}发放了新券：${name}`);
     }
 
     document.getElementById('newCouponInput').addEventListener('keypress', e => {
@@ -3548,6 +3624,7 @@
       saveAllEvents(list, true);
       input.value = '';
       renderEventsList();
+      showToast(`✨ 已添加专属事件：${title}`);
     }
 
     document.getElementById('newEventInput').addEventListener('keypress', e => {
@@ -3572,6 +3649,7 @@
       if (!confirm('确定要删除这条事件吗？')) return;
       saveAllEvents(getAllEvents().filter(item => item.id !== eventId), true);
       renderEventsList();
+      showToast('🗑️ 已删除该事件');
     }
 
     function renderEventsList() {
@@ -3603,7 +3681,7 @@
       container.innerHTML = html;
     }
 
-    // ========== V2.1.7 双城进度条 + 当日爱心点击状态提示 ==========
+    // ========== 双城进度条 + 当日爱心点击状态提示 ==========
     function getHeartMissState() {
       const today = getTodayStr();
       try {
@@ -3761,6 +3839,7 @@
       recordInboxEvent('✈️ 见面行程', `设定了见面行程：${selectedDateStr} 起共 ${d} 天`);
       refreshMeetSetupUI();
       updateCityProgress();
+      showToast(`✈️ 已设定行程：${selectedDateStr} 起 ${d} 天`);
       pushToCloud();
     }
 
@@ -3777,6 +3856,7 @@
       localStorage.removeItem(MEET_CONFIG_KEY);
       refreshMeetSetupUI();
       updateCityProgress();
+      showToast('已取消倒计时行程');
       pushToCloud();
     }
 
@@ -3876,11 +3956,11 @@
       }
     }
 
-    // ========== V2.1.7 左右滑动恋爱农历日历（高亮连续相见天数） ==========
+    // ========== 左右双向丝滑滑动恋爱农历日历（支持触屏 + 鼠标拖拽 + 连续相见天数高亮） ==========
     let currentCalDate = new Date();
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
-let calStartX = 0;
+    let calStartX = 0;
     let calStartY = 0;
     let isCalDragging = false;
     let isCalSwipeBound = false;
@@ -3912,7 +3992,6 @@ let calStartX = 0;
         }
       };
 
-      // 手机端触屏左右滑动
       area.addEventListener('touchstart', e => {
         if (e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
       }, { passive: true });
@@ -3922,7 +4001,6 @@ let calStartX = 0;
         }
       }, { passive: true });
 
-      // 电脑端鼠标左右拖拽
       area.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
       window.addEventListener('mouseup', e => {
         if (isCalDragging) handleEnd(e.clientX, e.clientY);
@@ -3973,7 +4051,6 @@ let calStartX = 0;
       const readMap = getReadMap();
       const meetCfg = getMeetConfig();
 
-      // 收集历史相见时光轴中所有覆盖的连续相见日期
       const histDateSet = new Set();
       getMeetHistory().forEach(h => {
         getHistMeetCoveredDates(h).forEach(ds => histDateSet.add(ds));
@@ -4056,7 +4133,8 @@ let calStartX = 0;
 
       grid.classList.remove('cal-slide-next', 'cal-slide-prev');
       if (slideDir === 'next') triggerElAnim(grid, 'cal-slide-next');
-      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');    }
+      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');
+    }
 
     function refreshHistDayBanner(dateStr) {
       const histBanner = document.getElementById('histDayBanner');
@@ -4149,6 +4227,7 @@ let calStartX = 0;
 
       document.getElementById('noteInput').value = '';
       renderNotesList();
+      showToast('💌 留言已发送并同步云端！');
 
       try {
         await pushToCloud();
@@ -4172,6 +4251,7 @@ let calStartX = 0;
         }
         saveAllNotes(all);
         renderNotesList();
+        showToast('🗑️ 已删除该留言');
         await pushToCloud();
       }
     }
@@ -4231,6 +4311,7 @@ let calStartX = 0;
       input.value = '';
       renderDevWorkshop();
       updateQuoteLabel();
+      showToast('🎲 已预埋情话');
     }
 
     function devDelQuote(idx) {
@@ -4249,6 +4330,7 @@ let calStartX = 0;
       document.getElementById('devCapBody').value = '';
       renderDevWorkshop();
       renderCapsulesList();
+      showToast('⏳ 已预埋初始长信');
     }
 
     function devDelCapsule(idx) {
@@ -4325,7 +4407,7 @@ let calStartX = 0;
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.7 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.1.8 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
