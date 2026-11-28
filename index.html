@@ -883,19 +883,19 @@
   </div>
 
   <!-- ==================== 导航第 1 项：⏳ 见面计时器（V1.2.7 新增相见天数 + 点击整行弹窗编辑） ==================== -->
-  <div class="card" id="tabMeetView" style="display: none;">
+  <div class="card" id="tabMeetView" style="display:none;">
     <div class="badge">⏳ 见面计时器 · 相聚印记</div>
 
     <div class="meet-hero-grid">
       <div class="meet-hero-card">
         <div class="meet-hero-label">距上次见面已过</div>
-        <div class="meet-hero-num" id="sinceLastMeetDays">15 天</div>
-        <div class="meet-hero-sub" id="sinceLastMeetDate">上次：2026-11-13 · 葛仙村</div>
+        <div class="meet-hero-num" id="sinceLastMeetDays">--</div>
+        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史记录</div>
       </div>
       <div class="meet-hero-card">
         <div class="meet-hero-label">累计相见次数</div>
-        <div class="meet-hero-num" id="totalMeetCount">16 次</div>
-        <div class="meet-hero-sub" id="nextMeetMiniHint">距下次见面还有 6 天</div>
+        <div class="meet-hero-num" id="totalMeetCount">0 次</div>
+        <div class="meet-hero-sub" id="nextMeetMiniHint">可在首页日历设下次行程</div>
       </div>
     </div>
 
@@ -912,12 +912,12 @@
 
     <div class="section-head">
       <span>🗓️ 历史相见时光轴（点击任意行编辑）</span>
-      <span class="section-pill" id="meetHistCountLabel">共 16 条</span>
+      <span class="section-pill" id="meetHistCountLabel">共 0 条</span>
     </div>
     <div class="meet-history-list" id="meetHistoryList"></div>
-    <div class="pager-bar" id="meetPagerBar" style="display: flex;">
-      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)" disabled="">‹ 上一页</button>
-      <span class="pager-info" id="meetPageInfo">第 1 / 4 页</span>
+    <div class="pager-bar" id="meetPagerBar" style="display:none;">
+      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)">‹ 上一页</button>
+      <span class="pager-info" id="meetPageInfo">第 1 / 1 页</span>
       <button class="pager-btn" id="meetNextPageBtn" onclick="changeMeetPage(1)">下一页 ›</button>
     </div>
   </div>
@@ -1048,15 +1048,15 @@
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
         <div class="time-unit"><span class="time-num" id="tHours">15</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">49</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">46</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">56</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">51</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
     <!-- 左右滑动恋爱农历日历 -->
     <div class="cal-box" id="calSwipeArea">
       <div class="cal-header">
-        <div class="cal-title" id="calMonthTitle">2026年 12月</div>
+        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
         <div style="display:flex; align-items:center; gap:6px;">
           <span class="cal-swipe-tip">← 左右滑切月 →</span>
           <button class="cal-today-btn" onclick="resetCalToToday()">今天</button>
@@ -1065,7 +1065,7 @@
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
-      <div class="cal-days cal-slide-prev cal-slide-next" id="calDaysGrid"></div>
+      <div class="cal-days cal-slide-next" id="calDaysGrid"></div>
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
@@ -1427,7 +1427,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "4v+GT81fgeHybAlu14iCKATxvhxD3iqNIkI1oigcPswvQI7JgP8PNmI6JB9KeyQzb++B7wzCsa6vkaDkifLZOvw=";
+    const ENCRYPTED_BUNDLE = "07J2v6832mqH4CJ5JFPiuwQ5r+s687573pMze407oQsMHz+3+zJMb8ZiLweLi48jyaVMcM+8j0ArxzjhQZ5jVSI=";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -4054,9 +4054,9 @@ let calStartX = 0;
         grid.appendChild(cell);
       }
 
+      grid.classList.remove('cal-slide-next', 'cal-slide-prev');
       if (slideDir === 'next') triggerElAnim(grid, 'cal-slide-next');
-      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');
-    }
+      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');    }
 
     function refreshHistDayBanner(dateStr) {
       const histBanner = document.getElementById('histDayBanner');
