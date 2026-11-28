@@ -118,7 +118,6 @@
       width: 100%; max-width: 420px; text-align: center;
     }
 
-    /* V2.1.2 完善导航页面切换与按键面板过渡动画 */
     .tab-anim-enter {
       animation: tabSwitchIn 0.36s var(--ease-spring) forwards;
     }
@@ -265,38 +264,45 @@
     .update-list li { font-size: 12.5px; color: #374151; line-height: 1.5; background: #fdf2f8; border: 1px solid #fce7f3; padding: 8px 10px; border-radius: 12px; }
     .update-list li strong { color: #db2777; }
 
-    /* ========== V2.1.2 底部六栏悬浮导航栏（见面 | 信封 | 首页 | 约定 | 旅行 | 菜单） ========== */
+    /* ========== V2.1.3 底部可滑动悬浮导航栏（默认展示 4 项，左右滑动查看更多） ========== */
     .bottom-nav {
       position: fixed; bottom: calc(12px + env(safe-area-inset-bottom));
       left: 50%; transform: translateX(-50%);
-      width: calc(100% - 16px); max-width: 434px;
+      width: calc(100% - 20px); max-width: 428px;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(251, 207, 232, 0.95);
       border-radius: 22px; padding: 5px;
-      display: none; grid-template-columns: repeat(6, 1fr); gap: 3px;
+      display: none; flex-wrap: nowrap; align-items: center; gap: 4px;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
       box-shadow: 0 10px 30px rgba(236, 72, 153, 0.16); z-index: 90;
     }
+    .bottom-nav::-webkit-scrollbar { display: none; }
     .nav-item {
+      flex: 0 0 calc((100% - 12px) / 4);
+      scroll-snap-align: start;
       border: none; background: transparent; cursor: pointer;
-      padding: 7px 1px; border-radius: 15px;
+      padding: 7px 2px; border-radius: 16px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       color: #6b7280; position: relative;
       transition: all 0.28s var(--ease-spring);
     }
-    .nav-item:active { transform: scale(0.9); }
+    .nav-item:active { transform: scale(0.92); }
     .nav-item.active {
       background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
       color: #db2777;
       box-shadow: inset 0 0 0 1px #fbcfe8, 0 3px 10px rgba(236, 72, 153, 0.12);
     }
     .nav-icon {
-      font-size: 17px; line-height: 1.15; margin-bottom: 2px;
+      font-size: 19px; line-height: 1.15; margin-bottom: 2px;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .nav-item.active .nav-icon { transform: translateY(-2px) scale(1.14); }
-    .nav-label { font-size: clamp(9.5px, 2.5vw, 10.5px); font-weight: 700; letter-spacing: 0.1px; white-space: nowrap; }
-    .nav-dot { position: absolute; top: 4px; right: 14%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
+    .nav-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
+    .nav-dot { position: absolute; top: 5px; right: 22%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
 
     /* ========== 首页：双城进度条 + 计时器 + 农历日历 ========== */
     .city-tracker { background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%); border: 1px solid #f5d0fe; border-radius: 18px; padding: 12px 14px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06); }
@@ -366,36 +372,21 @@
     .meet-elapsed-pill { font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8; white-space: nowrap; }
     .meet-elapsed-pill.future { background: #f3e8ff; color: #7e22ce; border-color: #e9d5ff; }
 
-    /* ==========================================================================
-       V2.1.2 旅行页样式（顶部置顶必带物品 + 足迹地点卡 + 详情攻略）
-       ========================================================================== */
+    /* ========== 旅行页样式 ========== */
     .global-packing-card {
       background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%);
-      border: 1.5px solid #fcd34d;
-      border-radius: 18px;
-      padding: 12px 13px;
-      margin-bottom: 14px;
-      text-align: left;
+      border: 1.5px solid #fcd34d; border-radius: 18px;
+      padding: 12px 13px; margin-bottom: 14px; text-align: left;
       box-shadow: 0 4px 14px rgba(245, 158, 11, 0.09);
     }
-    .global-packing-head {
-      display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer;
-    }
+    .global-packing-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer; }
     .global-packing-title { font-size: 14px; font-weight: 800; color: #b45309; display: flex; align-items: center; gap: 5px; }
-    .global-packing-body {
-      margin-top: 10px;
-      animation: unfoldCompose 0.28s var(--ease-spring) forwards;
-    }
+    .global-packing-body { margin-top: 10px; animation: unfoldCompose 0.28s var(--ease-spring) forwards; }
 
-    .trip-cards-grid {
-      max-height: 360px; overflow-y: auto;
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-      text-align: left; padding-bottom: 4px;
-    }
+    .trip-cards-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
     .trip-card {
       background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%);
-      border: 1.5px solid #fbcfe8; border-radius: 18px;
-      padding: 13px 12px 11px; cursor: pointer;
+      border: 1.5px solid #fbcfe8; border-radius: 18px; padding: 13px 12px 11px; cursor: pointer;
       display: flex; flex-direction: column; justify-content: space-between;
       box-shadow: 0 5px 15px rgba(236, 72, 153, 0.08);
       transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease;
@@ -406,32 +397,13 @@
     .trip-card-meta { font-size: 11px; color: #6b7280; margin-bottom: 8px; line-height: 1.45; }
     .trip-card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 7px; border-top: 1px dashed #fbcfe8; font-size: 10.5px; color: #db2777; font-weight: 700; }
 
-    .packing-btn {
-      background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
-      border: 1px solid #f9a8d4; color: #be185d;
-      padding: 6px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 700;
-      cursor: pointer; white-space: nowrap;
-    }
+    .packing-btn { background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%); border: 1px solid #f9a8d4; color: #be185d; padding: 6px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
     .packing-btn:active { transform: scale(0.93); }
-    .packing-drawer {
-      background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%);
-      border: 1.5px solid #fcd34d; border-radius: 16px;
-      padding: 12px; margin-bottom: 12px; text-align: left;
-      display: none; animation: unfoldCompose 0.28s var(--ease-spring) forwards;
-    }
+    .packing-drawer { background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%); border: 1.5px solid #fcd34d; border-radius: 16px; padding: 12px; margin-bottom: 12px; text-align: left; display: none; animation: unfoldCompose 0.28s var(--ease-spring) forwards; }
     .packing-list { max-height: 165px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
 
-    .travel-cat-tabs {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px;
-      background: #fdf2f8; border: 1px solid #fbcfe8;
-      border-radius: 15px; padding: 4px; margin: 10px 0 12px;
-    }
-    .travel-cat-btn {
-      border: none; background: transparent; cursor: pointer;
-      padding: 7px 2px; border-radius: 11px;
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-      color: #6b7280; font-size: 11px; font-weight: 700;
-    }
+    .travel-cat-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 15px; padding: 4px; margin: 10px 0 12px; }
+    .travel-cat-btn { border: none; background: transparent; cursor: pointer; padding: 7px 2px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px; color: #6b7280; font-size: 11px; font-weight: 700; }
     .travel-cat-btn span.t-ico { font-size: 16px; line-height: 1.1; transition: transform 0.25s var(--ease-spring); }
     .travel-cat-btn:active { transform: scale(0.92); }
     .travel-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.16); }
@@ -444,63 +416,50 @@
     .travel-list { max-height: 290px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
     .travel-time-tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: #7e22ce; background: #f3e8ff; padding: 2px 7px; border-radius: 6px; margin-top: 3px; }
 
-    /* ==========================================================================
-       V2.1.2 新增【🍽️ 菜单点菜】页样式
-       ========================================================================== */
-    .order-tray-box {
-      background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%);
-      border: 1.5px solid #fdba74; border-radius: 16px;
-      padding: 11px 12px; margin-bottom: 12px; text-align: left;
+    /* ========== V2.1.3 菜单点菜页样式（新增大厨切换） ========== */
+    .chef-switch-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;
     }
+    .chef-chip {
+      padding: 10px 8px; border-radius: 14px; font-size: 13px; font-weight: 700;
+      border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280;
+      cursor: pointer; text-align: center;
+      transition: all 0.22s var(--ease-spring);
+    }
+    .chef-chip:active { transform: scale(0.95); }
+    .chef-chip.active-wang {
+      background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+      border-color: #ec4899; color: #db2777;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.16);
+    }
+    .chef-chip.active-dong {
+      background: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%);
+      border-color: #6366f1; color: #4338ca;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.16);
+    }
+
+    .order-tray-box { background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%); border: 1.5px solid #fdba74; border-radius: 16px; padding: 11px 12px; margin-bottom: 12px; text-align: left; }
     .order-tray-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .order-tray-title { font-size: 12.5px; font-weight: 800; color: #c2410c; }
     .order-pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; min-height: 24px; }
-    .order-pill-item {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: #fff; border: 1px solid #fed7aa; color: #9a3412;
-      font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 99px;
-      animation: popUpModal 0.22s var(--ease-spring) forwards;
-    }
+    .order-pill-item { display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #fed7aa; color: #9a3412; font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 99px; animation: popUpModal 0.22s var(--ease-spring) forwards; }
     .order-pill-x { cursor: pointer; color: #fb923c; font-weight: 800; margin-left: 2px; }
     .order-tray-actions { display: flex; gap: 8px; }
 
-    .menu-cat-tabs {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
-      background: #fdf2f8; border: 1px solid #fbcfe8;
-      border-radius: 14px; padding: 4px; margin-bottom: 12px;
-    }
-    .menu-cat-btn {
-      border: none; background: transparent; cursor: pointer;
-      padding: 7px 2px; border-radius: 10px;
-      font-size: 11.5px; font-weight: 700; color: #6b7280;
-    }
+    .menu-cat-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 14px; padding: 4px; margin-bottom: 12px; }
+    .menu-cat-btn { border: none; background: transparent; cursor: pointer; padding: 7px 2px; border-radius: 10px; font-size: 11.5px; font-weight: 700; color: #6b7280; }
     .menu-cat-btn:active { transform: scale(0.92); }
     .menu-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 8px rgba(236, 72, 153, 0.14); }
 
-    .dish-list { max-height: 310px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
-    .dish-card {
-      background: #fff; border: 1px solid #fce7f3; border-radius: 15px;
-      padding: 11px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05);
-      transition: transform 0.18s var(--ease-spring), border-color 0.2s, background 0.2s;
-    }
-    .dish-card.ordered {
-      background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%);
-      border-color: #f9a8d4;
-    }
+    .dish-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+    .dish-card { background: #fff; border: 1px solid #fce7f3; border-radius: 15px; padding: 11px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05); transition: transform 0.18s var(--ease-spring), border-color 0.2s, background 0.2s; }
+    .dish-card.ordered { background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%); border-color: #f9a8d4; }
     .dish-info { flex: 1; min-width: 0; }
     .dish-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .dish-meta { font-size: 11px; color: #6b7280; }
-    .dish-order-btn {
-      border: none; border-radius: 10px; padding: 6px 11px;
-      font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap;
-      background: var(--accent-grad); color: #fff;
-      box-shadow: 0 3px 10px rgba(236, 72, 153, 0.2);
-    }
+    .dish-order-btn { border: none; border-radius: 10px; padding: 6px 11px; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; background: var(--accent-grad); color: #fff; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.2); }
     .dish-order-btn:active { transform: scale(0.92); }
-    .dish-order-btn.added {
-      background: #fff; color: #db2777; border: 1px solid #f9a8d4; box-shadow: none;
-    }
+    .dish-order-btn.added { background: #fff; color: #db2777; border: 1px solid #f9a8d4; box-shadow: none; }
 
     /* ========== 导航【💌 信封】排版 ========== */
     .env-header-banner { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: 13px 15px; margin-bottom: 14px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -563,45 +522,28 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ==========================================================================
-       导航【🎁 约定】排版（V2.1.2 增大顶部双框间距 + 兑换券可编辑说明 + 视图切换）
-       ========================================================================== */
+    /* ========== 导航【🎁 约定】排版（V2.1.3 区分他发/她发恋爱券） ========== */
     .promise-top-badge { margin-bottom: 16px; }
-    .sub-tabs {
-      display: grid; grid-template-columns: 1fr 1fr;
-      background: transparent;
-      margin-bottom: 16px; gap: 12px;
-    }
-    .sub-tab-btn {
-      border: 1.5px solid #fbcfe8; background: #fdf2f8;
-      padding: 11px 8px; border-radius: 15px;
-      font-size: 13px; font-weight: 700; color: #6b7280;
-      cursor: pointer;
-    }
+    .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
+    .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
     .sub-tab-btn:active { transform: scale(0.95); }
-    .sub-tab-btn.active {
-      background: #fff; color: #db2777; border-color: #ec4899;
-      box-shadow: 0 5px 14px rgba(236, 72, 153, 0.16);
-    }
+    .sub-tab-btn.active { background: #fff; color: #db2777; border-color: #ec4899; box-shadow: 0 5px 14px rgba(236, 72, 153, 0.16); }
 
-    .coupon-add-box {
-      background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%);
-      border: 1px solid #fbcfe8; border-radius: 16px;
-      padding: 10px 11px; margin-bottom: 12px; text-align: left;
-    }
+    .coupon-add-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 10px 11px; margin-bottom: 12px; text-align: left; }
     .coupon-add-box input { margin-bottom: 8px; font-size: 13px; padding: 9px 11px; }
-    .coupon-toolbar {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 10px; padding: 0 2px;
+    .coupon-sender-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .coupon-sender-chip {
+      padding: 7px 6px; border-radius: 10px; font-size: 12px; font-weight: 700;
+      border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280;
+      cursor: pointer; text-align: center; transition: all 0.2s var(--ease-spring);
     }
-    .view-mode-switch {
-      display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8;
-      border-radius: 10px; padding: 2px; gap: 3px;
-    }
-    .view-mode-btn {
-      border: none; background: transparent; cursor: pointer;
-      padding: 4px 9px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280;
-    }
+    .coupon-sender-chip:active { transform: scale(0.95); }
+    .coupon-sender-chip.active-him { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
+    .coupon-sender-chip.active-her { background: #f5f3ff; border-color: #8b5cf6; color: #6d28d9; }
+
+    .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 2px; }
+    .view-mode-switch { display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; padding: 2px; gap: 3px; }
+    .view-mode-btn { border: none; background: transparent; cursor: pointer; padding: 4px 9px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #6b7280; }
     .view-mode-btn:active { transform: scale(0.92); }
     .view-mode-btn.active { background: #fff; color: #db2777; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.14); }
 
@@ -610,32 +552,29 @@
     .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
     .event-add-btn:active { transform: scale(0.93); }
 
-    /* 恋爱兑换券：大图标模式（默认双列） & 详细内容按行展示模式（单列） */
     .coupon-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
     .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 9px; }
     .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.22s var(--ease-spring), opacity 0.22s ease; }
-    .coupon-grid.list-mode .coupon-ticket {
-      flex-direction: row; align-items: center; gap: 12px; padding: 12px 13px;
-    }
+    .coupon-ticket.from-her { background: linear-gradient(155deg, #f5f3ff 0%, #ffffff 55%, #fdf2f8 100%); border-color: #c4b5fd; }
+    .coupon-grid.list-mode .coupon-ticket { flex-direction: row; align-items: center; gap: 12px; padding: 12px 13px; }
     .coupon-grid.list-mode .ticket-main-info { flex: 1; min-width: 0; }
     .coupon-grid.list-mode .coupon-desc { margin-bottom: 0; font-size: 12px; }
     .coupon-grid.list-mode .ticket-divider { display: none; }
-    .coupon-grid.list-mode .ticket-action-col {
-      display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
-      gap: 6px; flex-shrink: 0; min-width: 78px;
-    }
+    .coupon-grid.list-mode .ticket-action-col { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 6px; flex-shrink: 0; min-width: 78px; }
     .coupon-grid.list-mode .coupon-use-btn { padding: 7px 11px; width: auto; white-space: nowrap; }
 
     .coupon-ticket.tearing { animation: ticketShakeTear 0.45s ease forwards; }
     @keyframes ticketShakeTear { 0% { transform: scale(1); } 30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; } 65% { transform: scale(0.97) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); } }
     .coupon-ticket.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.72; box-shadow: none; }
-    .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 6px; }
-    .ticket-top-tag { font-size: 10px; font-weight: 700; color: #db2777; background: #fce7f3; padding: 2px 7px; border-radius: 6px; }
+    .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 4px; }
+    .ticket-top-tag { font-size: 10px; font-weight: 700; color: #db2777; background: #fce7f3; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+    .ticket-top-tag.her-tag { color: #6d28d9; background: #ede9fe; }
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
     .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; }
     .coupon-ticket.used .coupon-name { color: #6b7280; text-decoration: line-through; }
     .coupon-desc { font-size: 11px; color: #6b7280; line-height: 1.45; margin-bottom: 10px; flex: 1; word-break: break-word; }
     .ticket-divider { border-top: 1.5px dashed #fbcfe8; margin: 0 -11px 8px; position: relative; }
+    .coupon-ticket.from-her .ticket-divider { border-top-color: #ddd6fe; }
     .coupon-ticket.used .ticket-divider { border-top-color: #e5e7eb; }
     .coupon-use-btn { width: 100%; background: var(--accent-grad); color: #fff; border: none; border-radius: 9px; padding: 6px 0; font-size: 11.5px; font-weight: 700; cursor: pointer; }
     .coupon-use-btn:active { transform: scale(0.93); }
@@ -704,23 +643,22 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip"></div>
+  <div id="toastTip" class="">👨‍🍳 今日主厨已切换为：董大厨</div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.2 更新提示弹窗 -->
-  <div class="modal-mask" id="updateModalMask" style="display: none;">
+  <!-- V2.1.3 更新提示弹窗 -->
+  <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.2</span>
-      <div class="update-title">丝滑过渡动画与专属点菜页上线</div>
+      <span class="update-badge">✨ 版本更新 · V2.1.3</span>
+      <div class="update-title">滑屏导航、大厨点单与发券人区分上线</div>
       <ul class="update-list">
-        <li><strong>🍽️ 新增「菜单」点菜页</strong>：底部导航新增点菜页，支持分类添菜、一键点菜与今日菜单汇总。</li>
-        <li><strong>🎟️ 恋爱券双视图+自定义说明</strong>：发券时可自由编辑小字说明，支持「大图标」与「按行详情」切换，顶部双框间距更舒展。</li>
-        <li><strong>🎒 旅行必带物品置顶</strong>：在「我们的旅行足迹」上方直接管理通用必带清单。</li>
-        <li><strong>✨ 全站交互动画升级</strong>：完善导航页切换弹入动画与按键阻尼过渡效果。</li>
+        <li><strong>🎟️ 恋爱券区分发券人</strong>：发券时可选择「他发的」或「她发的」，卡面专属色标清晰区分。</li>
+        <li><strong>👨‍🍳 菜单指定主厨</strong>：点菜页支持一键切换「王大厨做饭」或「董大厨做饭」，下单实时同步。</li>
+        <li><strong>👆 可滑动底部导航栏</strong>：默认舒适展示 4 个导航项，左右滑动即可查看「旅行」与「菜单」。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.2 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.3 体验 💖</button>
     </div>
   </div>
 
@@ -820,7 +758,7 @@
       <button class="write-letter-toggle-btn" id="toggleComposeBtn" onclick="toggleComposeBox()">✍️ 写一封信</button>
     </div>
 
-    <div class="compose-letter-box" id="composeLetterBox" style="display: none;">
+    <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
       <div class="compose-row-label">📮 选择寄信身份（系统将自动记住本机默认身份）：</div>
       <div class="sender-switch-row">
         <div class="sender-chip active-him" id="senderChipHim" onclick="selectLetterSender('👦 他写给她的信')">👦 他写给她的信</div>
@@ -872,7 +810,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.2)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.1.3)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -890,7 +828,7 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.2)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.3)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
@@ -899,7 +837,7 @@
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.2 更新说明">V2.1.2</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.3 更新说明">V2.1.3</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
@@ -911,11 +849,11 @@
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.2%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.2%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 11.3%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 11.3%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.2%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.8%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 11.3%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 88.7%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -927,8 +865,8 @@
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
         <div class="time-unit"><span class="time-num" id="tHours">12</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">17</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">34</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">29</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">21</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
@@ -954,22 +892,26 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.2 优化间距 + 可编辑小字 + 双显示模式） ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.3 区分发券人） ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
-      <button class="sub-tab-btn" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
+      <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
         🎟️ 恋爱兑换券 (<span id="couponAvailCount">21</span>)
       </button>
-      <button class="sub-tab-btn active" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
+      <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">16/58</span>)
       </button>
     </div>
 
     <!-- 子面板 A：恋爱兑换券 -->
-    <div id="subPanelCoupon" class="subpanel-fade" style="display: none;">
+    <div id="subPanelCoupon" class="subpanel-fade">
       <div class="coupon-add-box">
+        <div class="coupon-sender-row">
+          <div class="coupon-sender-chip active-him" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
+          <div class="coupon-sender-chip" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
+        </div>
         <input type="text" id="newCouponInput" placeholder="特权券名称，如：周末专属按摩券...">
         <div class="event-add-row" style="margin-bottom:0;">
           <input type="text" id="newCouponDescInput" placeholder="自定义小字说明（如：随时出示，半小时起步）" style="font-size:12.5px; padding:9px 11px;">
@@ -989,7 +931,7 @@
     </div>
 
     <!-- 子面板 B：专属事件 -->
-    <div id="subPanelEvent" style="display: block;" class="subpanel-fade">
+    <div id="subPanelEvent" style="display:none;">
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
@@ -1009,22 +951,18 @@
     </div>
   </div>
 
-  <!-- ==================== 导航第 5 项：✈️ 旅行（必带物品置顶 + 足迹地点卡 + 详情攻略） ==================== -->
+  <!-- ==================== 导航第 5 项：✈️ 旅行 ==================== -->
   <div class="card" id="tabTravelView" style="display: none;">
-
-    <!-- 视图 A：必带物品置顶 + 旅行地点卡片列表 -->
     <div id="travelHomeStage" style="display: block;">
-
-      <!-- V2.1.2 必带物品置顶于"我们的旅行足迹"上方，支持直接添加与展开查看 -->
       <div class="global-packing-card">
         <div class="global-packing-head" onclick="toggleGlobalPackingBody()">
           <div class="global-packing-title">🎒 旅行必带物品清单</div>
           <div class="section-head-right">
             <span class="section-pill" id="globalPackingCountLabel">0/0</span>
-            <span style="font-size:11px; color:#b45309; font-weight:700;" id="globalPackingToggleHint">收起 ▴</span>
+            <span style="font-size:11px; color:#b45309; font-weight:700;" id="globalPackingToggleHint">展开 ▾</span>
           </div>
         </div>
-        <div class="global-packing-body" id="globalPackingBody" style="display: none;">
+        <div class="global-packing-body" id="globalPackingBody" style="display:none;">
           <div class="event-add-row" style="margin-bottom:6px;">
             <input type="text" id="globalPackingInput" placeholder="添加必带物品，如：身份证、充电宝、洗漱包..." style="font-size:13px; padding:9px 10px;">
             <button class="event-add-btn" onclick="addGlobalPackingItem()">+ 添加</button>
@@ -1061,7 +999,6 @@
       <div class="trip-cards-grid" id="tripCardsGrid"></div>
     </div>
 
-    <!-- 视图 B：单次旅行详情页（吃穿住行打卡 + 本次专属物品） -->
     <div id="travelDetailStage" style="display:none;">
       <div class="subpage-header">
         <button class="back-btn" onclick="closeTripDetail()">← 返回</button>
@@ -1135,18 +1072,24 @@
     </div>
   </div>
 
-  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页（V2.1.2 新增） ==================== -->
+  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页（V2.1.3 新增王大厨/董大厨选择） ==================== -->
   <div class="card" id="tabMenuView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
-        <div class="env-banner-sub">想吃什么直接点单，云端同步给大厨</div>
+        <div class="env-banner-sub">选定今日主厨，点单实时同步云端</div>
       </div>
-      <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">收起</button>
+      <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">+ 添新菜</button>
+    </div>
+
+    <!-- V2.1.3 大厨选择（王大厨 vs 董大厨） -->
+    <div class="chef-switch-row">
+      <div class="chef-chip" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
+      <div class="chef-chip active-dong" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
     </div>
 
     <!-- 添加新菜品表单 -->
-    <div class="compose-letter-box" id="addDishFormBox" style="display: none;">
+    <div class="compose-letter-box" id="addDishFormBox" style="display:none;">
       <div class="compose-row-label">👨‍🍳 录入一道拿手菜或想吃的菜：</div>
       <div class="meet-form-row">
         <input type="text" id="newDishName" placeholder="菜名（如：可乐鸡翅）">
@@ -1167,34 +1110,34 @@
     <!-- 今日已点菜单汇总盘 -->
     <div class="order-tray-box">
       <div class="order-tray-head">
-        <span class="order-tray-title">🛎️ 今日已点清单 (<span id="todayOrderCount">0</span>)</span>
+        <span class="order-tray-title">🛎️ <span id="activeChefLabel">董大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
         <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
       </div>
       <div class="order-pills-wrap" id="todayOrderPills"><span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span></div>
       <div class="order-tray-actions">
-        <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并同步大厨</button>
+        <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
       </div>
     </div>
 
     <!-- 菜品分类筛选 -->
     <div class="menu-cat-tabs">
-      <button class="menu-cat-btn" id="mCatAll" onclick="switchMenuCat('all')">全部</button>
+      <button class="menu-cat-btn active" id="mCatAll" onclick="switchMenuCat('all')">全部</button>
       <button class="menu-cat-btn" id="mCatMain" onclick="switchMenuCat('main')">🥘主菜</button>
       <button class="menu-cat-btn" id="mCatSnack" onclick="switchMenuCat('snack')">🍢小吃</button>
-      <button class="menu-cat-btn active" id="mCatDrink" onclick="switchMenuCat('drink')">🧋饮品</button>
+      <button class="menu-cat-btn" id="mCatDrink" onclick="switchMenuCat('drink')">🧋饮品</button>
       <button class="menu-cat-btn" id="mCatSweet" onclick="switchMenuCat('sweet')">🍰甜点</button>
     </div>
 
-    <div class="dish-list subpanel-fade" id="dishListContainer"></div>
+    <div class="dish-list" id="dishListContainer"></div>
   </div>
 
   <!-- ==================== 日历点击进入的【独立双人气泡留言与见面行程页】 ==================== -->
-  <div class="card" id="noteView" style="display: none;">
+  <div class="card" id="noteView" style="display:none;">
     <div class="subpage-header">
       <button class="back-btn" onclick="closeNoteView()">← 返回首页</button>
       <div class="subpage-title-wrap">
-        <div class="subpage-title" id="selectedDateLabel">2026-11-28</div>
-        <div class="subpage-lunar" id="selectedLunarLabel">农历十月二十</div>
+        <div class="subpage-title" id="selectedDateLabel">2026-11-24</div>
+        <div class="subpage-lunar" id="selectedLunarLabel">农历十月十五</div>
       </div>
       <span style="width:64px;"></span>
     </div>
@@ -1204,7 +1147,7 @@
     <div class="meet-setup-box">
       <div class="meet-setup-top">
         <span class="meet-setup-label" id="meetSetupStatus">✈️ 从这天起见面几天？</span>
-        <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display: inline;">取消行程</button>
+        <button class="meet-clear-btn" id="meetClearBtn" onclick="clearMeetConfig()" style="display:none;">取消行程</button>
       </div>
       <div class="duration-chips" id="durationChips">
         <button class="dur-chip" onclick="setMeetDuration(1)">1天</button>
@@ -1229,7 +1172,7 @@
     <div class="note-list" id="noteListContainer"></div>
   </div>
 
-  <!-- ==================== V2.1.2 底部六栏悬浮导航栏（见面 | 信封 | 首页 | 约定 | 旅行 | 菜单） ==================== -->
+  <!-- ==================== V2.1.3 可滑动底部悬浮导航栏（默认展示4项，右滑查看旅行与菜单） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnMeet" onclick="switchMainTab('meet')">
       <span class="nav-icon">⏳</span>
@@ -1258,7 +1201,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.2';
+    const APP_VERSION = '2.1.3';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1271,7 +1214,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "VHMeldMujDTl+NrYIWo4OacGaiulneCvLAlpSB0qY8x6dd/LeRPp66iZn0izIzN0/kUXXT9cJvCsktGYN8BuZL1ldxjJz/ugGxDi+7p5yqGYxxFk/ZDedWzFMCmjm373Ax1e8FKXha9IQVfimGgdOVFarEQ6aHeZe9fIMsiKGe2gdByd30ZYkdyGXWHSXlzndbYbn43J7/jUe/hW1CEAhNgd2isAUrUsfkvHC75np6sq7ngis5FyaY9yMjg6GPKYbpOSEf9pGiW40wIozksiXsPsRZYveMafXb9nzIklEgXVvFdy8YjV";
+    const ENCRYPTED_BUNDLE = "WeXPTfvFiu3veWhQkKgao9K4SdXimeBhepOE1N76We7P2KuCyDPttnHJ4Tg20zOSFmL3uxNfjo1DvEgzL0B5jlh6EuEGMqQ2V5BhL9cRHqRkXkJMIECrsSUBxHOH8TjL/v2muXmg26aZT8DAxJOXfyk20ED2zIkNxmnUAiSBge5pCxyMTvZu5k5WgSSQN2nntt3Xg32WVoBUGBpiLpGB8HRlO8AZKTY9a+QLHQwoPRdyzuyHcrXZTJVvjM621D/c2FLu9HUq9Bi0ZAsN+YbqjNP8bk76vdVa0wCf2o3tJKr331KHTf/l";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1287,11 +1230,13 @@
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
     const COUPON_VIEW_MODE_KEY = 'dwlapp_love_coupon_view_v1';
+    const COUPON_SENDER_KEY = 'dwlapp_love_coupon_sender_v1';
     const GLOBAL_PACKING_KEY = 'dwlapp_love_global_packing_v1';
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
     const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
     const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_2';
+    const MENU_CHEF_KEY = 'dwlapp_love_menu_chef_v1';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_3';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1599,6 +1544,7 @@
           travelTrips: getAllTrips(),
           menuDishes: getAllDishes(),
           menuOrders: getTodayOrders(),
+          menuChef: getActiveChef(),
           updatedAt: Date.now()
         });
         const encryptedPayload = await encryptWithActiveKey(snapshot);
@@ -1753,6 +1699,10 @@
             localStorage.setItem(MENU_ORDERS_KEY, JSON.stringify(remote.menuOrders));
           }
 
+          if (!silentBeforePush && remote.menuChef) {
+            localStorage.setItem(MENU_CHEF_KEY, remote.menuChef);
+          }
+
           if (!silentBeforePush) {
             renderCalendar();
             updateCityProgress();
@@ -1775,6 +1725,7 @@
               else renderTripCards();
             }
             if (currentMainTab === 'menu') {
+              applyMenuChefUI();
               renderTodayOrders();
               renderMenuDishes();
             }
@@ -1792,7 +1743,7 @@
       }
     }
 
-    // ========== V2.1.2 六栏导航切换控制（带丝滑跳转动画） ==========
+    // ========== V2.1.3 可滑动六栏导航切换控制（自动居中滚动 + 跳转动画） ==========
     let currentMainTab = 'home';
 
     function switchMainTab(tabName) {
@@ -1823,6 +1774,10 @@
         if (navs[k]) navs[k].classList.toggle('active', k === tabName);
       });
 
+      if (navs[tabName]) {
+        navs[tabName].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+
       const noteEl = document.getElementById('noteView');
       if (noteEl) noteEl.style.display = 'none';
 
@@ -1838,6 +1793,7 @@
         renderCapsulesList();
         updateQuoteLabel();
       } else if (tabName === 'promise') {
+        applyCouponSenderUI();
         applyCouponViewModeUI();
         renderCouponsList();
         renderEventsList();
@@ -1845,6 +1801,7 @@
         renderGlobalPackingList();
         closeTripDetail();
       } else if (tabName === 'menu') {
+        applyMenuChefUI();
         renderTodayOrders();
         renderMenuDishes();
       }
@@ -1972,7 +1929,7 @@
       }).join('');
     }
 
-    // ========== V2.1.2 旅行页顶部【🎒 通用必带物品清单】逻辑 ==========
+    // ========== 旅行页顶部【🎒 通用必带物品清单】逻辑 ==========
     function getGlobalPacking() {
       try { return JSON.parse(localStorage.getItem(GLOBAL_PACKING_KEY) || '[]'); } catch (e) { return []; }
     }
@@ -2435,9 +2392,30 @@
       }).join('');
     }
 
-    // ========== V2.1.2 新增【🍽️ 专属私房菜单点菜】逻辑 ==========
+    // ========== V2.1.3 专属私房菜单点菜逻辑（支持王大厨 / 董大厨切换） ==========
     const MENU_CAT_LABELS = { main: '🥘 主菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
     let currentMenuCat = 'all';
+
+    function getActiveChef() {
+      return localStorage.getItem(MENU_CHEF_KEY) || '王大厨';
+    }
+
+    function applyMenuChefUI() {
+      const chef = getActiveChef();
+      const wangEl = document.getElementById('chefChipWang');
+      const dongEl = document.getElementById('chefChipDong');
+      const labelEl = document.getElementById('activeChefLabel');
+      if (wangEl) wangEl.className = 'chef-chip' + (chef === '王大厨' ? ' active-wang' : '');
+      if (dongEl) dongEl.className = 'chef-chip' + (chef === '董大厨' ? ' active-dong' : '');
+      if (labelEl) labelEl.textContent = chef;
+    }
+
+    function selectMenuChef(chefName) {
+      localStorage.setItem(MENU_CHEF_KEY, chefName);
+      applyMenuChefUI();
+      showToast(`👨‍🍳 今日主厨已切换为：${chefName}`);
+      pushToCloud();
+    }
 
     function getAllDishes() {
       try { return JSON.parse(localStorage.getItem(MENU_DISHES_KEY) || '[]'); } catch (e) { return []; }
@@ -2512,11 +2490,8 @@
     function toggleOrderDish(dishId) {
       const orders = getTodayOrders();
       const idx = orders.indexOf(dishId);
-      if (idx >= 0) {
-        orders.splice(idx, 1);
-      } else {
-        orders.push(dishId);
-      }
+      if (idx >= 0) orders.splice(idx, 1);
+      else orders.push(dishId);
       saveTodayOrders(orders, true);
       renderTodayOrders();
       renderMenuDishes();
@@ -2533,9 +2508,10 @@
     function confirmTodayOrder() {
       const orders = getTodayOrders();
       if (orders.length === 0) return alert('还没有点任何菜哦，先选几道想吃的吧~');
+      const chef = getActiveChef();
       pushToCloud();
       spawnFxParticles(['🍽️', '🥘', '🧋', '💖']);
-      showToast(`🛎️ 已下单 ${orders.length} 道菜并同步给大厨！`);
+      showToast(`🛎️ 已通知【${chef}】接单，共 ${orders.length} 道菜！`);
     }
 
     function renderTodayOrders() {
@@ -2850,8 +2826,22 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.2 自定义小字 + 大图标/按行详情切换） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.3 区分他发/她发 + 自定义小字 + 双视图） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
+    let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
+
+    function applyCouponSenderUI() {
+      const himEl = document.getElementById('couponSenderHim');
+      const herEl = document.getElementById('couponSenderHer');
+      if (himEl) himEl.className = 'coupon-sender-chip' + (currentCouponSender === 'him' ? ' active-him' : '');
+      if (herEl) herEl.className = 'coupon-sender-chip' + (currentCouponSender === 'her' ? ' active-her' : '');
+    }
+
+    function selectCouponSender(sender) {
+      currentCouponSender = sender;
+      localStorage.setItem(COUPON_SENDER_KEY, sender);
+      applyCouponSenderUI();
+    }
 
     function applyCouponViewModeUI() {
       const container = document.getElementById('couponListContainer');
@@ -2891,31 +2881,35 @@
       const container = document.getElementById('couponListContainer');
       const rawList = getAllCoupons();
       if (rawList.length === 0) {
-        container.innerHTML = `<div class="empty-notes" style="grid-column:1 / -1;">卡包还是空的，在上方输入名称与说明发第一张专属恋爱券吧 🎟️</div>`;
+        container.innerHTML = `<div class="empty-notes" style="grid-column:1 / -1;">卡包还是空的，在上方选择发券人并输入名称发第一张专属恋爱券吧 🎟️</div>`;
         return;
       }
 
       const sorted = [...rawList].sort((a, b) => Number(a.used) - Number(b.used));
 
-      container.innerHTML = sorted.map(c => `
-        <div class="coupon-ticket ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
-          <div class="ticket-main-info">
-            <div class="ticket-top-row">
-              <span class="ticket-top-tag">${c.used ? '已兑现' : '特权券'}</span>
-              <span class="note-del" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+      container.innerHTML = sorted.map(c => {
+        const isHer = c.sender === 'her';
+        const senderText = isHer ? '👧 她发的' : '👦 他发的';
+        return `
+          <div class="coupon-ticket ${isHer ? 'from-her' : ''} ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
+            <div class="ticket-main-info">
+              <div class="ticket-top-row">
+                <span class="ticket-top-tag ${isHer ? 'her-tag' : ''}">${c.used ? '已兑现' : senderText}</span>
+                <span class="note-del" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
+              </div>
+              <div class="coupon-name">${escapeHtml(c.name)}</div>
+              <div class="coupon-desc">${c.used ? `${senderText} · 核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
             </div>
-            <div class="coupon-name">${escapeHtml(c.name)}</div>
-            <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
+            <div class="ticket-action-col">
+              <div class="ticket-divider"></div>
+              ${c.used
+                ? `<div class="coupon-stamp">已盖章核销</div>`
+                : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">立即核销</button>`
+              }
+            </div>
           </div>
-          <div class="ticket-action-col">
-            <div class="ticket-divider"></div>
-            ${c.used
-              ? `<div class="coupon-stamp">已盖章核销</div>`
-              : `<button class="coupon-use-btn" onclick="useCoupon(${c.id})">立即核销</button>`
-            }
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function useCoupon(id) {
@@ -2952,6 +2946,7 @@
       const list = getAllCoupons();
       list.unshift({
         id: Date.now(),
+        sender: currentCouponSender,
         name: `🎁 ${name}`,
         desc: customDesc || '专属定制特权券，见面或随时出示即可兑现',
         used: false,
@@ -2961,7 +2956,7 @@
       nameInput.value = '';
       descInput.value = '';
       renderCouponsList();
-      showToast('🎟️ 特权券发放成功！');
+      showToast(`🎟️ ${currentCouponSender === 'her' ? '她' : '他'}发放了一张新特权券！`);
     }
 
     document.getElementById('newCouponInput').addEventListener('keypress', e => {
@@ -3298,7 +3293,7 @@
 
         setTimeout(() => {
           overlay.classList.add('fading-out');
-          navBar.style.display = 'grid';
+          navBar.style.display = 'flex';
           switchMainTab('home');
           openUpdateModal(false);
         }, 1900);
@@ -3308,7 +3303,7 @@
           overlay.classList.remove('fading-out');
         }, 2800);
       } else {
-        navBar.style.display = 'grid';
+        navBar.style.display = 'flex';
         switchMainTab('home');
         openUpdateModal(false);
       }
@@ -3700,7 +3695,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.2 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.1.3 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
