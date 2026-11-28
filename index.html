@@ -33,7 +33,7 @@
       background-color: var(--bg-plain);
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       min-height: 100dvh;
-      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+      padding: calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(92px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
       overflow-x: hidden;
       position: relative;
     }
@@ -131,9 +131,65 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
+    /* ========== V3.0 视角选择专属页样式（性别表情 ♂️ / ♀️） ========== */
+    .role-select-card {
+      padding: 28px 20px 24px;
+      animation: tabSwitchIn 0.42s var(--ease-spring) forwards;
+    }
+    .role-select-title { font-size: 20px; font-weight: 800; color: #1f2937; margin-bottom: 6px; }
+    .role-select-sub { font-size: 12.5px; color: #6b7280; margin-bottom: 18px; }
+    .role-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+    .role-choice-btn {
+      border: 2px solid #bfdbfe; border-radius: 20px; padding: 18px 10px 15px;
+      background: linear-gradient(155deg, #eff6ff 0%, #ffffff 60%, #f5f3ff 100%);
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
+    }
+    .role-choice-btn.her-btn {
+      border-color: #fbcfe8;
+      background: linear-gradient(155deg, #fff5f7 0%, #ffffff 60%, #fdf2f8 100%);
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.1);
+    }
+    .role-choice-btn:active { transform: scale(0.94); }
+    .role-choice-avatar { font-size: 38px; line-height: 1.1; font-weight: 800; }
+    .role-choice-name { font-size: 16px; font-weight: 800; color: #2563eb; }
+    .role-choice-btn.her-btn .role-choice-name { color: #db2777; }
+    .role-choice-tag { font-size: 11px; color: #9ca3af; font-weight: 600; }
+    .remember-role-label {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 13px; font-weight: 600; color: #4b5563; cursor: pointer;
+      padding: 8px 14px; border-radius: 99px; background: #fdf2f8; border: 1px solid #fce7f3;
+    }
+    .remember-role-label input {
+      width: 17px; height: 17px; margin: 0; accent-color: #ec4899; cursor: pointer;
+    }
+
+    /* ========== V3.0 云端同步超时 / 失败重传悬浮提示条 ========== */
+    #cloudRetryBar {
+      position: fixed; top: calc(12px + env(safe-area-inset-top)); left: 50%;
+      transform: translateX(-50%);
+      z-index: 992; width: calc(100% - 28px); max-width: 420px;
+      background: #fff1f2; border: 1.5px solid #fda4af; color: #9f1239;
+      border-radius: 16px; padding: 9px 12px;
+      display: none; align-items: center; justify-content: space-between; gap: 8px;
+      box-shadow: 0 10px 28px rgba(225, 29, 72, 0.2);
+      animation: subPanelFadeIn 0.25s var(--ease-spring) forwards;
+    }
+    .retry-bar-text { font-size: 12px; font-weight: 700; line-height: 1.35; text-align: left; flex: 1; }
+    .retry-bar-btn {
+      border: none; background: #e11d48; color: #fff;
+      font-size: 11.5px; font-weight: 700; padding: 6px 11px; border-radius: 10px;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    }
+    .retry-bar-btn:active { transform: scale(0.92); }
+    .retry-bar-close {
+      border: none; background: transparent; color: #be123c;
+      font-size: 14px; font-weight: 700; padding: 2px 4px; cursor: pointer;
+    }
+
     /* ========== 顶部栏 ========== */
     .top-bar-row {
-      display: flex; justify-content: center; align-items: center; gap: 7px;
+      display: flex; justify-content: center; align-items: center; gap: 6px;
       margin-bottom: 12px; flex-wrap: wrap;
     }
     .badge {
@@ -142,18 +198,24 @@
       font-size: clamp(11px, 3vw, 12px); font-weight: 600;
       padding: 4px 12px; border-radius: 99px;
     }
-    .badge-dev { background: #fefce8; color: #a16207; border-color: #fef08a; }
+    .role-pill {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; cursor: pointer;
+    }
+    .role-pill.her { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
+    .role-pill:active { transform: scale(0.93); }
     .ver-pill {
       display: inline-flex; align-items: center;
       background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff;
-      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; cursor: pointer;
+      font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px; cursor: pointer;
       transition: transform 0.16s var(--ease-spring), background 0.2s;
     }
     .ver-pill:active { transform: scale(0.93); }
     .sync-pill {
       display: inline-flex; align-items: center; gap: 4px;
       background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
-      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px;
+      font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 99px;
       cursor: pointer; transition: transform 0.16s var(--ease-spring), background 0.2s;
     }
     .sync-pill:active { transform: scale(0.93); }
@@ -164,7 +226,7 @@
       position: relative;
       display: inline-flex; align-items: center; gap: 4px;
       background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8;
-      font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 99px;
+      font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px;
       cursor: pointer;
     }
     .inbox-pill:active { transform: scale(0.93); }
@@ -184,24 +246,29 @@
     h1 { font-size: var(--fs-title); color: var(--text-main); margin-bottom: 6px; line-height: 1.35; }
     p { font-size: var(--fs-body); color: var(--text-sub); line-height: 1.6; margin-bottom: 12px; word-break: break-word; }
 
+    /* ========== 全局输入框防溢出适配 ========== */
     input, textarea, select {
-      width: 100%; padding: 11px 13px; margin-bottom: 10px;
-      border: 1px solid #f3e8ff; border-radius: 13px;
-      font-size: 14px; outline: none; background: rgba(255, 255, 255, 0.96);
+      width: 100%; min-width: 0; max-width: 100%;
+      padding: 10px 12px; margin-bottom: 9px;
+      border: 1px solid #f3e8ff; border-radius: 12px;
+      font-size: 13.5px; line-height: 1.4; outline: none;
+      background: rgba(255, 255, 255, 0.96);
       font-family: inherit; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input[type="date"], input[type="datetime-local"], input[type="number"], select {
+      height: 40px; padding: 0 10px;
     }
     input:focus, textarea:focus, select:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12); }
 
     .btn {
-      display: block; width: 100%; padding: clamp(12px, 3.5vw, 14px);
+      display: block; width: 100%; padding: clamp(11px, 3.3vw, 13px);
       border: none; cursor: pointer;
       background: var(--accent-grad); color: #fff; text-decoration: none;
-      border-radius: 14px; font-weight: 600; font-size: clamp(14px, 3.8vw, 15px);
+      border-radius: 14px; font-weight: 600; font-size: clamp(13.5px, 3.6vw, 15px);
       margin-bottom: 10px; box-shadow: 0 6px 18px rgba(236, 72, 153, 0.22);
     }
     .btn:active { transform: scale(0.965); opacity: 0.92; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.18); }
     .btn:disabled { opacity: 0.65; cursor: not-allowed; }
-    .btn-green { background: #16a34a; box-shadow: none; }
     .btn-danger { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; box-shadow: none; }
     .btn-ghost { background: rgba(243, 244, 246, 0.85); color: #6b7280; font-size: 12px; padding: 10px; box-shadow: none; }
 
@@ -244,8 +311,6 @@
     .intro-sub { font-size: clamp(13px, 3.6vw, 14px); color: #f5d0fe; margin-top: 10px; opacity: 0; transform: translateY(10px); animation: slideUpFade 0.65s ease 1.05s forwards; }
     @keyframes heartBeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.18); } 45% { transform: scale(0.96); } 65% { transform: scale(1.12); } }
     @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
-    .reveal-main { animation: mainCardFadeIn 0.65s var(--ease-spring) forwards; }
-    @keyframes mainCardFadeIn { 0% { opacity: 0; transform: translateY(16px) scale(0.975); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
     /* ========== 仪式感全屏动画舞台 ========== */
     #fxStageOverlay { position: fixed; inset: 0; z-index: 980; background: rgba(15, 23, 42, 0.45); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: none; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; animation: fxOverlayFade 1.4s ease forwards; }
@@ -296,11 +361,12 @@
     .inbox-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; font-size: 11px; color: #9ca3af; }
     .inbox-item-cat { font-weight: 700; color: #db2777; }
 
-    /* ========== 底部可滑动悬浮导航栏 ========== */
+    /* ========== 底部可滑动悬浮导航栏（与主内容卡片宽度 420px 及边距完全平齐） ========== */
     .bottom-nav {
       position: fixed; bottom: calc(12px + env(safe-area-inset-bottom));
       left: 50%; transform: translateX(-50%);
-      width: calc(100% - 20px); max-width: 428px;
+      width: calc(100% - 28px - env(safe-area-inset-left) - env(safe-area-inset-right));
+      max-width: 420px;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(251, 207, 232, 0.95);
@@ -385,26 +451,37 @@
     .heart-hint-active { color: #db2777; font-weight: 800; }
     .heart-hint-active.her { color: #7e22ce; }
 
+    /* ========== V3.0 可切换双模式首页计时器 ========== */
     .timer-box { background: linear-gradient(135deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin: 10px 0 12px; }
-    .timer-label { font-size: clamp(11px, 3vw, 12px); color: #db2777; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .timer-head-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
+    .timer-label { font-size: clamp(11px, 3vw, 12px); color: #db2777; font-weight: 600; letter-spacing: 0.3px; }
+    .timer-switch-btn {
+      border: 1px solid #fbcfe8; background: rgba(255, 255, 255, 0.9); color: #db2777;
+      font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 99px; cursor: pointer; white-space: nowrap;
+    }
+    .timer-switch-btn:active { transform: scale(0.92); }
     .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(6px, 2vw, 10px); }
-    .time-unit { background: rgba(255, 255, 255, 0.95); border-radius: 12px; padding: clamp(7px, 2.2vw, 10px) 4px; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); }
+    .timer-grid-ymd { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
+    .time-unit { background: rgba(255, 255, 255, 0.95); border-radius: 12px; padding: clamp(7px, 2.2vw, 10px) 2px; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); }
     .time-num { display: block; font-size: var(--fs-timer-num); font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; color: transparent; font-variant-numeric: tabular-nums; line-height: 1.15; }
+    .timer-grid-ymd .time-num { font-size: clamp(15px, 4.4vw, 19px); }
     .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
+    .timer-grid-ymd .time-txt { font-size: 10px; }
 
-    /* ========== 左右滑动恋爱农历日历 ========== */
-    .cal-box { background: rgba(255, 255, 255, 0.84); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; touch-action: pan-y; user-select: none; }
-    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 6px; }
-    .cal-title { font-size: 15px; font-weight: 800; color: #374151; }
-    .cal-swipe-tip { font-size: 10.5px; color: #a855f7; background: #faf5ff; padding: 3px 8px; border-radius: 99px; font-weight: 600; }
-    .cal-today-btn { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; padding: 4px 10px; border-radius: 99px; cursor: pointer; font-weight: 700; font-size: 11px; }
+    /* ========== V3.0 年/月下拉选择恋爱农历日历 ========== */
+    .cal-box { background: rgba(255, 255, 255, 0.84); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; user-select: none; }
+    .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 6px; }
+    .cal-select-group { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+    .cal-select {
+      width: auto; height: 34px; margin-bottom: 0; padding: 0 8px;
+      border-radius: 10px; border: 1.5px solid #fbcfe8;
+      background: #fff; color: #374151; font-size: 13px; font-weight: 700;
+      cursor: pointer;
+    }
+    .cal-today-btn { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; height: 34px; padding: 0 11px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 11.5px; white-space: nowrap; }
     .cal-today-btn:active { transform: scale(0.92); }
     .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; padding-bottom: 6px; font-weight: 600; border-bottom: 1px solid #fce7f3; margin-bottom: 6px; }
     .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-    .cal-slide-next { animation: calSlideNext 0.28s var(--ease-spring) forwards; }
-    .cal-slide-prev { animation: calSlidePrev 0.28s var(--ease-spring) forwards; }
-    @keyframes calSlideNext { from { opacity: 0.25; transform: translateX(26px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes calSlidePrev { from { opacity: 0.25; transform: translateX(-26px); } to { opacity: 1; transform: translateX(0); } }
 
     .cal-day { min-height: 46px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #374151; cursor: pointer; position: relative; background: rgba(255, 255, 255, 0.72); transition: transform 0.16s var(--ease-spring), background 0.16s; padding: 3px 1px 6px; }
     .cal-day:active { transform: scale(0.9); background: #fce7f3; }
@@ -431,16 +508,17 @@
     .legend-solid { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ec4899; }
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
 
-    /* ========== 见面计时器页样式 ========== */
-    .meet-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 14px; }
+    /* ========== 见面计时器页样式（优化输入框比例与对齐） ========== */
+    .meet-hero-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 12px 0 14px; }
     .meet-hero-card { background: linear-gradient(145deg, #fff5f7 0%, #faf5ff 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 12px 10px; text-align: center; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.07); }
     .meet-hero-label { font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px; }
     .meet-hero-num { font-size: 22px; font-weight: 800; line-height: 1.2; background: var(--accent-grad); -webkit-background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
     .meet-hero-sub { font-size: 10.5px; color: #9ca3af; margin-top: 3px; }
     .meet-add-form { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px; margin-bottom: 14px; text-align: left; }
-    .meet-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .meet-form-row-3 { display: grid; grid-template-columns: 1.25fr 0.75fr 1fr; gap: 6px; margin-bottom: 8px; }
-    .meet-form-row input, .meet-form-row-3 input { margin-bottom: 0; font-size: 12px; padding: 9px 8px; }
+    .meet-form-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-bottom: 8px; }
+    .meet-form-row-date { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.75fr); gap: 8px; margin-bottom: 8px; }
+    .meet-form-row input, .meet-form-row select, .meet-form-row-date input { margin-bottom: 0; font-size: 13px; height: 40px; }
+    .meet-field-mini-label { display: block; font-size: 10.5px; color: #9ca3af; font-weight: 600; margin-bottom: 3px; padding-left: 2px; }
     .meet-history-list { display: flex; flex-direction: column; gap: 9px; text-align: left; }
     .meet-rec-card {
       background: #fff; border: 1px solid #f3e8ff; border-radius: 15px;
@@ -468,7 +546,7 @@
     .global-packing-title { font-size: 14px; font-weight: 800; color: #b45309; display: flex; align-items: center; gap: 5px; }
     .global-packing-body { margin-top: 10px; animation: unfoldCompose 0.28s var(--ease-spring) forwards; }
 
-    .trip-cards-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
+    .trip-cards-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; text-align: left; padding-bottom: 4px; }
     .trip-card { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1.5px solid #fbcfe8; border-radius: 18px; padding: 13px 12px 11px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.08); transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease; }
     .trip-card:active { transform: scale(0.95); }
     .trip-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
@@ -489,41 +567,99 @@
     .travel-cat-btn.active span.t-ico { transform: scale(1.12); }
 
     .travel-time-form { background: #fff; border: 1px solid #fbcfe8; border-radius: 15px; padding: 10px 11px; margin-bottom: 12px; text-align: left; }
-    .travel-time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .travel-time-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-bottom: 8px; }
     .travel-time-field label { display: block; font-size: 10.5px; color: #6b7280; font-weight: 700; margin-bottom: 3px; }
-    .travel-time-field input { margin-bottom: 0; font-size: 12px; padding: 7px 8px; }
+    .travel-time-field input { margin-bottom: 0; font-size: 12px; height: 38px; padding: 0 8px; }
     .travel-list { max-height: 290px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
     .travel-time-tag { display: inline-block; font-size: 10.5px; font-weight: 700; color: #7e22ce; background: #f3e8ff; padding: 2px 7px; border-radius: 6px; margin-top: 3px; }
 
-    /* ========== 菜单点菜页样式 ========== */
-    .chef-switch-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-    .chef-chip { padding: 10px 8px; border-radius: 14px; font-size: 13px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.22s var(--ease-spring); }
-    .chef-chip:active { transform: scale(0.95); }
-    .chef-chip.active-wang { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-color: #ec4899; color: #db2777; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.16); }
-    .chef-chip.active-dong { background: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%); border-color: #6366f1; color: #4338ca; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.16); }
-
-    .order-tray-box { background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%); border: 1.5px solid #fdba74; border-radius: 16px; padding: 11px 12px; margin-bottom: 12px; text-align: left; }
-    .order-tray-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .order-tray-title { font-size: 12.5px; font-weight: 800; color: #c2410c; }
-    .order-pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; min-height: 24px; }
-    .order-pill-item { display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #fed7aa; color: #9a3412; font-size: 11.5px; font-weight: 700; padding: 4px 9px; border-radius: 99px; animation: popUpModal 0.22s var(--ease-spring) forwards; }
-    .order-pill-x { cursor: pointer; color: #fb923c; font-weight: 800; margin-left: 2px; }
-    .order-tray-actions { display: flex; gap: 8px; }
-
-    .menu-cat-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 14px; padding: 4px; margin-bottom: 12px; }
-    .menu-cat-btn { border: none; background: transparent; cursor: pointer; padding: 7px 2px; border-radius: 10px; font-size: 11.5px; font-weight: 700; color: #6b7280; }
+    /* ========== V3.0 菜单点菜页样式（右侧加号 + 底部购物车 + 点菜记录） ========== */
+    .menu-head-btns { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .menu-hist-btn {
+      background: #fff; color: #db2777; border: 1px solid #fbcfe8;
+      padding: 7px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+    }
+    .menu-hist-btn:active { transform: scale(0.93); }
+    .menu-cat-tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 14px; padding: 4px; margin-bottom: 12px; }
+    .menu-cat-btn { border: none; background: transparent; cursor: pointer; padding: 7px 1px; border-radius: 10px; font-size: 11px; font-weight: 700; color: #6b7280; white-space: nowrap; }
     .menu-cat-btn:active { transform: scale(0.92); }
     .menu-cat-btn.active { background: #fff; color: #db2777; box-shadow: 0 3px 8px rgba(236, 72, 153, 0.14); }
 
-    .dish-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; }
-    .dish-card { background: #fff; border: 1px solid #fce7f3; border-radius: 15px; padding: 11px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05); transition: transform 0.18s var(--ease-spring), border-color 0.2s, background 0.2s; }
+    .dish-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-bottom: 12px; }
+    .dish-card { background: #fff; border: 1px solid #fce7f3; border-radius: 15px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.05); transition: transform 0.18s var(--ease-spring), border-color 0.2s, background 0.2s; }
     .dish-card.ordered { background: linear-gradient(135deg, #fff7ed 0%, #fdf2f8 100%); border-color: #f9a8d4; }
     .dish-info { flex: 1; min-width: 0; }
     .dish-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .dish-meta { font-size: 11px; color: #6b7280; }
-    .dish-order-btn { border: none; border-radius: 10px; padding: 6px 11px; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; background: var(--accent-grad); color: #fff; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.2); }
-    .dish-order-btn:active { transform: scale(0.92); }
-    .dish-order-btn.added { background: #fff; color: #db2777; border: 1px solid #f9a8d4; box-shadow: none; }
+    .dish-stepper { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .dish-qty-num { font-size: 12.5px; font-weight: 800; color: #db2777; min-width: 16px; text-align: center; }
+    .dish-plus-btn {
+      width: 28px; height: 28px; border-radius: 50%; border: none;
+      background: var(--accent-grad); color: #fff; font-size: 17px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 3px 8px rgba(236, 72, 153, 0.25); line-height: 1;
+    }
+    .dish-plus-btn:active { transform: scale(0.88); }
+    .dish-minus-btn {
+      width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid #f9a8d4;
+      background: #fff; color: #db2777; font-size: 15px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; line-height: 1;
+    }
+    .dish-minus-btn:active { transform: scale(0.88); }
+
+    /* 底部购物车栏 */
+    .menu-cart-bar {
+      background: linear-gradient(135deg, #1f2937 0%, #3b0764 100%);
+      color: #fff; border-radius: 18px; padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 8px 22px rgba(59, 7, 100, 0.22);
+    }
+    .menu-cart-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .menu-cart-left { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; cursor: pointer; text-align: left; }
+    .cart-icon-wrap {
+      position: relative; width: 36px; height: 36px; border-radius: 50%;
+      background: var(--accent-grad); display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .cart-badge-num {
+      position: absolute; top: -3px; right: -3px;
+      min-width: 17px; height: 17px; padding: 0 4px;
+      border-radius: 99px; background: #facc15; color: #1f2937;
+      font-size: 10px; font-weight: 800; line-height: 17px; text-align: center;
+      display: none;
+    }
+    .cart-summary-txt { font-size: 12px; font-weight: 600; color: #f3e8ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cart-submit-btn {
+      border: none; border-radius: 12px; padding: 8px 13px;
+      background: var(--accent-grad); color: #fff; font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
+    }
+    .cart-submit-btn:active { transform: scale(0.93); }
+    .cart-detail-drawer {
+      background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 8px 10px;
+      display: none; text-align: left;
+    }
+    .cart-pills-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+    .cart-pill-item {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255, 255, 255, 0.94); color: #9d174d;
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 99px;
+    }
+    .order-hist-drawer {
+      background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%);
+      border: 1.5px solid #fbcfe8; border-radius: 16px; padding: 11px 12px;
+      margin-bottom: 12px; text-align: left; display: none;
+      animation: unfoldCompose 0.28s var(--ease-spring) forwards;
+    }
+    .order-hist-list { max-height: 185px; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; margin-top: 6px; }
+    .order-hist-item {
+      background: #fff; border: 1px solid #fce7f3; border-radius: 12px; padding: 8px 10px;
+      font-size: 12px; color: #374151; line-height: 1.45;
+    }
+    .order-hist-meta { display: flex; justify-content: space-between; font-size: 10.5px; color: #9ca3af; margin-bottom: 3px; }
+    .order-hist-who { font-weight: 700; color: #db2777; }
 
     /* ========== 关于与版本历程页样式 ========== */
     .about-list { max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; text-align: left; margin-top: 10px; }
@@ -537,9 +673,9 @@
     .env-header-banner { background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%); border: 1px solid #fbcfe8; border-radius: 18px; padding: 13px 15px; margin-bottom: 14px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .env-banner-title { font-size: 16px; font-weight: 700; color: #1f2937; margin-bottom: 3px; }
     .env-banner-sub { font-size: 12px; color: #9ca3af; }
-    .write-letter-toggle-btn { background: var(--accent-grad); color: #fff; border: none; padding: 8px 13px; border-radius: 13px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
+    .write-letter-toggle-btn { background: var(--accent-grad); color: #fff; border: none; padding: 8px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
     .write-letter-toggle-btn:active { transform: scale(0.93); }
-    .compose-letter-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1.5px solid #f9a8d4; border-radius: 18px; padding: 14px; margin-bottom: 16px; text-align: left; box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1); display: none; transform-origin: top center; animation: unfoldCompose 0.3s var(--ease-spring) forwards; }
+    .compose-letter-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1.5px solid #f9a8d4; border-radius: 18px; padding: 13px; margin-bottom: 14px; text-align: left; box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1); display: none; transform-origin: top center; animation: unfoldCompose 0.3s var(--ease-spring) forwards; }
     @keyframes unfoldCompose { from { opacity: 0; transform: translateY(-8px) scaleY(0.92); } to { opacity: 1; transform: translateY(0) scaleY(1); } }
     .compose-letter-box.sealing { animation: foldSealBox 0.45s var(--ease-spring) forwards; }
     @keyframes foldSealBox { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.75; transform: scale(0.92) rotateX(18deg); } 100% { opacity: 0; transform: scale(0.65) translateY(-16px); } }
@@ -549,9 +685,9 @@
     .sender-chip:active { transform: scale(0.95); }
     .sender-chip.active-him { background: linear-gradient(135deg, #fdf2f8, #fce7f3); border-color: #ec4899; color: #db2777; box-shadow: 0 3px 10px rgba(236, 72, 153, 0.12); }
     .sender-chip.active-her { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #8b5cf6; color: #6d28d9; box-shadow: 0 3px 10px rgba(139, 92, 246, 0.12); }
-    .compose-date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.85); padding: 6px 10px; border-radius: 12px; border: 1px solid #f3e8ff; }
+    .compose-date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.85); padding: 4px 10px; border-radius: 12px; border: 1px solid #f3e8ff; }
     .compose-date-row span { font-size: 12px; color: #6b7280; font-weight: 600; white-space: nowrap; }
-    .compose-date-row input { margin-bottom: 0; border: none; padding: 4px; background: transparent; font-size: 13px; }
+    .compose-date-row input { margin-bottom: 0; border: none; height: 34px; padding: 0 4px; background: transparent; font-size: 13px; }
 
     .section-block { margin-bottom: 16px; text-align: left; }
     .section-head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 10px; padding: 0 2px; }
@@ -560,14 +696,19 @@
     .mini-add-btn { font-size: 11px; font-weight: 700; color: #7e22ce; background: #f3e8ff; border: 1px solid #e9d5ff; padding: 2px 9px; border-radius: 99px; cursor: pointer; }
     .mini-add-btn:active { transform: scale(0.92); }
 
-    .blindbox-card { background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%); border: 1.5px solid #f9a8d4; border-radius: 20px; padding: 16px 16px 14px; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.09); transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease; }
+    .blindbox-card { background: linear-gradient(145deg, #fff5f7 0%, #ffffff 55%, #faf5ff 100%); border: 1.5px solid #f9a8d4; border-radius: 20px; padding: 15px 15px 12px; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.09); transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease; }
     .blindbox-card::after { content: "💕"; position: absolute; right: -8px; bottom: -12px; font-size: 56px; opacity: 0.08; pointer-events: none; }
-    .blindbox-card:active { transform: scale(0.97); }
-    .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .blindbox-card:active { transform: scale(0.975); }
+    .blindbox-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 6px; }
     .blindbox-tag { font-size: 11px; font-weight: 700; color: #be185d; background: rgba(251, 207, 232, 0.45); padding: 3px 10px; border-radius: 8px; }
     .blindbox-refresh { font-size: 11px; color: #7e22ce; background: #f3e8ff; padding: 4px 10px; border-radius: 99px; font-weight: 700; }
-    .blindbox-quote { font-size: 14.5px; color: #1f2937; line-height: 1.7; font-weight: 500; letter-spacing: 0.3px; min-height: 48px; display: flex; align-items: center; transition: opacity 0.2s ease, transform 0.2s ease; }
+    .blindbox-quote { font-size: 14.5px; color: #1f2937; line-height: 1.7; font-weight: 500; letter-spacing: 0.3px; min-height: 46px; display: flex; align-items: center; transition: opacity 0.2s ease, transform 0.2s ease; }
     .quote-flip { opacity: 0; transform: translateY(5px); }
+    .blindbox-actions { display: flex; justify-content: flex-end; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #fbcfe8; }
+    .quote-act-btn { border: 1px solid #f3e8ff; background: rgba(255, 255, 255, 0.92); color: #6b7280; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 8px; cursor: pointer; }
+    .quote-act-btn:active { transform: scale(0.92); }
+    .quote-act-btn.edit { color: #7e22ce; border-color: #e9d5ff; }
+    .quote-act-btn.del { color: #e11d48; border-color: #fecdd3; }
 
     .capsule-list { display: flex; flex-direction: column; gap: 11px; max-height: 360px; overflow-y: auto; }
     .capsule-card { border-radius: 18px; padding: 13px 14px; border: 1px solid #fbcfe8; background: #fff; cursor: pointer; transition: all 0.2s var(--ease-spring); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03); }
@@ -594,20 +735,21 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版 ========== */
-    .promise-top-badge { margin-bottom: 16px; }
-    .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
-    .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
+    /* ========== 导航【🎁 约定】排版（输入框等高对齐优化） ========== */
+    .promise-top-badge { margin-bottom: 14px; }
+    .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 14px; gap: 10px; }
+    .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 10px 8px; border-radius: 14px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
     .sub-tab-btn:active { transform: scale(0.95); }
     .sub-tab-btn.active { background: #fff; color: #db2777; border-color: #ec4899; box-shadow: 0 5px 14px rgba(236, 72, 153, 0.16); }
 
-    .coupon-add-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 10px 11px; margin-bottom: 12px; text-align: left; }
-    .coupon-add-box input { margin-bottom: 8px; font-size: 13px; padding: 9px 11px; }
-    .coupon-sender-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .coupon-sender-chip { padding: 7px 6px; border-radius: 10px; font-size: 12px; font-weight: 700; border: 1.5px solid #f3e8ff; background: #fff; color: #6b7280; cursor: pointer; text-align: center; transition: all 0.2s var(--ease-spring); }
-    .coupon-sender-chip:active { transform: scale(0.95); }
-    .coupon-sender-chip.active-him { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
-    .coupon-sender-chip.active-her { background: #f5f3ff; border-color: #8b5cf6; color: #6d28d9; }
+    .coupon-add-box { background: linear-gradient(145deg, #fffcfd 0%, #fdf2f8 100%); border: 1px solid #fbcfe8; border-radius: 16px; padding: 11px; margin-bottom: 12px; text-align: left; }
+    .coupon-add-box input { margin-bottom: 8px; height: 40px; font-size: 13px; padding: 0 11px; }
+    .coupon-perspective-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 10px; margin-bottom: 8px;
+      background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8;
+    }
+    .coupon-perspective-bar.her { background: #fdf2f8; border-color: #fbcfe8; color: #be185d; }
 
     .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; padding: 0 2px; }
     .coupon-ctrl-group { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
@@ -616,9 +758,9 @@
     .coupon-mini-ctrl.muted { background: #f3f4f6; border-color: #e5e7eb; color: #6b7280; }
     .coupon-mini-ctrl.purple { background: #f3e8ff; border-color: #e9d5ff; color: #7e22ce; }
 
-    .event-add-row { display: flex; gap: 8px; margin-bottom: 14px; }
-    .event-add-row input { margin-bottom: 0; flex: 1; background: #fff; }
-    .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
+    .event-add-row { display: flex; align-items: stretch; gap: 8px; margin-bottom: 12px; }
+    .event-add-row input { margin-bottom: 0; flex: 1; min-width: 0; height: 40px; padding: 0 11px; font-size: 13px; background: #fff; }
+    .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 12px; height: 40px; padding: 0 14px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
     .event-add-btn:active { transform: scale(0.93); }
 
     .coupon-grid {
@@ -657,8 +799,8 @@
     @keyframes ticketShakeTear { 0% { transform: scale(1); } 30% { transform: scale(1.04) rotate(-2deg); border-color: #ec4899; } 65% { transform: scale(0.97) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); } }
     .coupon-ticket.used { background: #f9fafb; border-color: #e5e7eb; opacity: 0.82; box-shadow: none; }
     .ticket-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 4px; }
-    .ticket-top-tag { font-size: 10px; font-weight: 700; color: #db2777; background: #fce7f3; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
-    .ticket-top-tag.her-tag { color: #6d28d9; background: #ede9fe; }
+    .ticket-top-tag { font-size: 10px; font-weight: 700; color: #1d4ed8; background: #dbeafe; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+    .ticket-top-tag.her-tag { color: #be185d; background: #fce7f3; }
     .coupon-ticket.used .ticket-top-tag { background: #e5e7eb; color: #6b7280; }
     .coupon-name { font-size: 13.5px; font-weight: 700; color: #1f2937; margin-bottom: 5px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .coupon-ticket.used .coupon-name { color: #6b7280; text-decoration: line-through; }
@@ -674,8 +816,10 @@
     .event-dash-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 8px; }
     .event-progress-bar { background: rgba(255, 255, 255, 0.9); border-radius: 99px; height: 8px; overflow: hidden; border: 1px solid #fbcfe8; }
     .event-progress-fill { height: 100%; background: var(--accent-grad); width: 0%; transition: width 0.38s var(--ease-spring); }
+    .event-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 2px; }
     .event-group-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-align: left; margin: 8px 0 6px 2px; letter-spacing: 0.5px; }
     .event-list { max-height: 310px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+    .event-list.collapsed { display: none !important; }
     .event-item { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #fce7f3; border-radius: 14px; padding: 11px 13px; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.04); transition: transform 0.2s var(--ease-spring), background 0.2s ease; }
     .event-item:active { transform: scale(0.985); }
     .event-item.done { background: #faf5ff; border-color: #e9d5ff; opacity: 0.78; box-shadow: none; }
@@ -721,14 +865,10 @@
     .note-del:hover { color: #e11d48; }
     .note-text { font-size: 13.5px; color: #1f2937; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
     .empty-notes { font-size: 13px; color: #9ca3af; padding: 20px 0; text-align: center; }
-
-    .dev-panel { margin-top: 16px; padding-top: 14px; border-top: 1px dashed #e5e7eb; text-align: left; }
-    .dev-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px; margin-bottom: 10px; }
-    .dev-sec-title { font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 8px; }
-    .dev-mini-list { max-height: 110px; overflow-y: auto; font-size: 11px; color: #475569; margin-top: 6px; }
-    .dev-mini-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f1f5f9; }
-    .dev-box { background: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 10px; font-size: 12px; color: #374151; word-break: break-all; margin-top: 10px; display: none; }
     .status { font-size: 11px; color: #9ca3af; margin-top: 8px; }
+    .btn-green { background: #16a34a; box-shadow: none; }
+    .dev-panel { margin-top: 16px; padding-top: 14px; border-top: 1px dashed #e5e7eb; text-align: left; }
+    .dev-box { background: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 10px; font-size: 12px; color: #374151; word-break: break-all; margin-top: 10px; display: none; }
   </style>
 </head>
 <body class="">
@@ -736,22 +876,32 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip"></div>
+  <div id="toastTip" class="">✨ 已进入他的视角</div>
+
+  <!-- V3.0 云端上传超时 / 失败重传提示条 -->
+  <div id="cloudRetryBar" style="display: none;">
+    <div class="retry-bar-text" id="cloudRetryText">⚠️ 云端上传超时，本地已保存</div>
+    <button class="retry-bar-btn" onclick="retryCloudUpload()">🔄 重新上传</button>
+    <button class="retry-bar-close" onclick="hideCloudRetryBar()" title="关闭">✕</button>
+  </div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.8 更新提示弹窗 -->
+  <!-- V3.0 合并更新提示弹窗 -->
   <div class="modal-mask" id="updateModalMask" style="display:none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.8</span>
-      <div class="update-title">全站添加消息提示与相见天数持久化升级</div>
+      <span class="update-badge">✨ 大版本更新 · V3.0</span>
+      <div class="update-title">双视角系统、购物车点菜与全界面精修</div>
       <ul class="update-list">
-        <li><strong>🔔 全站主动添加提示</strong>：新增专属事件、发兑换券、添加旅行攻略、必带物品、见面记录与留言等操作均有顶部消息提示。</li>
-        <li><strong>⏳ 相见天数跨版本保留</strong>：云端同步与版本升级自动合并保护「相见天数」，历史记录完整不丢失。</li>
-        <li><strong>📅 日历双向丝滑滑动</strong>：完整集成手机触屏与电脑拖拽的左右双向流畅切月动画。</li>
+        <li><strong>♂️ / ♀️ 双视角系统</strong>：登录解锁后通过性别表情选择「我是噜噜 / 我是噜妹」并支持记住性别；进入空间后全站统一使用「他 / 她」视角。</li>
+        <li><strong>🎟️ 约定页双视角 &amp; 事件收起</strong>：发券自动锁定当前视角（男方无她发的券、女方无他发的券）；专属事件新增收起/展开按键。</li>
+        <li><strong>🛒 菜单荤素分类 &amp; 购物车记录</strong>：主菜拆分为荤菜/素菜并取消大厨切换，菜品右侧改为 + 加购，底部购物车一键通知对方做菜并自动保存历史点菜记录。</li>
+        <li><strong>🎲 情话盲盒可编可删</strong>：支持直接修改或删减盲盒中的任意情话，并实时同步云端。</li>
+        <li><strong>📅 下拉日历 &amp; 年月日计时器</strong>：舍弃滑动切月，改为年/月下拉菜单快捷跳转；首页计时器支持切换「X年X月X日X时X分X秒」。</li>
+        <li><strong>☁️ 云端超时重传 &amp; 界面精修</strong>：每次更新实时显示云端状态，超时自动提示重新上传；导航栏与主内容卡片平齐，优化见面/菜单/约定页输入框适配，精简本地工坊仅保留一键加密导出。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.8 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V3.0 体验 💖</button>
     </div>
   </div>
 
@@ -767,17 +917,24 @@
     </div>
   </div>
 
+  <!-- 【🎲 编辑情话盲盒】独立弹窗 -->
+  <div class="modal-mask" id="quoteEditModalMask" style="display:none;" onclick="if(event.target===this) closeQuoteEditModal()">
+    <div class="update-modal">
+      <div class="update-title">🎲 修改盲盒情话</div>
+      <label class="modal-field-label" for="editQuoteTextarea">情话内容</label>
+      <textarea id="editQuoteTextarea" rows="3" placeholder="输入修改后的情话..."></textarea>
+      <div style="display:flex; gap:8px; margin-top:4px;">
+        <button class="btn btn-ghost" style="width:36%; margin-bottom:0;" onclick="closeQuoteEditModal()">取消</button>
+        <button class="btn" style="flex:1; margin-bottom:0;" onclick="saveQuoteEdit()">保存修改</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 【🎟️ 恋爱兑换券详情与编辑】独立弹窗 -->
   <div class="modal-mask" id="couponEditModalMask" style="display:none;" onclick="if(event.target===this) closeCouponEditModal()">
     <div class="update-modal">
       <div class="update-title" id="couponModalHeading">🎟️ 兑换券详情与编辑</div>
       <div class="modal-status-info" id="couponModalStatusInfo"></div>
-
-      <label class="modal-field-label">发券人</label>
-      <div class="coupon-sender-row" style="margin-bottom:10px;">
-        <div class="coupon-sender-chip" id="editCouponSenderHim" onclick="setEditCouponSender('him')">👦 他发的券</div>
-        <div class="coupon-sender-chip" id="editCouponSenderHer" onclick="setEditCouponSender('her')">👧 她发的券</div>
-      </div>
 
       <label class="modal-field-label" for="editCouponNameInput">特权券名称</label>
       <input type="text" id="editCouponNameInput" placeholder="输入特权券名称">
@@ -797,14 +954,14 @@
     <div class="update-modal">
       <div class="update-title">⏳ 编辑相见记录</div>
 
-      <div class="meet-form-row">
+      <div class="meet-form-row-date">
         <div>
           <label class="modal-field-label" for="modalMeetDate">相见起始日期</label>
           <input type="date" id="modalMeetDate">
         </div>
         <div>
           <label class="modal-field-label" for="modalMeetDays">相见天数</label>
-          <input type="number" id="modalMeetDays" min="1" max="365" placeholder="如：3">
+          <input type="number" id="modalMeetDays" min="1" max="365" placeholder="天数">
         </div>
       </div>
 
@@ -874,47 +1031,78 @@
     <div class="plain-footer">Encrypted Session · Web Portal</div>
   </div>
 
-  <!-- ==================== 导航第 1 项：⏳ 见面计时器 ==================== -->
-  <div class="card" id="tabMeetView" style="display: none;">
+  <!-- 状态 3：登录成功后的双视角选择界面（性别表情 ♂️ / ♀️，仅此处使用噜噜与噜妹） -->
+  <div class="card role-select-card" id="roleSelectView" style="display: none;">
+    <div class="badge" style="margin-bottom:12px;">✨ 欢迎来到专属空间 · V3.0</div>
+    <div class="role-select-title">请选择你的专属视角</div>
+    <div class="role-select-sub">将为你定制发券身份、点菜通知与信箱体验</div>
+
+    <div class="role-btn-grid">
+      <button class="role-choice-btn" onclick="choosePerspective('him')">
+        <span class="role-choice-avatar" style="color:#2563eb;">♂️</span>
+        <span class="role-choice-name">我是噜噜</span>
+        <span class="role-choice-tag">男方视角 · 苏州</span>
+      </button>
+      <button class="role-choice-btn her-btn" onclick="choosePerspective('her')">
+        <span class="role-choice-avatar" style="color:#db2777;">♀️</span>
+        <span class="role-choice-name">我是噜妹</span>
+        <span class="role-choice-tag">女方视角 · 武汉</span>
+      </button>
+    </div>
+
+    <label class="remember-role-label" for="rememberRoleChk">
+      <input type="checkbox" id="rememberRoleChk">
+      <span>记住我的性别（下次自动进入）</span>
+    </label>
+  </div>
+
+  <!-- ==================== 导航第 1 项：⏳ 见面计时器（优化输入框适配） ==================== -->
+  <div class="card" id="tabMeetView" style="display:none;">
     <div class="badge">⏳ 见面计时器 · 相聚印记</div>
 
     <div class="meet-hero-grid">
       <div class="meet-hero-card">
         <div class="meet-hero-label">距上次见面已过</div>
-        <div class="meet-hero-num" id="sinceLastMeetDays">15 天</div>
-        <div class="meet-hero-sub" id="sinceLastMeetDate">上次：2026-11-13 · 葛仙村</div>
+        <div class="meet-hero-num" id="sinceLastMeetDays">--</div>
+        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史记录</div>
       </div>
       <div class="meet-hero-card">
         <div class="meet-hero-label">累计相见次数</div>
-        <div class="meet-hero-num" id="totalMeetCount">17 次</div>
-        <div class="meet-hero-sub" id="nextMeetMiniHint">距下次见面还有 6 天</div>
+        <div class="meet-hero-num" id="totalMeetCount">0 次</div>
+        <div class="meet-hero-sub" id="nextMeetMiniHint">可在首页日历设下次行程</div>
       </div>
     </div>
 
     <div class="meet-add-form">
-      <div class="compose-row-label" style="margin-bottom:8px;">📍 添加历史见面记录（天数将自动同步展示在首页日历）</div>
-      <div class="meet-form-row-3">
-        <input type="date" id="meetHistDate" title="见面起始日期">
-        <input type="number" id="meetHistDays" min="1" max="365" value="1" placeholder="天数" title="相见天数">
-        <input type="text" id="meetHistPlace" placeholder="地点(武汉/苏州)">
+      <div class="compose-row-label" style="margin-bottom:8px;">📍 添加历史见面记录（天数自动同步展示在首页日历）</div>
+      <div class="meet-form-row-date">
+        <div>
+          <span class="meet-field-mini-label">见面起始日期</span>
+          <input type="date" id="meetHistDate" title="见面起始日期">
+        </div>
+        <div>
+          <span class="meet-field-mini-label">相见天数</span>
+          <input type="number" id="meetHistDays" min="1" max="365" value="1" placeholder="天数">
+        </div>
       </div>
-      <input type="text" id="meetHistNote" placeholder="一句话回忆（如：一起吃热干面看江景）" style="font-size:13px; margin-bottom:8px;">
+      <input type="text" id="meetHistPlace" placeholder="相见地点（如：武汉 / 苏州）" style="height:40px; margin-bottom:8px;">
+      <input type="text" id="meetHistNote" placeholder="一句话回忆（如：一起吃热干面看江景）" style="height:40px; margin-bottom:9px;">
       <button class="btn" style="padding:10px; font-size:13.5px; margin-bottom:0;" onclick="addMeetHistory()">+ 记录这次相见 💖</button>
     </div>
 
     <div class="section-head">
       <span>🗓️ 历史相见时光轴（点击任意行编辑）</span>
-      <span class="section-pill" id="meetHistCountLabel">共 17 条</span>
+      <span class="section-pill" id="meetHistCountLabel">共 0 条</span>
     </div>
     <div class="meet-history-list" id="meetHistoryList"></div>
-    <div class="pager-bar" id="meetPagerBar" style="display: flex;">
-      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)" disabled="">‹ 上一页</button>
-      <span class="pager-info" id="meetPageInfo">第 1 / 5 页</span>
+    <div class="pager-bar" id="meetPagerBar" style="display:none;">
+      <button class="pager-btn" id="meetPrevPageBtn" onclick="changeMeetPage(-1)">‹ 上一页</button>
+      <span class="pager-info" id="meetPageInfo">第 1 / 1 页</span>
       <button class="pager-btn" id="meetNextPageBtn" onclick="changeMeetPage(1)">下一页 ›</button>
     </div>
   </div>
 
-  <!-- ==================== 导航第 2 项：💌 信封 ==================== -->
+  <!-- ==================== 导航第 2 项：💌 信封（已删除本地工坊） ==================== -->
   <div class="card" id="tabEnvelopeView" style="display: none;">
     <div class="env-header-banner">
       <div>
@@ -925,17 +1113,17 @@
     </div>
 
     <div class="compose-letter-box" id="composeLetterBox" style="display:none;">
-      <div class="compose-row-label">📮 选择寄信身份（系统将自动记住本机默认身份）：</div>
+      <div class="compose-row-label">📮 寄信身份：</div>
       <div class="sender-switch-row">
-        <div class="sender-chip active-him" id="senderChipHim" onclick="selectLetterSender('👦 他写给她的信')">👦 他写给她的信</div>
-        <div class="sender-chip" id="senderChipHer" onclick="selectLetterSender('👧 她写给他的信')">👧 她写给他的信</div>
+        <div class="sender-chip active-him" id="senderChipHim" onclick="selectLetterSender('他写给她的信')">♂️ 他写给她的信</div>
+        <div class="sender-chip" id="senderChipHer" onclick="selectLetterSender('她写给他的信')">♀️ 她写给他的信</div>
       </div>
       <div class="compose-date-row">
         <span>📅 开启日期：</span>
         <input type="date" id="userCapDate" title="选今天即对方立即可读，选未来日期即封存为时光胶囊">
       </div>
-      <input type="text" id="userCapTitle" placeholder="信件标题（如：今晚突然很想你 / 写给下次见面）" style="font-size:13px;">
-      <textarea id="userCapBody" rows="4" placeholder="在这里写下想对彼此说的长信..." style="font-size:13.5px;"></textarea>
+      <input type="text" id="userCapTitle" placeholder="信件标题（如：今晚突然很想你 / 写给下次见面）" style="height:40px;">
+      <textarea id="userCapBody" rows="4" placeholder="在这里写下想对彼此说的长信..."></textarea>
       <div style="display:flex; gap:8px;">
         <button class="btn btn-ghost" style="width:32%; margin-bottom:0;" onclick="toggleComposeBox()">取消</button>
         <button class="btn" id="sendUserLetterBtn" style="flex:1; margin-bottom:0;" onclick="submitUserCapsule()">💌 封存并云端寄出</button>
@@ -946,7 +1134,7 @@
       <div class="section-head">
         <span>🎲 一碰一语 · 情话盲盒</span>
         <div class="section-head-right">
-          <span class="section-pill" id="quoteCountLabel">共 0 句</span>
+          <span class="section-pill" id="quoteCountLabel">共 2 句</span>
           <button class="mini-add-btn" onclick="toggleAddQuoteBox()">+ 添一句</button>
         </div>
       </div>
@@ -961,69 +1149,56 @@
           <span class="blindbox-tag">💕 专属签文 · 点击抽取</span>
           <span class="blindbox-refresh">🔄 换一句</span>
         </div>
-        <div class="blindbox-quote" id="blindboxQuoteText">盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨</div>
+        <div class="blindbox-quote" id="blindboxQuoteText">@我不是预言家：有你在我身边，陪我吃饭、陪我聊天、陪我散步，就是幸福；能一起追逐同一个目标，去想去的地方，做想做的事，身边有你就是幸福</div>
+        <div class="blindbox-actions" id="blindboxActionsBar" style="display: none;" onclick="event.stopPropagation()">
+          <button class="quote-act-btn edit" onclick="openQuoteEditModal()">✏️ 修改</button>
+          <button class="quote-act-btn del" onclick="deleteCurrentQuote()">🗑️ 删除</button>
+        </div>
       </div>
     </div>
 
     <div class="section-block" style="margin-bottom:0;">
       <div class="section-head">
         <span>⏳ 双方长信 &amp; 时光胶囊</span>
-        <span class="section-pill" id="capsuleStatusLabel">共 0 封</span>
+        <span class="section-pill" id="capsuleStatusLabel">共 14 封</span>
       </div>
       <div class="capsule-list" id="capsuleListContainer"></div>
-    </div>
-
-    <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
+<!-- 本地一键导出上锁版（仅本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.8)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包导出 (V3.0)</strong>：导出时自动抹除明文账号、密码与密钥，生成可安全上传 GitHub 的上锁版。
       </p>
-      <div class="dev-section">
-        <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
-        <div style="display:flex; gap:6px;">
-          <input type="text" id="devNewQuote" placeholder="输入一句新的情话或回忆..." style="margin-bottom:0; font-size:12px; padding:8px 10px;">
-          <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="devAddQuote()">添加</button>
-        </div>
-        <div class="dev-mini-list" id="devQuoteList"></div>
-      </div>
-      <div class="dev-section">
-        <div class="dev-sec-title">⏳ 预埋初始长信 / 未来时间胶囊（可选）</div>
-        <input type="text" id="devCapTitle" placeholder="信件标题" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
-        <input type="date" id="devCapDate" style="font-size:12px; padding:8px 10px; margin-bottom:6px;">
-        <textarea id="devCapBody" rows="3" placeholder="写下想对她说的话..." style="font-size:12px; padding:8px 10px; margin-bottom:6px;"></textarea>
-        <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
-        <div class="dev-mini-list" id="devCapsuleList"></div>
-      </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.8)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V3.0)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
+    </div>
     </div>
   </div>
 
   <!-- ==================== 导航第 3 项：🏠 首页 ==================== -->
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
-      <div class="badge badge-dev" id="modeBadge" style="display: none;">🛠️ 本地编辑模式</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.8 更新说明">V2.1.8</span>
-      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端</div>
+      <span class="role-pill" id="roleSwitchPill" onclick="openRoleSwitcher()" title="点击切换他/她视角">♂️ 他</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V3.0 更新说明">V3.0</span>
+      <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 已同步</div>
       <button class="inbox-pill" id="inboxOpenBtn" onclick="openInboxModal()" title="查看空间更新动态">
         🔔 信箱
-        <span class="inbox-dot" id="inboxUnreadDot" style="display: none;">0</span>
+        <span class="inbox-dot" id="inboxUnreadDot" style="display: inline-block;">60</span>
       </button>
     </div>
 
     <div class="city-tracker" id="cityTrackerBox">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天4时</span>
+        <span class="city-status" id="meetCountdownText">点击日历设定见面行程</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap" id="trackBarWrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 13.1%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 13.1%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 8%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 8%;"></div>
         </div>
-        <button class="heart-btn-runner" id="heartLeft" style="left: 13.1%; display: inline-block;" onclick="triggerMissBubble('suzhou', this)" title="点击发送：他想你了">💗</button>
-        <button class="heart-btn-runner" id="heartRight" style="left: 86.9%; display: inline-block;" onclick="triggerMissBubble('wuhan', this)" title="点击发送：她想你了">💜</button>
+        <button class="heart-btn-runner" id="heartLeft" style="left: 8%; display: inline-block;" onclick="triggerMissBubble('suzhou', this)" title="点击发送：他想你了">💗</button>
+        <button class="heart-btn-runner" id="heartRight" style="left: 92%; display: inline-block;" onclick="triggerMissBubble('wuhan', this)" title="点击发送：她想你了">💜</button>
         <button class="heart-merged-center" id="heartMerged" style="display:none;" onclick="triggerMissBubble('both', this)" title="相聚零距离">💞</button>
       </div>
       <div class="heart-hint-row">
@@ -1034,24 +1209,36 @@
 
     <div id="customContent" style="display:none;"></div>
 
+    <!-- 可切换双模式计时器 -->
     <div class="timer-box">
-      <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
-      <div class="timer-grid">
+      <div class="timer-head-row">
+        <span class="timer-label">✨ 从 2026/03/12 起 · 一起走过</span>
+        <button class="timer-switch-btn" id="timerModeSwitchBtn" onclick="toggleTimerMode()">🔄 切换年月日</button>
+      </div>
+      <div class="timer-grid" id="timerGridDays" style="display: grid;">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
-        <div class="time-unit"><span class="time-num" id="tHours">19</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">02</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">09</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tHours">23</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">37</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">30</span><span class="time-txt">秒</span></div>
+      </div>
+      <div class="timer-grid-ymd" id="timerGridYmd" style="display:none;">
+        <div class="time-unit"><span class="time-num" id="tyYears">0</span><span class="time-txt">年</span></div>
+        <div class="time-unit"><span class="time-num" id="tyMonths">8</span><span class="time-txt">月</span></div>
+        <div class="time-unit"><span class="time-num" id="tyDays">16</span><span class="time-txt">日</span></div>
+        <div class="time-unit"><span class="time-num" id="tyHours">23</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tyMins">37</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tySecs">30</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
-    <!-- 左右滑动恋爱农历日历 -->
-    <div class="cal-box" id="calSwipeArea">
+    <!-- 年/月下拉选择恋爱农历日历 -->
+    <div class="cal-box">
       <div class="cal-header">
-        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <span class="cal-swipe-tip">← 左右滑切月 →</span>
-          <button class="cal-today-btn" onclick="resetCalToToday()">今天</button>
+        <div class="cal-select-group">
+          <select class="cal-select" id="calYearSelect" onchange="onCalSelectChange()" title="选择年份"></select>
+          <select class="cal-select" id="calMonthSelect" onchange="onCalSelectChange()" title="选择月份"></select>
         </div>
+        <button class="cal-today-btn" onclick="resetCalToToday()">回到今天</button>
       </div>
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
@@ -1069,29 +1256,29 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定 ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定（双视角他/她 + 输入框适配） ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">21</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">26</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
-        ✨ 专属事件 (<span id="eventDoneRatio">18/62</span>)
+        ✨ 专属事件 (<span id="eventDoneRatio">49/103</span>)
       </button>
     </div>
 
     <!-- 子面板 A：恋爱兑换券 -->
     <div id="subPanelCoupon" class="subpanel-fade">
       <div class="coupon-add-box">
-        <div class="coupon-sender-row">
-          <div class="coupon-sender-chip active-him" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
-          <div class="coupon-sender-chip" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
+        <div class="coupon-perspective-bar" id="couponPerspectiveBar">
+          <span id="couponPerspectiveText">♂️ 当前视角：他发券给她</span>
+          <span style="font-size:10.5px; opacity:0.8;">专属发券</span>
         </div>
         <input type="text" id="newCouponInput" placeholder="特权券名称，如：周末专属按摩券...">
         <div class="event-add-row" style="margin-bottom:0;">
-          <input type="text" id="newCouponDescInput" placeholder="自定义小字说明（如：随时出示，半小时起步）" style="font-size:12.5px; padding:9px 11px;">
+          <input type="text" id="newCouponDescInput" placeholder="自定义小字说明（如：随时出示，半小时起步）">
           <button class="event-add-btn" onclick="addCustomCoupon()">+ 发券</button>
         </div>
       </div>
@@ -1115,16 +1302,21 @@
       <div class="event-dashboard">
         <div class="event-dash-row">
           <span>💖 共同愿望达成进度</span>
-          <span id="eventPercentText" style="color:#db2777;">18/62 (29%)</span>
+          <span id="eventPercentText" style="color:#db2777;">49/103 (48%)</span>
         </div>
         <div class="event-progress-bar" style="margin-bottom:0;">
-          <div class="event-progress-fill" id="eventProgressFill" style="width: 29%;"></div>
+          <div class="event-progress-fill" id="eventProgressFill" style="width: 48%;"></div>
         </div>
       </div>
 
       <div class="event-add-row">
         <input type="text" id="newEventInput" placeholder="添加新事件，如：一起去武汉看樱花...">
         <button class="event-add-btn" onclick="addCustomEvent()">+ 添加</button>
+      </div>
+
+      <div class="event-toolbar">
+        <span style="font-size:12px; font-weight:700; color:#6b7280;">📋 愿望列表</span>
+        <button class="coupon-mini-ctrl" id="eventCollapseBtn" onclick="toggleEventCollapse()">收起 ▴</button>
       </div>
 
       <div class="event-list" id="eventListContainer"></div>
@@ -1144,7 +1336,7 @@
         </div>
         <div class="global-packing-body" id="globalPackingBody" style="display:none;">
           <div class="event-add-row" style="margin-bottom:6px;">
-            <input type="text" id="globalPackingInput" placeholder="添加必带物品，如：身份证、充电宝、洗漱包..." style="font-size:13px; padding:9px 10px;">
+            <input type="text" id="globalPackingInput" placeholder="添加必带物品，如：身份证、充电宝、洗漱包...">
             <button class="event-add-btn" onclick="addGlobalPackingItem()">+ 添加</button>
           </div>
           <div class="packing-list" id="globalPackingListContainer"></div>
@@ -1161,7 +1353,7 @@
 
       <div class="compose-letter-box" id="newTripFormBox" style="display:none;">
         <div class="compose-row-label">🗺️ 开启一段新旅程（填完后直接进入攻略页）：</div>
-        <input type="text" id="newTripPlace" placeholder="去的地方（如：长沙 / 成都 / 厦门）" style="font-size:13px;">
+        <input type="text" id="newTripPlace" placeholder="去的地方（如：长沙 / 成都 / 厦门）" style="height:40px;">
         <div class="meet-form-row">
           <input type="date" id="newTripDate" title="出发日期">
           <input type="text" id="newTripDuration" placeholder="时长（如：3天2晚）">
@@ -1195,7 +1387,7 @@
           <span class="section-pill" id="packingCountLabel">0/0</span>
         </div>
         <div class="event-add-row" style="margin-bottom:6px;">
-          <input type="text" id="newPackingInput" placeholder="添加本次特别要带的物品..." style="font-size:13px;">
+          <input type="text" id="newPackingInput" placeholder="添加本次特别要带的物品...">
           <button class="event-add-btn" onclick="addPackingItem()">+ 加入</button>
         </div>
         <div class="packing-list" id="packingListContainer"></div>
@@ -1215,7 +1407,7 @@
       </div>
 
       <div class="travel-time-form" id="travelStayAddBox" style="display:none;">
-        <input type="text" id="stayNameInput" placeholder="酒店或民宿名称（如：江汉路江景民宿）" style="font-size:13px; margin-bottom:8px;">
+        <input type="text" id="stayNameInput" placeholder="酒店或民宿名称（如：江汉路江景民宿）" style="height:40px; margin-bottom:8px;">
         <div class="travel-time-grid">
           <div class="travel-time-field">
             <label for="stayCheckIn">入住时间</label>
@@ -1230,7 +1422,7 @@
       </div>
 
       <div class="travel-time-form" id="travelGoAddBox" style="display:none;">
-        <input type="text" id="goNameInput" placeholder="车次或交通方式（如：G1234 苏州北→汉口）" style="font-size:13px; margin-bottom:8px;">
+        <input type="text" id="goNameInput" placeholder="车次或交通方式（如：G1234 苏州北→汉口）" style="height:40px; margin-bottom:8px;">
         <div class="travel-time-grid">
           <div class="travel-time-field">
             <label for="goDepartTime">发车时间</label>
@@ -1252,68 +1444,83 @@
     </div>
   </div>
 
-  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
+  <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页（右侧加号 + 底部购物车 + 点菜记录） ==================== -->
   <div class="card" id="tabMenuView" style="display: none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
-        <div class="env-banner-sub">选定今日主厨，点单实时同步云端</div>
+        <div class="env-banner-sub" id="menuHeaderSub">选好想吃的菜，一键通知她来做菜</div>
       </div>
-      <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">+ 添新菜</button>
+      <div class="menu-head-btns">
+        <button class="menu-hist-btn" id="toggleOrderHistBtn" onclick="toggleOrderHistDrawer()">📜 记录</button>
+        <button class="write-letter-toggle-btn" id="toggleAddDishBtn" onclick="toggleAddDishForm()">+ 添菜</button>
+      </div>
     </div>
 
-    <div class="chef-switch-row">
-      <div class="chef-chip" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
-      <div class="chef-chip active-dong" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
+    <!-- 点菜历史记录抽屉 -->
+    <div class="order-hist-drawer" id="orderHistDrawer" style="display:none;">
+      <div class="section-head" style="margin-bottom:4px;">
+        <span>📜 历史点菜记录</span>
+        <span class="section-pill" id="orderHistCountLabel">共 0 单</span>
+      </div>
+      <div class="order-hist-list" id="orderHistListContainer"></div>
     </div>
 
+    <!-- 添新菜表单（适配输入框大小） -->
     <div class="compose-letter-box" id="addDishFormBox" style="display:none;">
       <div class="compose-row-label">👨‍🍳 录入一道拿手菜或想吃的菜：</div>
       <div class="meet-form-row">
         <input type="text" id="newDishName" placeholder="菜名（如：可乐鸡翅）">
-        <select id="newDishCat" style="margin-bottom:0; font-size:12.5px; padding:9px 10px;">
-          <option value="main">🥘 主菜</option>
+        <select id="newDishCat">
+          <option value="meat">🥩 荤菜</option>
+          <option value="veg">🥬 素菜</option>
           <option value="snack">🍢 小吃</option>
           <option value="drink">🧋 饮品</option>
           <option value="sweet">🍰 甜点</option>
         </select>
       </div>
-      <input type="text" id="newDishNote" placeholder="口味/备注（可选，如：微辣多放葱、少糖去冰）" style="font-size:13px;">
+      <input type="text" id="newDishNote" placeholder="口味/备注（可选，如：微辣多放葱、少糖去冰）" style="height:40px;">
       <div style="display:flex; gap:8px;">
         <button class="btn btn-ghost" style="width:32%; margin-bottom:0;" onclick="toggleAddDishForm()">取消</button>
         <button class="btn" style="flex:1; margin-bottom:0;" onclick="addCustomDish()">🍽️ 加入菜单</button>
       </div>
     </div>
 
-    <div class="order-tray-box">
-      <div class="order-tray-head">
-        <span class="order-tray-title">🛎️ <span id="activeChefLabel">董大厨</span>今日接单 (<span id="todayOrderCount">1</span>)</span>
-        <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
-      </div>
-      <div class="order-pills-wrap" id="todayOrderPills">
-        <span class="order-pill-item">
-          大肉棒
-          <span class="order-pill-x" onclick="toggleOrderDish(1795845437606)">✕</span>
-        </span>
-      </div>
-      <div class="order-tray-actions">
-        <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
-      </div>
-    </div>
-
     <div class="menu-cat-tabs">
       <button class="menu-cat-btn active" id="mCatAll" onclick="switchMenuCat('all')">全部</button>
-      <button class="menu-cat-btn" id="mCatMain" onclick="switchMenuCat('main')">🥘主菜</button>
+      <button class="menu-cat-btn" id="mCatMeat" onclick="switchMenuCat('meat')">🥩荤菜</button>
+      <button class="menu-cat-btn" id="mCatVeg" onclick="switchMenuCat('veg')">🥬素菜</button>
       <button class="menu-cat-btn" id="mCatSnack" onclick="switchMenuCat('snack')">🍢小吃</button>
       <button class="menu-cat-btn" id="mCatDrink" onclick="switchMenuCat('drink')">🧋饮品</button>
       <button class="menu-cat-btn" id="mCatSweet" onclick="switchMenuCat('sweet')">🍰甜点</button>
     </div>
 
     <div class="dish-list" id="dishListContainer"></div>
+
+    <!-- 底部购物车栏：点击左侧展开明细，点击右侧一键通知对方做菜 -->
+    <div class="menu-cart-bar">
+      <div class="cart-detail-drawer" id="cartDetailDrawer" style="display: none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:11.5px; font-weight:700; color:#fbcfe8;">🛒 购物车明细</span>
+          <button class="meet-clear-btn" style="color:#fda4af;" onclick="clearTodayOrders()">清空购物车</button>
+        </div>
+        <div class="cart-pills-wrap" id="todayOrderPills"></div>
+      </div>
+      <div class="menu-cart-top">
+        <div class="menu-cart-left" onclick="toggleCartDetailDrawer()">
+          <div class="cart-icon-wrap">
+            🛒
+            <span class="cart-badge-num" id="todayOrderCount" style="display: none;">0</span>
+          </div>
+          <div class="cart-summary-txt" id="cartSummaryText">购物车空空的，点右侧 + 选菜</div>
+        </div>
+        <button class="cart-submit-btn" id="confirmOrderBtn" onclick="confirmTodayOrder()">通知她做菜</button>
+      </div>
+    </div>
   </div>
 
   <!-- ==================== 导航第 7 项：ℹ️ 关于 ==================== -->
-  <div class="card" id="tabAboutView" style="display:none;">
+  <div class="card" id="tabAboutView" style="display: none;">
     <div class="badge">ℹ️ 关于 · DWLapp 版本历程</div>
     <p style="font-size:12px; color:#9ca3af; margin:8px 0 6px;">端到端加密 · 苏州 ↔ 武汉 专属纪念空间</p>
     <div class="about-list" id="aboutVersionList"></div>
@@ -1355,15 +1562,15 @@
         <input type="text" id="calHistPlace" placeholder="地点（如：武汉/苏州）">
       </div>
       <div class="event-add-row" style="margin-bottom:0;">
-        <input type="text" id="calHistNote" placeholder="备注（可选，如：一起看电影）" style="font-size:12.5px; padding:8px 10px;">
+        <input type="text" id="calHistNote" placeholder="备注（可选，如：一起看电影）">
         <button class="event-add-btn" style="font-size:12px; padding:0 12px;" onclick="addMeetHistoryFromCal()">设为相见日</button>
       </div>
     </div>
 
     <div class="role-selector">
-      <div class="role-chip active" onclick="selectRole(this, '👦 他的悄悄话')">👦 他的悄悄话</div>
-      <div class="role-chip" onclick="selectRole(this, '👧 她的悄悄话')">👧 她的悄悄话</div>
-      <div class="role-chip" onclick="selectRole(this, '💑 共同印记')">💑 共同印记</div>
+      <div class="role-chip active" id="noteRoleHim" onclick="selectRole(this, '他的悄悄话')">♂️ 他的悄悄话</div>
+      <div class="role-chip" id="noteRoleHer" onclick="selectRole(this, '她的悄悄话')">♀️ 她的悄悄话</div>
+      <div class="role-chip" id="noteRoleBoth" onclick="selectRole(this, '共同印记')">💑 共同印记</div>
     </div>
 
     <textarea id="noteInput" rows="2" placeholder="写下这一天想对彼此说的话、车票信息或心情..."></textarea>
@@ -1373,14 +1580,14 @@
     <div class="note-list" id="noteListContainer"></div>
   </div>
 
-  <!-- ==================== 可滑动底部悬浮导航栏 ==================== -->
+  <!-- ==================== 可滑动底部悬浮导航栏（宽度与主卡片平齐） ==================== -->
   <nav class="bottom-nav" id="bottomNavBar" style="display: none;">
     <button class="nav-item" id="navBtnMeet" onclick="switchMainTab('meet')">
       <span class="nav-icon">⏳</span>
       <span class="nav-label">见面</span>
     </button>
     <button class="nav-item" id="navBtnEnvelope" onclick="switchMainTab('envelope')">
-      <span class="nav-dot" id="envelopeNavDot" style="display:none;"></span>
+      <span class="nav-dot" id="envelopeNavDot" style="display: block;"></span>
       <span class="nav-icon">💌</span>
       <span class="nav-label">信封</span>
     </button>
@@ -1406,7 +1613,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.8';
+    const APP_VERSION = '3.0';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1414,18 +1621,21 @@
     const SUPABASE_KEY = 'sb_publishable_3V-HcmB1aLNC5KZzKXAP7w_8KG47NbK';
     const CLOUD_DOC_ID = 'dwl_suzhou_wuhan_room_v1';
 
-    // 已内置最新专属密钥与账号密码
+    // 专属密钥与账号密码
     const NFC_KEY = '';
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "UETH//+ZFxHYrdX/1YzS/piDjitw9k5KweP/xS/+a2Fg12/pVCeLNo0vH1JcDUc8bbfO7g2b7FNj8S70QmI8Jyk=";
+    const ENCRYPTED_BUNDLE = "KtEtWFk6xLbp4hrnMtkozXjqgfalEjHJhGY0URIrOZuSEp6RyB3v+OsVYVtJF8AIWsEmc6iFEfAC6UuS1zCh+fQ=";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
+    const USER_ROLE_KEY = 'dwlapp_love_user_role_v3';
+    const REMEMBER_ROLE_KEY = 'dwlapp_love_remember_role_v3';
     const NOTES_STORAGE_KEY = 'dwlapp_love_notes_v1';
     const DELETED_NOTES_KEY = 'dwlapp_love_del_notes_v1';
     const USER_QUOTES_KEY = 'dwlapp_love_user_quotes_v2';
+    const DELETED_QUOTES_KEY = 'dwlapp_love_del_quotes_v3';
     const USER_CAPSULES_KEY = 'dwlapp_love_user_capsules_v1';
     const DELETED_CAPSULES_KEY = 'dwlapp_love_del_capsules_v1';
     const DELETED_COUPONS_KEY = 'dwlapp_love_del_coupons_v1';
@@ -1434,9 +1644,9 @@
     const MEET_CONFIG_KEY = 'dwlapp_love_meet_v2';
     const MEET_HISTORY_KEY = 'dwlapp_love_meet_history_v1';
     const EVENTS_STORAGE_KEY = 'dwlapp_love_events_v1';
+    const EVENT_COLLAPSED_KEY = 'dwlapp_love_event_collapsed_v3';
     const COUPONS_STORAGE_KEY = 'dwlapp_love_coupons_v2';
     const COUPON_VIEW_MODE_KEY = 'dwlapp_love_coupon_view_v1';
-    const COUPON_SENDER_KEY = 'dwlapp_love_coupon_sender_v1';
     const COUPON_COLLAPSED_KEY = 'dwlapp_love_coupon_collapsed_v1';
     const COUPON_MASK_KEY = 'dwlapp_love_coupon_mask_v1';
     const COUPON_SORT_KEY = 'dwlapp_love_coupon_sort_v1';
@@ -1444,36 +1654,49 @@
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
     const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
     const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
-    const MENU_CHEF_KEY = 'dwlapp_love_menu_chef_v1';
+    const MENU_ORDER_HISTORY_KEY = 'dwlapp_love_menu_order_hist_v3';
     const INBOX_LOGS_KEY = 'dwlapp_love_inbox_logs_v1';
     const INBOX_READ_AT_KEY = 'dwlapp_love_inbox_read_at_v1';
     const HEART_MISS_KEY = 'dwlapp_love_heart_miss_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_8';
+    const TIMER_MODE_KEY = 'dwlapp_love_timer_mode_v3';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v3_0';
 
     let activeAesKey = null;
     let isSyncingNow = false;
     let lastCloudCipher = '';
+    let activeUserRole = 'him'; // 'him' = 男方(他) | 'her' = 女方(她)
 
     let loveQuotes = [];
     let timeCapsules = [];
     const DEFAULT_COUPONS = [];
 
-    // ========== 历代版本更新日志数据（供“关于”页展示） ==========
+    // ========== 合并后的历代版本更新日志数据（供“关于”页展示） ==========
     const VERSION_HISTORY = [
+      {
+        ver: 'V3.0',
+        date: '2026-11-29',
+        items: [
+          '新增 ♂️/♀️ 性别表情双视角登录选择（我是噜噜 / 我是噜妹）并支持记住性别，进入空间后全站统一使用「他 / 她」称呼',
+          '约定页升级为双视角发券（男方无她发的券、女方无他发的券），专属事件新增收起/展开按键',
+          '菜单主菜拆分为「荤菜 / 素菜」并取消大厨切换，菜品右侧改为 + 加购，底部购物车一键通知对方做菜并自动保存历史点菜记录',
+          '信封情话盲盒支持在线修改与删减，改动实时同步云端',
+          '每次更新实时显示云端状态，遇超时或失败立即弹出「重新上传」重传提示条',
+          '日历舍弃滑动切月，升级为年/月下拉菜单快捷跳转；首页计时器支持切换「X年X月X日X时X分X秒」',
+          '底部导航栏与主内容卡片宽度平齐，全面优化见面/菜单/约定页输入框尺寸适配，精简本地工坊仅保留一键加密导出'
+        ]
+      },
       {
         ver: 'V2.1.8',
         date: '2026-11-28',
         items: [
-          '全站所有主动添加操作（事件、兑换券、旅行攻略、必带物品、见面记录、情话、留言等）统一接入顶部消息提示',
-          '优化历史相见时光轴数据合并策略，确保「相见天数」随版本更新与云端同步永久保留不丢失',
-          '完整集成日历双向左右滑动切月与防误触修复'
+          '全站所有主动添加操作统一接入顶部消息提示，修复同名兑换券合并防丢失',
+          '优化历史相见时光轴数据合并策略，确保「相见天数」跨版本永久保留'
         ]
       },
       {
         ver: 'V2.1.7',
         date: '2026-11-28',
         items: [
-          '修复日历左右滑动失效及右向左滑动无过渡动画问题，同时支持手机触屏与电脑鼠标拖拽',
           '修复已核销卡券文字过长导致的横向滚动条，点击任意卡券可弹窗查看完整信息与编辑',
           '历史相见时光轴支持点击整行弹窗编辑并新增「相见天数」，日历支持双向设相见日',
           '首页当日首次点击苏州/武汉爱心后，下方提示语即刻变为「他想你了 / 她想你了」'
@@ -1484,18 +1707,13 @@
         date: '2026-11-28',
         items: [
           '恋爱兑换券支持按发放时间/名称排序，单键循环切换大图标与精简行，已核销券不可删除',
-          '首页精简顶部并移除欢迎语，点击苏州/武汉爱心弹出「他想你了 / 她想你了」互动气泡',
-          '首页顶部云端右侧新增动态「信箱」按钮，任何内容更新实时红点提醒',
-          '新增「关于」导航页展示全部版本历程'
+          '首页顶部云端右侧新增动态「信箱」按钮，新增「关于」导航页展示全部版本历程'
         ]
       },
       {
         ver: 'V2.1.5',
         date: '2026-11-28',
-        items: [
-          '恋爱兑换券隐藏模式升级为大字小字全 **** 脱敏显示',
-          '日历支持连续滑动浏览与快捷回到今天'
-        ]
+        items: ['恋爱兑换券隐藏模式升级为大字小字全 **** 脱敏显示']
       },
       {
         ver: 'V2.1.4',
@@ -1505,52 +1723,32 @@
       {
         ver: 'V2.1.3',
         date: '2026-11-27',
-        items: [
-          '恋爱兑换券区分「他发的 / 她发的」双色标签',
-          '菜单页新增「王大厨做饭 / 董大厨做饭」主厨选择',
-          '底部导航栏升级为可滑动式，默认舒适展示 4 项'
-        ]
+        items: ['恋爱兑换券区分双色标签，底部导航栏升级为可滑动式']
       },
       {
         ver: 'V2.1.2',
         date: '2026-11-26',
-        items: [
-          '新增「菜单」点菜页，支持分类添菜与今日点单汇总',
-          '全站导航跳转与按键阻尼过渡动画全面完善',
-          '旅行必带物品置顶至足迹上方，兑换券支持自定义小字与双视图切换'
-        ]
+        items: ['新增「菜单」点菜页，全站弹簧过渡动画完善，旅行必带物品置顶']
       },
       {
         ver: 'V2.1.1',
         date: '2026-11-26',
-        items: [
-          '旅行页重构为足迹地点卡片流，支持新建旅程后进入专属攻略',
-          '住宿与出行分类新增入住/离店及发车/到达时间校验，新增单次旅行必带物品抽屉'
-        ]
+        items: ['旅行页重构为足迹地点卡片流，新增住/行时间校验与单次旅行必带物品抽屉']
       },
       {
         ver: 'V2.1',
         date: '2026-11-25',
-        items: [
-          '新增「见面计时器」页记录历史相聚与距今天数统计',
-          '新增「旅行攻略」页，支持吃、穿、住、行、打卡五大分类'
-        ]
+        items: ['新增「见面计时器」页与「旅行攻略」页']
       },
       {
         ver: 'V2.0.1',
         date: '2026-11-25',
-        items: [
-          '登录页升级为普通系统登录伪装，解锁后才淡入情侣浪漫背景',
-          '新增 SVG 机械挂锁弹开动画与柔光淡入转场效果'
-        ]
+        items: ['普通系统登录伪装 + SVG 机械挂锁弹开动画与柔光淡入转场']
       },
       {
         ver: 'V2.0',
         date: '2026-11-24',
-        items: [
-          '正式版发布，清空测试数据，长信与时光胶囊支持自由增删',
-          '日历接入原生高精度农历引擎并高亮标注双方农历生日'
-        ]
+        items: ['正式版发布，接入原生高精度农历引擎并高亮标注双方农历生日']
       }
     ];
 
@@ -1586,6 +1784,97 @@
       el.classList.remove(animClass);
       void el.offsetWidth;
       el.classList.add(animClass);
+    }
+
+    // ========== V3.0 云端上传超时 / 失败重传提示条 ==========
+    function showCloudRetryBar(reason = '云端上传超时') {
+      const bar = document.getElementById('cloudRetryBar');
+      const txt = document.getElementById('cloudRetryText');
+      if (txt) txt.textContent = `⚠️ ${reason}，本地已保存，请点击重传`;
+      if (bar) bar.style.display = 'flex';
+    }
+
+    function hideCloudRetryBar() {
+      const bar = document.getElementById('cloudRetryBar');
+      if (bar) bar.style.display = 'none';
+    }
+
+    async function retryCloudUpload() {
+      hideCloudRetryBar();
+      showToast('🔄 正在重新上传至云端...');
+      const ok = await pushToCloud(true);
+      if (ok) showToast('☁️ 重新上传成功，云端已同步！');
+    }
+
+    // ========== V3.0 双视角系统（进入后全站统一使用“他 / 她”） ==========
+    function getMyName() { return activeUserRole === 'her' ? '她' : '他'; }
+    function getPartnerName() { return activeUserRole === 'her' ? '他' : '她'; }
+
+    function applyPerspectiveUI() {
+      const isHer = activeUserRole === 'her';
+      const partner = getPartnerName();
+
+      // 首页顶部视角标签
+      const rolePill = document.getElementById('roleSwitchPill');
+      if (rolePill) {
+        rolePill.textContent = isHer ? '♀️ 她' : '♂️ 他';
+        rolePill.className = 'role-pill' + (isHer ? ' her' : '');
+      }
+
+      // 约定页发券视角锁定（男方无她发的券，女方无他发的券）
+      const pBar = document.getElementById('couponPerspectiveBar');
+      const pTxt = document.getElementById('couponPerspectiveText');
+      if (pBar) pBar.className = 'coupon-perspective-bar' + (isHer ? ' her' : '');
+      if (pTxt) pTxt.textContent = isHer ? '♀️ 当前视角：她发券给他' : '♂️ 当前视角：他发券给她';
+
+      // 菜单页点菜通知对方做菜
+      const menuSub = document.getElementById('menuHeaderSub');
+      const orderBtn = document.getElementById('confirmOrderBtn');
+      if (menuSub) menuSub.textContent = `选好想吃的菜，一键通知${partner}来做菜`;
+      if (orderBtn) orderBtn.textContent = `通知${partner}做菜`;
+
+      // 信封默认寄信身份与日历默认留言身份联动
+      currentLetterSender = isHer ? '她写给他的信' : '他写给她的信';
+      currentAuthor = isHer ? '她的悄悄话' : '他的悄悄话';
+      const noteHim = document.getElementById('noteRoleHim');
+      const noteHer = document.getElementById('noteRoleHer');
+      const noteBoth = document.getElementById('noteRoleBoth');
+      if (noteHim && noteHer && noteBoth) {
+        noteHim.classList.toggle('active', !isHer);
+        noteHer.classList.toggle('active', isHer);
+        noteBoth.classList.remove('active');
+      }
+    }
+
+    function openRoleSwitcher() {
+      const chk = document.getElementById('rememberRoleChk');
+      if (chk) chk.checked = localStorage.getItem(REMEMBER_ROLE_KEY) === '1';
+      [
+        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView',
+        'tabTravelView', 'tabMenuView', 'tabAboutView', 'noteView', 'bottomNavBar'
+      ].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      const rv = document.getElementById('roleSelectView');
+      if (rv) rv.style.display = 'block';
+    }
+
+    function choosePerspective(role) {
+      activeUserRole = role === 'her' ? 'her' : 'him';
+      const chk = document.getElementById('rememberRoleChk');
+      if (chk && chk.checked) {
+        localStorage.setItem(REMEMBER_ROLE_KEY, '1');
+        localStorage.setItem(USER_ROLE_KEY, activeUserRole);
+      } else {
+        localStorage.removeItem(REMEMBER_ROLE_KEY);
+        localStorage.removeItem(USER_ROLE_KEY);
+      }
+
+      document.getElementById('roleSelectView').style.display = 'none';
+      applyPerspectiveUI();
+      showToast(`✨ 已进入${getMyName()}的视角`);
+      enterMainWorkspace();
     }
 
     // ========== 顶部【🔔 空间更新信箱】动态追踪引擎 ==========
@@ -1846,7 +2135,7 @@
       return new TextDecoder().decode(plainBuf);
     }
 
-    // ========== Supabase 端到端加密双端实时同步引擎（V2.1.8 相见天数持久化保护） ==========
+    // ========== Supabase 端到端加密双端实时同步引擎（云端状态 + 超时重传 + 历史点菜同步） ==========
     function setSyncPill(state, text) {
       const pill = document.getElementById('syncStatusPill');
       if (pill) {
@@ -1863,7 +2152,6 @@
     function getDeletedIds() {
       try { return JSON.parse(localStorage.getItem(DELETED_NOTES_KEY) || '[]'); } catch (e) { return []; }
     }
-
     function addDeletedId(id) {
       const list = getDeletedIds();
       if (!list.includes(id)) {
@@ -1875,7 +2163,6 @@
     function getDeletedCapsuleIds() {
       try { return JSON.parse(localStorage.getItem(DELETED_CAPSULES_KEY) || '[]'); } catch (e) { return []; }
     }
-
     function addDeletedCapsuleId(id) {
       const list = getDeletedCapsuleIds();
       if (!list.includes(id)) {
@@ -1884,10 +2171,9 @@
       }
     }
 
-function getDeletedCouponIds() {
+    function getDeletedCouponIds() {
       try { return JSON.parse(localStorage.getItem(DELETED_COUPONS_KEY) || '[]'); } catch (e) { return []; }
     }
-
     function addDeletedCouponId(id) {
       const list = getDeletedCouponIds();
       if (!list.includes(id)) {
@@ -1896,7 +2182,17 @@ function getDeletedCouponIds() {
       }
     }
 
-    // 严格按唯一 id 合并：同名卡券（无论是否核销）完全独立，已核销状态永久优先且防删
+    function getDeletedQuotes() {
+      try { return JSON.parse(localStorage.getItem(DELETED_QUOTES_KEY) || '[]'); } catch (e) { return []; }
+    }
+    function addDeletedQuote(qText) {
+      const list = getDeletedQuotes();
+      if (!list.includes(qText)) {
+        list.push(qText);
+        localStorage.setItem(DELETED_QUOTES_KEY, JSON.stringify(list.slice(-300)));
+      }
+    }
+
     function mergeCoupons(localList, remoteList, delSet) {
       const map = new Map();
       const ingest = (item) => {
@@ -1916,34 +2212,34 @@ function getDeletedCouponIds() {
       };
       (Array.isArray(remoteList) ? remoteList : []).forEach(ingest);
       (Array.isArray(localList) ? localList : []).forEach(ingest);
-
       return Array.from(map.values()).filter(c => c.used || !delSet.has(c.id));
     }
 
-    async function pushToCloud() {
+    async function pushToCloud(fromRetry = false) {
       if (!activeAesKey) return false;
       isSyncingNow = true;
-      setSyncPill('syncing', '🔄 同步中...');
+      setSyncPill('syncing', '🔄 上传中...');
       try {
         await pullFromCloud(false, true);
 
         const snapshot = JSON.stringify({
-          coupons: getAllCoupons(),
-          deletedCouponIds: getDeletedCouponIds(),
           latestVer: APP_VERSION,
           notes: getAllNotes(),
           deletedIds: getDeletedIds(),
           userQuotes: getUserQuotes(),
+          deletedQuotes: getDeletedQuotes(),
           userCapsules: getUserCapsules(),
           deletedCapsuleIds: getDeletedCapsuleIds(),
           meet: getMeetConfig(),
           meetHistory: getMeetHistory(),
+          coupons: getAllCoupons(),
+          deletedCouponIds: getDeletedCouponIds(),
           events: getAllEvents(),
           globalPacking: getGlobalPacking(),
           travelTrips: getAllTrips(),
           menuDishes: getAllDishes(),
           menuOrders: getTodayOrders(),
-          menuChef: getActiveChef(),
+          menuOrderHistory: getOrderHistory(),
           inboxLogs: getInboxLogs(),
           heartMiss: getHeartMissState(),
           updatedAt: Date.now()
@@ -1966,12 +2262,15 @@ function getDeletedCouponIds() {
 
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         lastCloudCipher = encryptedPayload;
-        setSyncPill('ok', '☁️ 云端');
+        hideCloudRetryBar();
+        setSyncPill('ok', '☁️ 已同步');
         return true;
       } catch (err) {
         console.error('Push failed:', err);
-        const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 18);
-        setSyncPill('err', `⚠️ 离线(${msg})`);
+        const isTimeout = err.name === 'AbortError';
+        const reason = isTimeout ? '云端上传超时(8s)' : `云端上传失败(${err.message.slice(0, 14)})`;
+        setSyncPill('err', isTimeout ? '⚠️ 超时·重传' : '⚠️ 上传失败');
+        showCloudRetryBar(reason);
         return false;
       } finally {
         isSyncingNow = false;
@@ -2000,7 +2299,7 @@ function getDeletedCouponIds() {
         if (Array.isArray(rows) && rows.length > 0 && rows[0].payload) {
           const cipher = rows[0].payload;
           if (cipher === lastCloudCipher && !manual) {
-            if (!silentBeforePush) setSyncPill('ok', '☁️ 云端');
+            if (!silentBeforePush) setSyncPill('ok', '☁️ 已同步');
             return;
           }
           lastCloudCipher = cipher;
@@ -2028,8 +2327,14 @@ function getDeletedCouponIds() {
             saveAllNotes(mergedNotes);
           }
 
+          const localDelQ = getDeletedQuotes();
+          const remoteDelQ = Array.isArray(remote.deletedQuotes) ? remote.deletedQuotes : [];
+          const allDelQSet = new Set([...localDelQ, ...remoteDelQ]);
+          localStorage.setItem(DELETED_QUOTES_KEY, JSON.stringify(Array.from(allDelQSet).slice(-300)));
+
           if (Array.isArray(remote.userQuotes)) {
-            saveUserQuotes(Array.from(new Set([...getUserQuotes(), ...remote.userQuotes])));
+            const mergedQ = Array.from(new Set([...getUserQuotes(), ...remote.userQuotes])).filter(q => !allDelQSet.has(q));
+            saveUserQuotes(mergedQ);
           }
 
           const localCapDel = getDeletedCapsuleIds();
@@ -2051,6 +2356,12 @@ function getDeletedCouponIds() {
             saveInboxLogs(Array.from(logMap.values()).sort((a, b) => b.id - a.id).slice(0, 60));
           }
 
+          if (Array.isArray(remote.menuOrderHistory)) {
+            const ohMap = new Map();
+            [...getOrderHistory(), ...remote.menuOrderHistory].forEach(h => ohMap.set(h.id, h));
+            localStorage.setItem(MENU_ORDER_HISTORY_KEY, JSON.stringify(Array.from(ohMap.values()).sort((a, b) => b.id - a.id).slice(0, 80)));
+          }
+
           if (remote.heartMiss && remote.heartMiss.date === getTodayStr()) {
             const cur = getHeartMissState();
             localStorage.setItem(HEART_MISS_KEY, JSON.stringify({
@@ -2065,7 +2376,6 @@ function getDeletedCouponIds() {
             else localStorage.removeItem(MEET_CONFIG_KEY);
           }
 
-          // V2.1.8 智能合并历史相见记录，确保跨版本同步时相见天数(days)永久保留不丢失
           if (!silentBeforePush && Array.isArray(remote.meetHistory)) {
             const localMap = new Map(getMeetHistory().map(h => [h.id, h]));
             const mergedHist = remote.meetHistory.map(r => {
@@ -2087,6 +2397,7 @@ function getDeletedCouponIds() {
             const mergedCoupons = mergeCoupons(getAllCoupons(), remote.coupons, allCouponDelSet);
             localStorage.setItem(COUPONS_STORAGE_KEY, JSON.stringify(mergedCoupons));
           }
+
           if (!silentBeforePush && Array.isArray(remote.events)) {
             localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(remote.events));
           }
@@ -2101,9 +2412,6 @@ function getDeletedCouponIds() {
           }
           if (!silentBeforePush && Array.isArray(remote.menuOrders)) {
             localStorage.setItem(MENU_ORDERS_KEY, JSON.stringify(remote.menuOrders));
-          }
-          if (!silentBeforePush && remote.menuChef) {
-            localStorage.setItem(MENU_CHEF_KEY, remote.menuChef);
           }
 
           if (!silentBeforePush) {
@@ -2127,16 +2435,16 @@ function getDeletedCouponIds() {
               if (activeTripId) renderTripDetail();
               else renderTripCards();
             }
-            if (currentMainTab === 'menu') { applyMenuChefUI(); renderTodayOrders(); renderMenuDishes(); }
+            if (currentMainTab === 'menu') { renderTodayOrders(); renderMenuDishes(); renderOrderHistory(); }
           }
         } else if (!silentBeforePush && rows.length === 0) {
           pushToCloud();
         }
-        if (!silentBeforePush) setSyncPill('ok', '☁️ 云端');
+        if (!silentBeforePush) setSyncPill('ok', '☁️ 已同步');
       } catch (err) {
         console.error('Pull failed:', err);
         if (!silentBeforePush) {
-          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 18);
+          const msg = err.name === 'AbortError' ? '超时' : err.message.slice(0, 14);
           setSyncPill('err', `⚠️ 离线(${msg})`);
         }
       }
@@ -2188,6 +2496,7 @@ function getDeletedCouponIds() {
         }
         renderMeetHistory();
       } else if (tabName === 'home') {
+        initCalSelectOptions();
         renderCalendar();
         updateCityProgress();
         updateInboxBadge();
@@ -2196,17 +2505,19 @@ function getDeletedCouponIds() {
         renderCapsulesList();
         updateQuoteLabel();
       } else if (tabName === 'promise') {
-        applyCouponSenderUI();
+        applyPerspectiveUI();
         applyCouponCtrlUI();
+        applyEventCollapseUI();
         renderCouponsList();
         renderEventsList();
       } else if (tabName === 'travel') {
         renderGlobalPackingList();
         closeTripDetail();
       } else if (tabName === 'menu') {
-        applyMenuChefUI();
+        applyPerspectiveUI();
         renderTodayOrders();
         renderMenuDishes();
+        renderOrderHistory();
       } else if (tabName === 'about') {
         renderAboutPage();
       }
@@ -2231,20 +2542,14 @@ function getDeletedCouponIds() {
       try {
         const raw = JSON.parse(localStorage.getItem(MEET_HISTORY_KEY) || '[]');
         if (!Array.isArray(raw)) return [];
-        return raw.map(item => ({
-          ...item,
-          days: Math.max(1, parseInt(item.days, 10) || 1)
-        }));
+        return raw.map(item => ({ ...item, days: Math.max(1, parseInt(item.days, 10) || 1) }));
       } catch (e) {
         return [];
       }
     }
 
     function saveMeetHistory(list, syncCloud = true) {
-      const normalized = list.map(item => ({
-        ...item,
-        days: Math.max(1, parseInt(item.days, 10) || 1)
-      }));
+      const normalized = list.map(item => ({ ...item, days: Math.max(1, parseInt(item.days, 10) || 1) }));
       localStorage.setItem(MEET_HISTORY_KEY, JSON.stringify(normalized));
       if (syncCloud) pushToCloud();
     }
@@ -2280,7 +2585,7 @@ function getDeletedCouponIds() {
       });
       list.sort((a, b) => b.date.localeCompare(a.date));
       meetCurrentPage = 1;
-      recordInboxEvent('⏳ 相见记录', `新增相见：${dateVal} 起 ${daysVal} 天 · ${placeVal || '相聚'}`);
+      recordInboxEvent('⏳ 相见记录', `${getMyName()}新增相见：${dateVal} 起 ${daysVal} 天 · ${placeVal || '相聚'}`);
       saveMeetHistory(list, true);
 
       document.getElementById('meetHistDays').value = '1';
@@ -2300,14 +2605,14 @@ function getDeletedCouponIds() {
 
       const list = getMeetHistory();
       list.push({
-        id: Date.now(),
+        id: Date.now() * 1000 + Math.floor(Math.random() * 1000),
         date: selectedDateStr,
         days: daysVal,
         place: placeVal,
         note: noteVal
       });
       list.sort((a, b) => b.date.localeCompare(a.date));
-      recordInboxEvent('💞 日历相见日', `设为相见日：${selectedDateStr} 起 ${daysVal} 天 · ${placeVal}`);
+      recordInboxEvent('💞 日历相见日', `${getMyName()}设为相见日：${selectedDateStr} 起 ${daysVal} 天 · ${placeVal}`);
       saveMeetHistory(list, true);
 
       document.getElementById('calHistDays').value = '1';
@@ -2350,7 +2655,7 @@ function getDeletedCouponIds() {
         target.place = p || '奔赴彼此的城市';
         target.note = n || '珍藏的一次相聚';
         list.sort((a, b) => b.date.localeCompare(a.date));
-        recordInboxEvent('⏳ 相见记录', `编辑相见：${d} 起 ${days} 天 · ${target.place}`);
+        recordInboxEvent('⏳ 相见记录', `${getMyName()}编辑相见：${d} 起 ${days} 天 · ${target.place}`);
         saveMeetHistory(list, true);
         closeMeetEditModal();
         renderMeetHistory();
@@ -2362,8 +2667,7 @@ function getDeletedCouponIds() {
     function deleteMeetFromModal() {
       if (!editingMeetModalId) return;
       if (!confirm('确定要删除这条相见记录吗？')) return;
-      const list = getMeetHistory().filter(item => item.id !== editingMeetModalId);
-      saveMeetHistory(list, true);
+      saveMeetHistory(getMeetHistory().filter(item => item.id !== editingMeetModalId), true);
       closeMeetEditModal();
       renderMeetHistory();
       renderCalendar();
@@ -2494,7 +2798,7 @@ function getDeletedCouponIds() {
       if (!name) return alert('先输入旅行必带物品名称吧~');
       const list = getGlobalPacking();
       list.unshift({ id: Date.now(), name, done: false });
-      recordInboxEvent('🎒 必带物品', `新增旅行必带物品：${name}`);
+      recordInboxEvent('🎒 必带物品', `${getMyName()}新增必带物品：${name}`);
       saveGlobalPacking(list, true);
       input.value = '';
       renderGlobalPackingList();
@@ -2593,7 +2897,7 @@ function getDeletedCouponIds() {
       const newTrip = { id: Date.now(), place, date, duration, packing: [], items: [] };
       const list = getAllTrips();
       list.unshift(newTrip);
-      recordInboxEvent('✈️ 旅行足迹', `新建旅程：${place}（${date} · ${duration}）`);
+      recordInboxEvent('✈️ 旅行足迹', `${getMyName()}新建旅程：${place}（${date} · ${duration}）`);
       saveAllTrips(list, true);
 
       document.getElementById('newTripPlace').value = '';
@@ -2891,29 +3195,9 @@ function getDeletedCouponIds() {
       }).join('');
     }
 
-    // ========== 专属私房菜单点菜逻辑 ==========
-    const MENU_CAT_LABELS = { main: '🥘 主菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
+    // ========== V3.0 专属私房菜单点菜逻辑（右侧 + 加购 + 底部购物车 + 历史点菜记录） ==========
+    const MENU_CAT_LABELS = { meat: '🥩 荤菜', veg: '🥬 素菜', main: '🥩 荤菜', snack: '🍢 小吃', drink: '🧋 饮品', sweet: '🍰 甜点' };
     let currentMenuCat = 'all';
-
-    function getActiveChef() { return localStorage.getItem(MENU_CHEF_KEY) || '王大厨'; }
-
-    function applyMenuChefUI() {
-      const chef = getActiveChef();
-      const wangEl = document.getElementById('chefChipWang');
-      const dongEl = document.getElementById('chefChipDong');
-      const labelEl = document.getElementById('activeChefLabel');
-      if (wangEl) wangEl.className = 'chef-chip' + (chef === '王大厨' ? ' active-wang' : '');
-      if (dongEl) dongEl.className = 'chef-chip' + (chef === '董大厨' ? ' active-dong' : '');
-      if (labelEl) labelEl.textContent = chef;
-    }
-
-    function selectMenuChef(chefName) {
-      localStorage.setItem(MENU_CHEF_KEY, chefName);
-      applyMenuChefUI();
-      recordInboxEvent('🍽️ 私房菜单', `今日主厨已切换为：${chefName}`);
-      showToast(`👨‍🍳 今日主厨已切换为：${chefName}`);
-      pushToCloud();
-    }
 
     function getAllDishes() {
       try { return JSON.parse(localStorage.getItem(MENU_DISHES_KEY) || '[]'); } catch (e) { return []; }
@@ -2933,12 +3217,50 @@ function getDeletedCouponIds() {
       if (syncCloud) pushToCloud();
     }
 
+    function getOrderHistory() {
+      try { return JSON.parse(localStorage.getItem(MENU_ORDER_HISTORY_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveOrderHistory(list, syncCloud = true) {
+      localStorage.setItem(MENU_ORDER_HISTORY_KEY, JSON.stringify(list.slice(0, 80)));
+      if (syncCloud) pushToCloud();
+    }
+
+    function toggleOrderHistDrawer() {
+      const box = document.getElementById('orderHistDrawer');
+      if (!box) return;
+      const opening = box.style.display === 'none';
+      box.style.display = opening ? 'block' : 'none';
+      if (opening) renderOrderHistory();
+    }
+
+    function renderOrderHistory() {
+      const list = getOrderHistory();
+      const countEl = document.getElementById('orderHistCountLabel');
+      const container = document.getElementById('orderHistListContainer');
+      if (countEl) countEl.textContent = `共 ${list.length} 单`;
+      if (!container) return;
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-notes" style="padding:12px 0;">还没有历史点菜记录，去点第一顿大餐吧 🍽️</div>`;
+        return;
+      }
+      container.innerHTML = list.map(rec => `
+        <div class="order-hist-item">
+          <div class="order-hist-meta">
+            <span class="order-hist-who">${escapeHtml(rec.from)}点给${escapeHtml(rec.to)}做</span>
+            <span>${escapeHtml(rec.time)}</span>
+          </div>
+          <div>${escapeHtml((rec.dishes || []).join('、'))}</div>
+        </div>
+      `).join('');
+    }
+
     function toggleAddDishForm() {
       const box = document.getElementById('addDishFormBox');
       const btn = document.getElementById('toggleAddDishBtn');
       const isOpening = box.style.display === 'none';
       box.style.display = isOpening ? 'block' : 'none';
-      btn.textContent = isOpening ? '收起' : '+ 添新菜';
+      btn.textContent = isOpening ? '收起' : '+ 添菜';
     }
 
     function addCustomDish() {
@@ -2947,13 +3269,13 @@ function getDeletedCouponIds() {
       const note = document.getElementById('newDishNote').value.trim();
       if (!name) return alert('请填写菜品名称哦~');
       const list = getAllDishes();
-      list.unshift({ id: Date.now(), name, cat, note: note || '大厨招牌推荐' });
-      recordInboxEvent('🍽️ 私房菜单', `菜单新增菜品：${name}`);
+      list.unshift({ id: Date.now(), name, cat, note: note || '招牌推荐' });
+      recordInboxEvent('🍽️ 私房菜单', `${getMyName()}新增菜品：${name}`);
       saveAllDishes(list, true);
       document.getElementById('newDishName').value = '';
       document.getElementById('newDishNote').value = '';
       document.getElementById('addDishFormBox').style.display = 'none';
-      document.getElementById('toggleAddDishBtn').textContent = '+ 添新菜';
+      document.getElementById('toggleAddDishBtn').textContent = '+ 添菜';
       renderMenuDishes();
       showToast(`🍽️ 「${name}」已加入菜单！`);
     }
@@ -2964,11 +3286,12 @@ function getDeletedCouponIds() {
       saveTodayOrders(getTodayOrders().filter(oid => oid !== id), true);
       renderTodayOrders();
       renderMenuDishes();
+      showToast('🗑️ 已删除该菜品');
     }
 
     function switchMenuCat(cat) {
       currentMenuCat = cat;
-      const map = { all: 'mCatAll', main: 'mCatMain', snack: 'mCatSnack', drink: 'mCatDrink', sweet: 'mCatSweet' };
+      const map = { all: 'mCatAll', meat: 'mCatMeat', veg: 'mCatVeg', snack: 'mCatSnack', drink: 'mCatDrink', sweet: 'mCatSweet' };
       Object.keys(map).forEach(k => {
         const el = document.getElementById(map[k]);
         if (el) el.classList.toggle('active', k === cat);
@@ -2977,54 +3300,126 @@ function getDeletedCouponIds() {
       triggerElAnim(document.getElementById('dishListContainer'), 'subpanel-fade');
     }
 
-    function toggleOrderDish(dishId) {
+    function addDishToCart(dishId) {
       const orders = getTodayOrders();
-      const idx = orders.indexOf(dishId);
-      if (idx >= 0) orders.splice(idx, 1);
-      else orders.push(dishId);
+      orders.push(dishId);
       saveTodayOrders(orders, true);
       renderTodayOrders();
       renderMenuDishes();
     }
 
+    function removeDishFromCart(dishId) {
+      const orders = getTodayOrders();
+      const idx = orders.lastIndexOf(dishId);
+      if (idx >= 0) {
+        orders.splice(idx, 1);
+        saveTodayOrders(orders, true);
+        renderTodayOrders();
+        renderMenuDishes();
+      }
+    }
+
+    function toggleCartDetailDrawer() {
+      const drawer = document.getElementById('cartDetailDrawer');
+      if (!drawer) return;
+      if (getTodayOrders().length === 0) {
+        drawer.style.display = 'none';
+        return showToast('🛒 购物车还是空的，点击菜品右侧 + 加购吧');
+      }
+      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
+    }
+
     function clearTodayOrders() {
       if (getTodayOrders().length === 0) return;
-      if (!confirm('确定清空今日已点菜品吗？')) return;
+      if (!confirm('确定清空购物车中的已选菜品吗？')) return;
       saveTodayOrders([], true);
+      const drawer = document.getElementById('cartDetailDrawer');
+      if (drawer) drawer.style.display = 'none';
       renderTodayOrders();
       renderMenuDishes();
     }
 
     function confirmTodayOrder() {
       const orders = getTodayOrders();
-      if (orders.length === 0) return alert('还没有点任何菜哦，先选几道想吃的吧~');
-      const chef = getActiveChef();
-      recordInboxEvent('🛎️ 菜单下单', `已通知【${chef}】接单，共点了 ${orders.length} 道菜`);
+      if (orders.length === 0) return alert('购物车还是空的哦，先点菜品右侧的 + 选几道菜吧~');
+
+      const dishes = getAllDishes();
+      const countMap = new Map();
+      orders.forEach(id => countMap.set(id, (countMap.get(id) || 0) + 1));
+      const dishSummaryList = [];
+      countMap.forEach((qty, id) => {
+        const d = dishes.find(x => x.id === id);
+        if (d) dishSummaryList.push(qty > 1 ? `${d.name}×${qty}` : d.name);
+      });
+
+      const myName = getMyName();
+      const partner = getPartnerName();
+      const now = new Date();
+      const timeStr = `${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      // 写入历史点菜记录并清空购物车
+      const hist = getOrderHistory();
+      hist.unshift({
+        id: Date.now(),
+        from: myName,
+        to: partner,
+        time: timeStr,
+        dishes: dishSummaryList
+      });
+      saveOrderHistory(hist, false);
+      saveTodayOrders([], false);
+
+      recordInboxEvent('🛎️ 菜单下单', `${myName}通知${partner}做菜：${dishSummaryList.join('、')}`);
       pushToCloud();
+
+      const drawer = document.getElementById('cartDetailDrawer');
+      if (drawer) drawer.style.display = 'none';
+      renderTodayOrders();
+      renderMenuDishes();
+      renderOrderHistory();
       spawnFxParticles(['🍽️', '🥘', '🧋', '💖']);
-      showToast(`🛎️ 已通知【${chef}】接单，共 ${orders.length} 道菜！`);
+      showToast(`🛎️ 已通知${partner}做菜，并存入点菜记录！`);
     }
 
     function renderTodayOrders() {
       const orders = getTodayOrders();
       const dishes = getAllDishes();
       const countEl = document.getElementById('todayOrderCount');
+      const summaryEl = document.getElementById('cartSummaryText');
       const pillsEl = document.getElementById('todayOrderPills');
-      if (countEl) countEl.textContent = orders.length;
-      if (!pillsEl) return;
+      const drawer = document.getElementById('cartDetailDrawer');
+
+      if (countEl) {
+        countEl.textContent = orders.length;
+        countEl.style.display = orders.length > 0 ? 'inline-block' : 'none';
+      }
 
       if (orders.length === 0) {
-        pillsEl.innerHTML = `<span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>`;
+        if (summaryEl) summaryEl.textContent = '购物车空空的，点右侧 + 选菜';
+        if (pillsEl) pillsEl.innerHTML = '';
+        if (drawer) drawer.style.display = 'none';
         return;
       }
 
-      const validItems = orders.map(id => dishes.find(d => d.id === id)).filter(Boolean);
-      pillsEl.innerHTML = validItems.map(d => `
-        <span class="order-pill-item">
-          ${escapeHtml(d.name)}
-          <span class="order-pill-x" onclick="toggleOrderDish(${d.id})">✕</span>
-        </span>
-      `).join('');
+      const countMap = new Map();
+      orders.forEach(id => countMap.set(id, (countMap.get(id) || 0) + 1));
+      const names = [];
+      const pillsHtml = [];
+      countMap.forEach((qty, id) => {
+        const d = dishes.find(x => x.id === id);
+        if (d) {
+          names.push(qty > 1 ? `${d.name}×${qty}` : d.name);
+          pillsHtml.push(`
+            <span class="cart-pill-item">
+              ${escapeHtml(d.name)}${qty > 1 ? ` ×${qty}` : ''}
+              <span style="cursor:pointer; color:#e11d48; font-weight:800;" onclick="event.stopPropagation(); removeDishFromCart(${d.id})">✕</span>
+            </span>
+          `);
+        }
+      });
+
+      if (summaryEl) summaryEl.textContent = `已选 ${orders.length} 份：${names.join('、')}`;
+      if (pillsEl) pillsEl.innerHTML = pillsHtml.join('');
     }
 
     function renderMenuDishes() {
@@ -3033,32 +3428,34 @@ function getDeletedCouponIds() {
       const container = document.getElementById('dishListContainer');
       if (!container) return;
 
-      const filtered = currentMenuCat === 'all' ? dishes : dishes.filter(d => d.cat === currentMenuCat);
+      const filtered = currentMenuCat === 'all'
+        ? dishes
+        : dishes.filter(d => currentMenuCat === 'meat' ? (d.cat === 'meat' || d.cat === 'main') : d.cat === currentMenuCat);
+
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="empty-notes">菜单里还没有这道分类的菜品，点右上角「+ 添新菜」录入吧 👨‍🍳</div>`;
+        container.innerHTML = `<div class="empty-notes">菜单里还没有这道分类的菜品，点右上角「+ 添菜」录入吧 👨‍🍳</div>`;
         return;
       }
 
       container.innerHTML = filtered.map(d => {
-        const isOrdered = orders.includes(d.id);
+        const qty = orders.filter(id => id === d.id).length;
         const catTag = MENU_CAT_LABELS[d.cat] || '🍽️ 菜品';
         return `
-          <div class="dish-card ${isOrdered ? 'ordered' : ''}">
+          <div class="dish-card ${qty > 0 ? 'ordered' : ''}">
             <div class="dish-info">
               <div class="dish-name">${escapeHtml(d.name)}</div>
               <div class="dish-meta">${catTag} · ${escapeHtml(d.note)}</div>
             </div>
-            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
-              <button class="dish-order-btn ${isOrdered ? 'added' : ''}" onclick="toggleOrderDish(${d.id})">
-                ${isOrdered ? '✓ 已点' : '+ 点菜'}
-              </button>
+            <div class="dish-stepper">
+              ${qty > 0 ? `<button class="dish-minus-btn" onclick="removeDishFromCart(${d.id})" title="减少一份">−</button><span class="dish-qty-num">${qty}</span>` : ''}
+              <button class="dish-plus-btn" onclick="addDishToCart(${d.id})" title="加入购物车">+</button>
               <span class="note-del" onclick="deleteDish(${d.id})" title="删除菜品">✕</span>
             </div>
           </div>
         `;
       }).join('');
     }
-// ========== 🎲 随机情书盲盒逻辑 ==========
+// ========== 🎲 随机情书盲盒逻辑（V3.0 支持修改与删减） ==========
     let currentQuoteIdx = -1;
 
     function getUserQuotes() {
@@ -3070,19 +3467,25 @@ function getDeletedCouponIds() {
     }
 
     function getAllMergedQuotes() {
-      return Array.from(new Set([...getUserQuotes(), ...loveQuotes]));
+      const delSet = new Set(getDeletedQuotes());
+      return Array.from(new Set([...getUserQuotes(), ...loveQuotes])).filter(q => q && !delSet.has(q));
     }
 
     function updateQuoteLabel() {
       const all = getAllMergedQuotes();
       const label = document.getElementById('quoteCountLabel');
-      if (label) label.textContent = `共 ${all.length} 句`;
       const el = document.getElementById('blindboxQuoteText');
-      if (el && all.length === 0) {
-        el.textContent = '盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨';
-      } else if (el && currentQuoteIdx === -1 && all.length > 0) {
-        currentQuoteIdx = 0;
-        el.textContent = all[0];
+      const actionsBar = document.getElementById('blindboxActionsBar');
+
+      if (label) label.textContent = `共 ${all.length} 句`;
+      if (all.length === 0) {
+        currentQuoteIdx = -1;
+        if (el) el.textContent = '盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨';
+        if (actionsBar) actionsBar.style.display = 'none';
+      } else {
+        if (currentQuoteIdx < 0 || currentQuoteIdx >= all.length) currentQuoteIdx = 0;
+        if (el) el.textContent = all[currentQuoteIdx];
+        if (actionsBar) actionsBar.style.display = 'flex';
       }
     }
 
@@ -3096,16 +3499,18 @@ function getDeletedCouponIds() {
       const input = document.getElementById('userNewQuoteInput');
       const val = input.value.trim();
       if (!val) return alert('先输入一句想放进盲盒的情话吧~');
-      const list = getUserQuotes();
+
+      const delList = getDeletedQuotes().filter(q => q !== val);
+      localStorage.setItem(DELETED_QUOTES_KEY, JSON.stringify(delList));
+
+      const list = getUserQuotes().filter(q => q !== val);
       list.unshift(val);
       saveUserQuotes(list);
       input.value = '';
       document.getElementById('addQuoteInlineBox').style.display = 'none';
       currentQuoteIdx = 0;
-      const el = document.getElementById('blindboxQuoteText');
-      if (el) el.textContent = val;
       updateQuoteLabel();
-      recordInboxEvent('🎲 情话盲盒', `存入了新情话：${val.slice(0, 20)}`);
+      recordInboxEvent('🎲 情话盲盒', `${getMyName()}存入了新情话：${val.slice(0, 20)}`);
       showToast('🎲 新情话已存入盲盒！');
       pushToCloud();
     }
@@ -3119,7 +3524,7 @@ function getDeletedCouponIds() {
       const all = getAllMergedQuotes();
       if (!el) return;
       if (all.length === 0) {
-        el.textContent = '盲盒还是空的，点右上角「+ 添一句」存入第一句专属情话吧 ✨';
+        updateQuoteLabel();
         return;
       }
 
@@ -3136,8 +3541,57 @@ function getDeletedCouponIds() {
       }, 180);
     }
 
+    function openQuoteEditModal() {
+      const all = getAllMergedQuotes();
+      if (all.length === 0 || currentQuoteIdx < 0 || !all[currentQuoteIdx]) return;
+      document.getElementById('editQuoteTextarea').value = all[currentQuoteIdx];
+      document.getElementById('quoteEditModalMask').style.display = 'flex';
+    }
+
+    function closeQuoteEditModal() {
+      document.getElementById('quoteEditModalMask').style.display = 'none';
+    }
+
+    function saveQuoteEdit() {
+      const all = getAllMergedQuotes();
+      const oldText = all[currentQuoteIdx];
+      const newText = document.getElementById('editQuoteTextarea').value.trim();
+      if (!newText) return alert('情话内容不能为空哦~');
+      if (newText === oldText) return closeQuoteEditModal();
+
+      addDeletedQuote(oldText);
+      const delList = getDeletedQuotes().filter(q => q !== newText);
+      localStorage.setItem(DELETED_QUOTES_KEY, JSON.stringify(delList));
+
+      const userList = getUserQuotes().filter(q => q !== oldText && q !== newText);
+      userList.unshift(newText);
+      saveUserQuotes(userList);
+
+      currentQuoteIdx = 0;
+      closeQuoteEditModal();
+      updateQuoteLabel();
+      recordInboxEvent('🎲 情话盲盒', `${getMyName()}修改了盲盒情话`);
+      showToast('✏️ 情话已修改并同步云端！');
+      pushToCloud();
+    }
+
+    function deleteCurrentQuote() {
+      const all = getAllMergedQuotes();
+      if (all.length === 0 || currentQuoteIdx < 0 || !all[currentQuoteIdx]) return;
+      const target = all[currentQuoteIdx];
+      if (!confirm('确定要删除当前这句盲盒情话吗？（将同步从云端移除）')) return;
+
+      addDeletedQuote(target);
+      saveUserQuotes(getUserQuotes().filter(q => q !== target));
+      currentQuoteIdx = 0;
+      updateQuoteLabel();
+      recordInboxEvent('🎲 情话盲盒', `${getMyName()}删除了一条盲盒情话`);
+      showToast('🗑️ 已删除该句情话');
+      pushToCloud();
+    }
+
     // ========== ⏳ 双人长信 & 未来时间胶囊逻辑 ==========
-    let currentLetterSender = localStorage.getItem(PREFERRED_SENDER_KEY) || '👦 他写给她的信';
+    let currentLetterSender = localStorage.getItem(PREFERRED_SENDER_KEY) || '他写给她的信';
 
     function selectLetterSender(senderName) {
       currentLetterSender = senderName;
@@ -3173,7 +3627,7 @@ function getDeletedCouponIds() {
       box.style.display = isOpening ? 'block' : 'none';
       btn.textContent = isOpening ? '收起写信' : '✍️ 写一封信';
       if (isOpening) {
-        selectLetterSender(currentLetterSender);
+        selectLetterSender(activeUserRole === 'her' ? '她写给他的信' : '他写给她的信');
         if (!document.getElementById('userCapDate').value) {
           document.getElementById('userCapDate').value = getTodayStr();
         }
@@ -3201,7 +3655,7 @@ function getDeletedCouponIds() {
         const list = getUserCapsules();
         list.unshift({ id: Date.now(), author, title, unlockDate, content, createdAt: getTodayStr() });
         saveUserCapsules(list);
-        recordInboxEvent('💌 双人信箱', `${author}寄出新信：《${title}》`);
+        recordInboxEvent('💌 双人信箱', `${getMyName()}寄出新信：《${title}》`);
 
         document.getElementById('userCapTitle').value = '';
         document.getElementById('userCapBody').value = '';
@@ -3313,27 +3767,12 @@ function getDeletedCouponIds() {
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（防溢出 + 弹窗详情/编辑 + 排序 + 循环视图） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（双视角他/她 + 防碰撞 ID + 已核销防删） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
-    let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
     let couponCollapsed = localStorage.getItem(COUPON_COLLAPSED_KEY) === '1';
     let couponMasked = localStorage.getItem(COUPON_MASK_KEY) === '1';
     let couponSortMode = localStorage.getItem(COUPON_SORT_KEY) || 'time_desc';
     let editingCouponId = null;
-    let editingCouponSender = 'him';
-
-    function applyCouponSenderUI() {
-      const himEl = document.getElementById('couponSenderHim');
-      const herEl = document.getElementById('couponSenderHer');
-      if (himEl) himEl.className = 'coupon-sender-chip' + (currentCouponSender === 'him' ? ' active-him' : '');
-      if (herEl) herEl.className = 'coupon-sender-chip' + (currentCouponSender === 'her' ? ' active-her' : '');
-    }
-
-    function selectCouponSender(sender) {
-      currentCouponSender = sender;
-      localStorage.setItem(COUPON_SENDER_KEY, sender);
-      applyCouponSenderUI();
-    }
 
     function applyCouponCtrlUI() {
       const container = document.getElementById('couponListContainer');
@@ -3410,25 +3849,16 @@ function getDeletedCouponIds() {
       if (syncCloud) pushToCloud();
     }
 
-    function setEditCouponSender(sender) {
-      editingCouponSender = sender;
-      const himEl = document.getElementById('editCouponSenderHim');
-      const herEl = document.getElementById('editCouponSenderHer');
-      if (himEl) himEl.className = 'coupon-sender-chip' + (sender === 'him' ? ' active-him' : '');
-      if (herEl) herEl.className = 'coupon-sender-chip' + (sender === 'her' ? ' active-her' : '');
-    }
-
     function openCouponEditModal(id) {
       const target = getAllCoupons().find(c => c.id === id);
       if (!target) return;
       editingCouponId = id;
-      setEditCouponSender(target.sender === 'her' ? 'her' : 'him');
 
       const heading = document.getElementById('couponModalHeading');
       const infoBox = document.getElementById('couponModalStatusInfo');
       if (heading) heading.textContent = target.used ? '🎟️ 已核销兑换券详情 / 编辑' : '🎟️ 未核销兑换券详情 / 编辑';
       if (infoBox) {
-        const senderStr = target.sender === 'her' ? '👧 她发的' : '👦 他发的';
+        const senderStr = target.sender === 'her' ? '♀️ 她发的券' : '♂️ 他发的券';
         infoBox.innerHTML = target.used
           ? `状态：<strong>✅ 已核销</strong>（核销日期：${escapeHtml(target.usedAt || '未知')}）<br>发券人：${senderStr} · 已核销券永久留存不可删除`
           : `状态：<strong>✨ 待使用</strong> · 发券人：${senderStr}`;
@@ -3453,10 +3883,9 @@ function getDeletedCouponIds() {
       const list = getAllCoupons();
       const target = list.find(c => c.id === editingCouponId);
       if (target) {
-        target.sender = editingCouponSender;
         target.name = newName.startsWith('🎁') ? newName : `🎁 ${newName}`;
         target.desc = newDesc || '专属定制特权券，见面或随时出示即可兑现';
-        recordInboxEvent('🎟️ 恋爱兑换券', `编辑了特权券：${newName}`);
+        recordInboxEvent('🎟️ 恋爱兑换券', `${getMyName()}编辑了特权券：${newName}`);
         saveAllCoupons(list, true);
         closeCouponEditModal();
         renderCouponsList();
@@ -3470,7 +3899,7 @@ function getDeletedCouponIds() {
       const container = document.getElementById('couponListContainer');
       const rawList = getAllCoupons();
       if (rawList.length === 0) {
-        container.innerHTML = `<div class="empty-notes" style="grid-column:1 / -1;">卡包还是空的，在上方选择发券人并输入名称发第一张专属恋爱券吧 🎟️</div>`;
+        container.innerHTML = `<div class="empty-notes" style="grid-column:1 / -1;">卡包还是空的，在上方输入名称给${getPartnerName()}发第一张专属恋爱券吧 🎟️</div>`;
         return;
       }
 
@@ -3488,7 +3917,7 @@ function getDeletedCouponIds() {
 
       container.innerHTML = sorted.map(c => {
         const isHer = c.sender === 'her';
-        const senderText = isHer ? '👧 她发' : '👦 他发';
+        const senderText = isHer ? '♀️ 她发' : '♂️ 他发';
         const displayName = couponMasked ? '****' : escapeHtml(c.name);
         const rawDesc = c.used ? `核销于 ${c.usedAt} · 点此查看` : escapeHtml(c.desc);
         const displayDesc = couponMasked ? '****' : rawDesc;
@@ -3533,7 +3962,7 @@ function getDeletedCouponIds() {
         setTimeout(() => {
           target.used = true;
           target.usedAt = getTodayStr();
-          recordInboxEvent('🎟️ 恋爱兑换券', `核销使用了特权券：${target.name}`);
+          recordInboxEvent('🎟️ 恋爱兑换券', `${getMyName()}核销使用了特权券：${target.name}`);
           saveAllCoupons(list, true);
           renderCouponsList();
         }, 480);
@@ -3541,15 +3970,15 @@ function getDeletedCouponIds() {
     }
 
     function deleteCoupon(id) {
-   const list = getAllCoupons();
-   const target = list.find(c => c.id === id);
-   if (target && target.used) return showToast('🔒 已核销的兑换券作为纪念不可删除哦');
-   if (!confirm('确定要删除这张未核销的恋爱兑换券吗？')) return;
-   addDeletedCouponId(id);
-   saveAllCoupons(list.filter(c => c.id !== id), true);
-   renderCouponsList();
-   showToast('🗑️ 已删除该兑换券');
- }
+      const list = getAllCoupons();
+      const target = list.find(c => c.id === id);
+      if (target && target.used) return showToast('🔒 已核销的兑换券作为纪念不可删除哦');
+      if (!confirm('确定要删除这张未核销的恋爱兑换券吗？')) return;
+      addDeletedCouponId(id);
+      saveAllCoupons(list.filter(c => c.id !== id), true);
+      renderCouponsList();
+      showToast('🗑️ 已删除该兑换券');
+    }
 
     function addCustomCoupon() {
       const nameInput = document.getElementById('newCouponInput');
@@ -3560,13 +3989,13 @@ function getDeletedCouponIds() {
       const list = getAllCoupons();
       list.unshift({
         id: Date.now() * 1000 + Math.floor(Math.random() * 1000),
-        sender: currentCouponSender,
+        sender: activeUserRole,
         name: `🎁 ${name}`,
         desc: customDesc || '专属定制特权券，见面或随时出示即可兑现',
         used: false,
         usedAt: ''
       });
-      recordInboxEvent('🎟️ 恋爱兑换券', `${currentCouponSender === 'her' ? '她' : '他'}发放了新券：${name}`);
+      recordInboxEvent('🎟️ 恋爱兑换券', `${getMyName()}发放了新券：${name}`);
       saveAllCoupons(list, true);
       nameInput.value = '';
       descInput.value = '';
@@ -3575,7 +4004,7 @@ function getDeletedCouponIds() {
         localStorage.setItem(COUPON_COLLAPSED_KEY, '0');
       }
       renderCouponsList();
-      showToast(`🎟️ ${currentCouponSender === 'her' ? '她' : '他'}发放了新券：${name}`);
+      showToast(`🎟️ ${getMyName()}发放了新券：${name}`);
     }
 
     document.getElementById('newCouponInput').addEventListener('keypress', e => {
@@ -3585,7 +4014,26 @@ function getDeletedCouponIds() {
       if (e.key === 'Enter') addCustomCoupon();
     });
 
-    // ========== ✨ 专属事件清单逻辑 ==========
+    // ========== ✨ 专属事件清单逻辑（支持收起/展开） ==========
+    let eventCollapsed = localStorage.getItem(EVENT_COLLAPSED_KEY) === '1';
+
+    function applyEventCollapseUI() {
+      const listEl = document.getElementById('eventListContainer');
+      const btn = document.getElementById('eventCollapseBtn');
+      if (listEl) listEl.classList.toggle('collapsed', eventCollapsed);
+      if (btn) {
+        btn.textContent = eventCollapsed ? '展开 ▾' : '收起 ▴';
+        btn.classList.toggle('muted', eventCollapsed);
+      }
+    }
+
+    function toggleEventCollapse() {
+      eventCollapsed = !eventCollapsed;
+      localStorage.setItem(EVENT_COLLAPSED_KEY, eventCollapsed ? '1' : '0');
+      applyEventCollapseUI();
+      if (!eventCollapsed) triggerElAnim(document.getElementById('eventListContainer'), 'subpanel-fade');
+    }
+
     function getAllEvents() {
       try { return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]'); } catch (e) { return []; }
     }
@@ -3620,9 +4068,14 @@ function getDeletedCouponIds() {
       if (!title) return alert('先输入想一起完成的事件吧~');
       const list = getAllEvents();
       list.unshift({ id: Date.now(), title, done: false, createdAt: getTodayStr(), doneAt: '' });
-      recordInboxEvent('✨ 专属事件', `新增共同愿望：${title}`);
+      recordInboxEvent('✨ 专属事件', `${getMyName()}新增共同愿望：${title}`);
       saveAllEvents(list, true);
       input.value = '';
+      if (eventCollapsed) {
+        eventCollapsed = false;
+        localStorage.setItem(EVENT_COLLAPSED_KEY, '0');
+        applyEventCollapseUI();
+      }
       renderEventsList();
       showToast(`✨ 已添加专属事件：${title}`);
     }
@@ -3654,6 +4107,7 @@ function getDeletedCouponIds() {
 
     function renderEventsList() {
       updatePromiseCounters();
+      applyEventCollapseUI();
       const container = document.getElementById('eventListContainer');
       const list = getAllEvents();
       if (list.length === 0) {
@@ -3836,7 +4290,7 @@ function getDeletedCouponIds() {
     function setMeetDuration(daysCount) {
       const d = Math.max(1, Math.min(365, parseInt(daysCount, 10) || 1));
       localStorage.setItem(MEET_CONFIG_KEY, JSON.stringify({ startDate: selectedDateStr, days: d, setAt: Date.now() }));
-      recordInboxEvent('✈️ 见面行程', `设定了见面行程：${selectedDateStr} 起共 ${d} 天`);
+      recordInboxEvent('✈️ 见面行程', `${getMyName()}设定见面行程：${selectedDateStr} 起共 ${d} 天`);
       refreshMeetSetupUI();
       updateCityProgress();
       showToast(`✈️ 已设定行程：${selectedDateStr} 起 ${d} 天`);
@@ -3885,34 +4339,82 @@ function getDeletedCouponIds() {
       }
     }
 
-    // ========== 开锁动画 + 淡入转场与情侣背景激活 ==========
-    const START_TIMESTAMP = new Date('2026-03-12T00:00:00').getTime();
+    // ========== 可切换双模式首页计时器（总天数 vs 年月日时分秒） ==========
+    const START_DATE_OBJ = new Date(2026, 2, 12, 0, 0, 0);
+    const START_TIMESTAMP = START_DATE_OBJ.getTime();
+    let timerMode = localStorage.getItem(TIMER_MODE_KEY) || 'days';
     let timerInterval = null;
     let syncPollInterval = null;
+
+    function applyTimerModeUI() {
+      const gDays = document.getElementById('timerGridDays');
+      const gYmd = document.getElementById('timerGridYmd');
+      const btn = document.getElementById('timerModeSwitchBtn');
+      const isYmd = timerMode === 'ymd';
+      if (gDays) gDays.style.display = isYmd ? 'none' : 'grid';
+      if (gYmd) gYmd.style.display = isYmd ? 'grid' : 'none';
+      if (btn) btn.textContent = isYmd ? '🔄 切换总天数' : '🔄 切换年月日';
+    }
+
+    function toggleTimerMode() {
+      timerMode = timerMode === 'days' ? 'ymd' : 'days';
+      localStorage.setItem(TIMER_MODE_KEY, timerMode);
+      applyTimerModeUI();
+      updateElapsedTimer();
+    }
 
     function updateElapsedTimer() {
       const daysEl = document.getElementById('tDays');
       if (!daysEl) return;
-      const now = Date.now();
-      let diff = Math.max(0, Math.floor((now - START_TIMESTAMP) / 1000));
-      const days = Math.floor(diff / 86400);
+      const now = new Date();
+      const nowMs = now.getTime();
+
+      let diff = Math.max(0, Math.floor((nowMs - START_TIMESTAMP) / 1000));
+      const totalDays = Math.floor(diff / 86400);
       diff %= 86400;
       const hours = Math.floor(diff / 3600);
       diff %= 3600;
       const mins = Math.floor(diff / 60);
       const secs = diff % 60;
 
-      daysEl.textContent = days;
+      daysEl.textContent = totalDays;
       document.getElementById('tHours').textContent = String(hours).padStart(2, '0');
       document.getElementById('tMins').textContent = String(mins).padStart(2, '0');
       document.getElementById('tSecs').textContent = String(secs).padStart(2, '0');
+
+      let y = 0, mo = 0, d = 0, h = 0, mi = 0, s = 0;
+      if (nowMs > START_TIMESTAMP) {
+        y = now.getFullYear() - START_DATE_OBJ.getFullYear();
+        mo = now.getMonth() - START_DATE_OBJ.getMonth();
+        d = now.getDate() - START_DATE_OBJ.getDate();
+        h = now.getHours() - START_DATE_OBJ.getHours();
+        mi = now.getMinutes() - START_DATE_OBJ.getMinutes();
+        s = now.getSeconds() - START_DATE_OBJ.getSeconds();
+        if (s < 0) { s += 60; mi--; }
+        if (mi < 0) { mi += 60; h--; }
+        if (h < 0) { h += 24; d--; }
+        if (d < 0) {
+          const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+          d += prevMonthDays;
+          mo--;
+        }
+        if (mo < 0) { mo += 12; y--; }
+      }
+      document.getElementById('tyYears').textContent = y;
+      document.getElementById('tyMonths').textContent = mo;
+      document.getElementById('tyDays').textContent = d;
+      document.getElementById('tyHours').textContent = String(h).padStart(2, '0');
+      document.getElementById('tyMins').textContent = String(mi).padStart(2, '0');
+      document.getElementById('tySecs').textContent = String(s).padStart(2, '0');
+
       updateCityProgress();
     }
 
-    function startTimerAndIntro(playIntro = true) {
-      document.title = `我们的专属纪念 · DWLapp V${APP_VERSION}`;
-      document.body.classList.add('romantic-mode');
-
+    function enterMainWorkspace() {
+      const navBar = document.getElementById('bottomNavBar');
+      if (navBar) navBar.style.display = 'flex';
+      applyPerspectiveUI();
+      applyTimerModeUI();
       updateElapsedTimer();
       if (!timerInterval) timerInterval = setInterval(updateElapsedTimer, 1000);
       updateQuoteLabel();
@@ -3924,7 +4426,28 @@ function getDeletedCouponIds() {
       pullFromCloud(false);
       if (!syncPollInterval) syncPollInterval = setInterval(() => pullFromCloud(false), 5000);
 
-      const navBar = document.getElementById('bottomNavBar');
+      switchMainTab('home');
+      openUpdateModal(false);
+    }
+
+    function startTimerAndIntro(playIntro = true) {
+      document.title = `我们的专属纪念 · DWLapp V${APP_VERSION}`;
+      document.body.classList.add('romantic-mode');
+
+      const remembered = localStorage.getItem(REMEMBER_ROLE_KEY) === '1';
+      const savedRole = localStorage.getItem(USER_ROLE_KEY);
+      const hasSavedRole = remembered && (savedRole === 'him' || savedRole === 'her');
+      if (hasSavedRole) activeUserRole = savedRole;
+
+      const proceedAfterIntro = () => {
+        if (hasSavedRole) {
+          enterMainWorkspace();
+        } else {
+          const rv = document.getElementById('roleSelectView');
+          if (rv) rv.style.display = 'block';
+        }
+      };
+
       if (playIntro) {
         const overlay = document.getElementById('introOverlay');
         const titleEl = document.getElementById('introTitleText');
@@ -3941,70 +4464,63 @@ function getDeletedCouponIds() {
         overlay.style.display = 'flex';
         setTimeout(() => {
           overlay.classList.add('fading-out');
-          navBar.style.display = 'flex';
-          switchMainTab('home');
-          openUpdateModal(false);
+          proceedAfterIntro();
         }, 1900);
         setTimeout(() => {
           overlay.style.display = 'none';
           overlay.classList.remove('fading-out');
         }, 2800);
       } else {
-        navBar.style.display = 'flex';
-        switchMainTab('home');
-        openUpdateModal(false);
+        proceedAfterIntro();
       }
     }
 
-    // ========== 左右双向丝滑滑动恋爱农历日历（支持触屏 + 鼠标拖拽 + 连续相见天数高亮） ==========
+    // ========== 年/月下拉选择恋爱农历日历 ==========
     let currentCalDate = new Date();
     let selectedDateStr = '';
-    let currentAuthor = '👦 他的悄悄话';
-    let calStartX = 0;
-    let calStartY = 0;
-    let isCalDragging = false;
-    let isCalSwipeBound = false;
-    let calJustSwiped = false;
+    let currentAuthor = '他的悄悄话';
 
-    function initCalSwipeGesture() {
-      const area = document.getElementById('calSwipeArea');
-      if (!area || isCalSwipeBound) return;
-      isCalSwipeBound = true;
-      area.removeAttribute('data-swipe-bound');
+    function initCalSelectOptions() {
+      const ySel = document.getElementById('calYearSelect');
+      const mSel = document.getElementById('calMonthSelect');
+      if (!ySel || !mSel) return;
 
-      const handleStart = (x, y) => {
-        calStartX = x;
-        calStartY = y;
-        isCalDragging = true;
-        calJustSwiped = false;
-      };
-
-      const handleEnd = (x, y) => {
-        if (!isCalDragging) return;
-        isCalDragging = false;
-        const dx = x - calStartX;
-        const dy = y - calStartY;
-        if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.1) {
-          calJustSwiped = true;
-          if (dx < 0) changeMonth(1);
-          else changeMonth(-1);
-          setTimeout(() => { calJustSwiped = false; }, 260);
+      if (ySel.options.length === 0) {
+        const maxYear = Math.max(2035, new Date().getFullYear() + 5);
+        for (let y = 2026; y <= maxYear; y++) {
+          const opt = document.createElement('option');
+          opt.value = String(y);
+          opt.textContent = `${y}年`;
+          ySel.appendChild(opt);
         }
-      };
-
-      area.addEventListener('touchstart', e => {
-        if (e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
-      }, { passive: true });
-      area.addEventListener('touchend', e => {
-        if (e.changedTouches && e.changedTouches.length > 0) {
-          handleEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      }
+      if (mSel.options.length === 0) {
+        for (let m = 0; m < 12; m++) {
+          const opt = document.createElement('option');
+          opt.value = String(m);
+          opt.textContent = `${m + 1}月`;
+          mSel.appendChild(opt);
         }
-      }, { passive: true });
+      }
 
-      area.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
-      window.addEventListener('mouseup', e => {
-        if (isCalDragging) handleEnd(e.clientX, e.clientY);
-      });
+      ySel.value = String(currentCalDate.getFullYear());
+      mSel.value = String(currentCalDate.getMonth());
+    }
+
+    function onCalSelectChange() {
+      const ySel = document.getElementById('calYearSelect');
+      const mSel = document.getElementById('calMonthSelect');
+      if (!ySel || !mSel) return;
+      currentCalDate = new Date(parseInt(ySel.value, 10), parseInt(mSel.value, 10), 1);
+      renderCalendar();
+      triggerElAnim(document.getElementById('calDaysGrid'), 'subpanel-fade');
+    }
+
+    function resetCalToToday() {
+      currentCalDate = new Date();
+      initCalSelectOptions();
+      renderCalendar();
+      triggerElAnim(document.getElementById('calDaysGrid'), 'subpanel-fade');
     }
 
     function getAllNotes() {
@@ -4023,22 +4539,10 @@ function getDeletedCouponIds() {
       return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     }
 
-    function changeMonth(offset) {
-      currentCalDate.setMonth(currentCalDate.getMonth() + offset);
-      renderCalendar(offset > 0 ? 'next' : 'prev');
-    }
-
-    function resetCalToToday() {
-      currentCalDate = new Date();
-      renderCalendar('next');
-    }
-
-    function renderCalendar(slideDir = '') {
-      initCalSwipeGesture();
+    function renderCalendar() {
+      initCalSelectOptions();
       const year = currentCalDate.getFullYear();
       const month = currentCalDate.getMonth();
-      const titleEl = document.getElementById('calMonthTitle');
-      if (titleEl) titleEl.textContent = `${year}年 ${month + 1}月`;
 
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -4127,13 +4631,9 @@ function getDeletedCouponIds() {
           cell.appendChild(dot);
         }
 
-        cell.onclick = () => { if (!calJustSwiped) openNoteView(dateStr); };
+        cell.onclick = () => openNoteView(dateStr);
         grid.appendChild(cell);
       }
-
-      grid.classList.remove('cal-slide-next', 'cal-slide-prev');
-      if (slideDir === 'next') triggerElAnim(grid, 'cal-slide-next');
-      else if (slideDir === 'prev') triggerElAnim(grid, 'cal-slide-prev');
     }
 
     function refreshHistDayBanner(dateStr) {
@@ -4271,7 +4771,7 @@ function getDeletedCouponIds() {
         return `
           <div class="note-bubble ${roleClass}">
             <div class="note-meta">
-              <span class="note-author">${item.author}</span>
+              <span class="note-author">${escapeHtml(item.author)}</span>
               <span>${item.time} <span class="note-del" onclick="deleteNote(${item.id})" title="删除">✕</span></span>
             </div>
             <div class="note-text">${escapeHtml(item.content)}</div>
@@ -4283,63 +4783,7 @@ function getDeletedCouponIds() {
     function escapeHtml(str) {
       return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
-
-    // ========== 本地打包工坊逻辑 ==========
-    function renderDevWorkshop() {
-      const qList = document.getElementById('devQuoteList');
-      qList.innerHTML = loveQuotes.map((q, idx) => `
-        <div class="dev-mini-item">
-          <span style="flex:1; padding-right:8px;">${idx + 1}. ${escapeHtml(q)}</span>
-          <span style="color:#e11d48; cursor:pointer;" onclick="devDelQuote(${idx})">删除</span>
-        </div>
-      `).join('');
-
-      const cList = document.getElementById('devCapsuleList');
-      cList.innerHTML = timeCapsules.map((c, idx) => `
-        <div class="dev-mini-item">
-          <span>⏳ [${c.unlockDate}] ${escapeHtml(c.title)}</span>
-          <span style="color:#e11d48; cursor:pointer;" onclick="devDelCapsule(${idx})">删除</span>
-        </div>
-      `).join('');
-    }
-
-    function devAddQuote() {
-      const input = document.getElementById('devNewQuote');
-      const val = input.value.trim();
-      if (!val) return;
-      loveQuotes.push(val);
-      input.value = '';
-      renderDevWorkshop();
-      updateQuoteLabel();
-      showToast('🎲 已预埋情话');
-    }
-
-    function devDelQuote(idx) {
-      loveQuotes.splice(idx, 1);
-      renderDevWorkshop();
-      updateQuoteLabel();
-    }
-
-    function devAddCapsule() {
-      const title = document.getElementById('devCapTitle').value.trim();
-      const date = document.getElementById('devCapDate').value;
-      const body = document.getElementById('devCapBody').value.trim();
-      if (!title || !date || !body) return alert('请完整填写信件标题、开启日期和信件正文~');
-      timeCapsules.push({ id: Date.now(), author: "👦 他写给她的信", title, unlockDate: date, content: body });
-      document.getElementById('devCapTitle').value = '';
-      document.getElementById('devCapBody').value = '';
-      renderDevWorkshop();
-      renderCapsulesList();
-      showToast('⏳ 已预埋初始长信');
-    }
-
-    function devDelCapsule(idx) {
-      timeCapsules.splice(idx, 1);
-      renderDevWorkshop();
-      renderCapsulesList();
-    }
-
-    // ========== 零知识加密与纯净 DOM 导出逻辑 ==========
+// ========== 零知识加密与纯净 DOM 导出逻辑 ==========
     async function exportLockedVersion() {
       const bundle = JSON.stringify({ html: '', quotes: loveQuotes, capsules: timeCapsules });
       const iv = crypto.getRandomValues(new Uint8Array(12));
@@ -4359,12 +4803,15 @@ function getDeletedCouponIds() {
       if (clonedTitle) clonedTitle.textContent = '系统登录 · Portal';
 
       [
-        'fxStageOverlay', 'updateModalMask', 'inboxModalMask', 'couponEditModalMask', 'meetEditModalMask',
-        'introOverlay', 'denyView', 'loginView',
-        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView', 'tabTravelView', 'tabMenuView', 'tabAboutView',
-        'travelDetailStage', 'newTripFormBox', 'packingDrawerBox', 'globalPackingBody', 'addDishFormBox',
+        'cloudRetryBar', 'fxStageOverlay', 'updateModalMask', 'inboxModalMask',
+        'quoteEditModalMask', 'couponEditModalMask', 'meetEditModalMask',
+        'introOverlay', 'denyView', 'loginView', 'roleSelectView',
+        'tabMeetView', 'tabEnvelopeView', 'tabHomeView', 'tabPromiseView',
+        'tabTravelView', 'tabMenuView', 'tabAboutView',
+        'travelDetailStage', 'newTripFormBox', 'packingDrawerBox', 'globalPackingBody',
+        'addDishFormBox', 'orderHistDrawer', 'cartDetailDrawer',
         'noteView', 'bottomNavBar', 'devPanel', 'nfcLinkBox', 'composeLetterBox',
-        'addQuoteInlineBox', 'bdayBanner', 'histDayBanner', 'modeBadge'
+        'addQuoteInlineBox', 'blindboxActionsBar', 'bdayBanner', 'histDayBanner'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) {
@@ -4379,11 +4826,11 @@ function getDeletedCouponIds() {
       });
 
       [
-        'calDaysGrid', 'meetHistoryList', 'capsuleListContainer',
+        'calYearSelect', 'calMonthSelect', 'calDaysGrid', 'meetHistoryList', 'capsuleListContainer',
         'couponListContainer', 'eventListContainer', 'tripCardsGrid',
         'globalPackingListContainer', 'packingListContainer', 'travelListContainer',
-        'dishListContainer', 'aboutVersionList', 'inboxListContainer',
-        'noteListContainer', 'devQuoteList', 'devCapsuleList'
+        'dishListContainer', 'todayOrderPills', 'orderHistListContainer',
+        'aboutVersionList', 'inboxListContainer', 'noteListContainer'
       ].forEach(id => {
         const el = clonedDoc.querySelector(`#${id}`);
         if (el) el.innerHTML = '';
@@ -4407,23 +4854,35 @@ function getDeletedCouponIds() {
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.8 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V3.0 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
-
+    // ========== 登录验证与端到端加密解锁 ==========
     async function unlockOnline(key, user, pwd, withIntro = true) {
-      const hash = await computeHash(key, user, pwd);
-      if (hash !== EXPECTED_HASH) throw new Error('Invalid');
+      if (EXPECTED_HASH && EXPECTED_HASH !== '__EXPECTED_HASH_PLACEHOLDER__') {
+        const hash = await computeHash(key, user, pwd);
+        if (hash !== EXPECTED_HASH) throw new Error('Invalid');
+      } else {
+        if (
+          String(key || '').trim() !== NFC_KEY ||
+          String(user || '').trim().toLowerCase() !== ADMIN_USER.toLowerCase() ||
+          String(pwd || '').trim() !== ADMIN_PWD
+        ) {
+          throw new Error('Invalid');
+        }
+      }
+
       const aesKey = await deriveAesKey(key, user, pwd);
       activeAesKey = aesKey;
 
-      const combined = fromB64(ENCRYPTED_BUNDLE);
-      const iv = combined.slice(0, 12);
-      const data = combined.slice(12);
-      const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, data);
-      const bundle = JSON.parse(new TextDecoder().decode(plainBuf));
-
-      if (Array.isArray(bundle.quotes)) loveQuotes = bundle.quotes;
-      if (Array.isArray(bundle.capsules)) timeCapsules = bundle.capsules;
+      if (ENCRYPTED_BUNDLE && ENCRYPTED_BUNDLE !== '__ENCRYPTED_BUNDLE_PLACEHOLDER__') {
+        const combined = fromB64(ENCRYPTED_BUNDLE);
+        const iv = combined.slice(0, 12);
+        const data = combined.slice(12);
+        const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, data);
+        const bundle = JSON.parse(new TextDecoder().decode(plainBuf));
+        if (Array.isArray(bundle.quotes)) loveQuotes = bundle.quotes;
+        if (Array.isArray(bundle.capsules)) timeCapsules = bundle.capsules;
+      }
 
       document.getElementById('loginView').style.display = 'none';
       startTimerAndIntro(withIntro);
@@ -4456,9 +4915,6 @@ function getDeletedCouponIds() {
       if (IS_LOCAL && params.get('testlock') !== '1') {
         activeAesKey = await deriveAesKey(NFC_KEY, ADMIN_USER, ADMIN_PWD);
         document.getElementById('devPanel').style.display = 'block';
-        const badge = document.getElementById('modeBadge');
-        if (badge) badge.style.display = 'inline-flex';
-        renderDevWorkshop();
         startTimerAndIntro(true);
         return;
       }
