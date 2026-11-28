@@ -304,7 +304,7 @@
     .nav-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
     .nav-dot { position: absolute; top: 5px; right: 22%; width: 6px; height: 6px; border-radius: 50%; background: #f43f5e; display: none; }
 
-    /* ========== 首页：双城进度条 + 计时器 + 农历日历 ========== */
+    /* ========== 首页：双城进度条 + 计时器 + V2.1.5 上下滑动农历日历 ========== */
     .city-tracker { background: linear-gradient(135deg, #fdf4ff 0%, #fff1f2 100%); border: 1px solid #f5d0fe; border-radius: 18px; padding: 12px 14px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.06); }
     .city-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 4px; }
     .city-tag { font-size: 13px; font-weight: 700; color: #374151; display: flex; align-items: center; gap: 3px; white-space: nowrap; }
@@ -323,12 +323,36 @@
     .time-num { display: block; font-size: var(--fs-timer-num); font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; color: transparent; font-variant-numeric: tabular-nums; line-height: 1.15; }
     .time-txt { display: block; font-size: 11px; color: #9ca3af; margin-top: 3px; }
 
-    .cal-box { background: rgba(255, 255, 255, 0.78); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; }
+    .cal-box { background: rgba(255, 255, 255, 0.82); border: 1px solid #f3e8ff; border-radius: 18px; padding: clamp(10px, 3vw, 14px); margin-bottom: 10px; }
     .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .cal-title { font-size: 15px; font-weight: 700; color: #374151; }
-    .cal-nav { background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777; width: 30px; height: 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-    .cal-nav:active { transform: scale(0.88); }
-    .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; margin-bottom: 6px; font-weight: 600; }
+    .cal-title { font-size: 14px; font-weight: 700; color: #374151; }
+    .cal-today-btn {
+      background: #fdf2f8; border: 1px solid #fbcfe8; color: #db2777;
+      padding: 4px 10px; border-radius: 99px; cursor: pointer;
+      font-weight: 700; font-size: 11px;
+    }
+    .cal-today-btn:active { transform: scale(0.92); }
+    .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-size: 11px; color: #9ca3af; padding-bottom: 6px; font-weight: 600; border-bottom: 1px solid #fce7f3; }
+    .cal-scroll-container {
+      max-height: 295px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding-top: 4px;
+      scrollbar-width: none;
+    }
+    .cal-scroll-container::-webkit-scrollbar { display: none; }
+    .cal-month-block { margin-bottom: 14px; }
+    .cal-month-block:last-child { margin-bottom: 4px; }
+    .cal-month-label {
+      font-size: 12px; font-weight: 800; color: #db2777;
+      text-align: left; padding: 4px 4px 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cal-month-label::after {
+      content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, #fbcfe8, transparent);
+    }
     .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .cal-day { min-height: 46px; border-radius: 11px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #374151; cursor: pointer; position: relative; background: rgba(255, 255, 255, 0.72); transition: transform 0.16s var(--ease-spring), background 0.16s; padding: 3px 1px 6px; }
     .cal-day:active { transform: scale(0.9); background: #fce7f3; }
@@ -349,7 +373,7 @@
     .cal-day.anniv .cal-dot-unread, .cal-day.meet-day .cal-dot-unread, .cal-day.bday-her .cal-dot-unread, .cal-day.bday-him .cal-dot-unread { background: #fff; }
     .cal-dot-read { width: 5px; height: 5px; border-radius: 50%; background: transparent; border: 1.5px solid #ec4899; position: absolute; bottom: 2px; }
     .cal-day.anniv .cal-dot-read, .cal-day.meet-day .cal-dot-read, .cal-day.bday-her .cal-dot-read, .cal-day.bday-him .cal-dot-read { border-color: #fff; }
-    .cal-legend { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #9ca3af; margin-top: 8px; }
+    .cal-legend { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #9ca3af; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fce7f3; }
     .legend-item { display: inline-flex; align-items: center; gap: 4px; }
     .legend-solid { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #ec4899; }
     .legend-hollow { display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid #ec4899; }
@@ -373,24 +397,13 @@
     .meet-elapsed-pill.future { background: #f3e8ff; color: #7e22ce; border-color: #e9d5ff; }
 
     /* ========== 旅行页样式 ========== */
-    .global-packing-card {
-      background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%);
-      border: 1.5px solid #fcd34d; border-radius: 18px;
-      padding: 12px 13px; margin-bottom: 14px; text-align: left;
-      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.09);
-    }
+    .global-packing-card { background: linear-gradient(145deg, #fffbeb 0%, #fdf2f8 100%); border: 1.5px solid #fcd34d; border-radius: 18px; padding: 12px 13px; margin-bottom: 14px; text-align: left; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.09); }
     .global-packing-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer; }
     .global-packing-title { font-size: 14px; font-weight: 800; color: #b45309; display: flex; align-items: center; gap: 5px; }
     .global-packing-body { margin-top: 10px; animation: unfoldCompose 0.28s var(--ease-spring) forwards; }
 
     .trip-cards-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
-    .trip-card {
-      background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%);
-      border: 1.5px solid #fbcfe8; border-radius: 18px; padding: 13px 12px 11px; cursor: pointer;
-      display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 5px 15px rgba(236, 72, 153, 0.08);
-      transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease;
-    }
+    .trip-card { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1.5px solid #fbcfe8; border-radius: 18px; padding: 13px 12px 11px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.08); transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease; }
     .trip-card:active { transform: scale(0.95); }
     .trip-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
     .trip-card-city { font-size: 15px; font-weight: 800; color: #1f2937; line-height: 1.25; word-break: break-word; }
@@ -507,7 +520,7 @@
     @keyframes letterUnfold { 0% { opacity: 0; transform: translateY(-10px) scaleY(0.84); } 100% { opacity: 1; transform: translateY(0) scaleY(1); } }
     .cap-footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fbcfe8; font-size: 11px; color: #9ca3af; }
 
-    /* ========== 导航【🎁 约定】排版（V2.1.4 精简按行 + 可收起 + 说明显隐） ========== */
+    /* ========== 导航【🎁 约定】排版（V2.1.5 隐私脱敏 **** 模式） ========== */
     .promise-top-badge { margin-bottom: 16px; }
     .sub-tabs { display: grid; grid-template-columns: 1fr 1fr; background: transparent; margin-bottom: 16px; gap: 12px; }
     .sub-tab-btn { border: 1.5px solid #fbcfe8; background: #fdf2f8; padding: 11px 8px; border-radius: 15px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; }
@@ -522,17 +535,9 @@
     .coupon-sender-chip.active-him { background: #fdf2f8; border-color: #ec4899; color: #db2777; }
     .coupon-sender-chip.active-her { background: #f5f3ff; border-color: #8b5cf6; color: #6d28d9; }
 
-    .coupon-toolbar {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 6px;
-      margin-bottom: 10px; padding: 0 2px;
-    }
+    .coupon-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; padding: 0 2px; }
     .coupon-ctrl-group { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-    .coupon-mini-ctrl {
-      border: 1px solid #fbcfe8; background: #fdf2f8; color: #db2777;
-      border-radius: 9px; padding: 4px 8px; font-size: 11px; font-weight: 700;
-      cursor: pointer; white-space: nowrap;
-    }
+    .coupon-mini-ctrl { border: 1px solid #fbcfe8; background: #fdf2f8; color: #db2777; border-radius: 9px; padding: 4px 8px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
     .coupon-mini-ctrl:active { transform: scale(0.92); }
     .coupon-mini-ctrl.muted { background: #f3f4f6; border-color: #e5e7eb; color: #6b7280; }
     .view-mode-switch { display: inline-flex; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 10px; padding: 2px; gap: 2px; }
@@ -545,37 +550,21 @@
     .event-add-btn { background: var(--accent-grad); color: #fff; border: none; border-radius: 13px; padding: 0 16px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
     .event-add-btn:active { transform: scale(0.93); }
 
-    /* V2.1.4 恋爱兑换券：大图标 / 精简按行 / 隐藏说明 / 收起 */
     .coupon-grid { max-height: 360px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; text-align: left; padding-bottom: 4px; }
     .coupon-grid.collapsed { display: none !important; }
-    .coupon-grid.hide-desc .coupon-desc { display: none !important; }
     .coupon-grid.list-mode { grid-template-columns: 1fr; gap: 7px; }
     .coupon-ticket { background: linear-gradient(155deg, #fff5f7 0%, #ffffff 55%, #f5f3ff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 12px 11px 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.07); transition: transform 0.22s var(--ease-spring), opacity 0.22s ease; }
     .coupon-ticket.from-her { background: linear-gradient(155deg, #f5f3ff 0%, #ffffff 55%, #fdf2f8 100%); border-color: #c4b5fd; }
 
-    /* 精简按行展示样式 */
-    .coupon-grid.list-mode .coupon-ticket {
-      flex-direction: row; align-items: center; gap: 8px;
-      padding: 8px 11px; border-radius: 13px;
-    }
+    .coupon-grid.list-mode .coupon-ticket { flex-direction: row; align-items: center; gap: 8px; padding: 8px 11px; border-radius: 13px; }
     .coupon-grid.list-mode .ticket-main-info { flex: 1; min-width: 0; }
-    .coupon-grid.list-mode .ticket-head-inline {
-      display: flex; align-items: center; gap: 6px; min-width: 0;
-    }
+    .coupon-grid.list-mode .ticket-head-inline { display: flex; align-items: center; gap: 6px; min-width: 0; }
     .coupon-grid.list-mode .ticket-top-row { margin-bottom: 0; flex-shrink: 0; }
     .coupon-grid.list-mode .ticket-del-grid { display: none; }
-    .coupon-grid.list-mode .coupon-name {
-      margin-bottom: 0; font-size: 13px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .coupon-grid.list-mode .coupon-desc {
-      margin-bottom: 0; margin-top: 3px; font-size: 11px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
+    .coupon-grid.list-mode .coupon-name { margin-bottom: 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .coupon-grid.list-mode .coupon-desc { margin-bottom: 0; margin-top: 3px; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .coupon-grid.list-mode .ticket-divider { display: none; }
-    .coupon-grid.list-mode .ticket-action-col {
-      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
-    }
+    .coupon-grid.list-mode .ticket-action-col { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .coupon-grid.list-mode .coupon-use-btn { padding: 5px 10px; width: auto; font-size: 11px; white-space: nowrap; }
     .coupon-grid.list-mode .coupon-stamp { font-size: 10.5px; padding: 2px 4px; }
     .coupon-grid:not(.list-mode) .ticket-del-list { display: none; }
@@ -660,22 +649,21 @@
   <div class="romantic-bg-layer"></div>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div id="toastTip"></div>
+  <div id="toastTip" class="">🙈 兑换券已进入 **** 隐私模式</div>
 
   <!-- 专属仪式感全屏动画舞台（拆卡 / 干杯 / 封信） -->
   <div id="fxStageOverlay" style="display:none;"></div>
 
-  <!-- V2.1.4 更新提示弹窗 -->
+  <!-- V2.1.5 更新提示弹窗 -->
   <div class="modal-mask" id="updateModalMask" style="display: none;">
     <div class="update-modal">
-      <span class="update-badge">✨ 版本更新 · V2.1.4</span>
-      <div class="update-title">恋爱兑换券精简视图与自由收起上线</div>
+      <span class="update-badge">✨ 版本更新 · V2.1.5</span>
+      <div class="update-title">上下滑动日历与兑换券全脱敏隐藏上线</div>
       <ul class="update-list">
-        <li><strong>📋 精简按行展示</strong>：列表模式精简为单行紧凑卡片，一屏轻松浏览更多兑换券。</li>
-        <li><strong>🔽 卡包一键收起/展开</strong>：兑换券列表支持随时折叠收起，界面更清爽。</li>
-        <li><strong>👁️ 券面说明自由显隐</strong>：支持一键隐藏或展示兑换券的详细小字说明。</li>
+        <li><strong>📅 日历改为上下滑动</strong>：连续上下滑动即可流畅浏览全部月份，点击右上角「回到今天」一键定位本月。</li>
+        <li><strong>🙈 兑换券隐私脱敏模式</strong>：开启隐藏模式后，兑换券的大字标题与小字说明均会统一替换为 <code>****</code>。</li>
       </ul>
-      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.4 体验 💖</button>
+      <button class="btn" style="margin-bottom:0;" onclick="closeUpdateModal()">开启 V2.1.5 体验 💖</button>
     </div>
   </div>
 
@@ -732,19 +720,19 @@
   </div>
 
   <!-- ==================== 导航第 1 项：⏳ 见面计时器 ==================== -->
-  <div class="card" id="tabMeetView" style="display: none;">
+  <div class="card" id="tabMeetView" style="display:none;">
     <div class="badge">⏳ 见面计时器 · 相聚印记</div>
 
     <div class="meet-hero-grid">
       <div class="meet-hero-card">
         <div class="meet-hero-label">距上次见面已过</div>
         <div class="meet-hero-num" id="sinceLastMeetDays">--</div>
-        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史相见记录</div>
+        <div class="meet-hero-sub" id="sinceLastMeetDate">暂无历史记录</div>
       </div>
       <div class="meet-hero-card">
         <div class="meet-hero-label">累计相见次数</div>
         <div class="meet-hero-num" id="totalMeetCount">0 次</div>
-        <div class="meet-hero-sub" id="nextMeetMiniHint">距下次见面还有 6 天</div>
+        <div class="meet-hero-sub" id="nextMeetMiniHint">可在首页日历设下次行程</div>
       </div>
     </div>
 
@@ -827,7 +815,7 @@
     <!-- 本地打包工坊（仅在本地双击预览时显示，导出时自动隐藏） -->
     <div class="dev-panel" id="devPanel" style="display: none;">
       <p style="font-size:12px; color:#6b7280; margin-bottom:10px;">
-        🛠️ <strong>本地打包工坊 (V2.1.4)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
+        🛠️ <strong>本地打包工坊 (V2.1.5)</strong>：已内置最新账号密码与密钥，直接点击下方按钮导出上锁版上传 GitHub。
       </p>
       <div class="dev-section">
         <div class="dev-sec-title">🎲 预埋随机情话（可选）</div>
@@ -845,32 +833,32 @@
         <button class="btn" style="font-size:12px; padding:8px; margin-bottom:4px;" onclick="devAddCapsule()">+ 存入初始信箱</button>
         <div class="dev-mini-list" id="devCapsuleList"></div>
       </div>
-      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.4)】</button>
+      <button class="btn btn-green" onclick="exportLockedVersion()">一键导出【上锁版 index.html (V2.1.5)】</button>
       <div class="dev-box" id="nfcLinkBox" style="display: none;"></div>
     </div>
   </div>
 
-  <!-- ==================== 导航第 3 项：🏠 首页 ==================== -->
+  <!-- ==================== 导航第 3 项：🏠 首页（V2.1.5 上下滑动日历） ==================== -->
   <div class="card" id="tabHomeView" style="display: none;">
     <div class="top-bar-row">
       <div class="badge" id="modeBadge">💕 我们的纪念空间</div>
-      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.4 更新说明">V2.1.4</span>
+      <span class="ver-pill" onclick="openUpdateModal(true)" title="点击查看 V2.1.5 更新说明">V2.1.5</span>
       <div class="sync-pill" id="syncStatusPill" onclick="pullFromCloud(true)" title="点击立即从云端同步">☁️ 云端已同步</div>
     </div>
 
     <div class="city-tracker">
       <div class="city-row">
         <span class="city-tag">📍 苏州</span>
-        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天11时</span>
+        <span class="city-status" id="meetCountdownText">距见面(3天) 还有 5天10时</span>
         <span class="city-tag">武汉 📍</span>
       </div>
       <div class="track-bar-wrap">
         <div class="track-line-bg">
-          <div class="track-fill-left" id="trackFillLeft" style="width: 11.3%;"></div>
-          <div class="track-fill-right" id="trackFillRight" style="width: 11.3%;"></div>
+          <div class="track-fill-left" id="trackFillLeft" style="width: 11.7%;"></div>
+          <div class="track-fill-right" id="trackFillRight" style="width: 11.7%;"></div>
         </div>
-        <span class="heart-runner" id="heartLeft" style="left: 11.3%; display: inline;">💗</span>
-        <span class="heart-runner" id="heartRight" style="left: 88.7%; display: inline;">💜</span>
+        <span class="heart-runner" id="heartLeft" style="left: 11.7%; display: inline;">💗</span>
+        <span class="heart-runner" id="heartRight" style="left: 88.3%; display: inline;">💜</span>
         <span class="heart-merged-center" id="heartMerged" style="display:none;">💞</span>
       </div>
     </div>
@@ -881,22 +869,22 @@
       <div class="timer-label">✨ 从 2026/03/12 开始 · 已经一起走过</div>
       <div class="timer-grid">
         <div class="time-unit"><span class="time-num" id="tDays">261</span><span class="time-txt">天</span></div>
-        <div class="time-unit"><span class="time-num" id="tHours">12</span><span class="time-txt">时</span></div>
-        <div class="time-unit"><span class="time-num" id="tMins">39</span><span class="time-txt">分</span></div>
-        <div class="time-unit"><span class="time-num" id="tSecs">45</span><span class="time-txt">秒</span></div>
+        <div class="time-unit"><span class="time-num" id="tHours">13</span><span class="time-txt">时</span></div>
+        <div class="time-unit"><span class="time-num" id="tMins">50</span><span class="time-txt">分</span></div>
+        <div class="time-unit"><span class="time-num" id="tSecs">20</span><span class="time-txt">秒</span></div>
       </div>
     </div>
 
+    <!-- V2.1.5 上下滑动恋爱农历日历 -->
     <div class="cal-box">
       <div class="cal-header">
-        <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
-        <div class="cal-title" id="calMonthTitle">2026年 11月</div>
-        <button class="cal-nav" onclick="changeMonth(1)">›</button>
+        <div class="cal-title">📅 恋爱农历日历 · 上下滑动</div>
+        <button class="cal-today-btn" onclick="scrollCalToToday(true)">回到今天</button>
       </div>
       <div class="cal-weekdays">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
-      <div class="cal-days" id="calDaysGrid"></div>
+      <div class="cal-scroll-container" id="calScrollContainer"></div>
       <div class="cal-legend">
         <span class="legend-item"><i class="legend-solid"></i> 新留言</span>
         <span class="legend-item"><i class="legend-hollow"></i> 已查看</span>
@@ -909,13 +897,13 @@
     <div class="status" id="netStatus"></div>
   </div>
 
-  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.4 精简按行 + 可收起 + 说明显隐） ==================== -->
+  <!-- ==================== 导航第 4 项：🎁 约定（V2.1.5 隐藏模式改为 ****） ==================== -->
   <div class="card" id="tabPromiseView" style="display: none;">
     <div class="badge promise-top-badge">🎁 我们的甜蜜约定</div>
 
     <div class="sub-tabs">
       <button class="sub-tab-btn active" id="subTabCouponBtn" onclick="switchPromiseSubTab('coupon')">
-        🎟️ 恋爱兑换券 (<span id="couponAvailCount">21</span>)
+        🎟️ 恋爱兑换券 (<span id="couponAvailCount">20</span>)
       </button>
       <button class="sub-tab-btn" id="subTabEventBtn" onclick="switchPromiseSubTab('event')">
         ✨ 专属事件 (<span id="eventDoneRatio">16/58</span>)
@@ -926,8 +914,8 @@
     <div id="subPanelCoupon" class="subpanel-fade">
       <div class="coupon-add-box">
         <div class="coupon-sender-row">
-          <div class="coupon-sender-chip active-him" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
-          <div class="coupon-sender-chip" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
+          <div class="coupon-sender-chip" id="couponSenderHim" onclick="selectCouponSender('him')">👦 他发的券</div>
+          <div class="coupon-sender-chip active-her" id="couponSenderHer" onclick="selectCouponSender('her')">👧 她发的券</div>
         </div>
         <input type="text" id="newCouponInput" placeholder="特权券名称，如：周末专属按摩券...">
         <div class="event-add-row" style="margin-bottom:0;">
@@ -936,10 +924,9 @@
         </div>
       </div>
 
-      <!-- V2.1.4 卡包控制栏：说明显隐 + 收起/展开 + 视图切换 -->
       <div class="coupon-toolbar">
         <div class="coupon-ctrl-group">
-          <button class="coupon-mini-ctrl" id="couponDescToggleBtn" onclick="toggleCouponDesc()">👁️ 隐藏说明</button>
+          <button class="coupon-mini-ctrl muted" id="couponMaskToggleBtn" onclick="toggleCouponMask()">👁️ 显示内容</button>
           <button class="coupon-mini-ctrl" id="couponCollapseBtn" onclick="toggleCouponCollapse()">收起 ▴</button>
         </div>
         <div class="view-mode-switch">
@@ -1094,7 +1081,7 @@
   </div>
 
   <!-- ==================== 导航第 6 项：🍽️ 菜单点菜页 ==================== -->
-  <div class="card" id="tabMenuView" style="display: none;">
+  <div class="card" id="tabMenuView" style="display:none;">
     <div class="env-header-banner">
       <div>
         <div class="env-banner-title">🍽️ 专属私房菜单</div>
@@ -1104,8 +1091,8 @@
     </div>
 
     <div class="chef-switch-row">
-      <div class="chef-chip" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
-      <div class="chef-chip active-dong" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
+      <div class="chef-chip active-wang" id="chefChipWang" onclick="selectMenuChef('王大厨')">👩‍🍳 王大厨做饭</div>
+      <div class="chef-chip" id="chefChipDong" onclick="selectMenuChef('董大厨')">👨‍🍳 董大厨做饭</div>
     </div>
 
     <div class="compose-letter-box" id="addDishFormBox" style="display:none;">
@@ -1128,10 +1115,12 @@
 
     <div class="order-tray-box">
       <div class="order-tray-head">
-        <span class="order-tray-title">🛎️ <span id="activeChefLabel">董大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
+        <span class="order-tray-title">🛎️ <span id="activeChefLabel">王大厨</span>今日接单 (<span id="todayOrderCount">0</span>)</span>
         <button class="meet-clear-btn" onclick="clearTodayOrders()">清空已点</button>
       </div>
-      <div class="order-pills-wrap" id="todayOrderPills"><span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span></div>
+      <div class="order-pills-wrap" id="todayOrderPills">
+        <span style="font-size:11.5px; color:#9ca3af;">还没有点菜，在下方挑选想吃的菜吧~</span>
+      </div>
       <div class="order-tray-actions">
         <button class="btn" style="padding:8px; font-size:12.5px; margin-bottom:0;" onclick="confirmTodayOrder()">🎉 确认下单并通知主厨</button>
       </div>
@@ -1218,7 +1207,7 @@
     </button>
   </nav>
 <script>
-    const APP_VERSION = '2.1.4';
+    const APP_VERSION = '2.1.5';
     const IS_LOCAL = window.location.protocol === 'file:';
 
     // Supabase 端到端加密云同步配置
@@ -1231,7 +1220,7 @@
     const ADMIN_USER = '';
     const ADMIN_PWD = '';
 
-    const ENCRYPTED_BUNDLE = "/gPByYbubF+mN/SV1j531VKyvNX5IUpG7uDQi+/qxPw/0/Avm1YdFaj1T7dT/dHf/8NoxHe455PLenizYE0zhDl0lh0TFMdorm3dmdINXi/kFAr/ZFtoBatNO/BAyS/MmIXlRtWe3e2IyokatMVR+bV9PKw1bNt5zCm9rgmNN2nI/Xw/nz6ZponRdxcd5yZ0ickbefyaYWGGO1Y1KMWqKp+HNBosF01OPXPFEgAr7N7ZLBh8P2LybvA8eD6lL0q9E7JkhvYZrDgo8gG3p4UwlayLQ6Tj3nxtlNrq7go2zfOQ5PRaBTr8";
+    const ENCRYPTED_BUNDLE = "gtdUj/jCZnIA6si5tSZG7pGiw+ZDmIgtSnwdEgwHPeex1KzuGDXlDaiZWNSXuRr9a1Y8h/l3QAXJlr34iO5+bQNDOeh5dU7w01FW3Cq6LIGUyoGmqIrfo44gdbXupO1cvwYNB7nuNJO/11M0rsSWGEnkMMjT8t9XNhhaM47kXOZsF1HjNwFIDWCxNHJiXMMvmEUICcIQ0718bCwHAXJnUXFkdiI1H6LBuVSZWJEvMknh8OqMbYZQhWk0S9bE4yVMqrPJ7vaurdW+3a+zZz44/f3TG8s6gx4XmUrZroljGyaxYpDE/shT";
     const EXPECTED_HASH = "e528cb2bff95e92ac373ec8feaefc77f04d3f69f07f74c8d5a00bca3a4cb6a6d";
 
     const STORAGE_KEY = 'dwlapp_love_auth_v1';
@@ -1249,13 +1238,13 @@
     const COUPON_VIEW_MODE_KEY = 'dwlapp_love_coupon_view_v1';
     const COUPON_SENDER_KEY = 'dwlapp_love_coupon_sender_v1';
     const COUPON_COLLAPSED_KEY = 'dwlapp_love_coupon_collapsed_v1';
-    const COUPON_HIDE_DESC_KEY = 'dwlapp_love_coupon_hide_desc_v1';
+    const COUPON_MASK_KEY = 'dwlapp_love_coupon_mask_v1';
     const GLOBAL_PACKING_KEY = 'dwlapp_love_global_packing_v1';
     const TRAVEL_TRIPS_KEY = 'dwlapp_love_trips_v2';
     const MENU_DISHES_KEY = 'dwlapp_love_menu_dishes_v1';
     const MENU_ORDERS_KEY = 'dwlapp_love_menu_orders_v1';
     const MENU_CHEF_KEY = 'dwlapp_love_menu_chef_v1';
-    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_4';
+    const SEEN_UPDATE_KEY = 'dwlapp_seen_update_v2_1_5';
 
     let activeAesKey = null;
     let isSyncingNow = false;
@@ -1723,7 +1712,7 @@
           }
 
           if (!silentBeforePush) {
-            renderCalendar();
+            renderCalendar(false);
             updateCityProgress();
             updatePromiseCounters();
             updateCapsuleBadge();
@@ -1806,7 +1795,7 @@
         }
         renderMeetHistory();
       } else if (tabName === 'home') {
-        renderCalendar();
+        renderCalendar(!hasAutoScrolledCal);
         updateCityProgress();
       } else if (tabName === 'envelope') {
         renderCapsulesList();
@@ -2845,11 +2834,11 @@
       }
     }
 
-    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.4 精简按行 + 可收起 + 说明显隐） ==========
+    // ========== 🎟️ 电子恋爱兑换券逻辑（V2.1.5 隐藏模式将大字小字统一替换为 ****） ==========
     let couponViewMode = localStorage.getItem(COUPON_VIEW_MODE_KEY) || 'grid';
     let currentCouponSender = localStorage.getItem(COUPON_SENDER_KEY) || 'him';
     let couponCollapsed = localStorage.getItem(COUPON_COLLAPSED_KEY) === '1';
-    let couponHideDesc = localStorage.getItem(COUPON_HIDE_DESC_KEY) === '1';
+    let couponMasked = localStorage.getItem(COUPON_MASK_KEY) === '1';
 
     function applyCouponSenderUI() {
       const himEl = document.getElementById('couponSenderHim');
@@ -2868,19 +2857,18 @@
       const container = document.getElementById('couponListContainer');
       const gridBtn = document.getElementById('couponModeGridBtn');
       const listBtn = document.getElementById('couponModeListBtn');
-      const descBtn = document.getElementById('couponDescToggleBtn');
+      const maskBtn = document.getElementById('couponMaskToggleBtn');
       const colBtn = document.getElementById('couponCollapseBtn');
 
       if (container) {
         container.classList.toggle('list-mode', couponViewMode === 'list');
         container.classList.toggle('collapsed', couponCollapsed);
-        container.classList.toggle('hide-desc', couponHideDesc);
       }
       if (gridBtn) gridBtn.classList.toggle('active', couponViewMode === 'grid');
       if (listBtn) listBtn.classList.toggle('active', couponViewMode === 'list');
-      if (descBtn) {
-        descBtn.textContent = couponHideDesc ? '👁️ 展示说明' : '👁️ 隐藏说明';
-        descBtn.classList.toggle('muted', couponHideDesc);
+      if (maskBtn) {
+        maskBtn.textContent = couponMasked ? '👁️ 显示内容' : '🙈 隐藏内容';
+        maskBtn.classList.toggle('muted', couponMasked);
       }
       if (colBtn) {
         colBtn.textContent = couponCollapsed ? '展开 ▾' : '收起 ▴';
@@ -2899,10 +2887,11 @@
       triggerElAnim(document.getElementById('couponListContainer'), 'subpanel-fade');
     }
 
-    function toggleCouponDesc() {
-      couponHideDesc = !couponHideDesc;
-      localStorage.setItem(COUPON_HIDE_DESC_KEY, couponHideDesc ? '1' : '0');
-      applyCouponCtrlUI();
+    function toggleCouponMask() {
+      couponMasked = !couponMasked;
+      localStorage.setItem(COUPON_MASK_KEY, couponMasked ? '1' : '0');
+      renderCouponsList();
+      showToast(couponMasked ? '🙈 兑换券已进入 **** 隐私模式' : '👁️ 已恢复显示兑换券内容');
     }
 
     function toggleCouponCollapse() {
@@ -2945,6 +2934,10 @@
       container.innerHTML = sorted.map(c => {
         const isHer = c.sender === 'her';
         const senderText = isHer ? '👧 她发' : '👦 他发';
+        const displayName = couponMasked ? '****' : escapeHtml(c.name);
+        const rawDesc = c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc);
+        const displayDesc = couponMasked ? '****' : rawDesc;
+
         return `
           <div class="coupon-ticket ${isHer ? 'from-her' : ''} ${c.used ? 'used' : ''}" id="couponCard_${c.id}">
             <div class="ticket-main-info">
@@ -2953,9 +2946,9 @@
                   <span class="ticket-top-tag ${isHer ? 'her-tag' : ''}">${c.used ? '已兑现' : senderText}</span>
                   <span class="note-del ticket-del-grid" onclick="deleteCoupon(${c.id})" title="删除此券">✕</span>
                 </div>
-                <div class="coupon-name">${escapeHtml(c.name)}</div>
+                <div class="coupon-name">${displayName}</div>
               </div>
-              <div class="coupon-desc">${c.used ? `核销于 ${c.usedAt} · ${escapeHtml(c.desc)}` : escapeHtml(c.desc)}</div>
+              <div class="coupon-desc">${displayDesc}</div>
             </div>
             <div class="ticket-action-col">
               <div class="ticket-divider"></div>
@@ -2977,7 +2970,7 @@
       if (target && !target.used) {
         const cardEl = document.getElementById(`couponCard_${id}`);
         if (cardEl) cardEl.classList.add('tearing');
-        playCeremonyFx('tear', target.name);
+        playCeremonyFx('tear', couponMasked ? '****' : target.name);
 
         setTimeout(() => {
           target.used = true;
@@ -3371,8 +3364,8 @@
       }
     }
 
-    // ========== 恋爱农历日历与独立双人对话留言板 ==========
-    let currentCalDate = new Date();
+    // ========== V2.1.5 上下滑动恋爱农历日历与独立双人对话留言板 ==========
+    let hasAutoScrolledCal = false;
     let selectedDateStr = '';
     let currentAuthor = '👦 他的悄悄话';
 
@@ -3396,91 +3389,137 @@
       return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     }
 
-    function changeMonth(offset) {
-      currentCalDate.setMonth(currentCalDate.getMonth() + offset);
-      renderCalendar();
+    function scrollCalToToday(smooth = true) {
+      const container = document.getElementById('calScrollContainer');
+      if (!container) return;
+      const now = new Date();
+      const targetId = `calMonth_${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        container.scrollTo({
+          top: Math.max(0, targetEl.offsetTop - container.offsetTop - 4),
+          behavior: smooth ? 'smooth' : 'auto'
+        });
+      }
     }
 
-    function renderCalendar() {
-      const year = currentCalDate.getFullYear();
-      const month = currentCalDate.getMonth();
-      document.getElementById('calMonthTitle').textContent = `${year}年 ${month + 1}月`;
-
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const grid = document.getElementById('calDaysGrid');
-      grid.innerHTML = '';
+    function renderCalendar(autoScroll = false) {
+      const container = document.getElementById('calScrollContainer');
+      if (!container) return;
+      const prevScrollTop = container.scrollTop;
+      container.innerHTML = '';
 
       const todayStr = getTodayStr();
       const notesData = getAllNotes();
       const readMap = getReadMap();
       const meetCfg = getMeetConfig();
 
-      for (let i = 0; i < firstDay; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'cal-day empty';
-        grid.appendChild(emptyCell);
+      const startYear = 2026;
+      const startMonth = 2; // 2026年3月（纪念日起始月）
+      const endYear = Math.max(2027, new Date().getFullYear() + 1);
+      const endMonth = 11; // 次年12月
+
+      let y = startYear;
+      let m = startMonth;
+
+      while (y < endYear || (y === endYear && m <= endMonth)) {
+        const block = document.createElement('div');
+        block.className = 'cal-month-block';
+        block.id = `calMonth_${y}_${String(m + 1).padStart(2, '0')}`;
+
+        const label = document.createElement('div');
+        label.className = 'cal-month-label';
+        label.textContent = `${y}年 ${m + 1}月`;
+        block.appendChild(label);
+
+        const grid = document.createElement('div');
+        grid.className = 'cal-days';
+
+        const firstDay = new Date(y, m, 1).getDay();
+        const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+          const emptyCell = document.createElement('div');
+          emptyCell.className = 'cal-day empty';
+          grid.appendChild(emptyCell);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dateStr = formatDateStr(y, m, d);
+          const lunar = getLunarInfo(y, m, d);
+
+          const cell = document.createElement('div');
+          cell.className = 'cal-day';
+          if (lunar.day === 1) cell.classList.add('lunar-first');
+
+          const solarSpan = document.createElement('span');
+          solarSpan.className = 'cal-solar';
+          solarSpan.textContent = d;
+          cell.appendChild(solarSpan);
+
+          const lunarSpan = document.createElement('span');
+          lunarSpan.className = 'cal-lunar';
+          if (lunar.isHerBday) lunarSpan.textContent = '她的生日';
+          else if (lunar.isHimBday) lunarSpan.textContent = '他的生日';
+          else lunarSpan.textContent = lunar.shortText;
+          cell.appendChild(lunarSpan);
+
+          const meetIdx = getMeetDayIndex(dateStr, meetCfg);
+          if (lunar.isHerBday) {
+            cell.classList.add('bday-her');
+            const cake = document.createElement('span');
+            cake.className = 'bday-icon';
+            cake.textContent = '🎂';
+            cell.appendChild(cake);
+          } else if (lunar.isHimBday) {
+            cell.classList.add('bday-him');
+            const cake = document.createElement('span');
+            cake.className = 'bday-icon';
+            cake.textContent = '🎂';
+            cell.appendChild(cake);
+          } else if (meetIdx > 0) {
+            cell.classList.add('meet-day');
+          } else if (dateStr === '2026-03-12') {
+            cell.classList.add('anniv');
+          } else if (dateStr === todayStr) {
+            cell.classList.add('today');
+          }
+
+          if (meetIdx === 1) {
+            const plane = document.createElement('span');
+            plane.className = 'meet-plane';
+            plane.textContent = '✈️';
+            cell.appendChild(plane);
+          }
+
+          const dayNotes = notesData[dateStr];
+          if (dayNotes && dayNotes.length > 0) {
+            const latestNoteId = dayNotes[0].id;
+            const isRead = (readMap[dateStr] && readMap[dateStr] >= latestNoteId);
+            const dot = document.createElement('span');
+            dot.className = isRead ? 'cal-dot-read' : 'cal-dot-unread';
+            cell.appendChild(dot);
+          }
+
+          cell.onclick = () => openNoteView(dateStr);
+          grid.appendChild(cell);
+        }
+
+        block.appendChild(grid);
+        container.appendChild(block);
+
+        m++;
+        if (m > 11) {
+          m = 0;
+          y++;
+        }
       }
 
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dateStr = formatDateStr(year, month, d);
-        const lunar = getLunarInfo(year, month, d);
-
-        const cell = document.createElement('div');
-        cell.className = 'cal-day';
-        if (lunar.day === 1) cell.classList.add('lunar-first');
-
-        const solarSpan = document.createElement('span');
-        solarSpan.className = 'cal-solar';
-        solarSpan.textContent = d;
-        cell.appendChild(solarSpan);
-
-        const lunarSpan = document.createElement('span');
-        lunarSpan.className = 'cal-lunar';
-        if (lunar.isHerBday) lunarSpan.textContent = '她的生日';
-        else if (lunar.isHimBday) lunarSpan.textContent = '他的生日';
-        else lunarSpan.textContent = lunar.shortText;
-        cell.appendChild(lunarSpan);
-
-        const meetIdx = getMeetDayIndex(dateStr, meetCfg);
-        if (lunar.isHerBday) {
-          cell.classList.add('bday-her');
-          const cake = document.createElement('span');
-          cake.className = 'bday-icon';
-          cake.textContent = '🎂';
-          cell.appendChild(cake);
-        } else if (lunar.isHimBday) {
-          cell.classList.add('bday-him');
-          const cake = document.createElement('span');
-          cake.className = 'bday-icon';
-          cake.textContent = '🎂';
-          cell.appendChild(cake);
-        } else if (meetIdx > 0) {
-          cell.classList.add('meet-day');
-        } else if (dateStr === '2026-03-12') {
-          cell.classList.add('anniv');
-        } else if (dateStr === todayStr) {
-          cell.classList.add('today');
-        }
-
-        if (meetIdx === 1) {
-          const plane = document.createElement('span');
-          plane.className = 'meet-plane';
-          plane.textContent = '✈️';
-          cell.appendChild(plane);
-        }
-
-        const dayNotes = notesData[dateStr];
-        if (dayNotes && dayNotes.length > 0) {
-          const latestNoteId = dayNotes[0].id;
-          const isRead = (readMap[dateStr] && readMap[dateStr] >= latestNoteId);
-          const dot = document.createElement('span');
-          dot.className = isRead ? 'cal-dot-read' : 'cal-dot-unread';
-          cell.appendChild(dot);
-        }
-
-        cell.onclick = () => openNoteView(dateStr);
-        grid.appendChild(cell);
+      if (autoScroll || !hasAutoScrolledCal) {
+        hasAutoScrolledCal = true;
+        requestAnimationFrame(() => scrollCalToToday(false));
+      } else {
+        container.scrollTop = prevScrollTop;
       }
     }
 
@@ -3730,7 +3769,7 @@
       const customEl = clonedDoc.querySelector('#customContent');
       if (customEl) customEl.innerHTML = '';
       [
-        'calDaysGrid', 'meetHistoryList', 'capsuleListContainer',
+        'calScrollContainer', 'meetHistoryList', 'capsuleListContainer',
         'couponListContainer', 'eventListContainer', 'tripCardsGrid',
         'globalPackingListContainer', 'packingListContainer', 'travelListContainer',
         'dishListContainer', 'noteListContainer', 'devQuoteList', 'devCapsuleList'
@@ -3757,7 +3796,7 @@
       const nfcUrl = `https://swdlink.github.io/DWLapp/?key=${NFC_KEY}`;
       const box = document.getElementById('nfcLinkBox');
       box.style.display = 'block';
-      box.innerHTML = `<strong>✅ 已下载 V2.1.4 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
+      box.innerHTML = `<strong>✅ 已下载 V2.1.5 完整加密版 index.html</strong><br><br>写入 NT3H2111 的专属网址：<br><strong>${nfcUrl}</strong>`;
     }
 
     async function unlockOnline(key, user, pwd, withIntro = true) {
